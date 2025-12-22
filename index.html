@@ -1,285 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NextGen Sessions</title>
-
-<!-- GOOGLE FONTS -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;800;900&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#050505;
-  --yellow:#ffd84a;      /* bright logo-yellow */
-  --yellow2:#ffea7a;     /* highlight */
-  --yellowGlow: rgba(255, 216, 74, .55);
+  --yellow:#ffd84a;
   --text:#f6f1e3;
-  --border: rgba(255, 216, 74, .22);
+  --border:rgba(255,216,74,.25);
 }
 
-/* RESET */
 *{box-sizing:border-box;}
-html,body{height:100%;}
 body{
   margin:0;
   background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(255,216,74,.14), transparent 60%),
-    radial-gradient(900px 520px at 12% 20%, rgba(255,234,122,.08), transparent 55%),
-    radial-gradient(900px 520px at 88% 25%, rgba(255,216,74,.06), transparent 55%),
-    var(--bg);
+    radial-gradient(1200px 600px at 50% -10%, rgba(255,216,74,.15), transparent 60%),
+    #050505;
   color:var(--text);
-  font-family:Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
   overflow-x:hidden;
 }
 
-/* subtle gold dust in background */
+/* gold dust background */
 body::before{
   content:"";
   position:fixed;
-  inset:-25%;
+  inset:-20%;
   pointer-events:none;
   background:
-    radial-gradient(circle at 12% 18%, rgba(255,216,74,.18) 0 1px, transparent 3px),
-    radial-gradient(circle at 22% 78%, rgba(255,234,122,.16) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 44% 36%, rgba(255,216,74,.12) 0 1px, transparent 3px),
-    radial-gradient(circle at 68% 22%, rgba(255,234,122,.14) 0 1px, transparent 3px),
-    radial-gradient(circle at 78% 64%, rgba(255,216,74,.14) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 90% 40%, rgba(255,234,122,.10) 0 1px, transparent 3px);
-  opacity:.55;
-  filter: blur(.2px);
-  animation: dustFloat 14s ease-in-out infinite;
-  transform: translate3d(0,0,0);
+    radial-gradient(circle at 20% 30%, rgba(255,216,74,.18) 0 1px, transparent 3px),
+    radial-gradient(circle at 60% 70%, rgba(255,216,74,.15) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 80% 20%, rgba(255,216,74,.12) 0 1px, transparent 3px);
+  animation: floatDust 14s ease-in-out infinite;
+  opacity:.6;
 }
-@keyframes dustFloat{
-  0%   { transform: translate(0px, 0px) scale(1); opacity:.45; }
-  50%  { transform: translate(16px, -12px) scale(1.03); opacity:.65; }
-  100% { transform: translate(0px, 0px) scale(1); opacity:.45; }
+@keyframes floatDust{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(14px,-10px)}
+  100%{transform:translate(0,0)}
 }
 
-/* WRAP */
 .wrap{
   width:min(1100px,92vw);
   margin:0 auto;
-  padding:30px 0 60px;
-  position:relative;
+  padding:28px 0 60px;
 }
 
-/* TOP */
+/* TOP BAR */
 .topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:20px;
-}
-.logo{
-  width:210px;
-  max-width:56vw;
-  filter:drop-shadow(0 10px 20px rgba(0,0,0,.6));
+  gap:16px;
 }
 .nav a{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 14px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background: rgba(10,10,10,.6);
-  backdrop-filter: blur(8px);
   color:var(--text);
   text-decoration:none;
-  font-weight:800;
-  font-size:.95rem;
-  transition:transform .15s ease, border-color .15s ease, background .15s ease, opacity .15s ease;
-  margin-left:10px;
-  opacity:.95;
-}
-.nav a:hover{
-  transform:translateY(-1px);
-  border-color: rgba(255,216,74,.42);
-  background: rgba(15,15,15,.75);
+  font-weight:700;
+  margin-left:12px;
 }
 
 /* HERO */
 .hero{
-  margin-top:18px;
+  margin-top:20px;
   padding:36px 26px;
   border-radius:22px;
   border:1px solid var(--border);
-  background:
-    radial-gradient(900px 420px at 50% 0%, rgba(255,216,74,.14), transparent 60%),
-    linear-gradient(180deg, rgba(18,18,18,.88), rgba(5,5,5,.94));
-  box-shadow: 0 10px 30px rgba(0,0,0,.55);
+  background:linear-gradient(180deg, rgba(20,20,20,.9), rgba(5,5,5,.95));
+  box-shadow:0 12px 30px rgba(0,0,0,.6);
+}
+
+/* LOGO TITLE (EXACT) */
+.logo-title{
   position:relative;
-  overflow:hidden;
+  max-width:620px;
+  margin-bottom:14px;
+}
+.logo-title img{
+  width:100%;
+  height:auto;
+  display:block;
+  filter:
+    drop-shadow(0 0 18px rgba(255,216,74,.35))
+    drop-shadow(0 18px 28px rgba(0,0,0,.75));
+}
+
+/* shimmer sweep */
+.logo-title::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:linear-gradient(120deg,
+    transparent 40%,
+    rgba(255,216,74,.35) 50%,
+    transparent 60%);
+  animation: shine 6s ease-in-out infinite;
+  mix-blend-mode:screen;
+}
+@keyframes shine{
+  0%{transform:translateX(-45%)}
+  50%{transform:translateX(45%)}
+  100%{transform:translateX(-45%)}
+}
+
+.subtitle{
+  max-width:62ch;
+  opacity:.8;
+  line-height:1.6;
+}
+
+.cta{
+  margin-top:16px;
+}
+.btn{
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:800;
+  margin-right:10px;
 }
 
 /* GRID */
 .heroGrid{
   display:grid;
-  grid-template-columns: 1.2fr .8fr;
+  grid-template-columns:1.2fr .8fr;
   gap:22px;
-  position:relative;
-  z-index:1;
+  margin-top:20px;
 }
 
-/* ====== LOGO-MATCH TITLE (BRIGHT YELLOW) ====== */
-.titleWrap{
-  position:relative;
-  display:inline-block;
-}
-.title{
-  position:relative;
-  font-family:"League Spartan",sans-serif;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:1.1px;
-  font-size: clamp(2.6rem, 5vw, 3.9rem);
-  margin:0 0 10px;
-  line-height:1.02;
-  color: transparent;
-
-  /* bright yellow like your logo */
-  background: linear-gradient(180deg, var(--yellow2) 0%, var(--yellow) 40%, var(--yellow2) 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-
-  /* beefy glow like the image */
-  text-shadow:
-    0 2px 0 rgba(0,0,0,.45),
-    0 0 18px rgba(255,216,74,.18),
-    0 0 35px rgba(255,216,74,.20),
-    0 14px 26px rgba(0,0,0,.65);
-}
-
-/* subtle “emboss” edge */
-.title::before{
-  content: attr(data-text);
-  position:absolute;
-  inset:0;
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(255, 234, 122, .45);
-  text-shadow: 0 0 22px rgba(255,216,74,.18);
-  pointer-events:none;
-  mix-blend-mode: screen;
-  opacity:.65;
-}
-
-/* gold dust INSIDE letters */
-.title::after{
-  content:"";
-  position:absolute;
-  inset:-35% -25%;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(255,234,122,.95) 0 1px, transparent 3px),
-    radial-gradient(circle at 30% 60%, rgba(255,216,74,.85) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 55% 35%, rgba(255,234,122,.80) 0 1px, transparent 3px),
-    radial-gradient(circle at 75% 70%, rgba(255,216,74,.88) 0 1.6px, transparent 3px),
-    radial-gradient(circle at 90% 30%, rgba(255,234,122,.75) 0 1px, transparent 3px);
-  mix-blend-mode: screen;
-  opacity:.55;
-  filter: blur(.15px);
-  animation: titleDust 10s ease-in-out infinite;
-  pointer-events:none;
-
-  /* clip dust to the text */
-  -webkit-mask-image: linear-gradient(#000, #000);
-  mask-image: linear-gradient(#000, #000);
-}
-@keyframes titleDust{
-  0%{ transform: translate(0,0) scale(1); }
-  50%{ transform: translate(16px,-10px) scale(1.03); }
-  100%{ transform: translate(0,0) scale(1); }
-}
-
-/* shine sweep */
-.shine{
-  position:absolute;
-  inset:-60% -40%;
-  background: linear-gradient(120deg,
-    transparent 40%,
-    rgba(255,234,122,.20) 48%,
-    rgba(255,216,74,.35) 50%,
-    rgba(255,234,122,.20) 52%,
-    transparent 60%);
-  transform: translateX(-35%) rotate(10deg);
-  animation: sweep 6.5s ease-in-out infinite;
-  pointer-events:none;
-  mix-blend-mode: screen;
-  opacity:.75;
-  filter: blur(.2px);
-}
-@keyframes sweep{
-  0%{ transform: translateX(-45%) rotate(10deg); }
-  50%{ transform: translateX(45%) rotate(10deg); }
-  100%{ transform: translateX(-45%) rotate(10deg); }
-}
-
-.subtitle{
-  margin:0 0 18px;
-  opacity:.82;
-  line-height:1.6;
-  max-width:62ch;
-}
-
-/* CTA */
-.cta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:10px;
-}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 18px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background: rgba(10,10,10,.6);
-  color:var(--text);
-  text-decoration:none;
-  font-weight:900;
-  transition: transform .15s ease, border-color .15s ease, opacity .15s ease;
-}
-.btn:hover{
-  transform: translateY(-1px);
-  border-color: rgba(255,216,74,.42);
-  opacity:.95;
-}
-.btn.primary{
-  background: linear-gradient(180deg, rgba(255,234,122,.20), rgba(255,216,74,.12));
-  border-color: rgba(255,216,74,.45);
-}
-
-/* Cards / embeds */
+/* CARD */
 .card{
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  background: rgba(8,8,8,.55);
-  padding: 16px;
-  box-shadow: 0 10px 26px rgba(0,0,0,.45);
+  background:rgba(10,10,10,.6);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
 }
 .cardTitle{
-  font-family:"League Spartan",sans-serif;
-  text-transform: uppercase;
-  letter-spacing: .7px;
-  font-weight: 900;
-  margin: 0 0 10px;
-  color: rgba(255,234,122,.95);
-  font-size: 1.05rem;
+  font-weight:900;
+  color:var(--yellow);
+  margin-bottom:10px;
 }
 
-/* Responsive YouTube box */
+/* VIDEO */
 .videoWrap{
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%;
-  border-radius: 14px;
+  position:relative;
+  width:100%;
+  padding-top:56.25%;
+  border-radius:14px;
   overflow:hidden;
-  border:1px solid rgba(255,216,74,.20);
   background:#000;
 }
 .videoWrap iframe{
@@ -290,81 +164,34 @@ body::before{
   border:0;
 }
 
-/* Sections */
-.section{ margin-top:26px; }
-.sectionHead{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:12px;
-  margin: 12px 0 10px;
-}
-.sectionHead h2{
-  font-family:"League Spartan",sans-serif;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-  margin:0;
-  font-size:1.35rem;
-  color: rgba(255,234,122,.95);
-}
-.sectionHead p{
-  margin:0;
-  opacity:.75;
-}
-
-/* Playlist thumbnail grid */
+/* PLAYLISTS */
+.section{margin-top:40px;}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:18px;
 }
 .playCard{
-  display:block;
   text-decoration:none;
   color:var(--text);
-  background: rgba(10,10,10,.6);
   border:1px solid var(--border);
   border-radius:18px;
   overflow:hidden;
-  transition:.2s;
+  background:rgba(10,10,10,.6);
 }
-.playCard:hover{ transform: translateY(-4px); border-color: rgba(255,216,74,.42); }
-.thumb{ position:relative; }
-.thumb img{ width:100%; display:block; }
-.playOverlay{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:46px;
-  color: rgba(255,234,122,.95);
-  background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
-}
-.playLabel{
+.playCard img{width:100%;display:block;}
+.label{
   padding:14px;
-  font-weight:900;
-  letter-spacing:.4px;
-  display:flex;
-  align-items:center;
-  gap:10px;
+  font-weight:800;
 }
 
-/* Footer */
 footer{
-  margin-top: 30px;
-  padding: 22px 0 12px;
-  border-top: 1px solid rgba(255,216,74,.14);
-  opacity:.65;
+  margin-top:40px;
   text-align:center;
-  font-size:.92rem;
+  opacity:.6;
 }
-
 @media(max-width:860px){
-  .heroGrid{ grid-template-columns: 1fr; }
-  .topbar{ flex-direction:column; align-items:flex-start; }
-  .nav a{ margin-left:0; margin-right:10px; }
+  .heroGrid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -372,102 +199,76 @@ footer{
 <body>
 <div class="wrap">
 
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <img src="NextGenSessions.png" class="logo" alt="NextGen Sessions Logo">
-    <div class="nav">
-      <a href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
-      <a href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
-      <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
-    </div>
+<div class="topbar">
+  <div></div>
+  <div class="nav">
+    <a href="https://www.youtube.com/@NextGenSessions" target="_blank">YouTube</a>
+    <a href="https://www.tiktok.com/@nextgensessions" target="_blank">TikTok</a>
+    <a href="https://www.instagram.com/next.gensessions/" target="_blank">Instagram</a>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="logo-title">
+    <!-- EXACT LOGO -->
+    <img src="NextGenSessions.png" alt="NextGen Sessions">
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="heroGrid">
+  <p class="subtitle">
+    Raw UK sessions, live performances & exclusive visuals from emerging artists.
+    Tap in for the latest drops.
+  </p>
 
-      <div>
-        <div class="titleWrap">
-          <h1 class="title" data-text="NextGen Sessions">NextGen Sessions</h1>
-          <div class="shine" aria-hidden="true"></div>
-        </div>
-
-        <p class="subtitle">
-          Raw UK sessions, live performances & exclusive visuals from emerging artists.
-          Tap in for the latest drops and follow the movement.
-        </p>
-
-        <div class="cta">
-          <a class="btn primary" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-          <a class="btn" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
-          <a class="btn" href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">♪ TikTok</a>
-          <a class="btn" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">⬤ Instagram</a>
-        </div>
-      </div>
-
-      <!-- LATEST DROP (AUTO-UPDATES) -->
-      <div class="card">
-        <p class="cardTitle">Latest Drop</p>
-        <div class="videoWrap">
-          <!-- This is your Uploads playlist (auto-updates to newest upload) -->
-          <iframe
-            src="https://www.youtube.com/embed/videoseries?list=UUJdBLa1mf6yxk7xaOzSpBjg&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1"
-            title="NextGen Sessions - Latest Drop"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div style="margin-top:12px; opacity:.78; font-size:.95rem; line-height:1.5;">
-          This section updates automatically whenever you upload a new video.
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PLAYLISTS -->
-  <div class="section">
-    <div class="sectionHead">
-      <h2>Playlists</h2>
-      <p>Fast thumbnails — loads quicker.</p>
-    </div>
-
-    <div class="grid">
-      <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank" rel="noopener">
-        <div class="thumb">
-          <img loading="lazy" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg" alt="Bhangra playlist thumbnail">
-          <div class="playOverlay">▶</div>
-        </div>
-        <div class="playLabel">🪘 Bhangra</div>
-      </a>
-
-      <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank" rel="noopener">
-        <div class="thumb">
-          <img loading="lazy" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg" alt="Hip Hop playlist thumbnail">
-          <div class="playOverlay">▶</div>
-        </div>
-        <div class="playLabel">🎤 Hip Hop</div>
-      </a>
-
-      <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank" rel="noopener">
-        <div class="thumb">
-          <img loading="lazy" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg" alt="Grime and UK Rap playlist thumbnail">
-          <div class="playOverlay">▶</div>
-        </div>
-        <div class="playLabel">🇬🇧 Grime &amp; UK Rap</div>
-      </a>
-
-      <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank" rel="noopener">
-        <div class="thumb">
-          <img loading="lazy" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall and Reggae playlist thumbnail">
-          <div class="playOverlay">▶</div>
-        </div>
-        <div class="playLabel">🔥 Dancehall &amp; Reggae</div>
-      </a>
-    </div>
+  <div class="cta">
+    <a class="btn" href="https://www.youtube.com/@NextGenSessions" target="_blank">▶ Watch on YouTube</a>
+    <a class="btn" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank">Subscribe</a>
   </div>
 
-  <footer>© 2026 NextGen Sessions</footer>
+  <div class="heroGrid">
+
+    <!-- LATEST DROP (ALWAYS YESTERDAY / MOST RECENT) -->
+    <div class="card">
+      <div class="cardTitle">Latest Drop</div>
+      <div class="videoWrap">
+        <iframe
+          src="https://www.youtube.com/embed?listType=user_uploads&list=NextGenSessions&autoplay=1&mute=1&rel=0"
+          title="NextGen Sessions Latest Upload"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2 style="color:var(--yellow)">Playlists</h2>
+
+  <div class="grid">
+    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank">
+      <img src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg">
+      <div class="label">🪘 Bhangra</div>
+    </a>
+
+    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank">
+      <img src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg">
+      <div class="label">🎤 Hip Hop</div>
+    </a>
+
+    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank">
+      <img src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg">
+      <div class="label">🇬🇧 Grime & UK Rap</div>
+    </a>
+
+    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank">
+      <img src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg">
+      <div class="label">🔥 Dancehall & Reggae</div>
+    </a>
+  </div>
+</section>
+
+<footer>© 2026 NextGen Sessions</footer>
 
 </div>
 </body>

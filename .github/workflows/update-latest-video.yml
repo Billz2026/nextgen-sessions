@@ -1,0 +1,46 @@
+name: Update Latest YouTube Video
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 6 * * *"  # runs daily at 06:15 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch latest video from channel
+        run: |
+          set -e
+          URL="https://www.youtube.com/@NextGenSessions/videos"
+          HTML=$(curl -L -s "$URL")
+
+          VIDEO_ID=$(echo "$HTML" | grep -oP '"videoId":"\K[^"]+' | head -n 1)
+
+          if [ -z "$VIDEO_ID" ]; then
+            echo "No videoId found — leaving latest.json unchanged"
+            exit 0
+          fi
+
+          NOW=$(date -u +"%Y-%m-%d %H:%M UTC")
+
+          cat > latest.json <<EOF
+          {
+            "videoId": "$VIDEO_ID",
+            "updatedAt": "$NOW"
+          }
+          EOF
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add latest.json
+          git commit -m "Auto-update latest video" || exit 0
+          git push

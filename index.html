@@ -73,10 +73,10 @@ body::before{
   box-shadow:0 12px 30px rgba(0,0,0,.6);
 }
 
-/* LOGO TITLE (EXACT) */
+/* LOGO TITLE (EXACT FROM YOUR IMAGE) */
 .logo-title{
   position:relative;
-  max-width:620px;
+  max-width:720px;
   margin-bottom:14px;
 }
 .logo-title img{
@@ -84,21 +84,22 @@ body::before{
   height:auto;
   display:block;
   filter:
-    drop-shadow(0 0 18px rgba(255,216,74,.35))
+    drop-shadow(0 0 20px rgba(255,216,74,.35))
     drop-shadow(0 18px 28px rgba(0,0,0,.75));
 }
 
-/* shimmer sweep */
+/* shimmer sweep over the logo */
 .logo-title::after{
   content:"";
   position:absolute;
-  inset:-40%;
+  inset:-45%;
   background:linear-gradient(120deg,
     transparent 40%,
     rgba(255,216,74,.35) 50%,
     transparent 60%);
   animation: shine 6s ease-in-out infinite;
   mix-blend-mode:screen;
+  pointer-events:none;
 }
 @keyframes shine{
   0%{transform:translateX(-45%)}
@@ -107,14 +108,13 @@ body::before{
 }
 
 .subtitle{
-  max-width:62ch;
-  opacity:.8;
+  max-width:80ch;
+  opacity:.9;
   line-height:1.6;
+  margin:0;
 }
 
-.cta{
-  margin-top:16px;
-}
+.cta{ margin-top:16px; }
 .btn{
   display:inline-block;
   padding:12px 18px;
@@ -145,6 +145,7 @@ body::before{
   font-weight:900;
   color:var(--yellow);
   margin-bottom:10px;
+  letter-spacing:.4px;
 }
 
 /* VIDEO */
@@ -155,6 +156,7 @@ body::before{
   border-radius:14px;
   overflow:hidden;
   background:#000;
+  border:1px solid rgba(255,216,74,.18);
 }
 .videoWrap iframe{
   position:absolute;
@@ -166,6 +168,7 @@ body::before{
 
 /* PLAYLISTS */
 .section{margin-top:40px;}
+.section h2{ color:var(--yellow); margin:0 0 12px; }
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -178,6 +181,11 @@ body::before{
   border-radius:18px;
   overflow:hidden;
   background:rgba(10,10,10,.6);
+  transition:.2s;
+}
+.playCard:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,216,74,.42);
 }
 .playCard img{width:100%;display:block;}
 .label{
@@ -190,6 +198,14 @@ footer{
   text-align:center;
   opacity:.6;
 }
+
+.smallNote{
+  margin-top:10px;
+  opacity:.75;
+  font-size:.92rem;
+  line-height:1.45;
+}
+
 @media(max-width:860px){
   .heroGrid{grid-template-columns:1fr}
 }
@@ -202,40 +218,47 @@ footer{
 <div class="topbar">
   <div></div>
   <div class="nav">
-    <a href="https://www.youtube.com/@NextGenSessions" target="_blank">YouTube</a>
-    <a href="https://www.tiktok.com/@nextgensessions" target="_blank">TikTok</a>
-    <a href="https://www.instagram.com/next.gensessions/" target="_blank">Instagram</a>
+    <a href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
+    <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
   </div>
 </div>
 
 <section class="hero">
+
+  <!-- EXACT LOGO LETTERING -->
   <div class="logo-title">
-    <!-- EXACT LOGO -->
     <img src="NextGenSessions.png" alt="NextGen Sessions">
   </div>
 
+  <!-- UPDATED TEXT (YOUR REQUEST) -->
   <p class="subtitle">
-    Raw UK sessions, live performances & exclusive visuals from emerging artists.
-    Tap in for the latest drops.
+    <strong>Welcome to NextGen Sessions</strong> This is your go-to hub for tracks that push boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B, and everything in between.
   </p>
 
   <div class="cta">
-    <a class="btn" href="https://www.youtube.com/@NextGenSessions" target="_blank">▶ Watch on YouTube</a>
-    <a class="btn" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank">Subscribe</a>
+    <a class="btn" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+    <a class="btn" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
   </div>
 
   <div class="heroGrid">
 
-    <!-- LATEST DROP (ALWAYS YESTERDAY / MOST RECENT) -->
+    <!-- LATEST DROP (AUTO: pulls latest public video via RSS, fallback to uploads playlist) -->
     <div class="card">
       <div class="cardTitle">Latest Drop</div>
+
       <div class="videoWrap">
         <iframe
-          src="https://www.youtube.com/embed?listType=user_uploads&list=NextGenSessions&autoplay=1&mute=1&rel=0"
-          title="NextGen Sessions Latest Upload"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          id="latestDropFrame"
+          src="https://www.youtube.com/embed/videoseries?list=UUJdBLa1mf6yxk7xaOzSpBjg&rel=0&modestbranding=1"
+          title="NextGen Sessions - Latest Drop"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
         </iframe>
+      </div>
+
+      <div class="smallNote" id="latestDropNote">
+        Loading your latest drop…
       </div>
     </div>
 
@@ -243,27 +266,27 @@ footer{
 </section>
 
 <section class="section">
-  <h2 style="color:var(--yellow)">Playlists</h2>
+  <h2>Playlists</h2>
 
   <div class="grid">
-    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank">
-      <img src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg">
+    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank" rel="noopener">
+      <img loading="lazy" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg" alt="Bhangra playlist thumbnail">
       <div class="label">🪘 Bhangra</div>
     </a>
 
-    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank">
-      <img src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg">
+    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank" rel="noopener">
+      <img loading="lazy" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg" alt="Hip Hop playlist thumbnail">
       <div class="label">🎤 Hip Hop</div>
     </a>
 
-    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank">
-      <img src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg">
-      <div class="label">🇬🇧 Grime & UK Rap</div>
+    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank" rel="noopener">
+      <img loading="lazy" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg" alt="Grime & UK Rap playlist thumbnail">
+      <div class="label">🇬🇧 Grime &amp; UK Rap</div>
     </a>
 
-    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank">
-      <img src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg">
-      <div class="label">🔥 Dancehall & Reggae</div>
+    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank" rel="noopener">
+      <img loading="lazy" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall & Reggae playlist thumbnail">
+      <div class="label">🔥 Dancehall &amp; Reggae</div>
     </a>
   </div>
 </section>
@@ -271,5 +294,44 @@ footer{
 <footer>© 2026 NextGen Sessions</footer>
 
 </div>
+
+<script>
+/**
+ * Latest Drop: get newest PUBLIC upload from YouTube RSS feed (no API key).
+ * If it fails (network/CORS/etc), we keep the fallback uploads playlist embed.
+ */
+(function(){
+  const CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
+  const frame = document.getElementById("latestDropFrame");
+  const note  = document.getElementById("latestDropNote");
+
+  const fallback = "https://www.youtube.com/embed/videoseries?list=UUJdBLa1mf6yxk7xaOzSpBjg&rel=0&modestbranding=1";
+  const feedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + encodeURIComponent(CHANNEL_ID);
+
+  fetch(feedUrl)
+    .then(r => r.text())
+    .then(xmlText => {
+      const doc = new DOMParser().parseFromString(xmlText, "text/xml");
+      const firstEntry = doc.querySelector("entry");
+      if (!firstEntry) throw new Error("No entries in feed");
+
+      const videoIdNode = firstEntry.querySelector("yt\\:videoId, videoId");
+      if (!videoIdNode) throw new Error("No videoId found");
+
+      const vid = videoIdNode.textContent.trim();
+      if (!vid) throw new Error("Empty videoId");
+
+      // Embed the single latest video (most reliable “yesterday’s drop” behavior)
+      frame.src = "https://www.youtube.com/embed/" + vid + "?rel=0&modestbranding=1";
+      note.textContent = "Showing your latest public upload automatically.";
+    })
+    .catch(() => {
+      // Keep fallback
+      frame.src = fallback;
+      note.textContent = "Showing latest uploads playlist (if your newest video is private/unlisted, it won’t appear).";
+    });
+})();
+</script>
+
 </body>
 </html>

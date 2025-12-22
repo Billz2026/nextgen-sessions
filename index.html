@@ -231,7 +231,7 @@ footer{
     <img src="NextGenSessions.png" alt="NextGen Sessions">
   </div>
 
-  <!-- UPDATED TEXT (YOUR REQUEST) -->
+  <!-- UPDATED TEXT -->
   <p class="subtitle">
     <strong>Welcome to NextGen Sessions</strong> This is your go-to hub for tracks that push boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B, and everything in between.
   </p>
@@ -243,14 +243,14 @@ footer{
 
   <div class="heroGrid">
 
-    <!-- LATEST DROP (AUTO: pulls latest public video via RSS, fallback to uploads playlist) -->
+    <!-- LATEST DROP -->
     <div class="card">
       <div class="cardTitle">Latest Drop</div>
 
       <div class="videoWrap">
         <iframe
           id="latestDropFrame"
-          src="https://www.youtube.com/embed/videoseries?list=UUJdBLa1mf6yxk7xaOzSpBjg&rel=0&modestbranding=1"
+          src="https://www.youtube.com/embed/EYw3-ZvAhWE?rel=0&modestbranding=1"
           title="NextGen Sessions - Latest Drop"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
@@ -258,7 +258,7 @@ footer{
       </div>
 
       <div class="smallNote" id="latestDropNote">
-        Loading your latest drop…
+        Showing yesterday’s drop.
       </div>
     </div>
 
@@ -297,38 +297,48 @@ footer{
 
 <script>
 /**
- * Latest Drop: get newest PUBLIC upload from YouTube RSS feed (no API key).
- * If it fails (network/CORS/etc), we keep the fallback uploads playlist embed.
+ * Auto-updater for Latest Drop:
+ * - Starts with yesterday's video as the primary (EYw3-ZvAhWE)
+ * - Then tries to auto-detect latest PUBLIC upload via RSS feed
+ * - If RSS fails or the latest is not embeddable, it keeps yesterday's video
  */
 (function(){
   const CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
+  const YESTERDAY_VIDEO_ID = "EYw3-ZvAhWE";
+
   const frame = document.getElementById("latestDropFrame");
   const note  = document.getElementById("latestDropNote");
 
-  const fallback = "https://www.youtube.com/embed/videoseries?list=UUJdBLa1mf6yxk7xaOzSpBjg&rel=0&modestbranding=1";
   const feedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + encodeURIComponent(CHANNEL_ID);
+
+  // If the current embed errors (Video unavailable), keep it on yesterday’s video
+  frame.addEventListener("error", () => {
+    frame.src = "https://www.youtube.com/embed/" + YESTERDAY_VIDEO_ID + "?rel=0&modestbranding=1";
+    note.textContent = "Showing yesterday’s drop (latest upload can’t be embedded).";
+  });
 
   fetch(feedUrl)
     .then(r => r.text())
     .then(xmlText => {
       const doc = new DOMParser().parseFromString(xmlText, "text/xml");
       const firstEntry = doc.querySelector("entry");
-      if (!firstEntry) throw new Error("No entries in feed");
+      if (!firstEntry) throw new Error("No entries");
 
       const videoIdNode = firstEntry.querySelector("yt\\:videoId, videoId");
-      if (!videoIdNode) throw new Error("No videoId found");
+      const latestId = (videoIdNode?.textContent || "").trim();
+      if (!latestId) throw new Error("No videoId");
 
-      const vid = videoIdNode.textContent.trim();
-      if (!vid) throw new Error("Empty videoId");
-
-      // Embed the single latest video (most reliable “yesterday’s drop” behavior)
-      frame.src = "https://www.youtube.com/embed/" + vid + "?rel=0&modestbranding=1";
-      note.textContent = "Showing your latest public upload automatically.";
+      // Only switch if it's different than yesterday's
+      if (latestId !== YESTERDAY_VIDEO_ID) {
+        frame.src = "https://www.youtube.com/embed/" + latestId + "?rel=0&modestbranding=1";
+        note.textContent = "Auto-updated to your newest public upload.";
+      } else {
+        note.textContent = "Showing yesterday’s drop (it’s still your newest upload).";
+      }
     })
     .catch(() => {
-      // Keep fallback
-      frame.src = fallback;
-      note.textContent = "Showing latest uploads playlist (if your newest video is private/unlisted, it won’t appear).";
+      // Keep yesterday's video if RSS fails
+      note.textContent = "Showing yesterday’s drop (auto-detect unavailable).";
     });
 })();
 </script>

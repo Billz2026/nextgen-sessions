@@ -1,295 +1,273 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NextGen Sessions</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NextGen Sessions</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600;700;800;900&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;800;900&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg:#050505;
-      --gold:#d7b15b;
-      --gold2:#f2d58a;
-      --gold3:#b8892f;
-      --text:#f6f1e3;
-      --muted: rgba(246,241,227,.75);
-      --border: rgba(215,177,91,.18);
-      --shadow: 0 10px 30px rgba(0,0,0,.55);
-      --radius: 22px;
-      --ytRed:#ff0000;
-    }
+<style>
+:root{
+  --bg:#050505;
+  --gold1:#f6e39a;
+  --gold2:#e0b85c;
+  --gold3:#b8892f;
+  --text:#f6f1e3;
+  --border: rgba(215,177,91,.25);
+}
 
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    }
+/* RESET */
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:radial-gradient(1200px 600px at 50% -10%, rgba(215,177,91,.15), transparent 60%), var(--bg);
+  color:var(--text);
+  font-family:Montserrat, system-ui, sans-serif;
+}
 
-    .wrap{ width:min(1100px,92vw); margin:0 auto; padding:28px 0 52px; }
+/* WRAP */
+.wrap{
+  width:min(1100px,92vw);
+  margin:0 auto;
+  padding:30px 0 60px;
+}
 
-    .topbar{ display:flex; justify-content:space-between; align-items:center; gap:14px; }
-    .logo{ width:210px; max-width:56vw; }
+/* TOP */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+.logo{
+  width:210px;
+  filter:drop-shadow(0 10px 20px rgba(0,0,0,.6));
+}
+.nav a{
+  color:var(--text);
+  text-decoration:none;
+  margin-left:14px;
+  font-weight:700;
+  opacity:.85;
+}
+.nav a:hover{opacity:1}
 
-    .chip{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      text-decoration:none;
-      color:var(--text);
-      font-weight:800;
-    }
+/* GOLD TITLE */
+.hero{
+  margin-top:30px;
+  padding:40px 26px;
+  border-radius:22px;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(20,20,20,.9), rgba(5,5,5,.95));
+  position:relative;
+  overflow:hidden;
+}
 
-    .hero{ margin-top:16px; padding:30px; border:1px solid var(--border); border-radius:var(--radius); }
-    .heroGrid{ display:grid; grid-template-columns:1.15fr .85fr; gap:22px; }
+.gold-title{
+  position:relative;
+  font-family:"League Spartan",sans-serif;
+  font-weight:900;
+  font-size:clamp(2.6rem,5vw,3.8rem);
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  margin:0 0 14px;
+  background:linear-gradient(180deg,var(--gold1),var(--gold2),var(--gold3));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:
+    0 2px 0 rgba(0,0,0,.4),
+    0 10px 25px rgba(0,0,0,.7),
+    0 0 25px rgba(215,177,91,.35);
+}
 
-    .title{
-      font-family:"Anton";
-      font-size:clamp(2.4rem,5vw,3.6rem);
-      background:linear-gradient(180deg,var(--gold2),var(--gold),var(--gold3));
-      -webkit-background-clip:text;
-      color:transparent;
-      margin:0 0 10px;
-    }
+.gold-title::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(255,215,120,.9) 0 1px, transparent 3px),
+    radial-gradient(circle at 60% 60%, rgba(255,200,90,.7) 0 1.5px, transparent 3px);
+  animation:goldDust 10s ease-in-out infinite;
+  pointer-events:none;
+  mix-blend-mode:screen;
+}
 
-    .btn{
-      padding:12px 18px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      text-decoration:none;
-      font-weight:900;
-      color:var(--text);
-      display:inline-block;
-      margin-right:8px;
-    }
-    .btn.subscribe{ background:var(--ytRed); color:#fff; }
+@keyframes goldDust{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(12px,-10px)}
+  100%{transform:translate(0,0)}
+}
 
-    .card{
-      border-radius:18px;
-      border:1px solid var(--border);
-      padding:16px;
-      box-shadow:var(--shadow);
-    }
+.subtitle{
+  max-width:60ch;
+  opacity:.8;
+  line-height:1.6;
+}
 
-    .cardTitle{
-      font-weight:900;
-      color:var(--gold2);
-      margin-bottom:10px;
-      text-transform:uppercase;
-    }
+/* CTA */
+.cta{
+  margin-top:20px;
+}
+.btn{
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:999px;
+  margin-right:10px;
+  border:1px solid var(--border);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:800;
+}
+.btn.primary{
+  background:linear-gradient(180deg, rgba(215,177,91,.25), rgba(215,177,91,.15));
+}
 
-    .videoWrap{
-      position:relative;
-      padding-top:56.25%;
-      border-radius:14px;
-      overflow:hidden;
-    }
-    .videoWrap iframe{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      border:0;
-    }
+/* SECTION */
+.section{
+  margin-top:40px;
+}
+.section h2{
+  font-family:"League Spartan",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  color:var(--gold1);
+}
 
-    .section{ margin-top:26px; }
-    .sectionHead{ display:flex; justify-content:space-between; align-items:flex-end; }
+/* PLAYLIST GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
 
-    .strip{
-      border-radius:var(--radius);
-      border:1px solid var(--border);
-      overflow:hidden;
-    }
-    .stripInner{
-      display:flex;
-      gap:12px;
-      padding:14px;
-      overflow-x:auto;
-    }
+.card{
+  background:rgba(10,10,10,.6);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  transition:.2s;
+}
+.card:hover{transform:translateY(-4px)}
 
-    .thumb{
-      min-width:220px;
-      height:124px;
-      border-radius:14px;
-      overflow:hidden;
-      cursor:pointer;
-      background:#000;
-      position:relative;
-    }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
+.thumb{
+  position:relative;
+}
+.thumb img{
+  width:100%;
+  display:block;
+}
+.playIcon{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  color:var(--gold1);
+  background:rgba(0,0,0,.35);
+}
 
-    .modal{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.75);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:9999;
-    }
-    .modal.open{ display:flex; }
+.card .label{
+  padding:14px;
+  font-weight:800;
+  letter-spacing:.5px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
-    .modalBox{
-      width:min(960px,95vw);
-      background:#000;
-      border-radius:18px;
-      overflow:hidden;
-    }
-    .modalVideo{
-      position:relative;
-      padding-top:56.25%;
-    }
-    .modalVideo iframe{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      border:0;
-    }
+/* FOOTER */
+footer{
+  margin-top:50px;
+  text-align:center;
+  opacity:.6;
+  font-size:.9rem;
+}
 
-    footer{ margin-top:30px; text-align:center; opacity:.6; }
-  </style>
-
-  <!-- Google Analytics (optional) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
+/* MOBILE */
+@media(max-width:700px){
+  .topbar{flex-direction:column;align-items:flex-start}
+}
+</style>
 </head>
 
 <body>
 <div class="wrap">
 
-  <div class="topbar">
-    <img src="NextGenSessions.png" class="logo" alt="NextGen Sessions">
-    <div>
-      <a class="chip" href="https://www.youtube.com/@NextGenSessions" target="_blank">YouTube</a>
-      <a class="chip" href="https://www.tiktok.com/@nextgensessions" target="_blank">TikTok</a>
-      <a class="chip" href="https://www.instagram.com/next.gensessions/" target="_blank">Instagram</a>
-    </div>
-  </div>
-
-  <section class="hero">
-    <div class="heroGrid">
-
-      <div>
-        <h1 class="title">NextGen Sessions</h1>
-        <p class="subtitle">Raw UK sessions, live performances & exclusive visuals.</p>
-
-        <a class="btn" href="https://www.youtube.com/@NextGenSessions" target="_blank">▶ Watch on YouTube</a>
-        <a class="btn subscribe" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank">Subscribe</a>
-      </div>
-
-      <!-- Latest Upload -->
-      <div class="card">
-        <p class="cardTitle">Latest Upload</p>
-        <div class="videoWrap">
-          <iframe
-            id="latestVideo"
-            src="https://www.youtube.com/embed/GIs3BbhVVhQ?autoplay=1&mute=1&playsinline=1&rel=0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Gallery -->
-  <div class="section">
-    <div class="sectionHead">
-      <h2>Video Gallery</h2>
-      <p>Click a thumbnail to play</p>
-    </div>
-
-    <div class="strip">
-      <div class="stripInner" id="galleryStrip"></div>
-    </div>
-  </div>
-
-  <footer>© 2026 NextGen Sessions</footer>
-
-</div>
-
-<!-- Modal -->
-<div class="modal" id="videoModal">
-  <div class="modalBox">
-    <div class="modalVideo" id="modalVideoHolder"></div>
+<!-- TOP -->
+<div class="topbar">
+  <img src="NextGenSessions.png" class="logo" alt="NextGen Sessions Logo">
+  <div class="nav">
+    <a href="https://www.youtube.com/@NextGenSessions" target="_blank">YouTube</a>
+    <a href="https://www.tiktok.com/@nextgensessions" target="_blank">TikTok</a>
+    <a href="https://www.instagram.com/next.gensessions/" target="_blank">Instagram</a>
   </div>
 </div>
 
-<script>
-  // 🔥 PUT NEWEST VIDEO FIRST
-  const videos = [
-    "GIs3BbhVVhQ",
-    "w8DSI4HZKnM",
-    "Zkb80UYO0pY",
-    "ccwwJFDErvg",
-    "TctcNn8cOHs",
-    "G5Bxd66IqGA",
-    "MKh3DhWW7oY",
-    "_BsOdI0lE8E"
-  ];
+<!-- HERO -->
+<section class="hero">
+  <h1 class="gold-title">NextGen Sessions</h1>
+  <p class="subtitle">
+    Raw UK sessions, live performances & exclusive visuals from emerging artists.
+    Built for the culture.
+  </p>
 
-  const strip = document.getElementById("galleryStrip");
-  const modal = document.getElementById("videoModal");
-  const modalHolder = document.getElementById("modalVideoHolder");
-  const latestIframe = document.getElementById("latestVideo");
+  <div class="cta">
+    <a class="btn primary" href="https://www.youtube.com/@NextGenSessions" target="_blank">▶ Watch on YouTube</a>
+    <a class="btn" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank">Subscribe</a>
+  </div>
+</section>
 
-  // Set Latest Upload automatically
-  if (latestIframe && videos.length) {
-    latestIframe.src = `https://www.youtube.com/embed/${videos[0]}?autoplay=1&mute=1&playsinline=1&rel=0`;
-  }
+<!-- PLAYLISTS -->
+<section class="section">
+  <h2>Playlists</h2>
 
-  function trackEvent(name, params={}){
-    if (typeof gtag === "function") gtag("event", name, params);
-  }
+  <div class="grid">
 
-  function openVideo(id){
-    trackEvent("gallery_video_open",{video_id:id});
-    modalHolder.innerHTML = `
-      <iframe
-        src="https://www.youtube.com/embed/${id}?autoplay=1&mute=1&rel=0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen></iframe>
-    `;
-    modal.classList.add("open");
-  }
+    <a class="card" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank">
+      <div class="thumb">
+        <img src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg">
+        <div class="playIcon">▶</div>
+      </div>
+      <div class="label">🪘 Bhangra</div>
+    </a>
 
-  function closeVideo(){
-    modal.classList.remove("open");
-    modalHolder.innerHTML="";
-  }
+    <a class="card" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank">
+      <div class="thumb">
+        <img src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg">
+        <div class="playIcon">▶</div>
+      </div>
+      <div class="label">🎤 Hip Hop</div>
+    </a>
 
-  videos.forEach(id=>{
-    const el=document.createElement("div");
-    el.className="thumb";
-    el.innerHTML=`<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg">`;
-    el.onclick=()=>openVideo(id);
-    strip.appendChild(el);
-  });
+    <a class="card" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank">
+      <div class="thumb">
+        <img src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg">
+        <div class="playIcon">▶</div>
+      </div>
+      <div class="label">🇬🇧 Grime & UK Rap</div>
+    </a>
 
-  modal.onclick=(e)=>{ if(e.target===modal) closeVideo(); };
+    <a class="card" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank">
+      <div class="thumb">
+        <img src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg">
+        <div class="playIcon">▶</div>
+      </div>
+      <div class="label">🔥 Dancehall & Reggae</div>
+    </a>
 
-  document.querySelectorAll('a[target="_blank"]').forEach(a=>{
-    a.addEventListener("click",()=>trackEvent("outbound_click",{url:a.href}));
-  });
-</script>
+  </div>
+</section>
 
+<footer>
+© 2026 NextGen Sessions
+</footer>
+
+</div>
 </body>
 </html>

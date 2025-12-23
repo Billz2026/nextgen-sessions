@@ -996,6 +996,44 @@ a:focus-visible, .thumb:focus-visible{
   iframe, img{ max-width:100%; }
 }
 
+
+/* --- Mobile polish: playlists readability + smoother scrolling --- */
+@media (max-width: 640px){
+  /* Reduce visual noise & jank on mobile */
+  body::before{ display:none !important; }
+
+  /* Playlists: turn cards into image-left + label-right for readability */
+  #playlists .grid{
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  #playlists .playCard{
+    display: grid;
+    grid-template-columns: 128px 1fr;
+    align-items: stretch;
+    overflow: hidden;
+  }
+  #playlists .playCard img{
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  #playlists .label{
+    display:flex;
+    align-items:center;
+    padding: 14px 14px;
+    font-size: 1.02rem;
+    line-height: 1.15;
+    text-transform:none; /* keep readable on mobile */
+    letter-spacing: .2px;
+  }
+
+  /* Prevent any horizontal drift */
+  .wrap{ width: min(1100px, 94vw); }
+  .grid, .thumbStrip{ max-width: 100%; }
+}
+
 </style>
 </head>
 

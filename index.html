@@ -56,11 +56,21 @@ body::before{
   align-items:center;
   gap:16px;
 }
+
+/* NAV (match Latest Drop / Playlists style) */
 .nav a{
-  color:var(--text);
+  color:var(--yellow);
   text-decoration:none;
-  font-weight:700;
+  font-weight:900;
+  letter-spacing:.4px;
   margin-left:12px;
+  text-transform:uppercase;
+  text-shadow:0 10px 22px rgba(0,0,0,.7), 0 0 18px rgba(255,216,74,.18);
+}
+.nav a:hover{
+  opacity:.9;
+  text-decoration:underline;
+  text-underline-offset:6px;
 }
 
 /* HERO */
@@ -73,39 +83,103 @@ body::before{
   box-shadow:0 12px 30px rgba(0,0,0,.6);
 }
 
-/* LOGO TITLE (EXACT FROM YOUR IMAGE) */
+/* LOGO TITLE */
 .logo-title{
   position:relative;
-  max-width:720px;
+  max-width:760px;
   margin-bottom:14px;
+  padding:10px 10px 14px;
+  border-radius:18px;
+
+  /* entrance animation */
+  opacity:0;
+  transform:translateY(14px) scale(.985);
+  animation: logoIn .9s cubic-bezier(.2,.9,.2,1) .15s forwards;
 }
+
+/* the logo itself */
 .logo-title img{
   width:100%;
   height:auto;
   display:block;
+  border-radius:14px;
+
+  /* blend + depth */
   filter:
-    drop-shadow(0 0 20px rgba(255,216,74,.35))
+    drop-shadow(0 0 22px rgba(255,216,74,.28))
     drop-shadow(0 18px 28px rgba(0,0,0,.75));
+
+  /* glow animation */
+  animation: logoGlow 1.8s ease-in-out .35s both;
 }
 
-/* shimmer sweep over the logo */
+/* soft glow plate behind logo so it "blends" into hero */
+.logo-title::before{
+  content:"";
+  position:absolute;
+  inset:-18px -18px -22px -18px;
+  border-radius:22px;
+  background:
+    radial-gradient(600px 220px at 35% 40%, rgba(255,216,74,.16), transparent 62%),
+    radial-gradient(520px 210px at 70% 60%, rgba(255,216,74,.10), transparent 65%);
+  filter: blur(2px);
+  opacity:.9;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* gold dust around the logo area */
 .logo-title::after{
   content:"";
   position:absolute;
-  inset:-45%;
-  background:linear-gradient(120deg,
-    transparent 40%,
-    rgba(255,216,74,.35) 50%,
-    transparent 60%);
-  animation: shine 6s ease-in-out infinite;
-  mix-blend-mode:screen;
+  inset:-34px;
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 12% 28%, rgba(255,216,74,.28) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 22% 68%, rgba(255,216,74,.22) 0 1px, transparent 3px),
+    radial-gradient(circle at 36% 40%, rgba(255,216,74,.18) 0 1.6px, transparent 3px),
+    radial-gradient(circle at 58% 22%, rgba(255,216,74,.20) 0 1.1px, transparent 3px),
+    radial-gradient(circle at 72% 62%, rgba(255,216,74,.24) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 86% 34%, rgba(255,216,74,.18) 0 1.2px, transparent 3px);
+  opacity:.55;
+  animation: logoDust 10s ease-in-out infinite;
   pointer-events:none;
+  z-index:0;
 }
-@keyframes shine{
-  0%{transform:translateX(-45%)}
-  50%{transform:translateX(45%)}
-  100%{transform:translateX(-45%)}
+
+.logo-title img{ position:relative; z-index:1; }
+
+@keyframes logoDust{
+  0%{ transform:translate(0,0); }
+  50%{ transform:translate(10px,-6px); }
+  100%{ transform:translate(0,0); }
 }
+
+@keyframes logoIn{
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@keyframes logoGlow{
+  0%{
+    filter: drop-shadow(0 0 0 rgba(255,216,74,0))
+            drop-shadow(0 12px 18px rgba(0,0,0,.65));
+  }
+  55%{
+    filter: drop-shadow(0 0 26px rgba(255,216,74,.30))
+            drop-shadow(0 18px 26px rgba(0,0,0,.75));
+  }
+  100%{
+    filter: drop-shadow(0 0 22px rgba(255,216,74,.24))
+            drop-shadow(0 18px 28px rgba(0,0,0,.75));
+  }
+}
+
+/* shimmer sweep over the logo */
+.logo-title .shineOverlay{ display:none; } /* not used, keep clean */
+.logo-titleShine{ display:none; } /* not used, keep clean */
 
 .subtitle{
   max-width:80ch;
@@ -124,6 +198,10 @@ body::before{
   text-decoration:none;
   font-weight:800;
   margin-right:10px;
+}
+.btn:hover{
+  border-color:rgba(255,216,74,.45);
+  transform:translateY(-1px);
 }
 
 /* GRID */
@@ -148,6 +226,51 @@ body::before{
   letter-spacing:.4px;
 }
 
+/* NEW DROP badge */
+.badge{
+  display:inline-block;
+  margin-left:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.6px;
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  box-shadow:0 10px 24px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.25);
+  border:1px solid rgba(255,216,74,.35);
+  vertical-align:middle;
+  transform:translateY(-1px);
+
+  position:relative;
+  overflow:hidden;
+  animation: badgePulse 2.2s ease-in-out infinite;
+}
+.badge[hidden]{ display:none !important; }
+
+.badge::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:linear-gradient(120deg,
+    transparent 45%,
+    rgba(255,255,255,.35) 52%,
+    transparent 60%);
+  transform:translateX(-60%);
+  animation: badgeShine 3.8s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes badgePulse{
+  0%,100%{ transform:translateY(-1px) scale(1); }
+  50%{ transform:translateY(-1px) scale(1.04); }
+}
+@keyframes badgeShine{
+  0%{ transform:translateX(-60%); opacity:.0; }
+  25%{ opacity:.55; }
+  50%{ transform:translateX(60%); opacity:.0; }
+  100%{ transform:translateX(60%); opacity:.0; }
+}
+
 /* VIDEO */
 .videoWrap{
   position:relative;
@@ -168,7 +291,7 @@ body::before{
 
 /* PLAYLISTS */
 .section{margin-top:40px;}
-.section h2{ color:var(--yellow); margin:0 0 12px; }
+.section h2{ color:var(--yellow); margin:0 0 12px; font-weight:900; letter-spacing:.4px; }
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -206,8 +329,92 @@ footer{
   line-height:1.45;
 }
 
-@media(max-width:860px){
-  .heroGrid{grid-template-columns:1fr}
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  body::before{ animation:none !important; }
+  .logo-title, .logo-title img{
+    animation:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+  .badge{ animation:none !important; }
+  .badge::after{ animation:none !important; }
+}
+
+/* STEP 3: Mobile scaling */
+@media (max-width: 860px){
+  .wrap{ width:min(1100px,94vw); }
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .nav a{
+    margin-left:0;
+    margin-right:12px;
+    display:inline-block;
+  }
+
+  .hero{
+    padding:24px 16px;
+    border-radius:18px;
+  }
+
+  /* Logo scales nicely on mobile */
+  .logo-title{
+    max-width:100%;
+    margin-bottom:12px;
+  }
+
+  .subtitle{
+    font-size:.98rem;
+    line-height:1.55;
+  }
+
+  /* Buttons become thumb-friendly */
+  .cta{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:16px;
+  }
+  .btn{
+    width:100%;
+    text-align:center;
+    padding:13px 16px;
+    margin-right:0;
+  }
+
+  .heroGrid{
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:18px;
+  }
+
+  .card{
+    padding:14px;
+    border-radius:16px;
+  }
+
+  /* Keep NEW DROP badge from wrapping awkwardly */
+  .cardTitle{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .badge{
+    flex:0 0 auto;
+    margin-left:0;
+  }
+
+  /* Playlists grid tighter on mobile */
+  .grid{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
 }
 </style>
 </head>
@@ -226,12 +433,11 @@ footer{
 
 <section class="hero">
 
-  <!-- EXACT LOGO LETTERING -->
+  <!-- LOGO -->
   <div class="logo-title">
     <img src="NextGen Session Website logo.png" alt="NextGen Sessions">
   </div>
 
-  <!-- UPDATED TEXT -->
   <p class="subtitle">
     <strong>Welcome to NextGen Sessions</strong> This is your go-to hub for tracks that push boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B, and everything in between.
   </p>
@@ -245,7 +451,10 @@ footer{
 
     <!-- LATEST DROP -->
     <div class="card">
-      <div class="cardTitle">Latest Drop</div>
+      <div class="cardTitle">
+        Latest Drop
+        <span class="badge" id="newDropBadge" aria-hidden="true" hidden>NEW DROP</span>
+      </div>
 
       <div class="videoWrap">
         <iframe
@@ -258,7 +467,7 @@ footer{
       </div>
 
       <div class="smallNote" id="latestDropNote">
-        Showing yesterday’s drop.
+        Loading latest upload…
       </div>
     </div>
 
@@ -297,49 +506,97 @@ footer{
 
 <script>
 /**
- * Auto-updater for Latest Drop:
- * - Starts with yesterday's video as the primary (EYw3-ZvAhWE)
- * - Then tries to auto-detect latest PUBLIC upload via RSS feed
- * - If RSS fails or the latest is not embeddable, it keeps yesterday's video
+ * Latest Drop (Guaranteed):
+ * - Reads /latest.json from the repo (same-origin, works on GitHub Pages)
+ * - Cache-busts every load so it always pulls newest commit
+ * - Shows "NEW DROP" badge when the videoId changes vs last visit
+ * - Uses updatedAt to show "time ago"
  */
 (function(){
-  const CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
-  const YESTERDAY_VIDEO_ID = "EYw3-ZvAhWE";
+  const FALLBACK_VIDEO_ID = "EYw3-ZvAhWE"; // safe fallback
 
   const frame = document.getElementById("latestDropFrame");
   const note  = document.getElementById("latestDropNote");
+  const badge = document.getElementById("newDropBadge");
 
-  const feedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + encodeURIComponent(CHANNEL_ID);
+  function setVideo(videoId){
+    frame.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1";
+  }
 
-  // If the current embed errors (Video unavailable), keep it on yesterday’s video
-  frame.addEventListener("error", () => {
-    frame.src = "https://www.youtube.com/embed/" + YESTERDAY_VIDEO_ID + "?rel=0&modestbranding=1";
-    note.textContent = "Showing yesterday’s drop (latest upload can’t be embedded).";
-  });
+  function setNote(text){
+    if (note) note.textContent = text;
+  }
 
-  fetch(feedUrl)
-    .then(r => r.text())
-    .then(xmlText => {
-      const doc = new DOMParser().parseFromString(xmlText, "text/xml");
-      const firstEntry = doc.querySelector("entry");
-      if (!firstEntry) throw new Error("No entries");
+  function showBadge(){
+    if (!badge) return;
+    badge.hidden = false;
+  }
 
-      const videoIdNode = firstEntry.querySelector("yt\\:videoId, videoId");
-      const latestId = (videoIdNode?.textContent || "").trim();
-      if (!latestId) throw new Error("No videoId");
+  function hideBadge(){
+    if (!badge) return;
+    badge.hidden = true;
+  }
 
-      // Only switch if it's different than yesterday's
-      if (latestId !== YESTERDAY_VIDEO_ID) {
-        frame.src = "https://www.youtube.com/embed/" + latestId + "?rel=0&modestbranding=1";
-        note.textContent = "Auto-updated to your newest public upload.";
-      } else {
-        note.textContent = "Showing yesterday’s drop (it’s still your newest upload).";
+  // Persist last seen videoId in localStorage
+  const STORAGE_KEY = "ngs_lastVideoId";
+
+  // Cache-bust latest.json so it always refreshes after new commits
+  const latestUrl = "latest.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
+
+  fetch(latestUrl, { cache: "no-store" })
+    .then(r => {
+      if (!r.ok) throw new Error("latest.json not found");
+      return r.json();
+    })
+    .then(data => {
+      const latestId = (data && (data.videoId || data.latestVideoId || data.id) || "").trim();
+      if (!latestId) throw new Error("No videoId in latest.json");
+
+      const updatedAtRaw = (data.updatedAt || "").trim();
+
+      function timeAgoFromUTCString(s){
+        // expects like "2025-12-23 07:02 UTC"
+        if (!s) return "";
+        const iso = s.replace(" UTC", "Z").replace(" ", "T");
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return "";
+        const diffMs = Date.now() - d.getTime();
+        const mins = Math.max(0, Math.round(diffMs / 60000));
+        if (mins < 60) return mins + " min ago";
+        const hrs = Math.round(mins / 60);
+        if (hrs < 48) return hrs + " hours ago";
+        const days = Math.round(hrs / 24);
+        return days + " days ago";
       }
+
+      const ago = timeAgoFromUTCString(updatedAtRaw);
+
+      const lastSeen = localStorage.getItem(STORAGE_KEY);
+
+      setVideo(latestId);
+
+      if (lastSeen && lastSeen !== latestId){
+        showBadge();
+        setNote("Auto-updated to newest upload" + (ago ? " · " + ago : "") + ".");
+      } else {
+        hideBadge();
+        setNote("Showing latest upload" + (ago ? " · " + ago : "") + ".");
+      }
+
+      localStorage.setItem(STORAGE_KEY, latestId);
     })
     .catch(() => {
-      // Keep yesterday's video if RSS fails
-      note.textContent = "Showing yesterday’s drop (auto-detect unavailable).";
+      hideBadge();
+      setVideo(FALLBACK_VIDEO_ID);
+      setNote("Showing fallback (latest auto-update unavailable).");
     });
+
+  // If embed errors, revert to fallback
+  frame.addEventListener("error", () => {
+    hideBadge();
+    setVideo(FALLBACK_VIDEO_ID);
+    setNote("Showing fallback (latest upload can’t be embedded).");
+  });
 })();
 </script>
 

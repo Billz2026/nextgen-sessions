@@ -6,7 +6,7 @@
 <title>NextGen Sessions</title>
 
 <!-- SEO -->
-<meta name="description" content="NextGen Sessions — your hub for boundary-pushing drops across hip-hop, Bhangra, dancehall, grime, R&B and more. Watch the latest upload and explore playlists.">
+<meta name="description" content="NextGen Sessions — your hub for boundary-pushing drops across hip-hop, Bhangra, dancehall, grime, R&B and more. Watch the latest upload, explore playlists, and track the Road to 1K.">
 <link rel="canonical" href="https://billz2026.github.io/nextgen-sessions/">
 
 <!-- Social / Open Graph -->
@@ -31,6 +31,15 @@
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="preconnect" href="https://www.youtube.com" crossorigin>
 <link rel="preload" as="image" href="NextGen%20Session%20Website%20logo.png">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L8FYW2YH5K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L8FYW2YH5K');
+</script>
 
 <style>
 :root{
@@ -200,7 +209,7 @@ body::before{
 .logo-title img{ position:relative; z-index:1; }
 .logoSweep{ position:absolute; z-index:2; }
 
-/* Gold sweep overlay element (separate from ::after dust) */
+/* Gold sweep overlay element */
 .logoSweep{
   inset:-35%;
   border-radius:26px;
@@ -255,11 +264,25 @@ body::before{
   50%{ --pulse: 1.01; }
 }
 
-.subtitle{
-  max-width:80ch;
+/* Upgraded welcome statement (uniform + stands out) */
+.welcome{
+  margin-top:6px;
+  max-width:90ch;
+}
+.welcomeTitle{
+  margin:0 0 6px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  color:var(--yellow);
+  text-shadow:0 10px 22px rgba(0,0,0,.7), 0 0 18px rgba(255,216,74,.14);
+}
+.welcomeText{
+  margin:0;
   opacity:.9;
   line-height:1.6;
-  margin:0;
+  font-weight:800;
+  letter-spacing:.15px;
 }
 
 .cta{ margin-top:16px; }
@@ -635,7 +658,7 @@ footer{
     margin-bottom:12px;
   }
 
-  .subtitle{
+  .welcomeText{
     font-size:.98rem;
     line-height:1.55;
   }
@@ -691,9 +714,9 @@ footer{
 <div class="topbar">
   <div></div>
   <div class="nav">
-    <a href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
-    <a href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
-    <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
+    <a data-track="click_youtube_nav" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
+    <a data-track="click_tiktok_nav" href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
+    <a data-track="click_instagram_nav" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
   </div>
 </div>
 
@@ -705,13 +728,17 @@ footer{
     <img src="NextGen Session Website logo.png" alt="NextGen Sessions">
   </div>
 
-  <p class="subtitle">
-    <strong>Welcome to NextGen Sessions</strong> This is your go-to hub for tracks that push boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B, and everything in between.
-  </p>
+  <!-- LOCKED COPY (Option 3) -->
+  <div class="welcome">
+    <h2 class="welcomeTitle">Welcome to NextGen Sessions</h2>
+    <p class="welcomeText">
+      Breaking boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B — built for the next generation.
+    </p>
+  </div>
 
   <div class="cta">
-    <a class="btn" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-    <a class="btn btnPrimary" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
+    <a class="btn" data-track="click_watch_youtube" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+    <a class="btn btnPrimary" data-track="click_subscribe" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
   </div>
 
   <div class="heroGrid">
@@ -765,22 +792,22 @@ footer{
   <h2>Playlists</h2>
 
   <div class="grid">
-    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank" rel="noopener">
+    <a class="playCard" data-track="click_playlist_bhangra" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank" rel="noopener">
       <img loading="lazy" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg" alt="Bhangra playlist thumbnail">
       <div class="label">🪘 Bhangra</div>
     </a>
 
-    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank" rel="noopener">
+    <a class="playCard" data-track="click_playlist_hiphop" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank" rel="noopener">
       <img loading="lazy" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg" alt="Hip Hop playlist thumbnail">
       <div class="label">🎤 Hip Hop</div>
     </a>
 
-    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank" rel="noopener">
+    <a class="playCard" data-track="click_playlist_grime" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank" rel="noopener">
       <img loading="lazy" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg" alt="Grime & UK Rap playlist thumbnail">
       <div class="label">🇬🇧 Grime &amp; UK Rap</div>
     </a>
 
-    <a class="playCard" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank" rel="noopener">
+    <a class="playCard" data-track="click_playlist_dancehall" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank" rel="noopener">
       <img loading="lazy" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall & Reggae playlist thumbnail">
       <div class="label">🔥 Dancehall &amp; Reggae</div>
     </a>
@@ -794,7 +821,7 @@ footer{
 
   <p class="ctaLine">
     <span style="font-weight:900; letter-spacing:.4px; text-transform:uppercase;">Artists &amp; Producers:</span>
-    send submissions via <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram DM</a>.
+    send submissions via <a data-track="click_submit_track" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram DM</a>.
     Include a private link (YouTube/SoundCloud) and your social handles.
   </p>
 </section>
@@ -804,6 +831,26 @@ footer{
 </div>
 
 <script>
+/**
+ * Analytics helper: track clicks via data-track attributes
+ */
+(function(){
+  function track(name, params){
+    if (typeof gtag === "function") {
+      gtag("event", name, params || {});
+    }
+  }
+
+  document.addEventListener("click", function(e){
+    var a = e.target.closest("a[data-track]");
+    if (!a) return;
+    track(a.getAttribute("data-track"), {
+      link_url: a.href,
+      link_text: (a.textContent || "").trim()
+    });
+  });
+})();
+
 /**
  * Latest Drop (Guaranteed) + Gallery + Road to 1K:
  * - Reads /latest.json (GitHub Pages)
@@ -875,6 +922,13 @@ footer{
     });
   }
 
+  // Track thumb clicks
+  function trackThumb(videoId){
+    if (typeof gtag === "function") {
+      gtag("event", "click_video_thumb", { video_id: videoId });
+    }
+  }
+
   // Events ONCE
   if (strip){
     strip.addEventListener("click", (e) => {
@@ -886,6 +940,7 @@ footer{
       setNote("Now playing selected video.");
       setNowPlayingThumb(vid);
       localStorage.setItem(STORAGE_KEY, vid);
+      trackThumb(vid);
     });
 
     strip.addEventListener("keydown", (e) => {
@@ -899,6 +954,7 @@ footer{
       setNote("Now playing selected video.");
       setNowPlayingThumb(vid);
       localStorage.setItem(STORAGE_KEY, vid);
+      trackThumb(vid);
     });
   }
 

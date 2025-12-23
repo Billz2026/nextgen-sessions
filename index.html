@@ -1,46 +1,40 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>NextGen Sessions</title>
-
 <!-- SEO -->
-<meta name="description" content="NextGen Sessions — your hub for boundary-pushing drops across hip-hop, Bhangra, dancehall, grime, R&B and more. Watch the latest upload, explore playlists, and track the Road to 1K.">
-<link rel="canonical" href="https://billz2026.github.io/nextgen-sessions/">
-
+<meta content="NextGen Sessions — your hub for boundary-pushing drops across hip-hop, Bhangra, dancehall, grime, R&amp;B and more. Watch the latest upload, explore playlists, and track the Road to 1K." name="description"/>
+<link href="https://billz2026.github.io/nextgen-sessions/" rel="canonical"/>
 <!-- Social / Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="NextGen Sessions">
-<meta property="og:description" content="Watch the latest NextGen Sessions upload and explore playlists across hip-hop, Bhangra, dancehall, grime, R&B and more.">
-<meta property="og:url" content="https://billz2026.github.io/nextgen-sessions/">
-<meta property="og:image" content="https://billz2026.github.io/nextgen-sessions/NextGen%20Session%20Website%20logo.png">
-<meta property="og:image:alt" content="NextGen Sessions logo">
-
+<meta content="website" property="og:type"/>
+<meta content="NextGen Sessions" property="og:title"/>
+<meta content="Watch the latest NextGen Sessions upload and explore playlists across hip-hop, Bhangra, dancehall, grime, R&amp;B and more." property="og:description"/>
+<meta content="https://billz2026.github.io/nextgen-sessions/" property="og:url"/>
+<meta content="https://billz2026.github.io/nextgen-sessions/NextGen%20Session%20Website%20logo.png" property="og:image"/>
+<meta content="NextGen Sessions logo" property="og:image:alt"/>
 <!-- Twitter Cards -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NextGen Sessions">
-<meta name="twitter:description" content="Watch the latest NextGen Sessions upload and explore playlists across hip-hop, Bhangra, dancehall, grime, R&B and more.">
-<meta name="twitter:image" content="https://billz2026.github.io/nextgen-sessions/NextGen%20Session%20Website%20logo.png">
-
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="NextGen Sessions" name="twitter:title"/>
+<meta content="Watch the latest NextGen Sessions upload and explore playlists across hip-hop, Bhangra, dancehall, grime, R&amp;B and more." name="twitter:description"/>
+<meta content="https://billz2026.github.io/nextgen-sessions/NextGen%20Session%20Website%20logo.png" name="twitter:image"/>
 <!-- Favicon + Theme -->
-<link rel="icon" type="image/png" href="NextGen%20Session%20Website%20logo.png">
-<meta name="theme-color" content="#ffd84a">
-
+<link href="NextGen%20Session%20Website%20logo.png" rel="icon" type="image/png"/>
+<meta content="#ffd84a" name="theme-color"/>
 <!-- Performance -->
-<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-<link rel="preconnect" href="https://www.youtube.com" crossorigin>
-<link rel="preload" as="image" href="NextGen%20Session%20Website%20logo.png">
-
+<link crossorigin="" href="https://i.ytimg.com" rel="preconnect"/>
+<link crossorigin="" href="https://www.youtube.com" rel="preconnect"/>
+<link as="image" href="NextGen%20Session%20Website%20logo.png" rel="preload"/>
 <!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L8FYW2YH5K"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-L8FYW2YH5K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-L8FYW2YH5K');
 </script>
-
 <style>
 :root{
   --bg:#050505;
@@ -94,18 +88,16 @@ body::before{
 /* TOP BAR */
 .topbar{
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:center;
-  gap:16px;
-
+  gap:14px;
+  padding:14px 18px;
   position:sticky;
   top:0;
-  z-index:50;
-
-  padding:10px 0;
+  z-index:60;
   backdrop-filter: blur(10px);
-  background: linear-gradient(180deg, rgba(5,5,5,.92), rgba(5,5,5,.70));
-  border-bottom:1px solid rgba(255,216,74,.12);
+  background: linear-gradient(180deg, rgba(0,0,0,.86), rgba(0,0,0,.55));
+  border-bottom: 1px solid rgba(255,216,74,.10);
 }
 
 /* NAV (uniform) */
@@ -115,21 +107,18 @@ body::before{
   font-weight:var(--display-weight);
   letter-spacing:var(--display-track);
   text-transform:uppercase;
-  margin-left:12px;
-  text-shadow:0 10px 22px rgba(0,0,0,.7), 0 0 18px rgba(255,216,74,.18);
+  opacity:.92;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid transparent;
+  transition:.18s;
 }
 .nav a:hover{
   opacity:.9;
   text-decoration:underline;
   text-underline-offset:6px;
 }
-.navSep{
-  color:rgba(255,216,74,.45);
-  margin:0 10px;
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-}
+.navSep{ display:none; }
 
 /* HERO */
 .hero{
@@ -144,8 +133,11 @@ body::before{
 
 /* LOGO TITLE */
 .logo-title{
-  position:relative;
-  max-width:980px;
+  cursor:pointer;
+
+    width:100%;
+position:relative;
+  max-width:min(1050px, 100%);
   margin:0 auto 16px;
   padding:12px 12px 16px;
   border-radius:20px;
@@ -429,39 +421,41 @@ body::before{
 }
 
 /* Just Dropped Banner */
+/* Just Dropped Banner (more compact / premium) */
 .dropBanner{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
-  padding:12px 12px;
-  border-radius:14px;
-  border:1px solid rgba(255,216,74,.18);
-  background:linear-gradient(180deg, rgba(255,216,74,.08), rgba(0,0,0,.10));
+  gap:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid rgba(255,216,74,.16);
+  background:linear-gradient(180deg, rgba(255,216,74,.07), rgba(0,0,0,.10));
   margin-bottom:12px;
 }
 .dropPill{
   display:inline-flex;
   align-items:center;
   gap:8px;
-  padding:7px 10px;
+  padding:6px 10px;
   border-radius:999px;
   font-weight:var(--display-weight);
   letter-spacing:.6px;
   text-transform:uppercase;
-  font-size:.78rem;
+  font-size:.72rem;
   color:#0b0b0b;
   background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
-  border:1px solid rgba(255,216,74,.35);
-  box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 16px rgba(255,216,74,.18);
+  border:1px solid rgba(255,216,74,.32);
+  box-shadow:0 10px 22px rgba(0,0,0,.40), 0 0 14px rgba(255,216,74,.16);
   white-space:nowrap;
 }
 .dropText{
   flex:1;
   font-weight:800;
-  letter-spacing:.15px;
+  letter-spacing:.12px;
   opacity:.92;
-  line-height:1.35;
+  line-height:1.3;
+  font-size:.95rem;
 }
 .dropAgo{
   font-weight:var(--display-weight);
@@ -469,7 +463,7 @@ body::before{
   text-transform:uppercase;
   color:rgba(255,216,74,.9);
   opacity:.95;
-  font-size:.85rem;
+  font-size:.78rem;
   white-space:nowrap;
 }
 
@@ -507,14 +501,14 @@ body::before{
 }
 
 /* THUMB STRIP (Latest videos) */
+/* LATEST VIDEOS - bigger responsive grid */
 .thumbStrip{
   margin-top:14px;
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  padding:10px 4px 2px;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling: touch;
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:14px;
+  overflow:visible;
+  padding:0;
 }
 .thumbStrip::-webkit-scrollbar{ height:8px; }
 .thumbStrip::-webkit-scrollbar-thumb{
@@ -522,10 +516,8 @@ body::before{
   border-radius:999px;
 }
 .thumb{
-  flex:0 0 auto;
-  width:160px;
-  scroll-snap-align:start;
-  border-radius:14px;
+  width:auto;
+  border-radius:16px;
   border:1px solid rgba(255,216,74,.18);
   background:rgba(0,0,0,.35);
   overflow:hidden;
@@ -539,14 +531,16 @@ body::before{
 }
 .thumb img{
   width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
   display:block;
 }
 .thumbMeta{
-  padding:10px 10px 11px;
+  padding:12px 12px 13px;
   font-weight:var(--display-weight);
   letter-spacing:var(--display-track);
   text-transform:uppercase;
-  font-size:.86rem;
+  font-size:.9rem;
   opacity:.95;
   white-space:nowrap;
   overflow:hidden;
@@ -731,11 +725,111 @@ a:focus-visible, .thumb:focus-visible{
 }
 
 /* Accessibility: respect reduced motion */
+
+/* START HERE */
+.startHere{
+  margin:16px 0 14px;
+  padding:14px;
+  border-radius:18px;
+  border:1px solid rgba(255,216,74,.14);
+  background:linear-gradient(180deg, rgba(255,216,74,.05), rgba(0,0,0,.12));
+}
+.startHead{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+}
+.startTitle{
+  margin:0;
+  font-size:1.05rem;
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
+.startSub{
+  margin:0;
+  opacity:.82;
+  font-size:.92rem;
+  line-height:1.35;
+  max-width:520px;
+  text-align:right;
+}
+.startGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:12px;
+}
+.startCard{
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+  padding:0;
+  border:1px solid rgba(255,216,74,.16);
+  background:rgba(0,0,0,.35);
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.18s;
+}
+.startCard:hover{ transform:translateY(-2px); border-color:rgba(255,216,74,.28); }
+.startThumb{
+  position:relative;
+}
+.startThumb img{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  display:block;
+}
+.startTag{
+  position:absolute;
+  left:10px;
+  bottom:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.30);
+  box-shadow:0 10px 22px rgba(0,0,0,.40), 0 0 14px rgba(255,216,74,.14);
+}
+.startMeta{
+  padding:12px 12px 14px;
+}
+.startName{
+  font-weight:900;
+  letter-spacing:.2px;
+}
+.startDesc{
+  margin-top:6px;
+  opacity:.8;
+  font-size:.92rem;
+  line-height:1.35;
+}
+
+/* Responsive tweaks for Start Here */
+@media (max-width: 900px){
+  .startHead{ align-items:flex-start; }
+  .startSub{ text-align:left; }
+  .startGrid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px){
+  .startHere{ padding:12px; }
+  .startGrid{ grid-template-columns:1fr; }
+  .startSub{ font-size:.9rem; }
+}
+
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   body::before{ animation:none !important; }
   .logo-title, .logo-title img, .logoSweep{ animation:none !important; }
-  .logo-title{ opacity:1 !important; transform:none !important; }
+  .logo-title{
+  cursor:pointer;
+ opacity:1 !important; transform:none !important; }
   .badge{ animation:none !important; }
   .badge::after{ animation:none !important; }
 }
@@ -764,6 +858,8 @@ a:focus-visible, .thumb:focus-visible{
   }
 
   .logo-title{
+  cursor:pointer;
+
     max-width:100%;
     margin-bottom:12px;
     padding:10px 10px 14px;
@@ -810,171 +906,449 @@ a:focus-visible, .thumb:focus-visible{
   .dropAgo{ align-self:flex-start; }
   .kpi{ min-width: 100%; }
 }
+
+/* Pinned Comment + Community Comments */
+.pinnedCard{
+  position:relative;
+  padding:16px;
+  border-radius:18px;
+  border:1px solid rgba(255,216,74,.22);
+  background:linear-gradient(180deg, rgba(255,216,74,.06), rgba(0,0,0,.32));
+}
+.pinnedBadge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:.75rem;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.30);
+  box-shadow:0 10px 22px rgba(0,0,0,.35), 0 0 14px rgba(255,216,74,.14);
+  margin-bottom:12px;
+  width:fit-content;
+}
+.pinnedTop{ margin-top:2px; }
+.pinnedText{
+  font-size:1.02rem;
+  line-height:1.55;
+}
+.pinnedFooter{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.pinnedLink{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,216,74,.22);
+  background:rgba(0,0,0,.25);
+  text-decoration:none;
+  color:rgba(255,216,74,.95);
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.pinnedLink:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px rgba(0,0,0,.35), 0 0 16px rgba(255,216,74,.12);
+}
+
+/* Community comments grid */
+.commentsGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:14px;
+}
+.commentCard{
+  border:1px solid rgba(255,216,74,.14);
+  background:rgba(0,0,0,.35);
+  border-radius:16px;
+  padding:14px;
+}
+.commentTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+.commentName{
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.commentMeta{
+  font-size:.8rem;
+  text-transform:uppercase;
+  letter-spacing:var(--display-track);
+  color:rgba(255,216,74,.92);
+  white-space:nowrap;
+}
+.commentText{
+  opacity:.92;
+  line-height:1.45;
+}
+
+/* Tablet */
+@media (max-width: 900px){
+  .thumbStrip{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .commentsGrid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+}
+
+/* Mobile */
+@media (max-width: 560px){
+  .thumbStrip{ grid-template-columns:1fr; }
+  .thumbMeta{ white-space:normal; }
+  .commentsGrid{ grid-template-columns:1fr; }
+}
+
+
+
+/* Mobile Sticky CTA Bar */
+.mobileSticky{
+  position:fixed;
+  left:12px;
+  right:12px;
+  bottom:12px;
+  z-index:9999;
+  display:none;
+  gap:10px;
+  padding:10px;
+  border-radius:18px;
+  border:1px solid rgba(255,216,74,.22);
+  background:rgba(8,8,8,.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.55);
+}
+
+.mobileSticky a{
+  flex:1;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  height:44px;
+  border-radius:14px;
+  font-weight:800;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  font-size:.78rem;
+  border:1px solid rgba(255,216,74,.18);
+  background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.92);
+}
+
+.mobileSticky a.primary{
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.36);
+  box-shadow:0 10px 22px rgba(0,0,0,.40), 0 0 14px rgba(255,216,74,.12);
+}
+
+@media (max-width: 860px){
+  .mobileSticky{ display:flex; }
+  body{ padding-bottom: 92px; } /* space for sticky bar */
+}
+
+/* ===== FOOTER ===== */
+.siteFooter{
+  margin-top:28px;
+  padding:22px 16px;
+  border-top:1px solid rgba(255,216,74,.14);
+  background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.45));
+}
+.footerInner{
+  max-width:1150px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.footerLeft{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:220px;
+}
+.footerBrand{
+  font-weight:900;
+  letter-spacing:.12px;
+  opacity:.92;
+}
+.footerSub{
+  font-size:.92rem;
+  opacity:.72;
+  line-height:1.35;
+}
+.footerRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.iconRow{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.iconBtn{
+  width:40px;
+  height:40px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  border:1px solid rgba(255,216,74,.22);
+  background:rgba(0,0,0,.35);
+  box-shadow:0 12px 28px rgba(0,0,0,.45);
+  transition:.18s;
+}
+.iconBtn:hover{
+  transform:translateY(-1px);
+  border-color:rgba(255,216,74,.38);
+  box-shadow:0 16px 34px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.10);
+}
+.iconBtn svg{ width:18px; height:18px; opacity:.92; }
+
+.footerCtas{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.footerCtas .btn{
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:.92rem;
+}
+
+@media (max-width: 640px){
+  .footerInner{ justify-content:center; text-align:center; }
+  .footerRight{ justify-content:center; }
+}
+
 </style>
 </head>
-
 <body>
 <div class="wrap">
-
 <div class="topbar">
-  <div></div>
-  <div class="nav">
-    <a href="#latest">Latest</a>
-    <a href="#road">Road to 1K</a>
-    <a href="#playlists">Playlists</a>
-    <a href="#submit">Submit</a>
-    <span class="navSep">|</span>
-    <a data-track="click_youtube_nav" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
-    <a data-track="click_tiktok_nav" href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
-    <a data-track="click_instagram_nav" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
-  </div>
+<div class="nav">
+<a href="#latest">Latest</div>
+<a href="#road">Road to 1K</div>
+<a href="#playlists">Playlists</div>
+<a href="#submit">Submit</div>
+<span class="navSep">|</span>
+<a data-track="click_youtube_nav" href="https://www.youtube.com/@NextGenSessions" rel="noopener" target="_blank">YouTube</div>
+<a data-track="click_tiktok_nav" href="https://www.tiktok.com/@nextgensessions" rel="noopener" target="_blank">TikTok</div>
+<a data-track="click_instagram_nav" href="https://www.instagram.com/next.gensessions/" rel="noopener" target="_blank">Instagram</div>
 </div>
-
+</div>
 <section class="hero">
-
-  <!-- LOGO -->
-  <div class="logo-title" id="logoTitle">
-    <span class="logoSweep" aria-hidden="true"></span>
-    <img src="NextGen Session Website logo.png" alt="NextGen Sessions">
-  </div>
-
-  <!-- WELCOME -->
-  <div class="welcome">
-    <h2 class="welcomeTitle">Welcome to NextGen Sessions</h2>
-    <p class="welcomeText">
+<!-- LOGO -->
+<div class="logo-title" id="logoTitle">
+<span aria-hidden="true" class="logoSweep"></span>
+<img alt="NextGen Sessions" src="NextGen Session Website logo.png"/>
+</div>
+<!-- WELCOME -->
+<div class="welcome">
+<h2 class="welcomeTitle">Welcome to NextGen Sessions</h2>
+<p class="welcomeText">
       Breaking boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B — built for the next generation.
     </p>
-  </div>
-
-  <div class="cta">
-    <a class="btn btnGold" data-track="click_watch_youtube" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-    <a class="btn btnPrimary" data-track="click_subscribe" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
-  </div>
-
-  <div class="heroGrid">
-
-    <!-- LATEST DROP -->
-    <div class="card" id="latest">
-      <div class="cardTitle">
+</div>
+<div class="cta">
+<a class="btn btnGold" data-track="click_watch_youtube" href="https://www.youtube.com/@NextGenSessions" rel="noopener" target="_blank">▶ Watch on YouTube</div>
+<a class="btn btnPrimary" data-track="click_subscribe" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" rel="noopener" target="_blank">Subscribe</div>
+</div>
+<div class="heroGrid">
+<!-- LATEST DROP -->
+<div class="card" id="latest">
+<div class="cardTitle">
         Latest Drop
-        <span class="badge" id="newDropBadge" aria-hidden="true" hidden>NEW DROP</span>
-      </div>
-
-      <!-- Just Dropped banner -->
-      <div class="dropBanner" id="dropBanner" aria-live="polite">
-        <span class="dropPill" id="dropPill">Just Dropped</span>
-        <div class="dropText" id="dropText">Tap play — the newest session is live.</div>
-        <div class="dropAgo" id="dropAgo">—</div>
-      </div>
-
-      <div class="videoWrap">
-        <iframe
-          id="latestDropFrame"
-          src="https://www.youtube.com/embed/EYw3-ZvAhWE?rel=0&modestbranding=1"
-          title="NextGen Sessions - Latest Drop"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <div class="smallNote" id="latestDropNote">
+        <span aria-hidden="true" class="badge" hidden="" id="newDropBadge">NEW DROP</span>
+</div>
+<!-- START HERE -->
+<section aria-label="Start Here" class="startHere" id="startHere">
+<div class="startHead">
+<h3 class="startTitle">Start Here</h3>
+<p class="startSub">New to NextGen Sessions? These are the essentials.</p>
+</div>
+<div class="startGrid" role="list">
+<button class="startCard" data-note="Latest Drop — tap play for the newest session." data-video="t34k696mMXk" role="listitem" type="button">
+<div class="startThumb">
+<img alt="Latest Drop thumbnail" loading="lazy" src="https://i.ytimg.com/vi/t34k696mMXk/hqdefault.jpg"/>
+<span class="startTag">Latest Drop</span>
+</div>
+<div class="startMeta">
+<div class="startName">Latest Drop</div>
+<div class="startDesc">The newest session pushing sound forward.</div>
+</div>
+</button>
+<button class="startCard" data-note="Most Viewed — the one the community keeps coming back to." data-video="GIs3BbhVVhQ" role="listitem" type="button">
+<div class="startThumb">
+<img alt="Most Viewed thumbnail" loading="lazy" src="https://i.ytimg.com/vi/GIs3BbhVVhQ/hqdefault.jpg"/>
+<span class="startTag">Most Viewed</span>
+</div>
+<div class="startMeta">
+<div class="startName">Most Viewed</div>
+<div class="startDesc">The session the community replays most.</div>
+</div>
+</button>
+<button class="startCard" data-note="Editor’s Pick — a hand-picked standout from the vault." data-video="_BsOdI0lE8E" role="listitem" type="button">
+<div class="startThumb">
+<img alt="Editor’s Pick thumbnail" loading="lazy" src="https://i.ytimg.com/vi/_BsOdI0lE8E/hqdefault.jpg"/>
+<span class="startTag">Editor’s Pick</span>
+</div>
+<div class="startMeta">
+<div class="startName">Editor’s Pick</div>
+<div class="startDesc">A curated standout worth starting with.</div>
+</div>
+</button>
+</div>
+</section>
+<!-- Just Dropped banner -->
+<div aria-live="polite" class="dropBanner" id="dropBanner">
+<span class="dropPill" id="dropPill">Just Dropped</span>
+<div class="dropText" id="dropText">Tap play — the newest session is live.</div>
+<div class="dropAgo" id="dropAgo">—</div>
+</div>
+<div class="videoWrap">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" id="latestDropFrame" src="https://www.youtube.com/embed/EYw3-ZvAhWE?rel=0&amp;modestbranding=1" title="NextGen Sessions - Latest Drop">
+</iframe>
+</div>
+<div class="smallNote" id="latestDropNote">
         Loading latest upload… (auto-updates)
       </div>
-
-      <div class="videoActions">
-        <a class="btn btnGold" id="watchLatestBtn" data-track="click_watch_latest" href="https://www.youtube.com/watch?v=EYw3-ZvAhWE" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-      </div>
-
-      <!-- Latest Videos strip -->
-      <div class="thumbStrip" id="thumbStrip" aria-label="Latest videos"></div>
-    </div>
-
-  </div>
+<div class="videoActions">
+<a class="btn btnGold" data-track="click_watch_latest" href="https://www.youtube.com/watch?v=EYw3-ZvAhWE" id="watchLatestBtn" rel="noopener" target="_blank">▶ Watch on YouTube</div>
+</div>
+<!-- Latest Videos strip -->
+<div aria-label="Latest videos" class="thumbStrip" id="thumbStrip"></div>
+</div>
+</div>
 </section>
-
 <!-- Road to 1K -->
 <section class="section" id="road">
-  <h2>Road to 1K</h2>
-  <div class="card">
-    <div class="smallNote" id="subNote">Loading subscriber count…</div>
-    <div class="progressWrap" aria-label="Subscriber progress">
-      <div class="progressBar" id="subBar"></div>
-    </div>
-
-    <div class="kpiRow">
-      <div class="kpi" id="subKpi1">Subscribers<small id="subKpi1b">—</small></div>
-      <div class="kpi" id="subKpi2">To Goal<small id="subKpi2b">—</small></div>
-      <div class="kpi" id="subKpi3">Updated<small id="subKpi3b">—</small></div>
-    </div>
-  </div>
+<h2>Road to 1K</h2>
+<div class="card">
+<div class="smallNote" id="subNote">Loading subscriber count…</div>
+<div aria-label="Subscriber progress" class="progressWrap">
+<div class="progressBar" id="subBar"></div>
+</div>
+<div class="kpiRow">
+<div class="kpi" id="subKpi1">Subscribers<small id="subKpi1b">—</small></div>
+<div class="kpi" id="subKpi2">To Goal<small id="subKpi2b">—</small></div>
+<div class="kpi" id="subKpi3">Updated<small id="subKpi3b">—</small></div>
+</div>
+</div>
 </section>
-
+<!-- Pinned Comment Spotlight -->
+<section class="section" id="pinned-comment">
+<h2>Pinned Comment Spotlight</h2>
+<div class="card pinnedCard">
+<div class="pinnedBadge">📌 Pinned Comment of the Week</div>
+<div class="commentTop pinnedTop">
+<div class="commentName">Name Here</div>
+<div class="commentMeta">🔥 Certified</div>
+</div>
+<div class="commentText pinnedText">“Paste your pinned comment here. Keep it short, impactful, and real.”</div>
+<div class="pinnedFooter">
+<span class="smallNote">Link it to the video:</span>
+<a class="pinnedLink" href="https://www.youtube.com/@NextGenSessions" rel="noopener" target="_blank">Watch on YouTube</div>
+</div>
+</div>
+<div style="height:14px;"></div>
+<div class="card">
+<p class="smallNote">More love from the community (you can edit these anytime):</p>
+<div class="commentsGrid" id="commentsGrid">
+<div class="commentCard">
+<div class="commentTop">
+<div class="commentName">Name Here</div>
+<div class="commentMeta">💛 Big Love</div>
+</div>
+<div class="commentText">“Comment…”</div>
+</div>
+<div class="commentCard">
+<div class="commentTop">
+<div class="commentName">Name Here</div>
+<div class="commentMeta">🎧 Repeat</div>
+</div>
+<div class="commentText">“Another comment…”</div>
+</div>
+<div class="commentCard">
+<div class="commentTop">
+<div class="commentName">Name Here</div>
+<div class="commentMeta">🏆 Top Supporter</div>
+</div>
+<div class="commentText">“One more…”</div>
+</div>
+</div>
+</div>
+</section>
 <section class="section" id="playlists">
-  <h2>Playlists</h2>
-
-  <div class="grid">
-    <a class="playCard" data-track="click_playlist_bhangra" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg" alt="Bhangra playlist thumbnail">
-      <div class="label">🪘 Bhangra</div>
-    </a>
-
-    <a class="playCard" data-track="click_playlist_hiphop" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg" alt="Hip Hop playlist thumbnail">
-      <div class="label">🎤 Hip Hop</div>
-    </a>
-
-    <a class="playCard" data-track="click_playlist_grime" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg" alt="Grime & UK Rap playlist thumbnail">
-      <div class="label">🇬🇧 Grime &amp; UK Rap</div>
-    </a>
-
-    <a class="playCard" data-track="click_playlist_dancehall" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall & Reggae playlist thumbnail">
-      <div class="label">🔥 Dancehall &amp; Reggae</div>
-    </a>
-  </div>
-
-  <hr class="dividerGold">
-
-  <p class="aboutText heroBody">
+<h2>Playlists</h2>
+<div class="grid">
+<a class="playCard" data-track="click_playlist_bhangra" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" rel="noopener" target="_blank">
+<img alt="Bhangra playlist thumbnail" loading="lazy" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg"/>
+<div class="label">🪘 Bhangra</div>
+</div>
+<a class="playCard" data-track="click_playlist_hiphop" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" rel="noopener" target="_blank">
+<img alt="Hip Hop playlist thumbnail" loading="lazy" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg"/>
+<div class="label">🎤 Hip Hop</div>
+</div>
+<a class="playCard" data-track="click_playlist_grime" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" rel="noopener" target="_blank">
+<img alt="Grime &amp; UK Rap playlist thumbnail" loading="lazy" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg"/>
+<div class="label">🇬🇧 Grime &amp; UK Rap</div>
+</div>
+<a class="playCard" data-track="click_playlist_dancehall" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" rel="noopener" target="_blank">
+<img alt="Dancehall &amp; Reggae playlist thumbnail" loading="lazy" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg"/>
+<div class="label">🔥 Dancehall &amp; Reggae</div>
+</div>
+</div>
+<hr class="dividerGold"/>
+<p class="aboutText heroBody">
     NextGen Sessions curates forward-thinking sounds across hip-hop, Bhangra, dancehall, grime, R&amp;B and more — spotlighting raw talent, culture, and energy from the underground to the global stage.
   </p>
-
-  <p class="ctaLine heroBody">
-    <span style="font-weight:900; letter-spacing:.4px; text-transform:uppercase;">Artists &amp; Producers:</span>
-    send submissions via <a data-track="click_submit_track" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram DM</a>.
+<p class="ctaLine heroBody">
+<span style="font-weight:900; letter-spacing:.4px; text-transform:uppercase;">Artists &amp; Producers:</span>
+    send submissions via <a data-track="click_submit_track" href="https://www.instagram.com/next.gensessions/" rel="noopener" target="_blank">Instagram DM</div>.
     Include a private link (YouTube/SoundCloud) and your social handles.
   </p>
-
-  <!-- Get Featured -->
-  <div class="card" id="submit" style="margin-top:16px;">
-    <div class="cardTitle">Get Featured</div>
-
-    <p class="smallNote" style="margin:0 0 10px;">
+<!-- Get Featured -->
+<div class="card" id="submit" style="margin-top:16px;">
+<div class="cardTitle">Get Featured</div>
+<p class="smallNote" style="margin:0 0 10px;">
       Want your track on NextGen Sessions? Send a clean submission and we’ll review it.
     </p>
-
-    <div class="kpiRow" style="margin-top:0;">
-      <div class="kpi">Step 1<small>DM on Instagram</small></div>
-      <div class="kpi">Step 2<small>Private link + socials</small></div>
-      <div class="kpi">Step 3<small>We reply if it fits</small></div>
-    </div>
-
-    <div class="cta" style="margin-top:14px;">
-      <a class="btn btnPrimary" data-track="click_submit_ig" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Submit via Instagram DM</a>
-      <a class="btn btnGold" data-track="click_subscribe_2" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe for Drops</a>
-    </div>
-
-    <p class="smallNote" style="margin-top:12px;">
+<div class="kpiRow" style="margin-top:0;">
+<div class="kpi">Step 1<small>DM on Instagram</small></div>
+<div class="kpi">Step 2<small>Private link + socials</small></div>
+<div class="kpi">Step 3<small>We reply if it fits</small></div>
+</div>
+<div class="cta" style="margin-top:14px;">
+<a class="btn btnPrimary" data-track="click_submit_ig" href="https://www.instagram.com/next.gensessions/" rel="noopener" target="_blank">Submit via Instagram DM</div>
+<a class="btn btnGold" data-track="click_subscribe_2" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" rel="noopener" target="_blank">Subscribe for Drops</div>
+</div>
+<p class="smallNote" style="margin-top:12px;">
       Tip: Include genre and a 1-line vibe summary (e.g. “cinematic grime / melodic hook”).
     </p>
-  </div>
-</section>
-
-<footer>© 2026 NextGen Sessions</footer>
-
 </div>
-
+</section>
+<footer>© 2026 NextGen Sessions</footer>
+</div>
 <script>
 /**
  * Analytics helper: track clicks via data-track attributes
@@ -1114,6 +1488,25 @@ a:focus-visible, .thumb:focus-visible{
       trackThumb(vid);
     });
   }
+
+  // Start Here cards
+  document.querySelectorAll(".startCard").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const vid = btn.dataset.video;
+      if (!vid) return;
+      setVideo(vid);
+      hideBadge();
+      setNote(btn.dataset.note || "Now playing selected video.");
+      localStorage.setItem(STORAGE_KEY, vid);
+      setNowPlayingThumb(vid);
+      // smooth jump to player for mobile
+      try{
+        frame.scrollIntoView({ behavior: "smooth", block: "start" });
+      }catch(e){}
+      trackThumb(vid);
+    });
+  });
+
 
   // Initial strip
   buildThumbStrip(galleryCurrent);
@@ -1279,6 +1672,44 @@ a:focus-visible, .thumb:focus-visible{
   })();
 })();
 </script>
+<div aria-label="Mobile quick links" class="mobileSticky"><a class="primary" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" rel="noopener" target="_blank">Subscribe</div><a href="https://www.instagram.com/next.gensessions/" rel="noopener" target="_blank">Instagram</div><a href="https://www.tiktok.com/@nextgensessions" rel="noopener" target="_blank">TikTok</div></div>
+  <!-- ===== FOOTER ===== -->
+  <footer class="siteFooter">
+    <div class="footerInner">
+      <div class="footerLeft">
+        <div class="footerBrand">© 2026 NextGen Sessions — All Rights Reserved</div>
+        <div class="footerSub">Curating forward-thinking sounds across hip-hop, bhangra, dancehall, grime, R&amp;B, and more.</div>
+      </div>
+
+      <div class="footerRight">
+        <div class="iconRow" aria-label="Social links">
+          <!-- Replace the href values with YOUR real profile links -->
+          <div class="iconBtn" href="YOUR_YOUTUBE_SUBSCRIBE_LINK" target="_blank" rel="noopener" aria-label="YouTube (Subscribe)">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M21.58 7.19a2.75 2.75 0 0 0-1.94-1.95C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.64.44A2.75 2.75 0 0 0 2.42 7.2 28.8 28.8 0 0 0 2 12a28.8 28.8 0 0 0 .42 4.81 2.75 2.75 0 0 0 1.94 1.95c1.74.44 7.64.44 7.64.44s5.9 0 7.64-.44a2.75 2.75 0 0 0 1.94-1.95A28.8 28.8 0 0 0 22 12a28.8 28.8 0 0 0-.42-4.81ZM10 15.5v-7l6 3.5-6 3.5Z"/>
+            </svg>
+          </div>
+
+          <div class="iconBtn" href="YOUR_TIKTOK_LINK" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M16.5 3c.6 2.6 2.2 4.2 4.5 4.5V11c-1.7 0-3.2-.5-4.5-1.4v6.6c0 3.3-2.7 5.8-6 5.8s-6-2.5-6-5.8 2.7-5.8 6-5.8c.4 0 .9 0 1.3.1v3.5c-.4-.1-.8-.2-1.3-.2-1.4 0-2.6 1.1-2.6 2.5S9.1 19 10.5 19s2.6-1.1 2.6-2.5V3h3.4Z"/>
+            </svg>
+          </div>
+
+          <div class="iconBtn" href="YOUR_INSTAGRAM_LINK" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 4.2A3.8 3.8 0 1 1 8.2 12 3.8 3.8 0 0 1 12 8.2Zm0 2A1.8 1.8 0 1 0 13.8 12 1.8 1.8 0 0 0 12 10.2ZM18 6.3a.9.9 0 1 1-.9.9.9.9 0 0 1 .9-.9Z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="footerCtas">
+          <!-- Replace the href below with your submission form link (Google Form / Typeform) -->
+          <a class="btn btnGold" href="YOUR_SUBMISSION_FORM_LINK" target="_blank" rel="noopener">Submit for consideration</div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>

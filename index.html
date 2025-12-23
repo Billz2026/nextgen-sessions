@@ -483,6 +483,44 @@ body::before{
 }
 .thumbNow .thumbNowTag{ display:inline-block; }
 
+/* ROAD TO 1K */
+.progressWrap{
+  margin-top:10px;
+  height:14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,216,74,.18);
+  overflow:hidden;
+}
+.progressBar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border-radius:999px;
+  transition:width .6s ease;
+}
+.kpiRow{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.kpi{
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  opacity:.92;
+}
+.kpi small{
+  display:block;
+  font-weight:700;
+  letter-spacing:0;
+  text-transform:none;
+  opacity:.75;
+  margin-top:2px;
+}
+
 /* PLAYLISTS */
 .section{margin-top:40px;}
 .section h2{
@@ -518,8 +556,38 @@ body::before{
   text-transform:uppercase;
 }
 
+/* About/CTA block */
+.dividerGold{
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,216,74,.35), transparent);
+  margin:24px 0 18px;
+  border:0;
+}
+.aboutText{
+  max-width:85ch;
+  line-height:1.65;
+  opacity:.9;
+  margin:0;
+}
+.ctaLine{
+  margin-top:12px;
+  opacity:.9;
+  line-height:1.55;
+}
+.ctaLine a{
+  color:var(--yellow);
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  text-decoration:none;
+}
+.ctaLine a:hover{
+  text-decoration:underline;
+  text-underline-offset:6px;
+}
+
 footer{
-  margin-top:40px;
+  margin-top:26px;
   text-align:center;
   opacity:.6;
 }
@@ -676,6 +744,23 @@ footer{
   </div>
 </section>
 
+<!-- Road to 1K -->
+<section class="section">
+  <h2>Road to 1K</h2>
+  <div class="card">
+    <div class="smallNote" id="subNote">Loading subscriber count…</div>
+    <div class="progressWrap" aria-label="Subscriber progress">
+      <div class="progressBar" id="subBar"></div>
+    </div>
+
+    <div class="kpiRow">
+      <div class="kpi" id="subKpi1">Subscribers<small id="subKpi1b">—</small></div>
+      <div class="kpi" id="subKpi2">To Goal<small id="subKpi2b">—</small></div>
+      <div class="kpi" id="subKpi3">Updated<small id="subKpi3b">—</small></div>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <h2>Playlists</h2>
 
@@ -700,6 +785,18 @@ footer{
       <div class="label">🔥 Dancehall &amp; Reggae</div>
     </a>
   </div>
+
+  <hr class="dividerGold">
+
+  <p class="aboutText">
+    NextGen Sessions curates forward-thinking sounds across hip-hop, Bhangra, dancehall, grime, R&amp;B and more — spotlighting raw talent, culture, and energy from the underground to the global stage.
+  </p>
+
+  <p class="ctaLine">
+    <span style="font-weight:900; letter-spacing:.4px; text-transform:uppercase;">Artists &amp; Producers:</span>
+    send submissions via <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram DM</a>.
+    Include a private link (YouTube/SoundCloud) and your social handles.
+  </p>
 </section>
 
 <footer>© 2026 NextGen Sessions</footer>
@@ -708,13 +805,9 @@ footer{
 
 <script>
 /**
- * Latest Drop (Guaranteed) + Gallery:
- * - Reads /latest.json from the repo (same-origin, works on GitHub Pages)
- * - Cache-busts every load so it always pulls newest commit
- * - Shows "NEW DROP" badge when the videoId changes vs last visit
- * - Uses updatedAt to show "time ago"
- * - Builds a premium thumbnail strip; clicking swaps the main player
- * - Injects latestId at the front if not already present
+ * Latest Drop (Guaranteed) + Gallery + Road to 1K:
+ * - Reads /latest.json (GitHub Pages)
+ * - Reads /stats.json (GitHub Action updates)
  */
 (function(){
   const FALLBACK_VIDEO_ID = "EYw3-ZvAhWE"; // safe fallback
@@ -889,6 +982,47 @@ footer{
     setNote("Showing fallback (latest upload can’t be embedded).");
     setNowPlayingThumb(FALLBACK_VIDEO_ID);
   });
+
+  // Road to 1K (stats.json)
+  (function(){
+    const bar = document.getElementById("subBar");
+    const noteEl = document.getElementById("subNote");
+    const k1b = document.getElementById("subKpi1b");
+    const k2b = document.getElementById("subKpi2b");
+    const k3b = document.getElementById("subKpi3b");
+
+    if (!bar || !noteEl || !k1b || !k2b || !k3b) return;
+
+    const goal = 1000;
+    const statsUrl = "stats.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
+
+    fetch(statsUrl, { cache: "no-store" })
+      .then(r => {
+        if (!r.ok) throw new Error("stats.json not found");
+        return r.json();
+      })
+      .then(s => {
+        const subs = Number(s.subscribers || 0);
+        const updatedAt = (s.updatedAt || "").trim();
+
+        const pct = Math.max(0, Math.min(100, (subs / goal) * 100));
+        bar.style.width = pct + "%";
+
+        const remaining = Math.max(0, goal - subs);
+
+        noteEl.textContent = `Subscribers: ${subs.toLocaleString()} / ${goal.toLocaleString()}`;
+        k1b.textContent = subs.toLocaleString();
+        k2b.textContent = `${remaining.toLocaleString()} to go`;
+        k3b.textContent = updatedAt ? updatedAt : "—";
+      })
+      .catch(() => {
+        noteEl.textContent = "Subscriber count unavailable (check stats.json).";
+        bar.style.width = "0%";
+        k1b.textContent = "—";
+        k2b.textContent = "—";
+        k3b.textContent = "—";
+      });
+  })();
 
   // Parallax tilt (desktop only)
   (function(){

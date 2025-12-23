@@ -1138,6 +1138,30 @@ a:focus-visible, .thumb:focus-visible{
   }
 }
 
+
+/* === Mobile nav v3: no truncation, 2-line labels if needed === */
+@media (max-width: 720px){
+  .topbar .nav,
+  .topbar nav{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    max-width: 560px !important;
+    gap: 8px 10px !important;
+  }
+  .topbar a{
+    font-size: 0.78rem !important;
+    padding: 10px 6px !important;
+    white-space: normal !important;   /* allow wrap */
+    overflow: visible !important;     /* no clipping */
+    text-overflow: unset !important;  /* no ellipsis */
+    line-height: 1.05 !important;
+    letter-spacing: 0.15px !important;
+    min-height: 42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+}
+
 </style>
 </head>
 

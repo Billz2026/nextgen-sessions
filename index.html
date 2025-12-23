@@ -1034,6 +1034,73 @@ a:focus-visible, .thumb:focus-visible{
   .grid, .thumbStrip{ max-width: 100%; }
 }
 
+
+/* === Mobile polish: fix nav overflow + improve browse flow === */
+@media (max-width: 720px){
+  /* avoid any horizontal drift */
+  html, body{ overflow-x:hidden; }
+
+  /* Topbar: allow wrapping + smaller type */
+  .topbar{
+    position: sticky;
+    top: 0;
+    padding: 10px 0 8px;
+    backdrop-filter: none !important;
+    background: rgba(5,5,5,.92);
+    border-bottom: 1px solid rgba(255,216,74,.18);
+  }
+  .topbar .nav,
+  .topbar nav{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 14px;
+    padding: 6px 0 2px;
+  }
+  .topbar a{
+    font-size: 0.9rem;
+    line-height: 1.1;
+    padding: 6px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  /* Hero/logo: ensure it never overflows and sits nicely */
+  .logo-lockup img,
+  .logo-anchor img,
+  .logo-title,
+  .site-logo{
+    max-width: 92vw !important;
+    width: 92vw !important;
+    height: auto !important;
+  }
+
+  /* Cards: increase readability */
+  .playlist-grid{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .playlist-card, .card{
+    padding: 12px !important;
+  }
+
+  /* Mini video strip: keep swipe but make it tidy */
+  .thumb-strip, .mini-videos, .video-strip{
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+  }
+  .thumb, .mini-video, .video-thumb{
+    scroll-snap-align: start;
+    min-width: 74vw;
+  }
+
+  /* Reduce heavy effects on mobile for smoother scroll */
+  body::before{ display:none !important; } /* disable animated dust layer on mobile */
+}
+
 </style>
 </head>
 

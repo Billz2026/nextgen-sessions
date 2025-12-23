@@ -1101,6 +1101,43 @@ a:focus-visible, .thumb:focus-visible{
   body::before{ display:none !important; } /* disable animated dust layer on mobile */
 }
 
+
+/* === Mobile nav v2: grid layout (no clipping) === */
+@media (max-width: 720px){
+  .topbar{
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Support both .nav and nav wrappers */
+  .topbar .nav,
+  .topbar nav{
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 10px 12px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 520px;
+    margin: 0 auto !important;
+    padding: 8px 0 4px !important;
+  }
+
+  /* Make each link fit its cell, centered, readable */
+  .topbar a{
+    display: block;
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 0.88rem !important;
+    letter-spacing: 0.2px !important;
+    padding: 10px 8px !important;
+    border-radius: 12px !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 </style>
 </head>
 

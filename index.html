@@ -360,11 +360,21 @@ body::before{
 .heroGrid{
   display:grid;
   grid-template-columns:1fr;
-  gap:18px;
-  margin-top:22px;
+  gap:22px;
+  margin-top:38px;
   text-align:left;
 }
 
+/* Cinematic intro: logo first, then content fades in */
+#latest{
+  transition: opacity .85s ease, transform .85s ease;
+  will-change: opacity, transform;
+}
+body:not(.introDone) #latest{
+  opacity:0;
+  transform:translateY(18px);
+  pointer-events:none;
+}
 /* CARD */
 .card{
   background:rgba(10,10,10,.6);
@@ -476,12 +486,15 @@ body::before{
 /* VIDEO */
 .videoWrap{
   position:relative;
-  width:100%;
-  padding-top:56.25%;
+  width:88%;
+  margin:0 auto;
+  padding-top:49.5%;
   border-radius:14px;
   overflow:hidden;
   background:#000;
   border:1px solid rgba(255,216,74,.18);
+}  box-shadow:0 10px 22px rgba(0,0,0,.55);
+  opacity:0.96;
 }
 .videoWrap iframe{
   position:absolute;
@@ -976,6 +989,39 @@ a:focus-visible, .thumb:focus-visible{
 </div>
 
 <script>
+
+/**
+ * Cinematic intro: logo first, then latest content fades in
+ */
+(function(){
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const body = document.body;
+  function done(){
+    body.classList.add("introDone");
+    window.removeEventListener("scroll", onSkip, { passive: true });
+    window.removeEventListener("pointerdown", onSkip);
+    window.removeEventListener("keydown", onKey);
+  }
+  function onSkip(){ done(); }
+  function onKey(e){ if (e.key === "Enter" || e.key === " " || e.key === "Escape") done(); }
+
+  if (reduce){
+    done();
+    return;
+  }
+
+  // Start hidden, then reveal shortly after first paint
+  requestAnimationFrame(() => {
+    setTimeout(done, 1100);
+  });
+
+  // Let the user skip instantly by interacting
+  window.addEventListener("scroll", onSkip, { passive: true });
+  window.addEventListener("pointerdown", onSkip);
+  window.addEventListener("keydown", onKey);
+})();
+
+
 /**
  * Analytics helper: track clicks via data-track attributes
  */

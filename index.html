@@ -5,12 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NextGen Sessions</title>
 
+<!-- SEO -->
+<meta name="description" content="NextGen Sessions — your hub for boundary-pushing drops across hip-hop, Bhangra, dancehall, grime, R&B and more. Watch the latest upload and explore playlists.">
+<link rel="canonical" href="https://billz2026.github.io/nextgen-sessions/">
+
+<!-- Social / Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="NextGen Sessions">
+<meta property="og:description" content="Watch the latest NextGen Sessions upload and explore playlists across hip-hop, Bhangra, dancehall, grime, R&B and more.">
+<meta property="og:url" content="https://billz2026.github.io/nextgen-sessions/">
+<meta property="og:image" content="https://billz2026.github.io/nextgen-sessions/NextGen%20Session%20Website%20logo.png">
+<meta property="og:image:alt" content="NextGen Sessions logo">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NextGen Sessions">
+<meta name="twitter:description" content="Watch the latest NextGen Sessions upload and explore playlists across hip-hop, Bhangra, dancehall, grime, R&B and more.">
+<meta name="twitter:image" content="https://billz2026.github.io/nextgen-sessions/NextGen%20Session%20Website%20logo.png">
+
+<!-- Favicon + Theme -->
+<link rel="icon" type="image/png" href="NextGen%20Session%20Website%20logo.png">
+<meta name="theme-color" content="#ffd84a">
+
+<!-- Performance -->
+<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<link rel="preconnect" href="https://www.youtube.com" crossorigin>
+<link rel="preload" as="image" href="NextGen%20Session%20Website%20logo.png">
+
 <style>
 :root{
   --bg:#050505;
   --yellow:#ffd84a;
   --text:#f6f1e3;
   --border:rgba(255,216,74,.25);
+
+  /* Uniform display style */
+  --display-weight: 900;
+  --display-track: .4px;
 }
 
 *{box-sizing:border-box;}
@@ -46,7 +77,7 @@ body::before{
 .wrap{
   width:min(1100px,92vw);
   margin:0 auto;
-  padding:28px 0 60px;
+  padding:18px 0 60px;
 }
 
 /* TOP BAR */
@@ -55,16 +86,25 @@ body::before{
   justify-content:space-between;
   align-items:center;
   gap:16px;
+
+  position:sticky;
+  top:0;
+  z-index:50;
+
+  padding:10px 0;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(5,5,5,.92), rgba(5,5,5,.70));
+  border-bottom:1px solid rgba(255,216,74,.12);
 }
 
-/* NAV (match Latest Drop / Playlists style) */
+/* NAV (uniform) */
 .nav a{
   color:var(--yellow);
   text-decoration:none;
-  font-weight:900;
-  letter-spacing:.4px;
-  margin-left:12px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
   text-transform:uppercase;
+  margin-left:12px;
   text-shadow:0 10px 22px rgba(0,0,0,.7), 0 0 18px rgba(255,216,74,.18);
 }
 .nav a:hover{
@@ -75,7 +115,7 @@ body::before{
 
 /* HERO */
 .hero{
-  margin-top:20px;
+  margin-top:14px;
   padding:36px 26px;
   border-radius:22px;
   border:1px solid var(--border);
@@ -94,7 +134,11 @@ body::before{
   /* entrance animation */
   opacity:0;
   transform:translateY(14px) scale(.985);
-  animation: logoIn .9s cubic-bezier(.2,.9,.2,1) .15s forwards;
+  animation:
+    logoIn .9s cubic-bezier(.2,.9,.2,1) .15s forwards,
+    logoPulse 4.6s ease-in-out 1.2s infinite;
+
+  --pulse: 1;
 }
 
 /* the logo itself */
@@ -111,6 +155,12 @@ body::before{
 
   /* glow animation */
   animation: logoGlow 1.8s ease-in-out .35s both;
+
+  /* Parallax tilt base */
+  transition: transform .12s ease-out;
+  will-change: transform;
+  transform: scale(var(--pulse));
+  transform-origin:center;
 }
 
 /* soft glow plate behind logo so it "blends" into hero */
@@ -148,6 +198,22 @@ body::before{
 }
 
 .logo-title img{ position:relative; z-index:1; }
+.logoSweep{ position:absolute; z-index:2; }
+
+/* Gold sweep overlay element (separate from ::after dust) */
+.logoSweep{
+  inset:-35%;
+  border-radius:26px;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  opacity:0;
+  background:linear-gradient(120deg,
+    transparent 42%,
+    rgba(255,216,74,.38) 50%,
+    transparent 58%);
+  transform:translateX(-55%);
+  animation: logoSweep 7.5s ease-in-out infinite;
+}
 
 @keyframes logoDust{
   0%{ transform:translate(0,0); }
@@ -177,9 +243,17 @@ body::before{
   }
 }
 
-/* shimmer sweep over the logo */
-.logo-title .shineOverlay{ display:none; } /* not used, keep clean */
-.logo-titleShine{ display:none; } /* not used, keep clean */
+@keyframes logoSweep{
+  0%{ opacity:0; transform:translateX(-55%); }
+  10%{ opacity:.65; }
+  28%{ opacity:0; transform:translateX(55%); }
+  100%{ opacity:0; transform:translateX(55%); }
+}
+
+@keyframes logoPulse{
+  0%,100%{ --pulse: 1; }
+  50%{ --pulse: 1.01; }
+}
 
 .subtitle{
   max-width:80ch;
@@ -196,12 +270,29 @@ body::before{
   border:1px solid var(--border);
   color:var(--text);
   text-decoration:none;
-  font-weight:800;
+
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+
   margin-right:10px;
+  transition:.18s;
 }
 .btn:hover{
   border-color:rgba(255,216,74,.45);
   transform:translateY(-1px);
+}
+
+/* Subscribe emphasis (still uniform font) */
+.btnPrimary{
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.35);
+  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.18);
+}
+.btnPrimary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 34px rgba(0,0,0,.6), 0 0 22px rgba(255,216,74,.22);
 }
 
 /* GRID */
@@ -220,10 +311,11 @@ body::before{
   padding:16px;
 }
 .cardTitle{
-  font-weight:900;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
   color:var(--yellow);
   margin-bottom:10px;
-  letter-spacing:.4px;
 }
 
 /* NEW DROP badge */
@@ -233,7 +325,7 @@ body::before{
   padding:6px 10px;
   border-radius:999px;
   font-size:.78rem;
-  font-weight:900;
+  font-weight:var(--display-weight);
   letter-spacing:.6px;
   color:#0b0b0b;
   background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
@@ -265,10 +357,10 @@ body::before{
   50%{ transform:translateY(-1px) scale(1.04); }
 }
 @keyframes badgeShine{
-  0%{ transform:translateX(-60%); opacity:.0; }
+  0%{ transform:translateX(-60%); opacity:0; }
   25%{ opacity:.55; }
-  50%{ transform:translateX(60%); opacity:.0; }
-  100%{ transform:translateX(60%); opacity:.0; }
+  50%{ transform:translateX(60%); opacity:0; }
+  100%{ transform:translateX(60%); opacity:0; }
 }
 
 /* VIDEO */
@@ -289,9 +381,117 @@ body::before{
   border:0;
 }
 
+/* THUMB STRIP (Latest videos) */
+.thumbStrip{
+  margin-top:14px;
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:10px 4px 2px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.thumbStrip::-webkit-scrollbar{ height:8px; }
+.thumbStrip::-webkit-scrollbar-thumb{
+  background:rgba(255,216,74,.22);
+  border-radius:999px;
+}
+.thumb{
+  flex:0 0 auto;
+  width:160px;
+  scroll-snap-align:start;
+  border-radius:14px;
+  border:1px solid rgba(255,216,74,.18);
+  background:rgba(0,0,0,.35);
+  overflow:hidden;
+  cursor:pointer;
+  transition:.18s;
+  position:relative;
+}
+.thumb:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,216,74,.42);
+}
+.thumb img{
+  width:100%;
+  display:block;
+}
+.thumbMeta{
+  padding:10px 10px 11px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  font-size:.86rem;
+  opacity:.95;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* Premium thumb overlays */
+.thumb::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.65) 100%);
+  opacity:.55;
+  pointer-events:none;
+}
+.thumb::after{
+  content:"▶";
+  position:absolute;
+  top:10px;
+  left:10px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,216,74,.25);
+  color:var(--yellow);
+  font-weight:var(--display-weight);
+  font-size:.95rem;
+  text-shadow:0 10px 22px rgba(0,0,0,.7);
+  pointer-events:none;
+  transform:translateY(0);
+  transition:.18s;
+}
+.thumb:hover::after{
+  transform:translateY(-1px) scale(1.03);
+  border-color:rgba(255,216,74,.45);
+}
+.thumbNow{
+  border-color:rgba(255,216,74,.65) !important;
+  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.12);
+}
+.thumbNowTag{
+  display:none;
+  position:absolute;
+  top:10px;
+  right:10px;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:.72rem;
+  font-weight:var(--display-weight);
+  letter-spacing:.6px;
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.35);
+  box-shadow:0 10px 24px rgba(0,0,0,.5), 0 0 18px rgba(255,216,74,.2);
+  pointer-events:none;
+}
+.thumbNow .thumbNowTag{ display:inline-block; }
+
 /* PLAYLISTS */
 .section{margin-top:40px;}
-.section h2{ color:var(--yellow); margin:0 0 12px; font-weight:900; letter-spacing:.4px; }
+.section h2{
+  color:var(--yellow);
+  margin:0 0 12px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -313,7 +513,9 @@ body::before{
 .playCard img{width:100%;display:block;}
 .label{
   padding:14px;
-  font-weight:800;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
 }
 
 footer{
@@ -332,16 +534,13 @@ footer{
 /* Accessibility: respect reduced motion */
 @media (prefers-reduced-motion: reduce){
   body::before{ animation:none !important; }
-  .logo-title, .logo-title img{
-    animation:none !important;
-    opacity:1 !important;
-    transform:none !important;
-  }
+  .logo-title, .logo-title img, .logoSweep{ animation:none !important; }
+  .logo-title{ opacity:1 !important; transform:none !important; }
   .badge{ animation:none !important; }
   .badge::after{ animation:none !important; }
 }
 
-/* STEP 3: Mobile scaling */
+/* Mobile scaling */
 @media (max-width: 860px){
   .wrap{ width:min(1100px,94vw); }
 
@@ -349,6 +548,7 @@ footer{
     flex-direction:column;
     align-items:flex-start;
     gap:10px;
+    padding:10px 0;
   }
 
   .nav a{
@@ -362,7 +562,6 @@ footer{
     border-radius:18px;
   }
 
-  /* Logo scales nicely on mobile */
   .logo-title{
     max-width:100%;
     margin-bottom:12px;
@@ -373,7 +572,6 @@ footer{
     line-height:1.55;
   }
 
-  /* Buttons become thumb-friendly */
   .cta{
     display:flex;
     flex-direction:column;
@@ -398,7 +596,6 @@ footer{
     border-radius:16px;
   }
 
-  /* Keep NEW DROP badge from wrapping awkwardly */
   .cardTitle{
     display:flex;
     align-items:center;
@@ -410,11 +607,12 @@ footer{
     margin-left:0;
   }
 
-  /* Playlists grid tighter on mobile */
   .grid{
     grid-template-columns:1fr;
     gap:14px;
   }
+
+  .thumb{ width:140px; }
 }
 </style>
 </head>
@@ -434,7 +632,8 @@ footer{
 <section class="hero">
 
   <!-- LOGO -->
-  <div class="logo-title">
+  <div class="logo-title" id="logoTitle">
+    <span class="logoSweep" aria-hidden="true"></span>
     <img src="NextGen Session Website logo.png" alt="NextGen Sessions">
   </div>
 
@@ -444,7 +643,7 @@ footer{
 
   <div class="cta">
     <a class="btn" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-    <a class="btn" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
+    <a class="btn btnPrimary" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
   </div>
 
   <div class="heroGrid">
@@ -469,6 +668,9 @@ footer{
       <div class="smallNote" id="latestDropNote">
         Loading latest upload…
       </div>
+
+      <!-- Latest Videos strip (no heading) -->
+      <div class="thumbStrip" id="thumbStrip" aria-label="Latest videos"></div>
     </div>
 
   </div>
@@ -506,11 +708,13 @@ footer{
 
 <script>
 /**
- * Latest Drop (Guaranteed):
+ * Latest Drop (Guaranteed) + Gallery:
  * - Reads /latest.json from the repo (same-origin, works on GitHub Pages)
  * - Cache-busts every load so it always pulls newest commit
  * - Shows "NEW DROP" badge when the videoId changes vs last visit
  * - Uses updatedAt to show "time ago"
+ * - Builds a premium thumbnail strip; clicking swaps the main player
+ * - Injects latestId at the front if not already present
  */
 (function(){
   const FALLBACK_VIDEO_ID = "EYw3-ZvAhWE"; // safe fallback
@@ -518,6 +722,7 @@ footer{
   const frame = document.getElementById("latestDropFrame");
   const note  = document.getElementById("latestDropNote");
   const badge = document.getElementById("newDropBadge");
+  const strip = document.getElementById("thumbStrip");
 
   function setVideo(videoId){
     frame.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1";
@@ -537,8 +742,90 @@ footer{
     badge.hidden = true;
   }
 
-  // Persist last seen videoId in localStorage
   const STORAGE_KEY = "ngs_lastVideoId";
+
+  // Your 10 videos
+  const GALLERY = [
+    { id: "w8DSI4HZKnM", title: "Video 1" },
+    { id: "8YFWjkhWilc", title: "Video 2" },
+    { id: "Qr1gNggtg8k", title: "Video 3" },
+    { id: "Zkb80UYO0pY", title: "Video 4" },
+    { id: "5YgrpFXZ92Q", title: "Video 5" },
+    { id: "ccwwJFDErvg", title: "Video 6" },
+    { id: "GgZ7oQEF4CQ", title: "Video 7" },
+    { id: "d3bkbzzYeG4", title: "Video 8" },
+    { id: "Mcc_Da8weAE", title: "Video 9" },
+    { id: "TctcNn8cOHs", title: "Video 10" }
+  ];
+
+  let galleryCurrent = [...GALLERY];
+
+  function hasVideo(list, id){
+    return list.some(v => v.id === id);
+  }
+
+  function buildThumbStrip(list){
+    if (!strip) return;
+    strip.innerHTML = list.map(v => `
+      <div class="thumb" role="button" tabindex="0" data-id="${v.id}" aria-label="Play ${v.title}">
+        <span class="thumbNowTag" aria-hidden="true">NOW</span>
+        <img loading="lazy" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}">
+        <div class="thumbMeta">${v.title}</div>
+      </div>
+    `).join("");
+  }
+
+  function setNowPlayingThumb(videoId){
+    if (!strip) return;
+    strip.querySelectorAll(".thumb").forEach(t => {
+      t.classList.toggle("thumbNow", t.dataset.id === videoId);
+    });
+  }
+
+  // Events ONCE
+  if (strip){
+    strip.addEventListener("click", (e) => {
+      const thumb = e.target.closest(".thumb");
+      if (!thumb) return;
+      const vid = thumb.dataset.id;
+      setVideo(vid);
+      hideBadge();
+      setNote("Now playing selected video.");
+      setNowPlayingThumb(vid);
+      localStorage.setItem(STORAGE_KEY, vid);
+    });
+
+    strip.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const thumb = e.target.closest(".thumb");
+      if (!thumb) return;
+      e.preventDefault();
+      const vid = thumb.dataset.id;
+      setVideo(vid);
+      hideBadge();
+      setNote("Now playing selected video.");
+      setNowPlayingThumb(vid);
+      localStorage.setItem(STORAGE_KEY, vid);
+    });
+  }
+
+  // Initial strip
+  buildThumbStrip(galleryCurrent);
+
+  function timeAgoFromUTCString(s){
+    // expects like "2025-12-23 07:02 UTC"
+    if (!s) return "";
+    const iso = s.replace(" UTC", "Z").replace(" ", "T");
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return "";
+    const diffMs = Date.now() - d.getTime();
+    const mins = Math.max(0, Math.round(diffMs / 60000));
+    if (mins < 60) return mins + " min ago";
+    const hrs = Math.round(mins / 60);
+    if (hrs < 48) return hrs + " hours ago";
+    const days = Math.round(hrs / 24);
+    return days + " days ago";
+  }
 
   // Cache-bust latest.json so it always refreshes after new commits
   const latestUrl = "latest.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
@@ -553,27 +840,25 @@ footer{
       if (!latestId) throw new Error("No videoId in latest.json");
 
       const updatedAtRaw = (data.updatedAt || "").trim();
-
-      function timeAgoFromUTCString(s){
-        // expects like "2025-12-23 07:02 UTC"
-        if (!s) return "";
-        const iso = s.replace(" UTC", "Z").replace(" ", "T");
-        const d = new Date(iso);
-        if (isNaN(d.getTime())) return "";
-        const diffMs = Date.now() - d.getTime();
-        const mins = Math.max(0, Math.round(diffMs / 60000));
-        if (mins < 60) return mins + " min ago";
-        const hrs = Math.round(mins / 60);
-        if (hrs < 48) return hrs + " hours ago";
-        const days = Math.round(hrs / 24);
-        return days + " days ago";
-      }
-
       const ago = timeAgoFromUTCString(updatedAtRaw);
 
       const lastSeen = localStorage.getItem(STORAGE_KEY);
 
       setVideo(latestId);
+
+      // Inject latestId at the front if not present
+      if (!hasVideo(galleryCurrent, latestId)){
+        galleryCurrent = [{ id: latestId, title: "Latest Upload" }, ...galleryCurrent].slice(0, 10);
+        buildThumbStrip(galleryCurrent);
+      }
+
+      setNowPlayingThumb(latestId);
+
+      // Scroll now-playing thumb into view
+      if (strip){
+        const now = strip.querySelector(`.thumb[data-id="${latestId}"]`);
+        if (now) now.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      }
 
       if (lastSeen && lastSeen !== latestId){
         showBadge();
@@ -589,6 +874,12 @@ footer{
       hideBadge();
       setVideo(FALLBACK_VIDEO_ID);
       setNote("Showing fallback (latest auto-update unavailable).");
+
+      if (!hasVideo(galleryCurrent, FALLBACK_VIDEO_ID)){
+        galleryCurrent = [{ id: FALLBACK_VIDEO_ID, title: "Fallback" }, ...galleryCurrent].slice(0, 10);
+        buildThumbStrip(galleryCurrent);
+      }
+      setNowPlayingThumb(FALLBACK_VIDEO_ID);
     });
 
   // If embed errors, revert to fallback
@@ -596,7 +887,42 @@ footer{
     hideBadge();
     setVideo(FALLBACK_VIDEO_ID);
     setNote("Showing fallback (latest upload can’t be embedded).");
+    setNowPlayingThumb(FALLBACK_VIDEO_ID);
   });
+
+  // Parallax tilt (desktop only)
+  (function(){
+    const logo = document.getElementById("logoTitle");
+    if (!logo) return;
+
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    const img = logo.querySelector("img");
+    if (!img) return;
+
+    function onMove(e){
+      const r = logo.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+
+      const rotY = (x - 0.5) * 8;
+      const rotX = (0.5 - y) * 6;
+      const lift = -2;
+
+      img.style.transform =
+        `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(${lift}px)`;
+    }
+
+    function reset(){
+      img.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+    }
+
+    logo.addEventListener("mousemove", onMove);
+    logo.addEventListener("mouseleave", reset);
+    logo.addEventListener("blur", reset, true);
+    reset();
+  })();
 })();
 </script>
 

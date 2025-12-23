@@ -1162,6 +1162,21 @@ a:focus-visible, .thumb:focus-visible{
   }
 }
 
+
+/* === Mobile nav v4: compact labels + better alignment === */
+@media (max-width: 720px){
+  .topbar{ padding: 8px 12px 6px !important; }
+  .topbar .nav, .topbar nav{
+    max-width: 520px !important;
+    gap: 8px 10px !important;
+  }
+  .topbar a{
+    font-size: 0.82rem !important;
+    padding: 10px 6px !important;
+    letter-spacing: .6px !important;
+  }
+}
+
 </style>
 </head>
 
@@ -1781,6 +1796,41 @@ a:focus-visible, .thumb:focus-visible{
     })();
   })();
 
+</script>
+
+
+<script>
+(function(){
+  const map = {
+    "LATEST":"LATEST",
+    "ROAD TO 1K":"ROAD 1K",
+    "PLAYLISTS":"LISTS",
+    "YOUTUBE":"YT",
+    "TIKTOK":"TT",
+    "INSTAGRAM":"IG"
+  };
+  const mq = window.matchMedia("(max-width: 720px)");
+  let original = new Map();
+
+  function applyShort(){
+    document.querySelectorAll('.topbar a').forEach(a=>{
+      const t = (a.textContent||"").trim().toUpperCase();
+      if(!original.has(a)) original.set(a, a.textContent);
+      if(map[t]) a.textContent = map[t];
+    });
+  }
+  function restore(){
+    original.forEach((v,a)=>{ a.textContent = v; });
+  }
+  function sync(){
+    if(mq.matches) applyShort();
+    else restore();
+  }
+  document.addEventListener("DOMContentLoaded", sync);
+  if(mq.addEventListener){ mq.addEventListener("change", sync); }
+  else if(mq.addListener){ mq.addListener(sync); }
+  window.addEventListener("resize", sync, {passive:true});
+})();
 </script>
 
 </body>

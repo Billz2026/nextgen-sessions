@@ -741,6 +741,145 @@ a:focus-visible, .thumb:focus-visible{
 }
 
 /* Mobile scaling */
+
+
+/* FEATURED THIS WEEK */
+.sectionSub{
+  margin:-4px auto 16px;
+  max-width:760px;
+  opacity:.78;
+  text-align:center;
+}
+.featuredGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:16px;
+}
+.featureCard{
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(10,10,10,.6);
+  transition:.2s;
+}
+.featureCard:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,216,74,.42);
+  box-shadow:0 18px 40px rgba(0,0,0,.55);
+}
+.featureMedia img{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  display:block;
+}
+.featureMeta{
+  padding:14px;
+}
+.featureTag{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:.72rem;
+  letter-spacing:var(--display-track);
+  font-weight:var(--display-weight);
+  color:var(--yellow);
+  border:1px solid rgba(255,216,74,.28);
+  background:rgba(0,0,0,.35);
+  margin-bottom:10px;
+}
+.featureTitle{
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
+.featuredCta{
+  margin-top:14px;
+  text-align:center;
+  opacity:.85;
+}
+.featuredCta a{
+  color:var(--yellow);
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,216,74,.35);
+  padding-bottom:2px;
+}
+.featuredCta a:hover{opacity:.9}
+
+/* Desktop alignment system */
+@media (min-width: 1024px){
+  /* Hero becomes 2-column: left brand, right content */
+  .hero{
+    display:grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap:26px;
+    align-items:start;
+  }
+  .logo-title,
+  .welcome,
+  .cta{
+    grid-column:1;
+  }
+  .heroGrid{
+    grid-column:2;
+    grid-row:1 / span 6;
+    margin-top:0;
+  }
+
+  /* Mini video strip snaps into a clean grid on desktop */
+  .thumbStrip{
+    overflow:visible;
+    padding:0;
+    scroll-snap-type:none;
+    display:grid;
+    grid-template-columns:repeat(5, minmax(0, 1fr));
+    gap:14px;
+  }
+  .thumb{
+    width:100%;
+    flex:unset;
+  }
+
+  /* Featured grid breathing room */
+  .featuredGrid{ gap:18px; }
+}
+
+/* Card / image consistency */
+.thumb{
+  aspect-ratio:16/9;
+}
+.thumb img{
+  aspect-ratio:16/9;
+  height:100%;
+  object-fit:cover;
+}
+.playCard img{
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+
+/* Section rhythm + heading alignment */
+.section{
+  margin-top:56px;
+  text-align:center;
+}
+.section h2{
+  text-align:center;
+}
+.grid{
+  text-align:left;
+}
+
+/* Featured responsiveness */
+@media (max-width: 860px){
+  .featuredGrid{ grid-template-columns:1fr; }
+}
+
+
 @media (max-width: 860px){
   .wrap{ width:min(1100px,94vw); }
 
@@ -890,6 +1029,24 @@ a:focus-visible, .thumb:focus-visible{
 
   </div>
 </section>
+<!-- Featured This Week -->
+<section class="section featured" id="featured">
+  <h2>Featured This Week</h2>
+  <p class="sectionSub">Three picks we’re pushing right now — tap in.</p>
+
+  <div class="featuredGrid" id="featuredGrid" aria-live="polite">
+    <div class="featuredLoading">Loading featured picks…</div>
+  </div>
+
+  <div class="featuredFallback" id="featuredFallback" style="display:none;">
+    Can’t load the featured grid right now — <a href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA" target="_blank" rel="noopener">open the Featured playlist</a>.
+  </div>
+
+  <div class="featuredCta">
+    Want to be featured? <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">DM on Instagram</a>
+  </div>
+</section>
+
 
 <!-- Road to 1K -->
 <section class="section" id="road">
@@ -1282,6 +1439,91 @@ a:focus-visible, .thumb:focus-visible{
     reset();
   })();
 })();
+
+  // Featured This Week (auto-load from playlist RSS)
+  (function loadFeaturedFromPlaylist(){
+    const playlistId = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
+    const feedUrl = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId);
+    const playlistUrl = "https://www.youtube.com/playlist?list=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
+    const grid = document.getElementById("featuredGrid");
+    const fallback = document.getElementById("featuredFallback");
+    if (!grid) return;
+
+    function makeCard(href, title, videoId){
+      const a = document.createElement("a");
+      a.className = "featureCard";
+      a.href = href || playlistUrl;
+      a.target = "_blank";
+      a.rel = "noopener";
+
+      const media = document.createElement("div");
+      media.className = "featureMedia";
+
+      const img = document.createElement("img");
+      img.alt = title || "Featured video";
+      if (videoId) {
+        img.src = "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg";
+      } else {
+        img.src = "NextGen%20Session%20Website%20logo.png";
+      }
+
+      media.appendChild(img);
+
+      const meta = document.createElement("div");
+      meta.className = "featureMeta";
+
+      const tag = document.createElement("div");
+      tag.className = "featureTag";
+      tag.textContent = "FEATURED";
+
+      const t = document.createElement("div");
+      t.className = "featureTitle";
+      t.textContent = title || "Featured pick";
+
+      meta.appendChild(tag);
+      meta.appendChild(t);
+
+      a.appendChild(media);
+      a.appendChild(meta);
+      return a;
+    }
+
+    fetch(feedUrl, { cache: "no-store" })
+      .then(r => {
+        if (!r.ok) throw new Error("Feed fetch failed");
+        return r.text();
+      })
+      .then(xmlText => {
+        const doc = new DOMParser().parseFromString(xmlText, "application/xml");
+        const entries = Array.from(doc.getElementsByTagName("entry")).slice(0, 3);
+
+        if (!entries.length) throw new Error("No entries");
+
+        grid.innerHTML = "";
+        entries.forEach(entry => {
+          const linkEl = entry.getElementsByTagName("link")[0];
+          const href = linkEl ? linkEl.getAttribute("href") : playlistUrl;
+
+          // title
+          const titleEl = entry.getElementsByTagName("title")[0];
+          const title = titleEl ? titleEl.textContent.trim() : "Featured pick";
+
+          // video id
+          let videoId = "";
+          const vidEl = entry.querySelector("yt\\:videoId") || entry.querySelector("videoId");
+          if (vidEl && vidEl.textContent) videoId = vidEl.textContent.trim();
+
+          grid.appendChild(makeCard(href, title, videoId));
+        });
+
+        if (fallback) fallback.style.display = "none";
+      })
+      .catch(() => {
+        // keep any existing content and show fallback
+        if (fallback) fallback.style.display = "block";
+      });
+  })();
+
 </script>
 
 </body>

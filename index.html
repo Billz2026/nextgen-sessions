@@ -486,16 +486,12 @@ body:not(.introDone) #latest{
 /* VIDEO */
 .videoWrap{
   position:relative;
-  width:78%;
-  max-width:760px;          /* cap so it never overwhelms the logo */
-  margin:0 auto;
-  padding-top:56.25%;       /* true 16:9 so the player never looks “squashed” */
+  width:100%;
+  padding-top:56.25%;
   border-radius:14px;
   overflow:hidden;
   background:#000;
   border:1px solid rgba(255,216,74,.18);
-  box-shadow:0 10px 22px rgba(0,0,0,.55);
-  opacity:0.95;
 }  box-shadow:0 10px 22px rgba(0,0,0,.55);
   opacity:0.96;
 }
@@ -825,13 +821,28 @@ a:focus-visible, .thumb:focus-visible{
   }
   .dropAgo{ align-self:flex-start; }
   .kpi{ min-width: 100%; }
-
-  .videoWrap{
-    width:100%;
-    max-width:none;
-    padding-top:56.25%;
-  }
 }
+
+/* Gold footer */
+.siteFooter{
+  margin-top:40px;
+  text-align:center;
+  color:var(--yellow);
+  font-weight:900;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  opacity:.95;
+  padding:22px 0 10px;
+}
+.siteFooter::before{
+  content:"";
+  display:block;
+  height:1px;
+  max-width:920px;
+  margin:0 auto 18px;
+  background:linear-gradient(90deg, transparent, rgba(255,216,74,.45), transparent);
+}
+
 </style>
 </head>
 
@@ -954,6 +965,11 @@ a:focus-visible, .thumb:focus-visible{
       <img loading="lazy" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall & Reggae playlist thumbnail">
       <div class="label">🔥 Dancehall &amp; Reggae</div>
     </a>
+    <a class="playCard" data-track="click_playlist_ambience" href="https://www.youtube.com/watch?v=JT6-1q1-d-k&list=PL7VCdVWElIJHo4ahyxwbePMN6_I9WIj95" target="_blank" rel="noopener">
+      <img loading="lazy" src="https://i.ytimg.com/vi/JT6-1q1-d-k/hqdefault.jpg" alt="Ambience playlist thumbnail">
+      <div class="label">🌌 Ambience</div>
+    </a>
+
   </div>
 
   <hr class="dividerGold">
@@ -1335,5 +1351,7 @@ a:focus-visible, .thumb:focus-visible{
 })();
 </script>
 
+
+<footer class="siteFooter">© 2026 NextGen Sessions</footer>
 </body>
 </html>

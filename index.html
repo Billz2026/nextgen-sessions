@@ -486,13 +486,16 @@ body:not(.introDone) #latest{
 /* VIDEO */
 .videoWrap{
   position:relative;
-  width:88%;
+  width:78%;
+  max-width:760px;          /* cap so it never overwhelms the logo */
   margin:0 auto;
-  padding-top:49.5%;
+  padding-top:56.25%;       /* true 16:9 so the player never looks “squashed” */
   border-radius:14px;
   overflow:hidden;
   background:#000;
   border:1px solid rgba(255,216,74,.18);
+  box-shadow:0 10px 22px rgba(0,0,0,.55);
+  opacity:0.95;
 }  box-shadow:0 10px 22px rgba(0,0,0,.55);
   opacity:0.96;
 }
@@ -822,6 +825,12 @@ a:focus-visible, .thumb:focus-visible{
   }
   .dropAgo{ align-self:flex-start; }
   .kpi{ min-width: 100%; }
+
+  .videoWrap{
+    width:100%;
+    max-width:none;
+    padding-top:56.25%;
+  }
 }
 </style>
 </head>

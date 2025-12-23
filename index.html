@@ -949,6 +949,53 @@ a:focus-visible, .thumb:focus-visible{
   .dropAgo{ align-self:flex-start; }
   .kpi{ min-width: 100%; }
 }
+
+
+/* --- Mobile polish: smoother scrolling + consistent layout --- */
+@media (max-width: 768px){
+  /* Prevent any accidental horizontal drift */
+  html, body{ overflow-x:hidden; }
+
+  /* Fixed animated dust can feel "janky" on mobile scrolling */
+  body::before{
+    position:absolute;
+    animation:none;
+    opacity:.28;
+  }
+
+  /* Sticky blur can stutter on mobile GPUs */
+  .topbar{
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    background: rgba(5,5,5,.72);
+  }
+
+  /* Keep sections feeling like the desktop rhythm, but tighter */
+  .wrap{ padding: 12px 0 44px; }
+  section{ scroll-margin-top: 76px; }
+
+  /* Featured + grids: avoid cramped multi-column layouts */
+  .featuredGrid{ grid-template-columns: 1fr; gap:14px; }
+  .grid{ grid-template-columns: 1fr; gap:14px; }
+
+  /* Mini video strip: smoother swiping and no ugly scrollbars */
+  .thumbStrip{
+    padding: 12px 8px 8px;
+    scroll-padding: 8px;
+    gap: 12px;
+  }
+  .thumbStrip::-webkit-scrollbar{ display:none; }
+  .thumbStrip{ scrollbar-width:none; }
+
+  /* Reduce heavy shadows slightly for smoother scroll */
+  .card, .playCard{
+    box-shadow: 0 10px 26px rgba(0,0,0,.42);
+  }
+
+  /* Ensure embeds never overflow */
+  iframe, img{ max-width:100%; }
+}
+
 </style>
 </head>
 
@@ -1440,10 +1487,10 @@ a:focus-visible, .thumb:focus-visible{
   })();
 })();
 
-  // Featured This Week (auto-load from playlist RSS)
+    // Featured This Week (auto-load from playlist RSS)
   (function loadFeaturedFromPlaylist(){
     const playlistId = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
-    const feedUrl = "https://r.jina.ai/http://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId);
+    const rawFeed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId);
     const playlistUrl = "https://www.youtube.com/playlist?list=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
     const grid = document.getElementById("featuredGrid");
     const fallback = document.getElementById("featuredFallback");
@@ -1455,73 +1502,117 @@ a:focus-visible, .thumb:focus-visible{
       a.href = href || playlistUrl;
       a.target = "_blank";
       a.rel = "noopener";
-
-      const media = document.createElement("div");
-      media.className = "featureMedia";
+      a.setAttribute("data-track", "featured_click");
+      a.setAttribute("data-title", title || "Featured pick");
 
       const img = document.createElement("img");
-      img.alt = title || "Featured video";
-      if (videoId) {
-        img.src = "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg";
-      } else {
-        img.src = "NextGen%20Session%20Website%20logo.png";
-      }
-
-      media.appendChild(img);
-
-      const meta = document.createElement("div");
-      meta.className = "featureMeta";
-
-      const tag = document.createElement("div");
-      tag.className = "featureTag";
-      tag.textContent = "FEATURED";
+      img.alt = title || "Featured pick";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.src = videoId ? ("https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg") : "https://i.ytimg.com/vi_webp/" + "default" + "/hqdefault.webp";
+      a.appendChild(img);
 
       const t = document.createElement("div");
       t.className = "featureTitle";
-      t.textContent = title || "Featured pick";
+      t.textContent = title || "Open on YouTube";
+      a.appendChild(t);
 
-      meta.appendChild(tag);
-      meta.appendChild(t);
-
-      a.appendChild(media);
-      a.appendChild(meta);
       return a;
     }
 
-    fetch(feedUrl, { cache: "no-store" })
-      .then(r => {
-        if (!r.ok) throw new Error("Feed fetch failed");
+    // Try multiple CORS-friendly endpoints. Different browsers/regions can block one but not another.
+    const endpoints = [
+      rawFeed,
+      "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawFeed),
+      "https://r.jina.ai/https://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId),
+      "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rawFeed)
+    ];
+
+    function fetchText(url){
+      return fetch(url, { cache: "no-store" }).then(r => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
         return r.text();
-      })
-      .then(xmlText => {
-        const doc = new DOMParser().parseFromString(xmlText, "application/xml");
-        const entries = Array.from(doc.getElementsByTagName("entry")).slice(0, 3);
-
-        if (!entries.length) throw new Error("No entries");
-
-        grid.innerHTML = "";
-        entries.forEach(entry => {
-          const linkEl = entry.getElementsByTagName("link")[0];
-          const href = linkEl ? linkEl.getAttribute("href") : playlistUrl;
-
-          // title
-          const titleEl = entry.getElementsByTagName("title")[0];
-          const title = titleEl ? titleEl.textContent.trim() : "Featured pick";
-
-          // video id
-          let videoId = "";
-          const vidEl = entry.querySelector("yt\\:videoId") || entry.querySelector("videoId");
-          if (vidEl && vidEl.textContent) videoId = vidEl.textContent.trim();
-
-          grid.appendChild(makeCard(href, title, videoId));
-        });
-
-        if (fallback) fallback.style.display = "none";
-      })
-      .catch(() => {
-        // keep any existing content and show fallback
-        if (fallback) fallback.style.display = "block";
       });
+    }
+
+    function fetchJson(url){
+      return fetch(url, { cache: "no-store" }).then(r => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      });
+    }
+
+    function parseAndRenderFromXmlText(xmlText){
+      // Some proxies prepend extra text; try to locate the first "<feed"
+      const idx = xmlText.indexOf("<feed");
+      const clean = idx >= 0 ? xmlText.slice(idx) : xmlText;
+
+      const xml = new DOMParser().parseFromString(clean, "text/xml");
+      const entries = Array.from(xml.getElementsByTagName("entry")).slice(0, 3);
+
+      if (!entries.length) throw new Error("No entries");
+      grid.innerHTML = ""; // clear "Loading…"
+
+      entries.forEach(entry => {
+        const titleEl = entry.getElementsByTagName("title")[0];
+        const title = titleEl ? titleEl.textContent.trim() : "Featured pick";
+
+        const linkEl = entry.getElementsByTagName("link")[0];
+        const href = linkEl ? linkEl.getAttribute("href") : playlistUrl;
+
+        // yt:videoId can be namespaced; DOMParser returns tagName with colon, so use getElementsByTagName
+        const vidEl = entry.getElementsByTagName("yt:videoId")[0] || entry.getElementsByTagName("videoId")[0];
+        const videoId = vidEl ? vidEl.textContent.trim() : "";
+
+        grid.appendChild(makeCard(href, title, videoId));
+      });
+
+      if (fallback) fallback.style.display = "none";
+    }
+
+    function renderFallback(){
+      if (fallback) fallback.style.display = "block";
+      // keep loading text if present
+    }
+
+    // Attempt 1-3 as XML text; attempt 4 is JSON
+    (async function(){
+      for (let i = 0; i < endpoints.length; i++){
+        const url = endpoints[i];
+        try{
+          if (url.includes("rss2json.com")){
+            const data = await fetchJson(url);
+            const items = (data && data.items) ? data.items.slice(0, 3) : [];
+            if (!items.length) throw new Error("No items");
+            grid.innerHTML = "";
+            items.forEach(it => {
+              const href = it.link || playlistUrl;
+              const title = it.title || "Featured pick";
+              // YouTube RSS2JSON items typically have guid/link containing video id
+              let videoId = "";
+              if (it.guid) {
+                const m = String(it.guid).match(/video:(.+)$/);
+                if (m) videoId = m[1];
+              }
+              if (!videoId && href) {
+                const m2 = String(href).match(/[?&]v=([^&]+)/);
+                if (m2) videoId = m2[1];
+              }
+              grid.appendChild(makeCard(href, title, videoId));
+            });
+            if (fallback) fallback.style.display = "none";
+            return;
+          } else {
+            const txt = await fetchText(url);
+            parseAndRenderFromXmlText(txt);
+            return;
+          }
+        } catch(e){
+          // try next endpoint
+        }
+      }
+      renderFallback();
+    })();
   })();
 
 </script>

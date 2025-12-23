@@ -40,6 +40,85 @@
   gtag('js', new Date());
   gtag('config', 'G-L8FYW2YH5K');
 </script>
+/* MOBILE: HARD ALIGN + NO SIDE SCROLL (paste at very end of CSS) */
+@media (max-width: 820px){
+
+  html, body{
+    width:100% !important;
+    overflow-x:hidden !important;
+  }
+
+  /* make all big wrappers truly centered */
+  .wrap, .container, main, section{
+    max-width:100% !important;
+  }
+
+  /* topbar: stop the "pushed right" behaviour */
+  .topbar{
+    width:100% !important;
+    justify-content:center !important;
+    padding:10px 12px !important;
+    box-sizing:border-box !important;
+  }
+  .topbar > div:first-child{
+    display:none !important; /* removes the blank spacer */
+  }
+
+  /* nav becomes a fixed grid that cannot overflow */
+  .topbar .nav{
+    width:100% !important;
+    max-width:560px !important;
+    margin:0 auto !important;
+    padding:0 !important;
+
+    display:grid !important;
+    grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+    gap:10px 12px !important;
+
+    justify-items:stretch !important;
+    align-items:center !important;
+
+    box-sizing:border-box !important;
+  }
+  .topbar .navSep{ display:none !important; }
+
+  .topbar .nav a{
+    width:100% !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    padding:10px 6px !important;
+    border-radius:999px !important;
+
+    font-size:12px !important;
+    line-height:1 !important;
+
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+
+    box-sizing:border-box !important;
+  }
+
+  /* ensure hero card is centered, no weird left offset */
+  .hero, .heroCard, .card, .panel{
+    width:100% !important;
+    max-width:560px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    box-sizing:border-box !important;
+  }
+
+  /* buttons full width & aligned */
+  .btn, .cta, button, a.button{
+    width:100% !important;
+    max-width:560px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    box-sizing:border-box !important;
+  }
+}
 
 <style>
 :root{

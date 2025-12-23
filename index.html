@@ -956,6 +956,36 @@ a:focus-visible, .thumb:focus-visible{
   /* Prevent any accidental horizontal drift */
   html, body{ overflow-x:hidden; }
 
+  /* Mobile nav alignment fix (prevents left cut-off & awkward wrap) */
+  .topbar{ padding:10px 14px; justify-content:center; }
+  .topbar > div:first-child{ display:none !important; } /* remove empty spacer on mobile */
+  .nav{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:10px 12px;
+    align-items:center;
+    justify-items:center;
+  }
+  .nav a{
+    margin:0 !important;
+    width:100%;
+    text-align:center;
+    padding:10px 6px;
+    border-radius:999px;
+    border:1px solid rgba(255,216,74,.16);
+    background:rgba(0,0,0,.28);
+    font-size:12px;
+    line-height:1;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .nav a:active{ transform: translateY(1px); }
+  .navSep{ display:none !important; }
+
   /* Fixed animated dust can feel "janky" on mobile scrolling */
   body::before{
     position:absolute;
@@ -1989,3 +2019,4 @@ a:focus-visible, .thumb:focus-visible{
 
 </body>
 </html>
+

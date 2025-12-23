@@ -54,6 +54,8 @@
 }
 
 *{box-sizing:border-box;}
+html{ scroll-behavior:smooth; }
+
 body{
   margin:0;
   background:
@@ -121,6 +123,13 @@ body::before{
   text-decoration:underline;
   text-underline-offset:6px;
 }
+.navSep{
+  color:rgba(255,216,74,.45);
+  margin:0 10px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
 
 /* HERO */
 .hero{
@@ -130,15 +139,16 @@ body::before{
   border:1px solid var(--border);
   background:linear-gradient(180deg, rgba(20,20,20,.9), rgba(5,5,5,.95));
   box-shadow:0 12px 30px rgba(0,0,0,.6);
+  text-align:center;
 }
 
 /* LOGO TITLE */
 .logo-title{
   position:relative;
-  max-width:760px;
-  margin-bottom:14px;
-  padding:10px 10px 14px;
-  border-radius:18px;
+  max-width:980px;
+  margin:0 auto 16px;
+  padding:12px 12px 16px;
+  border-radius:20px;
 
   /* entrance animation */
   opacity:0;
@@ -155,6 +165,7 @@ body::before{
   width:100%;
   height:auto;
   display:block;
+  margin:0 auto;
   border-radius:14px;
 
   /* blend + depth */
@@ -172,36 +183,38 @@ body::before{
   transform-origin:center;
 }
 
-/* soft glow plate behind logo so it "blends" into hero */
+/* Subtle gold radial halo behind logo only */
 .logo-title::before{
   content:"";
   position:absolute;
-  inset:-18px -18px -22px -18px;
-  border-radius:22px;
+  inset:-22px -22px -26px -22px;
+  border-radius:26px;
   background:
-    radial-gradient(600px 220px at 35% 40%, rgba(255,216,74,.16), transparent 62%),
-    radial-gradient(520px 210px at 70% 60%, rgba(255,216,74,.10), transparent 65%);
-  filter: blur(2px);
-  opacity:.9;
+    radial-gradient(700px 260px at 50% 45%,
+      rgba(255,216,74,.20),
+      rgba(255,216,74,.10) 35%,
+      transparent 68%);
+  filter: blur(10px);
+  opacity:.85;
   pointer-events:none;
   z-index:0;
 }
 
-/* gold dust around the logo area */
+/* Premium gold dust around logo only */
 .logo-title::after{
   content:"";
   position:absolute;
-  inset:-34px;
-  border-radius:26px;
+  inset:-30px;
+  border-radius:28px;
   background:
-    radial-gradient(circle at 12% 28%, rgba(255,216,74,.28) 0 1.2px, transparent 3px),
-    radial-gradient(circle at 22% 68%, rgba(255,216,74,.22) 0 1px, transparent 3px),
-    radial-gradient(circle at 36% 40%, rgba(255,216,74,.18) 0 1.6px, transparent 3px),
-    radial-gradient(circle at 58% 22%, rgba(255,216,74,.20) 0 1.1px, transparent 3px),
-    radial-gradient(circle at 72% 62%, rgba(255,216,74,.24) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 86% 34%, rgba(255,216,74,.18) 0 1.2px, transparent 3px);
-  opacity:.55;
-  animation: logoDust 10s ease-in-out infinite;
+    radial-gradient(circle at 12% 28%, rgba(255,216,74,.22) 0 1px, transparent 3px),
+    radial-gradient(circle at 22% 68%, rgba(255,216,74,.18) 0 1px, transparent 3px),
+    radial-gradient(circle at 36% 40%, rgba(255,216,74,.14) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 58% 22%, rgba(255,216,74,.16) 0 1px, transparent 3px),
+    radial-gradient(circle at 72% 62%, rgba(255,216,74,.20) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 86% 34%, rgba(255,216,74,.14) 0 1px, transparent 3px);
+  opacity:.50;
+  animation: logoDust 12s ease-in-out infinite;
   pointer-events:none;
   z-index:0;
 }
@@ -218,7 +231,7 @@ body::before{
   opacity:0;
   background:linear-gradient(120deg,
     transparent 42%,
-    rgba(255,216,74,.38) 50%,
+    rgba(255,216,74,.30) 50%,
     transparent 58%);
   transform:translateX(-55%);
   animation: logoSweep 7.5s ease-in-out infinite;
@@ -254,7 +267,7 @@ body::before{
 
 @keyframes logoSweep{
   0%{ opacity:0; transform:translateX(-55%); }
-  10%{ opacity:.65; }
+  10%{ opacity:.55; }
   28%{ opacity:0; transform:translateX(55%); }
   100%{ opacity:0; transform:translateX(55%); }
 }
@@ -266,8 +279,10 @@ body::before{
 
 /* Upgraded welcome statement (uniform + stands out) */
 .welcome{
-  margin-top:6px;
+  margin-top:8px;
   max-width:90ch;
+  margin-left:auto;
+  margin-right:auto;
 }
 .welcomeTitle{
   margin:0 0 6px;
@@ -279,10 +294,21 @@ body::before{
 }
 .welcomeText{
   margin:0;
-  opacity:.9;
+  opacity:.92;
   line-height:1.6;
   font-weight:800;
   letter-spacing:.15px;
+}
+
+/* Shared hero-level body for matching text sizing */
+.heroBody{
+  font-weight:800;
+  line-height:1.6;
+  letter-spacing:.15px;
+  opacity:.92;
+  max-width:90ch;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .cta{ margin-top:16px; }
@@ -306,7 +332,7 @@ body::before{
   transform:translateY(-1px);
 }
 
-/* Subscribe emphasis (still uniform font) */
+/* Primary gold button (Subscribe style) */
 .btnPrimary{
   color:#0b0b0b;
   background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
@@ -318,12 +344,25 @@ body::before{
   box-shadow:0 16px 34px rgba(0,0,0,.6), 0 0 22px rgba(255,216,74,.22);
 }
 
+/* Gold secondary (matches Subscribe but slightly softer) */
+.btnGold{
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,.92), rgba(255,180,30,.88));
+  border:1px solid rgba(255,216,74,.28);
+  box-shadow:0 12px 26px rgba(0,0,0,.5), 0 0 14px rgba(255,216,74,.12);
+}
+.btnGold:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.18);
+}
+
 /* GRID */
 .heroGrid{
   display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:22px;
-  margin-top:20px;
+  grid-template-columns:1fr;
+  gap:18px;
+  margin-top:22px;
+  text-align:left;
 }
 
 /* CARD */
@@ -339,12 +378,15 @@ body::before{
   text-transform:uppercase;
   color:var(--yellow);
   margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
 /* NEW DROP badge */
 .badge{
   display:inline-block;
-  margin-left:10px;
   padding:6px 10px;
   border-radius:999px;
   font-size:.78rem;
@@ -386,6 +428,51 @@ body::before{
   100%{ transform:translateX(60%); opacity:0; }
 }
 
+/* Just Dropped Banner */
+.dropBanner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,216,74,.18);
+  background:linear-gradient(180deg, rgba(255,216,74,.08), rgba(0,0,0,.10));
+  margin-bottom:12px;
+}
+.dropPill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  font-weight:var(--display-weight);
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  font-size:.78rem;
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.35);
+  box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 16px rgba(255,216,74,.18);
+  white-space:nowrap;
+}
+.dropText{
+  flex:1;
+  font-weight:800;
+  letter-spacing:.15px;
+  opacity:.92;
+  line-height:1.35;
+}
+.dropAgo{
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  color:rgba(255,216,74,.9);
+  opacity:.95;
+  font-size:.85rem;
+  white-space:nowrap;
+}
+
 /* VIDEO */
 .videoWrap{
   position:relative;
@@ -402,6 +489,21 @@ body::before{
   width:100%;
   height:100%;
   border:0;
+}
+
+.smallNote{
+  margin-top:10px;
+  opacity:.78;
+  font-size:.92rem;
+  line-height:1.45;
+}
+
+/* Under video actions */
+.videoActions{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
 /* THUMB STRIP (Latest videos) */
@@ -507,6 +609,14 @@ body::before{
 .thumbNow .thumbNowTag{ display:inline-block; }
 
 /* ROAD TO 1K */
+.section{margin-top:40px; text-align:left;}
+.section h2{
+  color:var(--yellow);
+  margin:0 0 12px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
 .progressWrap{
   margin-top:10px;
   height:14px;
@@ -522,37 +632,40 @@ body::before{
   border-radius:999px;
   transition:width .6s ease;
 }
+
+/* KPI styling to match brand */
 .kpiRow{
   display:flex;
   justify-content:space-between;
-  gap:10px;
+  gap:14px;
   flex-wrap:wrap;
-  margin-top:10px;
+  margin-top:14px;
 }
 .kpi{
+  min-width:160px;
+  padding:12px 12px 10px;
+  border-radius:14px;
+  border:1px solid rgba(255,216,74,.18);
+  background:linear-gradient(180deg, rgba(255,216,74,.06), rgba(0,0,0,.10));
   font-weight:var(--display-weight);
   letter-spacing:var(--display-track);
   text-transform:uppercase;
-  opacity:.92;
+  color:var(--yellow);
+  opacity:.98;
 }
 .kpi small{
   display:block;
-  font-weight:700;
-  letter-spacing:0;
+  margin-top:8px;
+  font-weight:900;
+  letter-spacing:.2px;
   text-transform:none;
-  opacity:.75;
-  margin-top:2px;
+  color:var(--text);
+  opacity:.92;
+  font-size:1.25rem;
+  line-height:1.2;
 }
 
 /* PLAYLISTS */
-.section{margin-top:40px;}
-.section h2{
-  color:var(--yellow);
-  margin:0 0 12px;
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -587,15 +700,10 @@ body::before{
   border:0;
 }
 .aboutText{
-  max-width:85ch;
-  line-height:1.65;
-  opacity:.9;
   margin:0;
 }
 .ctaLine{
   margin-top:12px;
-  opacity:.9;
-  line-height:1.55;
 }
 .ctaLine a{
   color:var(--yellow);
@@ -615,15 +723,16 @@ footer{
   opacity:.6;
 }
 
-.smallNote{
-  margin-top:10px;
-  opacity:.75;
-  font-size:.92rem;
-  line-height:1.45;
+/* Accessibility: visible focus */
+a:focus-visible, .thumb:focus-visible{
+  outline:2px solid rgba(255,216,74,.8);
+  outline-offset:3px;
+  border-radius:14px;
 }
 
 /* Accessibility: respect reduced motion */
 @media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
   body::before{ animation:none !important; }
   .logo-title, .logo-title img, .logoSweep{ animation:none !important; }
   .logo-title{ opacity:1 !important; transform:none !important; }
@@ -647,6 +756,7 @@ footer{
     margin-right:12px;
     display:inline-block;
   }
+  .navSep{ display:none; }
 
   .hero{
     padding:24px 16px;
@@ -656,6 +766,7 @@ footer{
   .logo-title{
     max-width:100%;
     margin-bottom:12px;
+    padding:10px 10px 14px;
   }
 
   .welcomeText{
@@ -677,7 +788,6 @@ footer{
   }
 
   .heroGrid{
-    grid-template-columns:1fr;
     gap:16px;
     margin-top:18px;
   }
@@ -687,23 +797,18 @@ footer{
     border-radius:16px;
   }
 
-  .cardTitle{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-  }
-  .badge{
-    flex:0 0 auto;
-    margin-left:0;
-  }
-
   .grid{
     grid-template-columns:1fr;
     gap:14px;
   }
 
   .thumb{ width:140px; }
+  .dropBanner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .dropAgo{ align-self:flex-start; }
+  .kpi{ min-width: 100%; }
 }
 </style>
 </head>
@@ -714,6 +819,11 @@ footer{
 <div class="topbar">
   <div></div>
   <div class="nav">
+    <a href="#latest">Latest</a>
+    <a href="#road">Road to 1K</a>
+    <a href="#playlists">Playlists</a>
+    <a href="#submit">Submit</a>
+    <span class="navSep">|</span>
     <a data-track="click_youtube_nav" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
     <a data-track="click_tiktok_nav" href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
     <a data-track="click_instagram_nav" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
@@ -728,7 +838,7 @@ footer{
     <img src="NextGen Session Website logo.png" alt="NextGen Sessions">
   </div>
 
-  <!-- LOCKED COPY (Option 3) -->
+  <!-- WELCOME -->
   <div class="welcome">
     <h2 class="welcomeTitle">Welcome to NextGen Sessions</h2>
     <p class="welcomeText">
@@ -737,17 +847,24 @@ footer{
   </div>
 
   <div class="cta">
-    <a class="btn" data-track="click_watch_youtube" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+    <a class="btn btnGold" data-track="click_watch_youtube" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
     <a class="btn btnPrimary" data-track="click_subscribe" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
   </div>
 
   <div class="heroGrid">
 
     <!-- LATEST DROP -->
-    <div class="card">
+    <div class="card" id="latest">
       <div class="cardTitle">
         Latest Drop
         <span class="badge" id="newDropBadge" aria-hidden="true" hidden>NEW DROP</span>
+      </div>
+
+      <!-- Just Dropped banner -->
+      <div class="dropBanner" id="dropBanner" aria-live="polite">
+        <span class="dropPill" id="dropPill">Just Dropped</span>
+        <div class="dropText" id="dropText">Tap play — the newest session is live.</div>
+        <div class="dropAgo" id="dropAgo">—</div>
       </div>
 
       <div class="videoWrap">
@@ -761,10 +878,14 @@ footer{
       </div>
 
       <div class="smallNote" id="latestDropNote">
-        Loading latest upload…
+        Loading latest upload… (auto-updates)
       </div>
 
-      <!-- Latest Videos strip (no heading) -->
+      <div class="videoActions">
+        <a class="btn btnGold" id="watchLatestBtn" data-track="click_watch_latest" href="https://www.youtube.com/watch?v=EYw3-ZvAhWE" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+      </div>
+
+      <!-- Latest Videos strip -->
       <div class="thumbStrip" id="thumbStrip" aria-label="Latest videos"></div>
     </div>
 
@@ -772,7 +893,7 @@ footer{
 </section>
 
 <!-- Road to 1K -->
-<section class="section">
+<section class="section" id="road">
   <h2>Road to 1K</h2>
   <div class="card">
     <div class="smallNote" id="subNote">Loading subscriber count…</div>
@@ -788,7 +909,7 @@ footer{
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="playlists">
   <h2>Playlists</h2>
 
   <div class="grid">
@@ -815,15 +936,39 @@ footer{
 
   <hr class="dividerGold">
 
-  <p class="aboutText">
+  <p class="aboutText heroBody">
     NextGen Sessions curates forward-thinking sounds across hip-hop, Bhangra, dancehall, grime, R&amp;B and more — spotlighting raw talent, culture, and energy from the underground to the global stage.
   </p>
 
-  <p class="ctaLine">
+  <p class="ctaLine heroBody">
     <span style="font-weight:900; letter-spacing:.4px; text-transform:uppercase;">Artists &amp; Producers:</span>
     send submissions via <a data-track="click_submit_track" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram DM</a>.
     Include a private link (YouTube/SoundCloud) and your social handles.
   </p>
+
+  <!-- Get Featured -->
+  <div class="card" id="submit" style="margin-top:16px;">
+    <div class="cardTitle">Get Featured</div>
+
+    <p class="smallNote" style="margin:0 0 10px;">
+      Want your track on NextGen Sessions? Send a clean submission and we’ll review it.
+    </p>
+
+    <div class="kpiRow" style="margin-top:0;">
+      <div class="kpi">Step 1<small>DM on Instagram</small></div>
+      <div class="kpi">Step 2<small>Private link + socials</small></div>
+      <div class="kpi">Step 3<small>We reply if it fits</small></div>
+    </div>
+
+    <div class="cta" style="margin-top:14px;">
+      <a class="btn btnPrimary" data-track="click_submit_ig" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Submit via Instagram DM</a>
+      <a class="btn btnGold" data-track="click_subscribe_2" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe for Drops</a>
+    </div>
+
+    <p class="smallNote" style="margin-top:12px;">
+      Tip: Include genre and a 1-line vibe summary (e.g. “cinematic grime / melodic hook”).
+    </p>
+  </div>
 </section>
 
 <footer>© 2026 NextGen Sessions</footer>
@@ -863,9 +1008,15 @@ footer{
   const note  = document.getElementById("latestDropNote");
   const badge = document.getElementById("newDropBadge");
   const strip = document.getElementById("thumbStrip");
+  const watchBtn = document.getElementById("watchLatestBtn");
+
+  const dropAgo = document.getElementById("dropAgo");
+  const dropPill = document.getElementById("dropPill");
+  const dropText = document.getElementById("dropText");
 
   function setVideo(videoId){
     frame.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1";
+    if (watchBtn) watchBtn.href = "https://www.youtube.com/watch?v=" + videoId;
   }
 
   function setNote(text){
@@ -882,20 +1033,26 @@ footer{
     badge.hidden = true;
   }
 
+  function setBanner(agoText){
+    if (dropPill) dropPill.textContent = "Just Dropped";
+    if (dropText) dropText.textContent = "Tap play — the newest session is live.";
+    if (dropAgo) dropAgo.textContent = agoText ? agoText : "—";
+  }
+
   const STORAGE_KEY = "ngs_lastVideoId";
 
-  // Your 10 videos
+  // Your 10 videos (Video 10 stays Latest Upload dynamically)
   const GALLERY = [
-    { id: "w8DSI4HZKnM", title: "Video 1" },
-    { id: "8YFWjkhWilc", title: "Video 2" },
-    { id: "Qr1gNggtg8k", title: "Video 3" },
-    { id: "Zkb80UYO0pY", title: "Video 4" },
-    { id: "5YgrpFXZ92Q", title: "Video 5" },
-    { id: "ccwwJFDErvg", title: "Video 6" },
-    { id: "GgZ7oQEF4CQ", title: "Video 7" },
-    { id: "d3bkbzzYeG4", title: "Video 8" },
-    { id: "Mcc_Da8weAE", title: "Video 9" },
-    { id: "TctcNn8cOHs", title: "Video 10" }
+    { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
+    { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
+    { id: "Qr1gNggtg8k", title: "Ride On My Enemies" },
+    { id: "Zkb80UYO0pY", title: "Money in the Bando" },
+    { id: "5YgrpFXZ92Q", title: "Marked for War" },
+    { id: "ccwwJFDErvg", title: "Bulletproof Mind" },
+    { id: "GgZ7oQEF4CQ", title: "No Face No Case" },
+    { id: "d3bkbzzYeG4", title: "Like Father Like Son" },
+    { id: "Mcc_Da8weAE", title: "Bands" },
+    { id: "TctcNn8cOHs", title: "Latest Upload" }
   ];
 
   let galleryCurrent = [...GALLERY];
@@ -994,10 +1151,15 @@ footer{
       const lastSeen = localStorage.getItem(STORAGE_KEY);
 
       setVideo(latestId);
+      setBanner(ago);
 
       // Inject latestId at the front if not present
       if (!hasVideo(galleryCurrent, latestId)){
         galleryCurrent = [{ id: latestId, title: "Latest Upload" }, ...galleryCurrent].slice(0, 10);
+        buildThumbStrip(galleryCurrent);
+      } else {
+        // Ensure the "Latest Upload" label is used for the matching ID if it's in the list
+        galleryCurrent = galleryCurrent.map(v => (v.id === latestId ? { ...v, title: "Latest Upload" } : v));
         buildThumbStrip(galleryCurrent);
       }
 
@@ -1022,6 +1184,7 @@ footer{
     .catch(() => {
       hideBadge();
       setVideo(FALLBACK_VIDEO_ID);
+      setBanner("");
       setNote("Showing fallback (latest auto-update unavailable).");
 
       if (!hasVideo(galleryCurrent, FALLBACK_VIDEO_ID)){
@@ -1035,6 +1198,7 @@ footer{
   frame.addEventListener("error", () => {
     hideBadge();
     setVideo(FALLBACK_VIDEO_ID);
+    setBanner("");
     setNote("Showing fallback (latest upload can’t be embedded).");
     setNowPlayingThumb(FALLBACK_VIDEO_ID);
   });

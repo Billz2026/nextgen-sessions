@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<title>NextGen Sessions | Underground Hip-Hop, Grime & Dancehall Platform</title>
+<meta name="description" content="NextGen Sessions is an underground music platform featuring hip-hop, grime, dancehall, UK rap and emerging artists. Watch new drops, curated playlists and rising talent.">
+<link rel="canonical" href="https://nextgensessions.pages.dev/">
+
+<!-- Google Search Console verification -->
+<meta name="google-site-verification" content="lUev-zKM1rd98apFBdY3koCG4QKcd1Wz9lqlfnTY6v0">
+
+<!-- Social / Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="NextGen Sessions | Underground Music Platform">
+<meta property="og:description" content="Underground hip-hop, grime, dancehall and emerging artists. New drops, curated playlists and sessions.">
+<meta property="og:url" content="https://nextgensessions.pages.dev/">
+<meta property="og:image" content="https://nextgensessions.pages.dev/NextGen%20Session%20Website%20logo.png">
+<meta property="og:image:alt" content="NextGen Sessions logo">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NextGen Sessions | Underground Music Platform">
+<meta name="twitter:description" content="Underground hip-hop, grime, dancehall and emerging artists. New drops, curated playlists and sessions.">
+<meta name="twitter:image" content="https://nextgensessions.pages.dev/NextGen%20Session%20Website%20logo.png">
+
+<!-- SEO -->
+<!-- Social / Open Graph -->
+<!-- Twitter Cards -->
+
+
+
+<!-- Favicon + Theme -->
+<link rel="icon" type="image/png" href="NextGen%20Session%20Website%20logo.png">
+<meta name="theme-color" content="#ffd84a">
+
+<!-- Performance -->
+<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<link rel="preconnect" href="https://www.youtube.com" crossorigin>
+<link rel="preload" as="image" href="NextGen%20Session%20Website%20logo.png">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L8FYW2YH5K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L8FYW2YH5K');
+</script>
+
+<style>
+:root{
+  --bg:#050505;
+  --yellow:#ffd84a;
+  --text:#f6f1e3;
+  --border:rgba(255,216,74,.25);
+
+  --display-weight: 900;
+  --display-track: .4px;
+}
+
+*{box-sizing:border-box;}
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(255,216,74,.15), transparent 60%),
+    #050505;
+  color:var(--text);
+  font-family:Arial, Helvetica, sans-serif;
+  overflow-x:hidden;
+}
+
+/* gold dust background (desktop) */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-20%;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,216,74,.18) 0 1px, transparent 3px),
+    radial-gradient(circle at 60% 70%, rgba(255,216,74,.15) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 80% 20%, rgba(255,216,74,.12) 0 1px, transparent 3px);
+  animation: floatDust 14s ease-in-out infinite;
+  opacity:.6;
+}
+@keyframes floatDust{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(14px,-10px)}
+  100%{transform:translate(0,0)}
+}
+
+.wrap{
+  width:min(1100px,92vw);
+  margin:0 auto;
+  padding:18px 0 60px;
+}
+
+/* TOP BAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+
+  position:sticky;
+  top:0;
+  z-index:50;
+
+  padding:10px 0;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(5,5,5,.92), rgba(5,5,5,.70));
+  border-bottom:1px solid rgba(255,216,74,.12);
+}
+
+/* NAV (uniform) */
+.nav a{
+  color:var(--yellow);
+  text-decoration:none;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  margin-left:12px;
+  text-shadow:0 10px 22px rgba(0,0,0,.7), 0 0 18px rgba(255,216,74,.18);
+}
+.nav a:hover{
+  opacity:.9;
+  text-decoration:underline;
+  text-underline-offset:6px;
+}
+.navSep{
+  color:rgba(255,216,74,.45);
+  margin:0 10px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
+
+/* HERO */
+.hero{
+  margin-top:14px;
+  padding:36px 26px;
+  border-radius:22px;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(20,20,20,.9), rgba(5,5,5,.95));
+  box-shadow:0 12px 30px rgba(0,0,0,.6);
+  text-align:center;
+}
+
+/* LOGO TITLE */
+.logo-title{
+  position:relative;
+  max-width:1100px;
+  margin:0 auto 16px;
+  padding:12px 12px 16px;
+  border-radius:20px;
+
+  opacity:0;
+  transform:translateY(14px) scale(.985);
+  animation:
+    logoIn .9s cubic-bezier(.2,.9,.2,1) .15s forwards,
+    logoPulse 4.6s ease-in-out 1.2s infinite;
+
+  --pulse: 1.03;
+}
+
+.logo-title img{
+  width:100%;
+  height:auto;
+  display:block;
+  margin:0 auto;
+  border-radius:14px;
+
+  filter:
+    drop-shadow(0 0 22px rgba(255,216,74,.28))
+    drop-shadow(0 18px 28px rgba(0,0,0,.75));
+
+  animation: logoGlow 1.8s ease-in-out .35s both;
+
+  transition: transform .12s ease-out;
+  will-change: transform;
+  transform: scale(var(--pulse));
+  transform-origin:center;
+}
+
+/* Subtle gold radial halo behind logo only */
+.logo-title::before{
+  content:"";
+  position:absolute;
+  inset:-22px -22px -26px -22px;
+  border-radius:26px;
+  background:
+    radial-gradient(700px 260px at 50% 45%,
+      rgba(255,216,74,.20),
+      rgba(255,216,74,.10) 35%,
+      transparent 68%);
+  filter: blur(10px);
+  opacity:.85;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Premium gold dust around logo only */
+.logo-title::after{
+  content:"";
+  position:absolute;
+  inset:-30px;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 12% 28%, rgba(255,216,74,.22) 0 1px, transparent 3px),
+    radial-gradient(circle at 22% 68%, rgba(255,216,74,.18) 0 1px, transparent 3px),
+    radial-gradient(circle at 36% 40%, rgba(255,216,74,.14) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 58% 22%, rgba(255,216,74,.16) 0 1px, transparent 3px),
+    radial-gradient(circle at 72% 62%, rgba(255,216,74,.20) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 86% 34%, rgba(255,216,74,.14) 0 1px, transparent 3px);
+  opacity:.50;
+  animation: logoDust 12s ease-in-out infinite;
+  pointer-events:none;
+  z-index:0;
+}
+
+.logo-title img{ position:relative; z-index:1; }
+.logoSweep{ position:absolute; z-index:2; }
+
+.logoSweep{
+  inset:-35%;
+  border-radius:26px;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  opacity:0;
+  background:linear-gradient(120deg,
+    transparent 42%,
+    rgba(255,216,74,.30) 50%,
+    transparent 58%);
+  transform:translateX(-55%);
+  animation: logoSweep 7.5s ease-in-out infinite;
+}
+
+@keyframes logoDust{
+  0%{ transform:translate(0,0); }
+  50%{ transform:translate(10px,-6px); }
+  100%{ transform:translate(0,0); }
+}
+@keyframes logoIn{
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes logoGlow{
+  0%{
+    filter: drop-shadow(0 0 0 rgba(255,216,74,0))
+            drop-shadow(0 12px 18px rgba(0,0,0,.65));
+  }
+  55%{
+    filter: drop-shadow(0 0 26px rgba(255,216,74,.30))
+            drop-shadow(0 18px 26px rgba(0,0,0,.75));
+  }
+  100%{
+    filter: drop-shadow(0 0 22px rgba(255,216,74,.24))
+            drop-shadow(0 18px 28px rgba(0,0,0,.75));
+  }
+}
+@keyframes logoSweep{
+  0%{ opacity:0; transform:translateX(-55%); }
+  10%{ opacity:.55; }
+  28%{ opacity:0; transform:translateX(55%); }
+  100%{ opacity:0; transform:translateX(55%); }
+}
+@keyframes logoPulse{
+  0%,100%{ --pulse: 1; }
+  50%{ --pulse: 1.01; }
+}
+
+/* Welcome */
+.welcome{
+  margin-top:8px;
+  max-width:90ch;
+  margin-left:auto;
+  margin-right:auto;
+}
+.welcomeTitle{
+  margin:0 0 6px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  color:var(--yellow);
+  text-shadow:0 10px 22px rgba(0,0,0,.7), 0 0 18px rgba(255,216,74,.14);
+}
+.welcomeText{
+  margin:0;
+  opacity:.92;
+  line-height:1.6;
+  font-weight:800;
+  letter-spacing:.15px;
+}
+.trustLine{
+  margin:10px 0 0;
+  opacity:.82;
+  font-weight:800;
+  letter-spacing:.15px;
+}
+
+/* Shared hero-level body */
+.heroBody{
+  font-weight:800;
+  line-height:1.6;
+  letter-spacing:.15px;
+  opacity:.92;
+  max-width:90ch;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* CTA */
+.cta{
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 18px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  color:var(--text);
+  text-decoration:none;
+
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+
+  transition:.18s;
+}
+.btn:hover{
+  border-color:rgba(255,216,74,.45);
+  transform:translateY(-1px);
+}
+
+/* Primary gold button */
+.btnPrimary{
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.35);
+  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.18);
+}
+.btnPrimary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 34px rgba(0,0,0,.6), 0 0 22px rgba(255,216,74,.22);
+}
+
+/* Gold secondary */
+.btnGold{
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,.92), rgba(255,180,30,.88));
+  border:1px solid rgba(255,216,74,.28);
+  box-shadow:0 12px 26px rgba(0,0,0,.5), 0 0 14px rgba(255,216,74,.12);
+}
+.btnGold:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.18);
+}
+
+/* Subscribe micro-copy */
+.subMicro{
+  margin-top:10px;
+  font-size:.92rem;
+  opacity:.78;
+  font-weight:800;
+  letter-spacing:.15px;
+}
+
+/* GRID */
+.heroGrid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  margin-top:22px;
+  text-align:left;
+}
+
+/* CARD */
+.card{
+  background:rgba(10,10,10,.6);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+}
+.cardTitle{
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  color:var(--yellow);
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+/* NEW DROP badge */
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:var(--display-weight);
+  letter-spacing:.6px;
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  box-shadow:0 10px 24px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.25);
+  border:1px solid rgba(255,216,74,.35);
+  vertical-align:middle;
+  transform:translateY(-1px);
+  position:relative;
+  overflow:hidden;
+  animation: badgePulse 2.2s ease-in-out infinite;
+}
+.badge[hidden]{ display:none !important; }
+
+.badge::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:linear-gradient(120deg,
+    transparent 45%,
+    rgba(255,255,255,.35) 52%,
+    transparent 60%);
+  transform:translateX(-60%);
+  animation: badgeShine 3.8s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes badgePulse{
+  0%,100%{ transform:translateY(-1px) scale(1); }
+  50%{ transform:translateY(-1px) scale(1.04); }
+}
+@keyframes badgeShine{
+  0%{ transform:translateX(-60%); opacity:0; }
+  25%{ opacity:.55; }
+  50%{ transform:translateX(60%); opacity:0; }
+  100%{ transform:translateX(60%); opacity:0; }
+}
+
+/* Just Dropped Banner */
+.dropBanner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,216,74,.18);
+  background:linear-gradient(180deg, rgba(255,216,74,.08), rgba(0,0,0,.10));
+  margin-bottom:12px;
+}
+.dropPill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  font-weight:var(--display-weight);
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  font-size:.78rem;
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.35);
+  box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 16px rgba(255,216,74,.18);
+  white-space:nowrap;
+}
+.dropText{
+  flex:1;
+  font-weight:800;
+  letter-spacing:.15px;
+  opacity:.92;
+  line-height:1.35;
+}
+.dropAgo{
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  color:rgba(255,216,74,.9);
+  opacity:.95;
+  font-size:.85rem;
+  white-space:nowrap;
+}
+
+/* VIDEO */
+.videoWrap{
+  position:relative;
+  width:100%;
+  padding-top:56.25%;
+  border-radius:14px;
+  overflow:hidden;
+  background:#000;
+  border:1px solid rgba(255,216,74,.18);
+}
+.videoWrap.videoHot{
+  border-color: rgba(255,216,74,.55);
+  box-shadow: 0 0 0 1px rgba(255,216,74,.12), 0 18px 40px rgba(0,0,0,.55), 0 0 28px rgba(255,216,74,.10);
+  animation: hotPulse 2.8s ease-in-out infinite;
+}
+@keyframes hotPulse{
+  0%,100%{ box-shadow: 0 0 0 1px rgba(255,216,74,.10), 0 18px 40px rgba(0,0,0,.55), 0 0 22px rgba(255,216,74,.08); }
+  50%{ box-shadow: 0 0 0 1px rgba(255,216,74,.18), 0 18px 40px rgba(0,0,0,.55), 0 0 34px rgba(255,216,74,.12); }
+}
+.videoWrap iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.smallNote{
+  margin-top:10px;
+  opacity:.78;
+  font-size:.92rem;
+  line-height:1.45;
+}
+
+/* Under video actions */
+.videoActions{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* Momentum line */
+.momentumLine{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,216,74,.18);
+  background:linear-gradient(180deg, rgba(255,216,74,.06), rgba(0,0,0,.10));
+  font-weight:900;
+  letter-spacing:.15px;
+  opacity:.92;
+}
+
+/* THUMB STRIP */
+.thumbStrip{
+  margin-top:14px;
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:10px 4px 2px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.thumbStrip::-webkit-scrollbar{ height:8px; }
+.thumbStrip::-webkit-scrollbar-thumb{
+  background:rgba(255,216,74,.22);
+  border-radius:999px;
+}
+.thumb{
+  flex:0 0 auto;
+  width:190px;
+  scroll-snap-align:start;
+  border-radius:14px;
+  border:1px solid rgba(255,216,74,.18);
+  background:rgba(0,0,0,.35);
+  overflow:hidden;
+  cursor:pointer;
+  transition:.18s;
+  position:relative;
+  aspect-ratio:16/9;
+}
+.thumb:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,216,74,.42);
+}
+.thumb img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+.thumbMeta{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding:10px 10px 11px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  font-size:.86rem;
+  opacity:.98;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.68) 100%);
+}
+
+/* Premium thumb overlays */
+.thumb::after{
+  content:"▶";
+  position:absolute;
+  top:10px;
+  left:10px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,216,74,.25);
+  color:var(--yellow);
+  font-weight:var(--display-weight);
+  font-size:.95rem;
+  text-shadow:0 10px 22px rgba(0,0,0,.7);
+  pointer-events:none;
+  transform:translateY(0);
+  transition:.18s;
+}
+.thumb:hover::after{
+  transform:translateY(-1px) scale(1.03);
+  border-color:rgba(255,216,74,.45);
+}
+.thumbNow{
+  border-color:rgba(255,216,74,.65) !important;
+  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.12);
+}
+.thumbNowTag{
+  display:none;
+  position:absolute;
+  top:10px;
+  right:10px;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:.72rem;
+  font-weight:var(--display-weight);
+  letter-spacing:.6px;
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border:1px solid rgba(255,216,74,.35);
+  box-shadow:0 10px 24px rgba(0,0,0,.5), 0 0 18px rgba(255,216,74,.2);
+  pointer-events:none;
+}
+.thumbNow .thumbNowTag{ display:inline-block; }
+
+/* ROAD TO 1K */
+.section{margin-top:56px; text-align:center;}
+.section h2{
+  color:var(--yellow);
+  margin:0 0 12px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
+.progressWrap{
+  margin-top:10px;
+  height:14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,216,74,.18);
+  overflow:hidden;
+}
+.progressBar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  border-radius:999px;
+  transition:width .6s ease;
+}
+
+/* KPI */
+.kpiRow{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+.kpi{
+  min-width:160px;
+  padding:12px 12px 10px;
+  border-radius:14px;
+  border:1px solid rgba(255,216,74,.18);
+  background:linear-gradient(180deg, rgba(255,216,74,.06), rgba(0,0,0,.10));
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  color:var(--yellow);
+  opacity:.98;
+}
+.kpi small{
+  display:block;
+  margin-top:8px;
+  font-weight:900;
+  letter-spacing:.2px;
+  text-transform:none;
+  color:var(--text);
+  opacity:.92;
+  font-size:1.25rem;
+  line-height:1.2;
+}
+.milestoneLine{
+  margin-top:12px;
+  opacity:.82;
+  font-weight:800;
+}
+
+/* PLAYLISTS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+  text-align:left;
+}
+.playCard{
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(10,10,10,.6);
+  transition:.2s;
+}
+.playCard:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,216,74,.42);
+}
+.playCard img{
+  width:100%;
+  display:block;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+.label{
+  padding:14px;
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
+
+/* About/CTA block */
+.dividerGold{
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,216,74,.35), transparent);
+  margin:24px 0 18px;
+  border:0;
+}
+.aboutText{ margin:0; }
+.ctaLine{ margin-top:12px; }
+.ctaLine a{
+  color:var(--yellow);
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+  text-decoration:none;
+}
+.ctaLine a:hover{
+  text-decoration:underline;
+  text-underline-offset:6px;
+}
+
+/* FEATURED THIS WEEK */
+.sectionSub{
+  margin:-4px auto 16px;
+  max-width:760px;
+  opacity:.78;
+  text-align:center;
+}
+.featuredGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:16px;
+}
+.featureCard{
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(10,10,10,.6);
+  transition:.2s;
+}
+.featureCard:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,216,74,.42);
+  box-shadow:0 18px 40px rgba(0,0,0,.55);
+}
+.featureCard img{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  display:block;
+}
+.featureMeta{ padding:14px; }
+.featureTag{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:.72rem;
+  letter-spacing:var(--display-track);
+  font-weight:var(--display-weight);
+  color:var(--yellow);
+  border:1px solid rgba(255,216,74,.28);
+  background:rgba(0,0,0,.35);
+  margin-bottom:10px;
+}
+.featureTitle{
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-transform:uppercase;
+}
+.featuredCta{
+  margin-top:14px;
+  text-align:center;
+  opacity:.85;
+}
+.featuredCta a{
+  color:var(--yellow);
+  font-weight:var(--display-weight);
+  letter-spacing:var(--display-track);
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,216,74,.35);
+  padding-bottom:2px;
+}
+.featuredCta a:hover{opacity:.9}
+
+/* Footer */
+footer{ margin-top:26px; text-align:center; opacity:.65; }
+.footerLine{ margin-top:8px; opacity:.85; font-weight:800; }
+
+/* Accessibility */
+a:focus-visible, .thumb:focus-visible{
+  outline:2px solid rgba(255,216,74,.8);
+  outline-offset:3px;
+  border-radius:14px;
+}
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  body::before{ animation:none !important; }
+  .logo-title, .logo-title img, .logoSweep{ animation:none !important; }
+  .logo-title{ opacity:1 !important; transform:none !important; }
+  .badge, .videoWrap.videoHot{ animation:none !important; }
+  .badge::after{ animation:none !important; }
+}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(10px);transition:520ms ease;}
+.reveal.isVisible{opacity:1;transform:none;}
+
+/* Desktop alignment system */
+@media (min-width: 1024px){
+  .hero{
+    display:grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap:26px;
+    align-items:start;
+  }
+  .logo-title,
+  .welcome,
+  .cta{
+    grid-column:1;
+  }
+  .heroGrid{
+    grid-column:2;
+    grid-row:1 / span 6;
+    margin-top:0;
+  }
+
+  .thumbStrip{
+    overflow:visible;
+    padding:0;
+    scroll-snap-type:none;
+    display:grid;
+    grid-template-columns:repeat(5, minmax(0, 1fr));
+    gap:14px;
+  }
+  .thumb{ width:100%; }
+}
+
+/* Featured responsiveness */
+@media (max-width: 860px){
+  .featuredGrid{ grid-template-columns:1fr; }
+}
+
+/* Mobile layout */
+@media (max-width: 860px){
+  .wrap{ width:min(1100px,94vw); }
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+    padding:10px 0;
+  }
+
+  .nav a{
+    margin-left:0;
+    margin-right:12px;
+    display:inline-block;
+  }
+  .navSep{ display:none; }
+
+  .hero{
+    padding:24px 16px;
+    border-radius:18px;
+  }
+
+  .logo-title{
+    max-width:100%;
+    margin-bottom:12px;
+    padding:10px 10px 14px;
+  }
+
+  .welcomeText{ font-size:.98rem; line-height:1.55; }
+
+  .cta{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .btn{
+    width:100%;
+    padding:13px 16px;
+  }
+
+  .heroGrid{ gap:16px; margin-top:18px; }
+  .card{ padding:14px; border-radius:16px; }
+  .grid{ grid-template-columns:1fr; gap:14px; }
+  .dropBanner{ flex-direction:column; align-items:flex-start; }
+  .dropAgo{ align-self:flex-start; }
+  .kpi{ min-width: 100%; }
+}
+
+/* Mobile performance (single) */
+@media (max-width: 768px){
+  html, body{ overflow-x:hidden; }
+  body::before{ display:none !important; }
+  .topbar{
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    background: rgba(5,5,5,.92);
+  }
+  section{ scroll-margin-top: 76px; }
+}
+
+/* Thumb strip sizing on non-desktop */
+@media (max-width: 1023px){
+  .thumb{ width: 78vw; max-width: 340px; }
+  .thumbStrip::-webkit-scrollbar{ display:none; }
+  .thumbStrip{ scrollbar-width:none; }
+}
+
+/* Playlists readability on small screens */
+@media (max-width: 640px){
+  #playlists .playCard{
+    display:grid;
+    grid-template-columns:128px 1fr;
+    align-items:stretch;
+    overflow:hidden;
+  }
+  #playlists .label{
+    display:flex;
+    align-items:center;
+    padding:14px;
+    font-size:1.02rem;
+    line-height:1.15;
+    text-transform:none;
+    letter-spacing:.2px;
+  }
+}
+
+/* Mobile nav (single source of truth) */
+@media (max-width: 720px){
+  .topbar{
+    padding: 10px 0;
+    background: rgba(5,5,5,.92);
+    border-bottom: 1px solid rgba(255,216,74,.18);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .nav{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    padding: 6px 0 2px;
+    margin: 0 auto;
+  }
+
+  .nav a{
+    margin: 0 !important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height: 46px;
+    padding: 10px 8px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,216,74,.22);
+    background: rgba(255,216,74,.06);
+    font-size: .82rem;
+    letter-spacing: .6px;
+    white-space: normal;
+    text-align:center;
+    text-decoration:none;
+  }
+
+  .nav a:active{ transform: translateY(1px); }
+}
+
+/* Sticky CTA */
+.stickyCta{
+  position:fixed;
+  left:12px; right:12px;
+  bottom:12px;
+  display:flex;
+  gap:10px;
+  padding:10px;
+  border-radius:18px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,216,74,.16);
+  transform:translateY(110%);
+  opacity:0;
+  transition:260ms ease;
+  z-index:999;
+}
+.stickyCta.isOn{ transform:none; opacity:1; }
+.stickyBtn{ flex:1; min-height:44px; }
+
+/* Equal-size pill row (Latest + Get Featured) */
+.pillRow{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:12px;
+}
+.pill{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:44px;
+  border-radius:999px;
+  font-weight:900;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  border:1px solid rgba(255,216,74,.28);
+}
+.pillLatest{
+  color:#0b0b0b;
+  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
+  box-shadow:0 10px 24px rgba(0,0,0,.45);
+}
+.pillFeatured{
+  color:var(--yellow);
+  background:rgba(255,216,74,.06);
+  text-decoration:none;
+}
+.pillFeatured:hover{
+  background:rgba(255,216,74,.12);
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+<div class="wrap">
+
+<div class="topbar">
+  <div></div>
+  <nav class="nav" aria-label="Primary">
+    <a href="#latest">Latest</a>
+    <a href="#road">Road to 1K</a>
+    <a href="#playlists">Playlists</a>
+    <span class="navSep">|</span>
+    <a data-track="click_youtube_nav" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
+    <a data-track="click_tiktok_nav" href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
+    <a data-track="click_instagram_nav" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+</div>
+
+<section class="hero">
+
+  <!-- LOGO -->
+  <div class="logo-title" id="logoTitle">
+    <span class="logoSweep" aria-hidden="true"></span>
+    <img src="NextGen Session Website logo.png" alt="NextGen Sessions">
+  </div>
+
+  <!-- WELCOME -->
+  <div class="welcome">
+    <h2 class="welcomeTitle">Welcome to NextGen Sessions</h2>
+    <p class="welcomeText">
+      Breaking boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B — built for the next generation.
+    </p>
+    <p class="trustLine">Curating independent &amp; underground sounds worldwide.</p>
+  </div>
+
+  <div class="cta">
+    <a class="btn btnGold" data-track="click_watch_youtube" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+    <a class="btn btnPrimary" data-track="click_subscribe" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
+  
+<div class="pillRow">
+<a class="pill pillLatest" href="#latest">Latest</a>
+<a class="pill pillFeatured" data-track="click_get_featured" href="/submit.html">Get Featured</a>
+</div>
+</div>
+  <div class="subMicro">Weekly drops · No spam · Independent artists only</div>
+
+  <div class="heroGrid">
+
+    <!-- LATEST DROP -->
+    <div class="card" id="latest">
+      <div class="cardTitle">
+        Latest Drop
+        <span class="badge" id="newDropBadge" aria-hidden="true" hidden>NEW DROP</span>
+      </div>
+
+      <div class="dropBanner" id="dropBanner" aria-live="polite">
+        <span class="dropPill" id="dropPill">Just Dropped</span>
+        <div class="dropText" id="dropText">Tap play — the newest session is live.</div>
+        <div class="dropAgo" id="dropAgo">—</div>
+      </div>
+
+      <div class="videoWrap" id="videoWrap">
+        <iframe
+          id="latestDropFrame"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          src="https://www.youtube-nocookie.com/embed/EYw3-ZvAhWE?rel=0&modestbranding=1"
+          title="NextGen Sessions - Latest Drop"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="smallNote" id="latestDropNote">
+        Loading latest upload… (auto-updates)
+      </div>
+
+      <div class="videoActions">
+        <a class="btn btnGold" id="watchLatestBtn" data-track="click_watch_latest" href="https://www.youtube.com/watch?v=EYw3-ZvAhWE" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+      </div>
+
+      <div class="momentumLine" id="momentumLine" aria-live="polite">Loading momentum…</div>
+
+      <div class="thumbStrip" id="thumbStrip" aria-label="Latest videos"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Featured This Week -->
+<section class="section featured" id="featured">
+  <h2>Featured This Week</h2>
+  <p class="sectionSub">Three picks we’re pushing right now — tap in.</p>
+
+  <div class="featuredGrid" id="featuredGrid" aria-live="polite">
+    <div class="featuredLoading">Loading featured picks…</div>
+  </div>
+
+  <div class="featuredFallback" id="featuredFallback" style="display:none;">
+    Can’t load the featured grid right now — <a href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA" target="_blank" rel="noopener">open the Featured playlist</a>.
+  </div>
+
+  <div class="featuredCta">
+    Want to be featured? <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">DM on Instagram</a>
+  
+<div class="pillRow">
+<a class="pill pillLatest" href="#latest">Latest</a>
+<a class="pill pillFeatured" data-track="click_get_featured" href="/submit.html">Get Featured</a>
+</div>
+</div>
+</section>
+
+<!-- Road to 1K -->
+<section class="section" id="road">
+  <h2>Road to 1K</h2>
+  <div class="card">
+    <div class="smallNote" id="subNote">Loading subscriber count…</div>
+    <div class="progressWrap" aria-label="Subscriber progress">
+      <div class="progressBar" id="subBar"></div>
+    </div>
+
+    <div class="kpiRow">
+      <div class="kpi" id="subKpi1">Subscribers<small id="subKpi1b">—</small></div>
+      <div class="kpi" id="subKpi2">To Goal<small id="subKpi2b">—</small></div>
+      <div class="kpi" id="subKpi3">Updated<small id="subKpi3b">—</small></div>
+    </div>
+
+    <div class="milestoneLine" id="milestoneLine" aria-live="polite">Every sub helps — next milestone loading…</div>
+  </div>
+</section>
+
+<section class="section" id="playlists">
+  <h2>Playlists</h2>
+
+  <div class="grid">
+    <a class="playCard" data-track="click_playlist_bhangra" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank" rel="noopener">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg" alt="Bhangra playlist thumbnail">
+      <div class="label">🪘 Bhangra</div>
+    </a>
+
+    <a class="playCard" data-track="click_playlist_hiphop" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank" rel="noopener">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg" alt="Hip Hop playlist thumbnail">
+      <div class="label">🎤 Hip Hop</div>
+    </a>
+
+    <a class="playCard" data-track="click_playlist_grime" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank" rel="noopener">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg" alt="Grime & UK Rap playlist thumbnail">
+      <div class="label">🇬🇧 Grime &amp; UK Rap</div>
+    </a>
+
+    <a class="playCard" data-track="click_playlist_dancehall" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank" rel="noopener">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall & Reggae playlist thumbnail">
+      <div class="label">🔥 Dancehall &amp; Reggae</div>
+    </a>
+
+    <a class="playCard" data-track="click_playlist_ambience" href="https://www.youtube.com/watch?v=JT6-1q1-d-k&list=PL7VCdVWElIJHo4ahyxwbePMN6_I9WIj95" target="_blank" rel="noopener">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/JT6-1q1-d-k/hqdefault.jpg" alt="Ambience playlist thumbnail">
+      <div class="label">🌙 Ambience</div>
+    </a>
+  </div>
+
+  <hr class="dividerGold">
+
+  <p class="aboutText heroBody">
+    NextGen Sessions curates forward-thinking sounds across hip-hop, Bhangra, dancehall, grime, R&amp;B and more — spotlighting raw talent, culture, and energy from the underground to the global stage.
+  </p>
+
+  <p class="ctaLine heroBody">
+    <span style="font-weight:900; letter-spacing:.4px; text-transform:uppercase;">Artists &amp; Producers:</span>
+    send submissions via <a data-track="click_submit_track" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram DM</a>.
+    Include a private link (YouTube/SoundCloud) and your social handles.
+  </p>
+
+  <div class="card" id="submit" style="margin-top:16px;">
+    <div class="cardTitle">Get Featured</div>
+
+    <p class="smallNote" style="margin:0 0 10px;">
+      Want your track on NextGen Sessions? Send a clean submission and we’ll review it.
+    </p>
+
+    <p class="smallNote" style="margin:0 0 12px;">
+      We listen to every submission. If it fits, we reply.
+    </p>
+
+    <div class="kpiRow" style="margin-top:0;">
+      <div class="kpi">Step 1<small>DM on Instagram</small></div>
+      <div class="kpi">Step 2<small>Private link + socials</small></div>
+      <div class="kpi">Step 3<small>We reply if it fits</small></div>
+    </div>
+
+    <div class="cta" style="margin-top:14px;">
+      <a class="btn btnPrimary" data-track="click_submit_ig" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Submit via Instagram DM</a>
+      <a class="btn btnPrimary" data-track="click_submit_music_email" href="mailto:billz_rida_37er@yahoo.co.uk?subject=NextGen%20Sessions%20Music%20Submission&body=Artist%20Name%3A%0D%0AInstagram%20Handle%3A%0D%0AGenre%3A%0D%0AVibe%20(1%20line)%3A%0D%0APrivate%20Link%20(YouTube%20Unlisted%20or%20SoundCloud)%3A%0D%0ACity/Country%3A%0D%0A">Submit Your Music</a>
+    
+<div class="pillRow">
+<a class="pill pillLatest" href="#latest">Latest</a>
+<a class="pill pillFeatured" data-track="click_get_featured" href="/submit.html">Get Featured</a>
+</div>
+</div>
+
+    <p class="smallNote" style="margin-top:12px;">
+      Tip: Include genre and a 1-line vibe summary (e.g. “cinematic grime / melodic hook”).
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2026 NextGen Sessions
+  <div class="footerLine">Built by music lovers. Powered by the underground.
+<div class="pillRow">
+<a class="pill pillLatest" href="#latest">Latest</a>
+<a class="pill pillFeatured" data-track="click_get_featured" href="/submit.html">Get Featured</a>
+</div>
+</div>
+</footer>
+
+</div>
+
+<!-- Sticky CTA -->
+<div class="stickyCta" id="stickyCta" aria-label="Quick actions">
+  <a class="btn btnPrimary stickyBtn" data-track="sticky_subscribe"
+     href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1"
+     target="_blank" rel="noopener">Subscribe</a>
+  <a class="btn btnGold stickyBtn" data-track="sticky_latest" href="#latest">Latest</a>
+
+<div class="pillRow">
+<a class="pill pillLatest" href="#latest">Latest</a>
+<a class="pill pillFeatured" data-track="click_get_featured" href="/submit.html">Get Featured</a>
+</div>
+</div>
+
+<script>
+/**
+ * Unified behaviours:
+ * - Click tracking (data-track)
+ * - Latest drop from latest.json + thumb strip + momentum line
+ * - Road to 1K from stats.json + milestones
+ * - Featured This Week from playlist feed
+ * - Reveal animations
+ * - Sticky CTA (efficient)
+ * - Parallax logo tilt (desktop)
+ */
+(function(){
+  // --- Analytics helper ---
+  function track(name, params){
+    if (typeof gtag === "function") gtag("event", name, params || {});
+  }
+
+  document.addEventListener("click", function(e){
+    var a = e.target.closest("a[data-track]");
+    if (!a) return;
+    track(a.getAttribute("data-track"), {
+      link_url: a.href,
+      link_text: (a.textContent || "").trim()
+    });
+  });
+
+  // --- Reveal animations ---
+  const revealTargets = document.querySelectorAll("section, .hero, footer");
+  revealTargets.forEach(el => el.classList.add("reveal"));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("isVisible");
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  revealTargets.forEach(el => io.observe(el));
+
+  // --- Sticky CTA (efficient scroll handler) ---
+  const sticky = document.getElementById("stickyCta");
+  if (sticky){
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        sticky.classList.toggle("isOn", window.scrollY > 260);
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive:true });
+    onScroll();
+  }
+
+  // --- Latest Drop + Gallery + Momentum ---
+  const FALLBACK_VIDEO_ID = "EYw3-ZvAhWE";
+
+  const frame = document.getElementById("latestDropFrame");
+  const note  = document.getElementById("latestDropNote");
+  const badge = document.getElementById("newDropBadge");
+  const strip = document.getElementById("thumbStrip");
+  const watchBtn = document.getElementById("watchLatestBtn");
+  const videoWrap = document.getElementById("videoWrap");
+  const momentumLine = document.getElementById("momentumLine");
+
+  const dropAgo = document.getElementById("dropAgo");
+  const dropPill = document.getElementById("dropPill");
+  const dropText = document.getElementById("dropText");
+
+  function setVideo(videoId){
+    if (!frame) return;
+    frame.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?rel=0&modestbranding=1";
+    if (watchBtn) watchBtn.href = "https://www.youtube.com/watch?v=" + videoId;
+  }
+
+  function setNote(text){
+    if (note) note.textContent = text;
+  }
+
+  function showBadge(){ if (badge) badge.hidden = false; }
+  function hideBadge(){ if (badge) badge.hidden = true; }
+
+  function setBanner(agoText){
+    if (dropPill) dropPill.textContent = "Just Dropped";
+    if (dropText) dropText.textContent = "Tap play — the newest session is live.";
+    if (dropAgo) dropAgo.textContent = agoText ? agoText : "—";
+  }
+
+  function setHot(isHot){
+    if (!videoWrap) return;
+    videoWrap.classList.toggle("videoHot", !!isHot);
+  }
+
+  const STORAGE_KEY = "ngs_lastVideoId";
+
+  const GALLERY = [
+    { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
+    { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
+    { id: "Qr1gNggtg8k", title: "Ride On My Enemies" },
+    { id: "Zkb80UYO0pY", title: "Money in the Bando" },
+    { id: "5YgrpFXZ92Q", title: "Marked for War" },
+    { id: "ccwwJFDErvg", title: "Bulletproof Mind" },
+    { id: "GgZ7oQEF4CQ", title: "No Face No Case" },
+    { id: "d3bkbzzYeG4", title: "Like Father Like Son" },
+    { id: "Mcc_Da8weAE", title: "Bands" },
+    { id: "TctcNn8cOHs", title: "Latest Upload" }
+  ];
+
+  let galleryCurrent = [...GALLERY];
+
+  function hasVideo(list, id){ return list.some(v => v.id === id); }
+
+  function buildThumbStrip(list){
+    if (!strip) return;
+    strip.innerHTML = list.map(v => `
+      <div class="thumb" role="button" tabindex="0" data-id="${v.id}" aria-label="Play ${escapeHtml(v.title)}">
+        <span class="thumbNowTag" aria-hidden="true">NOW</span>
+        <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${escapeHtml(v.title)}">
+        <div class="thumbMeta">${escapeHtml(v.title)}</div>
+      </div>
+    `).join("");
+  }
+
+  function setNowPlayingThumb(videoId){
+    if (!strip) return;
+    strip.querySelectorAll(".thumb").forEach(t => {
+      t.classList.toggle("thumbNow", t.dataset.id === videoId);
+    });
+  }
+
+  function trackThumb(videoId){
+    track("click_video_thumb", { video_id: videoId });
+  }
+
+  function setMomentum(latestId, list){
+    if (!momentumLine) return;
+    const next = list.filter(v => v.id !== latestId).slice(0, 2);
+    const nowTitle = (list.find(v => v.id === latestId)?.title) || "Latest Upload";
+    const nextA = next[0]?.title || "—";
+    const nextB = next[1]?.title || "—";
+    momentumLine.textContent = `Now trending: ${nowTitle} • Up next: ${nextA} • Fresh pick: ${nextB}`;
+  }
+
+  function escapeHtml(s){
+    return String(s || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  // Events (thumb clicks)
+  if (strip){
+    strip.addEventListener("click", (e) => {
+      const thumb = e.target.closest(".thumb");
+      if (!thumb) return;
+      const vid = thumb.dataset.id;
+      setVideo(vid);
+      hideBadge();
+      setHot(false);
+      setNote("Now playing selected video.");
+      setNowPlayingThumb(vid);
+      localStorage.setItem(STORAGE_KEY, vid);
+      trackThumb(vid);
+      setMomentum(vid, galleryCurrent);
+    });
+
+    strip.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const thumb = e.target.closest(".thumb");
+      if (!thumb) return;
+      e.preventDefault();
+      const vid = thumb.dataset.id;
+      setVideo(vid);
+      hideBadge();
+      setHot(false);
+      setNote("Now playing selected video.");
+      setNowPlayingThumb(vid);
+      localStorage.setItem(STORAGE_KEY, vid);
+      trackThumb(vid);
+      setMomentum(vid, galleryCurrent);
+    });
+  }
+
+  // Initial strip
+  buildThumbStrip(galleryCurrent);
+  setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
+
+  function timeAgoFromUTCString(s){
+    if (!s) return "";
+    const iso = s.replace(" UTC", "Z").replace(" ", "T");
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return "";
+    const diffMs = Date.now() - d.getTime();
+    const mins = Math.max(0, Math.round(diffMs / 60000));
+    if (mins < 60) return mins + " min ago";
+    const hrs = Math.round(mins / 60);
+    if (hrs < 48) return hrs + " hours ago";
+    const days = Math.round(hrs / 24);
+    return days + " days ago";
+  }
+
+  function minutesSinceUTCString(s){
+    if (!s) return Infinity;
+    const iso = s.replace(" UTC", "Z").replace(" ", "T");
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return Infinity;
+    return Math.max(0, Math.round((Date.now() - d.getTime()) / 60000));
+  }
+
+  const latestUrl = "latest.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
+
+  fetch(latestUrl, { cache: "no-store" })
+    .then(r => {
+      if (!r.ok) throw new Error("latest.json not found");
+      return r.json();
+    })
+    .then(data => {
+      const latestId = (data && (data.videoId || data.latestVideoId || data.id) || "").trim();
+      if (!latestId) throw new Error("No videoId in latest.json");
+
+      const updatedAtRaw = (data.updatedAt || "").trim();
+      const ago = timeAgoFromUTCString(updatedAtRaw);
+      const minsSince = minutesSinceUTCString(updatedAtRaw);
+      const isHot = minsSince <= (48 * 60); // 48 hours
+
+      const lastSeen = localStorage.getItem(STORAGE_KEY);
+
+      setVideo(latestId);
+      setBanner(ago);
+      setHot(isHot);
+
+      if (!hasVideo(galleryCurrent, latestId)){
+        galleryCurrent = [{ id: latestId, title: "Latest Upload" }, ...galleryCurrent].slice(0, 10);
+      } else {
+        galleryCurrent = galleryCurrent.map(v => (v.id === latestId ? { ...v, title: "Latest Upload" } : v));
+      }
+
+      buildThumbStrip(galleryCurrent);
+      setNowPlayingThumb(latestId);
+      setMomentum(latestId, galleryCurrent);
+
+      if (strip){
+        const now = strip.querySelector(`.thumb[data-id="${latestId}"]`);
+        if (now) now.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      }
+
+      if (lastSeen && lastSeen !== latestId){
+        showBadge();
+        setNote("Auto-updated to newest upload" + (ago ? " · " + ago : "") + ".");
+      } else {
+        hideBadge();
+        setNote("Showing latest upload" + (ago ? " · " + ago : "") + ".");
+      }
+
+      localStorage.setItem(STORAGE_KEY, latestId);
+    })
+    .catch(() => {
+      hideBadge();
+      setHot(false);
+      setVideo(FALLBACK_VIDEO_ID);
+      setBanner("");
+      setNote("Showing fallback (latest auto-update unavailable).");
+      if (!hasVideo(galleryCurrent, FALLBACK_VIDEO_ID)){
+        galleryCurrent = [{ id: FALLBACK_VIDEO_ID, title: "Fallback" }, ...galleryCurrent].slice(0, 10);
+        buildThumbStrip(galleryCurrent);
+      }
+      setNowPlayingThumb(FALLBACK_VIDEO_ID);
+      setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
+    });
+
+  if (frame){
+    frame.addEventListener("error", () => {
+      hideBadge();
+      setHot(false);
+      setVideo(FALLBACK_VIDEO_ID);
+      setBanner("");
+      setNote("Showing fallback (latest upload can’t be embedded).");
+      setNowPlayingThumb(FALLBACK_VIDEO_ID);
+      setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
+    });
+  }
+
+  // --- Road to 1K (stats.json) ---
+  (function(){
+    const bar = document.getElementById("subBar");
+    const noteEl = document.getElementById("subNote");
+    const k1b = document.getElementById("subKpi1b");
+    const k2b = document.getElementById("subKpi2b");
+    const k3b = document.getElementById("subKpi3b");
+    const milestone = document.getElementById("milestoneLine");
+
+    if (!bar || !noteEl || !k1b || !k2b || !k3b) return;
+
+    const goal = 1000;
+    const statsUrl = "stats.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
+
+    function nextMilestone(subs){
+      const steps = [250, 500, 750, 1000];
+      for (const s of steps){
+        if (subs < s) return s;
+      }
+      return 1000;
+    }
+
+    fetch(statsUrl, { cache: "no-store" })
+      .then(r => {
+        if (!r.ok) throw new Error("stats.json not found");
+        return r.json();
+      })
+      .then(s => {
+        const subs = Number(s.subscribers || 0);
+        const updatedAt = (s.updatedAt || "").trim();
+
+        const pct = Math.max(0, Math.min(100, (subs / goal) * 100));
+        bar.style.width = pct + "%";
+
+        const remaining = Math.max(0, goal - subs);
+
+        noteEl.textContent = `Subscribers: ${subs.toLocaleString()} / ${goal.toLocaleString()}`;
+        k1b.textContent = subs.toLocaleString();
+        k2b.textContent = `${remaining.toLocaleString()} to go`;
+        k3b.textContent = updatedAt ? updatedAt : "—";
+
+        if (milestone){
+          const nm = nextMilestone(subs);
+          milestone.textContent = `Every sub helps — next milestone: ${nm.toLocaleString()}`;
+        }
+      })
+      .catch(() => {
+        noteEl.textContent = "Live count updating — check back shortly.";
+        bar.style.width = "0%";
+        k1b.textContent = "—";
+        k2b.textContent = "—";
+        k3b.textContent = "—";
+        if (milestone) milestone.textContent = "Every sub helps — next milestone: 250";
+      });
+  })();
+
+  // --- Parallax tilt (desktop only) ---
+  (function(){
+    const logo = document.getElementById("logoTitle");
+    if (!logo) return;
+
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    const img = logo.querySelector("img");
+    if (!img) return;
+
+    // Skip tilt on touch devices
+    if ("ontouchstart" in window) return;
+
+    function onMove(e){
+      const r = logo.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+
+      const rotY = (x - 0.5) * 8;
+      const rotX = (0.5 - y) * 6;
+      const lift = -2;
+
+      img.style.transform =
+        `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(${lift}px)`;
+    }
+
+    function reset(){
+      img.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+    }
+
+    logo.addEventListener("mousemove", onMove);
+    logo.addEventListener("mouseleave", reset);
+    logo.addEventListener("blur", reset, true);
+    reset();
+  })();
+
+  // --- Featured This Week (auto-load from playlist RSS) ---
+  (function loadFeaturedFromPlaylist(){
+    const playlistId = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
+    const rawFeed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId);
+    const playlistUrl = "https://www.youtube.com/playlist?list=" + playlistId;
+    const grid = document.getElementById("featuredGrid");
+    const fallback = document.getElementById("featuredFallback");
+    if (!grid) return;
+
+    function makeCard(href, title, videoId){
+      const a = document.createElement("a");
+      a.className = "featureCard";
+      a.href = href || playlistUrl;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.setAttribute("data-track", "featured_click");
+
+      const img = document.createElement("img");
+      img.alt = title || "Featured pick";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.src = videoId ? ("https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg") : "https://i.ytimg.com/vi/" + FALLBACK_VIDEO_ID + "/hqdefault.jpg";
+      a.appendChild(img);
+
+      const meta = document.createElement("div");
+      meta.className = "featureMeta";
+
+      const tag = document.createElement("div");
+      tag.className = "featureTag";
+      tag.textContent = "FEATURED";
+      meta.appendChild(tag);
+
+      const t = document.createElement("div");
+      t.className = "featureTitle";
+      t.textContent = title || "Open on YouTube";
+      meta.appendChild(t);
+
+      a.appendChild(meta);
+      return a;
+    }
+
+    const endpoints = [
+      rawFeed,
+      "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawFeed),
+      "https://r.jina.ai/https://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId),
+      "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rawFeed)
+    ];
+
+    function fetchText(url){
+      return fetch(url, { cache: "no-store" }).then(r => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      });
+    }
+
+    function fetchJson(url){
+      return fetch(url, { cache: "no-store" }).then(r => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      });
+    }
+
+    function parseAndRenderFromXmlText(xmlText){
+      const idx = xmlText.indexOf("<feed");
+      const clean = idx >= 0 ? xmlText.slice(idx) : xmlText;
+
+      const xml = new DOMParser().parseFromString(clean, "text/xml");
+      const entries = Array.from(xml.getElementsByTagName("entry")).slice(0, 3);
+
+      if (!entries.length) throw new Error("No entries");
+      grid.innerHTML = "";
+
+      entries.forEach(entry => {
+        const titleEl = entry.getElementsByTagName("title")[0];
+        const title = titleEl ? titleEl.textContent.trim() : "Featured pick";
+
+        const linkEl = entry.getElementsByTagName("link")[0];
+        const href = linkEl ? linkEl.getAttribute("href") : playlistUrl;
+
+        const vidEl = entry.getElementsByTagName("yt:videoId")[0] || entry.getElementsByTagName("videoId")[0];
+        const videoId = vidEl ? vidEl.textContent.trim() : "";
+
+        grid.appendChild(makeCard(href, title, videoId));
+      });
+
+      if (fallback) fallback.style.display = "none";
+    }
+
+    function renderFallback(){
+      if (fallback) fallback.style.display = "block";
+    }
+
+    (async function(){
+      for (let i = 0; i < endpoints.length; i++){
+        const url = endpoints[i];
+        try{
+          if (url.includes("rss2json.com")){
+            const data = await fetchJson(url);
+            const items = (data && data.items) ? data.items.slice(0, 3) : [];
+            if (!items.length) throw new Error("No items");
+            grid.innerHTML = "";
+            items.forEach(it => {
+              const href = it.link || playlistUrl;
+              const title = it.title || "Featured pick";
+              let videoId = "";
+              if (it.guid) {
+                const m = String(it.guid).match(/video:(.+)$/);
+                if (m) videoId = m[1];
+              }
+              if (!videoId && href) {
+                const m2 = String(href).match(/[?&]v=([^&]+)/);
+                if (m2) videoId = m2[1];
+              }
+              grid.appendChild(makeCard(href, title, videoId));
+            });
+            if (fallback) fallback.style.display = "none";
+            return;
+          } else {
+            const txt = await fetchText(url);
+            parseAndRenderFromXmlText(txt);
+            return;
+          }
+        } catch(e){
+          // try next endpoint
+        }
+      }
+      renderFallback();
+    })();
+  })();
+
+})();
+</script>
+
+</body>
+</html>

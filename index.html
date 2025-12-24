@@ -48,7 +48,6 @@
   --text:#f6f1e3;
   --border:rgba(255,216,74,.25);
 
-  /* Uniform display style */
   --display-weight: 900;
   --display-track: .4px;
 }
@@ -66,7 +65,7 @@ body{
   overflow-x:hidden;
 }
 
-/* gold dust background */
+/* gold dust background (desktop) */
 body::before{
   content:"";
   position:fixed;
@@ -150,7 +149,6 @@ body::before{
   padding:12px 12px 16px;
   border-radius:20px;
 
-  /* entrance animation */
   opacity:0;
   transform:translateY(14px) scale(.985);
   animation:
@@ -160,7 +158,6 @@ body::before{
   --pulse: 1.03;
 }
 
-/* the logo itself */
 .logo-title img{
   width:100%;
   height:auto;
@@ -168,15 +165,12 @@ body::before{
   margin:0 auto;
   border-radius:14px;
 
-  /* blend + depth */
   filter:
     drop-shadow(0 0 22px rgba(255,216,74,.28))
     drop-shadow(0 18px 28px rgba(0,0,0,.75));
 
-  /* glow animation */
   animation: logoGlow 1.8s ease-in-out .35s both;
 
-  /* Parallax tilt base */
   transition: transform .12s ease-out;
   will-change: transform;
   transform: scale(var(--pulse));
@@ -222,7 +216,6 @@ body::before{
 .logo-title img{ position:relative; z-index:1; }
 .logoSweep{ position:absolute; z-index:2; }
 
-/* Gold sweep overlay element */
 .logoSweep{
   inset:-35%;
   border-radius:26px;
@@ -242,14 +235,9 @@ body::before{
   50%{ transform:translate(10px,-6px); }
   100%{ transform:translate(0,0); }
 }
-
 @keyframes logoIn{
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+  to{ opacity:1; transform:translateY(0) scale(1); }
 }
-
 @keyframes logoGlow{
   0%{
     filter: drop-shadow(0 0 0 rgba(255,216,74,0))
@@ -264,20 +252,18 @@ body::before{
             drop-shadow(0 18px 28px rgba(0,0,0,.75));
   }
 }
-
 @keyframes logoSweep{
   0%{ opacity:0; transform:translateX(-55%); }
   10%{ opacity:.55; }
   28%{ opacity:0; transform:translateX(55%); }
   100%{ opacity:0; transform:translateX(55%); }
 }
-
 @keyframes logoPulse{
   0%,100%{ --pulse: 1; }
   50%{ --pulse: 1.01; }
 }
 
-/* Upgraded welcome statement (uniform + stands out) */
+/* Welcome */
 .welcome{
   margin-top:8px;
   max-width:90ch;
@@ -299,8 +285,14 @@ body::before{
   font-weight:800;
   letter-spacing:.15px;
 }
+.trustLine{
+  margin:10px 0 0;
+  opacity:.82;
+  font-weight:800;
+  letter-spacing:.15px;
+}
 
-/* Shared hero-level body for matching text sizing */
+/* Shared hero-level body */
 .heroBody{
   font-weight:800;
   line-height:1.6;
@@ -311,9 +303,18 @@ body::before{
   margin-right:auto;
 }
 
-.cta{ margin-top:16px; }
+/* CTA */
+.cta{
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
 .btn{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   padding:12px 18px;
   border-radius:999px;
   border:1px solid var(--border);
@@ -324,7 +325,6 @@ body::before{
   letter-spacing:var(--display-track);
   text-transform:uppercase;
 
-  margin-right:10px;
   transition:.18s;
 }
 .btn:hover{
@@ -332,7 +332,7 @@ body::before{
   transform:translateY(-1px);
 }
 
-/* Primary gold button (Subscribe style) */
+/* Primary gold button */
 .btnPrimary{
   color:#0b0b0b;
   background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
@@ -344,7 +344,7 @@ body::before{
   box-shadow:0 16px 34px rgba(0,0,0,.6), 0 0 22px rgba(255,216,74,.22);
 }
 
-/* Gold secondary (matches Subscribe but slightly softer) */
+/* Gold secondary */
 .btnGold{
   color:#0b0b0b;
   background:linear-gradient(180deg, rgba(255,216,74,.92), rgba(255,180,30,.88));
@@ -354,6 +354,15 @@ body::before{
 .btnGold:hover{
   transform:translateY(-2px);
   box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.18);
+}
+
+/* Subscribe micro-copy */
+.subMicro{
+  margin-top:10px;
+  font-size:.92rem;
+  opacity:.78;
+  font-weight:800;
+  letter-spacing:.15px;
 }
 
 /* GRID */
@@ -398,7 +407,6 @@ body::before{
   border:1px solid rgba(255,216,74,.35);
   vertical-align:middle;
   transform:translateY(-1px);
-
   position:relative;
   overflow:hidden;
   animation: badgePulse 2.2s ease-in-out infinite;
@@ -483,6 +491,15 @@ body::before{
   background:#000;
   border:1px solid rgba(255,216,74,.18);
 }
+.videoWrap.videoHot{
+  border-color: rgba(255,216,74,.55);
+  box-shadow: 0 0 0 1px rgba(255,216,74,.12), 0 18px 40px rgba(0,0,0,.55), 0 0 28px rgba(255,216,74,.10);
+  animation: hotPulse 2.8s ease-in-out infinite;
+}
+@keyframes hotPulse{
+  0%,100%{ box-shadow: 0 0 0 1px rgba(255,216,74,.10), 0 18px 40px rgba(0,0,0,.55), 0 0 22px rgba(255,216,74,.08); }
+  50%{ box-shadow: 0 0 0 1px rgba(255,216,74,.18), 0 18px 40px rgba(0,0,0,.55), 0 0 34px rgba(255,216,74,.12); }
+}
 .videoWrap iframe{
   position:absolute;
   inset:0;
@@ -506,7 +523,19 @@ body::before{
   flex-wrap:wrap;
 }
 
-/* THUMB STRIP (Latest videos) */
+/* Momentum line */
+.momentumLine{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,216,74,.18);
+  background:linear-gradient(180deg, rgba(255,216,74,.06), rgba(0,0,0,.10));
+  font-weight:900;
+  letter-spacing:.15px;
+  opacity:.92;
+}
+
+/* THUMB STRIP */
 .thumbStrip{
   margin-top:14px;
   display:flex;
@@ -532,6 +561,7 @@ body::before{
   cursor:pointer;
   transition:.18s;
   position:relative;
+  aspect-ratio:16/9;
 }
 .thumb:hover{
   transform:translateY(-2px);
@@ -539,29 +569,26 @@ body::before{
 }
 .thumb img{
   width:100%;
+  height:100%;
   display:block;
+  object-fit:cover;
 }
 .thumbMeta{
+  position:absolute;
+  left:0; right:0; bottom:0;
   padding:10px 10px 11px;
   font-weight:var(--display-weight);
   letter-spacing:var(--display-track);
   text-transform:uppercase;
   font-size:.86rem;
-  opacity:.95;
+  opacity:.98;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+  background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.68) 100%);
 }
 
 /* Premium thumb overlays */
-.thumb::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.65) 100%);
-  opacity:.55;
-  pointer-events:none;
-}
 .thumb::after{
   content:"▶";
   position:absolute;
@@ -609,7 +636,7 @@ body::before{
 .thumbNow .thumbNowTag{ display:inline-block; }
 
 /* ROAD TO 1K */
-.section{margin-top:40px; text-align:left;}
+.section{margin-top:56px; text-align:center;}
 .section h2{
   color:var(--yellow);
   margin:0 0 12px;
@@ -633,7 +660,7 @@ body::before{
   transition:width .6s ease;
 }
 
-/* KPI styling to match brand */
+/* KPI */
 .kpiRow{
   display:flex;
   justify-content:space-between;
@@ -664,12 +691,18 @@ body::before{
   font-size:1.25rem;
   line-height:1.2;
 }
+.milestoneLine{
+  margin-top:12px;
+  opacity:.82;
+  font-weight:800;
+}
 
 /* PLAYLISTS */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:18px;
+  text-align:left;
 }
 .playCard{
   text-decoration:none;
@@ -684,7 +717,12 @@ body::before{
   transform:translateY(-3px);
   border-color:rgba(255,216,74,.42);
 }
-.playCard img{width:100%;display:block;}
+.playCard img{
+  width:100%;
+  display:block;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
 .label{
   padding:14px;
   font-weight:var(--display-weight);
@@ -699,12 +737,8 @@ body::before{
   margin:24px 0 18px;
   border:0;
 }
-.aboutText{
-  margin:0;
-}
-.ctaLine{
-  margin-top:12px;
-}
+.aboutText{ margin:0; }
+.ctaLine{ margin-top:12px; }
 .ctaLine a{
   color:var(--yellow);
   font-weight:var(--display-weight);
@@ -716,32 +750,6 @@ body::before{
   text-decoration:underline;
   text-underline-offset:6px;
 }
-
-footer{
-  margin-top:26px;
-  text-align:center;
-  opacity:.6;
-}
-
-/* Accessibility: visible focus */
-a:focus-visible, .thumb:focus-visible{
-  outline:2px solid rgba(255,216,74,.8);
-  outline-offset:3px;
-  border-radius:14px;
-}
-
-/* Accessibility: respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior:auto; }
-  body::before{ animation:none !important; }
-  .logo-title, .logo-title img, .logoSweep{ animation:none !important; }
-  .logo-title{ opacity:1 !important; transform:none !important; }
-  .badge{ animation:none !important; }
-  .badge::after{ animation:none !important; }
-}
-
-/* Mobile scaling */
-
 
 /* FEATURED THIS WEEK */
 .sectionSub{
@@ -769,15 +777,13 @@ a:focus-visible, .thumb:focus-visible{
   border-color:rgba(255,216,74,.42);
   box-shadow:0 18px 40px rgba(0,0,0,.55);
 }
-.featureMedia img{
+.featureCard img{
   width:100%;
   aspect-ratio:16/9;
   object-fit:cover;
   display:block;
 }
-.featureMeta{
-  padding:14px;
-}
+.featureMeta{ padding:14px; }
 .featureTag{
   display:inline-block;
   padding:5px 10px;
@@ -810,9 +816,31 @@ a:focus-visible, .thumb:focus-visible{
 }
 .featuredCta a:hover{opacity:.9}
 
+/* Footer */
+footer{ margin-top:26px; text-align:center; opacity:.65; }
+.footerLine{ margin-top:8px; opacity:.85; font-weight:800; }
+
+/* Accessibility */
+a:focus-visible, .thumb:focus-visible{
+  outline:2px solid rgba(255,216,74,.8);
+  outline-offset:3px;
+  border-radius:14px;
+}
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  body::before{ animation:none !important; }
+  .logo-title, .logo-title img, .logoSweep{ animation:none !important; }
+  .logo-title{ opacity:1 !important; transform:none !important; }
+  .badge, .videoWrap.videoHot{ animation:none !important; }
+  .badge::after{ animation:none !important; }
+}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(10px);transition:520ms ease;}
+.reveal.isVisible{opacity:1;transform:none;}
+
 /* Desktop alignment system */
 @media (min-width: 1024px){
-  /* Hero becomes 2-column: left brand, right content */
   .hero{
     display:grid;
     grid-template-columns: 1fr 1.15fr;
@@ -830,7 +858,6 @@ a:focus-visible, .thumb:focus-visible{
     margin-top:0;
   }
 
-  /* Mini video strip snaps into a clean grid on desktop */
   .thumbStrip{
     overflow:visible;
     padding:0;
@@ -839,39 +866,7 @@ a:focus-visible, .thumb:focus-visible{
     grid-template-columns:repeat(5, minmax(0, 1fr));
     gap:14px;
   }
-  .thumb{
-    width:100%;
-    flex:unset;
-  }
-
-  /* Featured grid breathing room */
-  .featuredGrid{ gap:18px; }
-}
-
-/* Card / image consistency */
-.thumb{
-  aspect-ratio:16/9;
-}
-.thumb img{
-  aspect-ratio:16/9;
-  height:100%;
-  object-fit:cover;
-}
-.playCard img{
-  aspect-ratio:16/9;
-  object-fit:cover;
-}
-
-/* Section rhythm + heading alignment */
-.section{
-  margin-top:56px;
-  text-align:center;
-}
-.section h2{
-  text-align:center;
-}
-.grid{
-  text-align:left;
+  .thumb{ width:100%; }
 }
 
 /* Featured responsiveness */
@@ -879,7 +874,7 @@ a:focus-visible, .thumb:focus-visible{
   .featuredGrid{ grid-template-columns:1fr; }
 }
 
-
+/* Mobile layout */
 @media (max-width: 860px){
   .wrap{ width:min(1100px,94vw); }
 
@@ -908,342 +903,120 @@ a:focus-visible, .thumb:focus-visible{
     padding:10px 10px 14px;
   }
 
-  .welcomeText{
-    font-size:.98rem;
-    line-height:1.55;
-  }
+  .welcomeText{ font-size:.98rem; line-height:1.55; }
 
   .cta{
-    display:flex;
     flex-direction:column;
-    gap:10px;
-    margin-top:16px;
+    align-items:stretch;
   }
   .btn{
     width:100%;
-    text-align:center;
     padding:13px 16px;
-    margin-right:0;
   }
 
-  .heroGrid{
-    gap:16px;
-    margin-top:18px;
-  }
-
-  .card{
-    padding:14px;
-    border-radius:16px;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-    gap:14px;
-  }
-
-  .thumb{ width:165px; }
-  .dropBanner{
-    flex-direction:column;
-    align-items:flex-start;
-  }
+  .heroGrid{ gap:16px; margin-top:18px; }
+  .card{ padding:14px; border-radius:16px; }
+  .grid{ grid-template-columns:1fr; gap:14px; }
+  .dropBanner{ flex-direction:column; align-items:flex-start; }
   .dropAgo{ align-self:flex-start; }
   .kpi{ min-width: 100%; }
 }
 
-
-/* --- Mobile polish: smoother scrolling + consistent layout --- */
+/* Mobile performance (single) */
 @media (max-width: 768px){
-  /* Prevent any accidental horizontal drift */
   html, body{ overflow-x:hidden; }
-
-  /* Fixed animated dust can feel "janky" on mobile scrolling */
-  body::before{
-    position:absolute;
-    animation:none;
-    opacity:.28;
-  }
-
-  /* Sticky blur can stutter on mobile GPUs */
+  body::before{ display:none !important; }
   .topbar{
     backdrop-filter:none !important;
     -webkit-backdrop-filter:none !important;
-    background: rgba(5,5,5,.72);
+    background: rgba(5,5,5,.92);
   }
-
-  /* Keep sections feeling like the desktop rhythm, but tighter */
-  .wrap{ padding: 12px 0 44px; }
   section{ scroll-margin-top: 76px; }
-
-  /* Featured + grids: avoid cramped multi-column layouts */
-  .featuredGrid{ grid-template-columns: 1fr; gap:14px; }
-  .grid{ grid-template-columns: 1fr; gap:14px; }
-
-  /* Mini video strip: smoother swiping and no ugly scrollbars */
-  .thumbStrip{
-    padding: 12px 8px 8px;
-    scroll-padding: 8px;
-    gap: 12px;
-  }
-  .thumbStrip::-webkit-scrollbar{ display:none; }
-  .thumbStrip{ scrollbar-width:none; }
-
-  /* Reduce heavy shadows slightly for smoother scroll */
-  .card, .playCard{
-    box-shadow: 0 10px 26px rgba(0,0,0,.42);
-  }
-
-  /* Ensure embeds never overflow */
-  iframe, img{ max-width:100%; }
 }
 
+/* Thumb strip sizing on non-desktop */
+@media (max-width: 1023px){
+  .thumb{ width: 78vw; max-width: 340px; }
+  .thumbStrip::-webkit-scrollbar{ display:none; }
+  .thumbStrip{ scrollbar-width:none; }
+}
 
-/* --- Mobile polish: playlists readability + smoother scrolling --- */
+/* Playlists readability on small screens */
 @media (max-width: 640px){
-  /* Reduce visual noise & jank on mobile */
-  body::before{ display:none !important; }
-
-  /* Playlists: turn cards into image-left + label-right for readability */
-  #playlists .grid{
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
   #playlists .playCard{
-    display: grid;
-    grid-template-columns: 128px 1fr;
-    align-items: stretch;
-    overflow: hidden;
-  }
-  #playlists .playCard img{
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
+    display:grid;
+    grid-template-columns:128px 1fr;
+    align-items:stretch;
+    overflow:hidden;
   }
   #playlists .label{
     display:flex;
     align-items:center;
-    padding: 14px 14px;
-    font-size: 1.02rem;
-    line-height: 1.15;
-    text-transform:none; /* keep readable on mobile */
-    letter-spacing: .2px;
+    padding:14px;
+    font-size:1.02rem;
+    line-height:1.15;
+    text-transform:none;
+    letter-spacing:.2px;
   }
-
-  /* Prevent any horizontal drift */
-  .wrap{ width: min(1100px, 94vw); }
-  .grid, .thumbStrip{ max-width: 100%; }
 }
 
-
-/* === Mobile polish: fix nav overflow + improve browse flow === */
+/* Mobile nav (single source of truth) */
 @media (max-width: 720px){
-  /* avoid any horizontal drift */
-  html, body{ overflow-x:hidden; }
-
-  /* Topbar: allow wrapping + smaller type */
   .topbar{
-    position: sticky;
-    top: 0;
-    padding: 10px 0 8px;
-    backdrop-filter: none !important;
+    padding: 10px 0;
     background: rgba(5,5,5,.92);
     border-bottom: 1px solid rgba(255,216,74,.18);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
-  .topbar .nav,
-  .topbar nav{
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px 14px;
+
+  .nav{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
     padding: 6px 0 2px;
-  }
-  .topbar a{
-    font-size: 0.9rem;
-    line-height: 1.1;
-    padding: 6px 8px;
-    border-radius: 10px;
-    white-space: nowrap;
+    margin: 0 auto;
   }
 
-  /* Hero/logo: ensure it never overflows and sits nicely */
-  .logo-lockup img,
-  .logo-anchor img,
-  .logo-title,
-  .site-logo{
-    max-width: 92vw !important;
-    width: 92vw !important;
-    height: auto !important;
-  }
-
-  /* Cards: increase readability */
-  .playlist-grid{
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-  .playlist-card, .card{
-    padding: 12px !important;
-  }
-
-  /* Mini video strip: keep swipe but make it tidy */
-  .thumb-strip, .mini-videos, .video-strip{
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 6px;
-  }
-  .thumb, .mini-video, .video-thumb{
-    scroll-snap-align: start;
-    min-width: 74vw;
-  }
-
-  /* Reduce heavy effects on mobile for smoother scroll */
-  body::before{ display:none !important; } /* disable animated dust layer on mobile */
-}
-
-
-/* === Mobile nav v2: grid layout (no clipping) === */
-@media (max-width: 720px){
-  .topbar{
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-  }
-
-  /* Support both .nav and nav wrappers */
-  .topbar .nav,
-  .topbar nav{
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 10px 12px !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    max-width: 520px;
-    margin: 0 auto !important;
-    padding: 8px 0 4px !important;
-  }
-
-  /* Make each link fit its cell, centered, readable */
-  .topbar a{
-    display: block;
-    text-align: center !important;
-    width: 100% !important;
-    font-size: 0.88rem !important;
-    letter-spacing: 0.2px !important;
-    padding: 10px 8px !important;
-    border-radius: 12px !important;
-    white-space: nowrap !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-
-/* === Mobile nav v3: no truncation, 2-line labels if needed === */
-@media (max-width: 720px){
-  .topbar .nav,
-  .topbar nav{
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    max-width: 560px !important;
-    gap: 8px 10px !important;
-  }
-  .topbar a{
-    font-size: 0.78rem !important;
-    padding: 10px 6px !important;
-    white-space: normal !important;   /* allow wrap */
-    overflow: visible !important;     /* no clipping */
-    text-overflow: unset !important;  /* no ellipsis */
-    line-height: 1.05 !important;
-    letter-spacing: 0.15px !important;
-    min-height: 42px;
+  .nav a{
+    margin: 0 !important;
     display:flex;
     align-items:center;
     justify-content:center;
-  }
-}
-
-
-/* === Mobile nav v4: compact labels + better alignment === */
-@media (max-width: 720px){
-  .topbar{ padding: 8px 12px 6px !important; }
-  .topbar .nav, .topbar nav{
-    max-width: 520px !important;
-    gap: 8px 10px !important;
-  }
-  .topbar a{
-    font-size: 0.82rem !important;
-    padding: 10px 6px !important;
-    letter-spacing: .6px !important;
-  }
-}
-
-
-/* === Mobile nav v5: true centered pills + no left clipping === */
-@media (max-width: 720px){
-  .wrap{ width: 100% !important; padding-left: 14px !important; padding-right: 14px !important; }
-  .topbar{ left: 0; right: 0; width: 100%; }
-
-  .topbar .nav, .topbar nav{
-    width: 100% !important;
-    max-width: none !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    justify-items: stretch !important;
-    align-items: stretch !important;
-    gap: 10px 10px !important;
-    padding: 10px 0 8px !important;
-    margin: 0 auto !important;
-  }
-
-  .topbar a{
-    background: rgba(255,216,74,.06);
+    min-height: 46px;
+    padding: 10px 8px;
+    border-radius: 14px;
     border: 1px solid rgba(255,216,74,.22);
-    box-shadow: 0 10px 24px rgba(0,0,0,.35);
-    color: #ffd84a;
-    border-radius: 16px !important;
-    font-size: 0.86rem !important;
-    padding: 12px 8px !important;
-    letter-spacing: .9px !important;
-    text-transform: uppercase;
-    display:flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    min-height: 48px !important;
+    background: rgba(255,216,74,.06);
+    font-size: .82rem;
+    letter-spacing: .6px;
+    white-space: normal;
+    text-align:center;
+    text-decoration:none;
   }
-  .topbar a:active{
-    transform: translateY(1px);
-    background: rgba(255,216,74,.10);
-  }
+
+  .nav a:active{ transform: translateY(1px); }
 }
 
-
-/* ============================= */
-/* Apple-clean additions */
-/* ============================= */
-.heroTitle{font-size:clamp(28px,6vw,44px);line-height:1.1;letter-spacing:-.02em;margin:0 0 10px}
-.heroSub{font-size:clamp(14px,2.8vw,18px);line-height:1.55;opacity:.82;margin:0 0 18px}
-
-.submissionBlock{max-width:560px;margin:28px auto 0}
-.submissionTip{font-size:15px;line-height:1.55;opacity:.85;margin-bottom:18px}
-.submissionTip .label{font-size:12px;letter-spacing:.04em;text-transform:uppercase;opacity:.6}
-.submissionTip .example{display:block;margin-top:4px;font-size:14px;opacity:.55}
-.submissionCTA{font-size:18px;line-height:1.45}
-
-.submitWhy{max-width:560px;margin:18px auto 0;font-size:14px;line-height:1.5;opacity:.75}
-.submitWhy .whyTitle{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;opacity:.6}
-
-.ytWrap{max-width:560px;margin:18px auto 0;border-radius:18px;overflow:hidden;border:1px solid rgba(255,216,74,.14);background:rgba(255,255,255,.03)}
-.ytPoster{width:100%;aspect-ratio:16/9;border:0;cursor:pointer;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center}
-.ytPlay{width:62px;height:62px;border-radius:999px;border:1px solid rgba(255,216,74,.25);background:rgba(0,0,0,.35)}
-
-.reveal{opacity:0;transform:translateY(10px);transition:520ms ease}
-.reveal.isVisible{opacity:1;transform:none}
-
-.stickyCta{position:fixed;left:12px;right:12px;bottom:12px;display:flex;gap:10px;padding:10px;border-radius:18px;background:rgba(0,0,0,.55);border:1px solid rgba(255,216,74,.16);transform:translateY(110%);opacity:0;transition:260ms ease;z-index:999}
-.stickyCta.isOn{transform:none;opacity:1}
-.stickyBtn{flex:1;min-height:44px;display:flex;align-items:center;justify-content:center}
-
-p{margin:0 0 14px}
-
+/* Sticky CTA */
+.stickyCta{
+  position:fixed;
+  left:12px; right:12px;
+  bottom:12px;
+  display:flex;
+  gap:10px;
+  padding:10px;
+  border-radius:18px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,216,74,.16);
+  transform:translateY(110%);
+  opacity:0;
+  transition:260ms ease;
+  z-index:999;
+}
+.stickyCta.isOn{ transform:none; opacity:1; }
+.stickyBtn{ flex:1; min-height:44px; }
 </style>
 </head>
 
@@ -1252,7 +1025,7 @@ p{margin:0 0 14px}
 
 <div class="topbar">
   <div></div>
-  <div class="nav">
+  <nav class="nav" aria-label="Primary">
     <a href="#latest">Latest</a>
     <a href="#road">Road to 1K</a>
     <a href="#playlists">Playlists</a>
@@ -1260,7 +1033,7 @@ p{margin:0 0 14px}
     <a data-track="click_youtube_nav" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
     <a data-track="click_tiktok_nav" href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
     <a data-track="click_instagram_nav" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
-  </div>
+  </nav>
 </div>
 
 <section class="hero">
@@ -1277,12 +1050,14 @@ p{margin:0 0 14px}
     <p class="welcomeText">
       Breaking boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B — built for the next generation.
     </p>
+    <p class="trustLine">Curating independent &amp; underground sounds worldwide.</p>
   </div>
 
   <div class="cta">
     <a class="btn btnGold" data-track="click_watch_youtube" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
     <a class="btn btnPrimary" data-track="click_subscribe" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
   </div>
+  <div class="subMicro">Weekly drops · No spam · Independent artists only</div>
 
   <div class="heroGrid">
 
@@ -1293,17 +1068,18 @@ p{margin:0 0 14px}
         <span class="badge" id="newDropBadge" aria-hidden="true" hidden>NEW DROP</span>
       </div>
 
-      <!-- Just Dropped banner -->
       <div class="dropBanner" id="dropBanner" aria-live="polite">
         <span class="dropPill" id="dropPill">Just Dropped</span>
         <div class="dropText" id="dropText">Tap play — the newest session is live.</div>
         <div class="dropAgo" id="dropAgo">—</div>
       </div>
 
-      <div class="videoWrap">
+      <div class="videoWrap" id="videoWrap">
         <iframe
           id="latestDropFrame"
-          src="https://www.youtube.com/embed/EYw3-ZvAhWE?rel=0&modestbranding=1"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          src="https://www.youtube-nocookie.com/embed/EYw3-ZvAhWE?rel=0&modestbranding=1"
           title="NextGen Sessions - Latest Drop"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
@@ -1318,12 +1094,14 @@ p{margin:0 0 14px}
         <a class="btn btnGold" id="watchLatestBtn" data-track="click_watch_latest" href="https://www.youtube.com/watch?v=EYw3-ZvAhWE" target="_blank" rel="noopener">▶ Watch on YouTube</a>
       </div>
 
-      <!-- Latest Videos strip -->
+      <div class="momentumLine" id="momentumLine" aria-live="polite">Loading momentum…</div>
+
       <div class="thumbStrip" id="thumbStrip" aria-label="Latest videos"></div>
     </div>
 
   </div>
 </section>
+
 <!-- Featured This Week -->
 <section class="section featured" id="featured">
   <h2>Featured This Week</h2>
@@ -1342,7 +1120,6 @@ p{margin:0 0 14px}
   </div>
 </section>
 
-
 <!-- Road to 1K -->
 <section class="section" id="road">
   <h2>Road to 1K</h2>
@@ -1357,6 +1134,8 @@ p{margin:0 0 14px}
       <div class="kpi" id="subKpi2">To Goal<small id="subKpi2b">—</small></div>
       <div class="kpi" id="subKpi3">Updated<small id="subKpi3b">—</small></div>
     </div>
+
+    <div class="milestoneLine" id="milestoneLine" aria-live="polite">Every sub helps — next milestone loading…</div>
   </div>
 </section>
 
@@ -1365,27 +1144,27 @@ p{margin:0 0 14px}
 
   <div class="grid">
     <a class="playCard" data-track="click_playlist_bhangra" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg" alt="Bhangra playlist thumbnail">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg" alt="Bhangra playlist thumbnail">
       <div class="label">🪘 Bhangra</div>
     </a>
 
     <a class="playCard" data-track="click_playlist_hiphop" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg" alt="Hip Hop playlist thumbnail">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg" alt="Hip Hop playlist thumbnail">
       <div class="label">🎤 Hip Hop</div>
     </a>
 
     <a class="playCard" data-track="click_playlist_grime" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg" alt="Grime & UK Rap playlist thumbnail">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg" alt="Grime & UK Rap playlist thumbnail">
       <div class="label">🇬🇧 Grime &amp; UK Rap</div>
     </a>
 
     <a class="playCard" data-track="click_playlist_dancehall" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall & Reggae playlist thumbnail">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall & Reggae playlist thumbnail">
       <div class="label">🔥 Dancehall &amp; Reggae</div>
     </a>
 
     <a class="playCard" data-track="click_playlist_ambience" href="https://www.youtube.com/watch?v=JT6-1q1-d-k&list=PL7VCdVWElIJHo4ahyxwbePMN6_I9WIj95" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://i.ytimg.com/vi/JT6-1q1-d-k/hqdefault.jpg" alt="Ambience playlist thumbnail">
+      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/JT6-1q1-d-k/hqdefault.jpg" alt="Ambience playlist thumbnail">
       <div class="label">🌙 Ambience</div>
     </a>
   </div>
@@ -1402,12 +1181,15 @@ p{margin:0 0 14px}
     Include a private link (YouTube/SoundCloud) and your social handles.
   </p>
 
-  <!-- Get Featured -->
   <div class="card" id="submit" style="margin-top:16px;">
     <div class="cardTitle">Get Featured</div>
 
     <p class="smallNote" style="margin:0 0 10px;">
       Want your track on NextGen Sessions? Send a clean submission and we’ll review it.
+    </p>
+
+    <p class="smallNote" style="margin:0 0 12px;">
+      We listen to every submission. If it fits, we reply.
     </p>
 
     <div class="kpiRow" style="margin-top:0;">
@@ -1427,19 +1209,36 @@ p{margin:0 0 14px}
   </div>
 </section>
 
-<footer>© 2026 NextGen Sessions</footer>
+<footer>
+  © 2026 NextGen Sessions
+  <div class="footerLine">Built by music lovers. Powered by the underground.</div>
+</footer>
 
+</div>
+
+<!-- Sticky CTA -->
+<div class="stickyCta" id="stickyCta" aria-label="Quick actions">
+  <a class="btn btnPrimary stickyBtn" data-track="sticky_subscribe"
+     href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1"
+     target="_blank" rel="noopener">Subscribe</a>
+  <a class="btn btnGold stickyBtn" data-track="sticky_latest" href="#latest">Latest</a>
 </div>
 
 <script>
 /**
- * Analytics helper: track clicks via data-track attributes
+ * Unified behaviours:
+ * - Click tracking (data-track)
+ * - Latest drop from latest.json + thumb strip + momentum line
+ * - Road to 1K from stats.json + milestones
+ * - Featured This Week from playlist feed
+ * - Reveal animations
+ * - Sticky CTA (efficient)
+ * - Parallax logo tilt (desktop)
  */
 (function(){
+  // --- Analytics helper ---
   function track(name, params){
-    if (typeof gtag === "function") {
-      gtag("event", name, params || {});
-    }
+    if (typeof gtag === "function") gtag("event", name, params || {});
   }
 
   document.addEventListener("click", function(e){
@@ -1450,28 +1249,53 @@ p{margin:0 0 14px}
       link_text: (a.textContent || "").trim()
     });
   });
-})();
 
-/**
- * Latest Drop (Guaranteed) + Gallery + Road to 1K:
- * - Reads /latest.json (GitHub Pages)
- * - Reads /stats.json (GitHub Action updates)
- */
-(function(){
-  const FALLBACK_VIDEO_ID = "EYw3-ZvAhWE"; // safe fallback
+  // --- Reveal animations ---
+  const revealTargets = document.querySelectorAll("section, .hero, footer");
+  revealTargets.forEach(el => el.classList.add("reveal"));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("isVisible");
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  revealTargets.forEach(el => io.observe(el));
+
+  // --- Sticky CTA (efficient scroll handler) ---
+  const sticky = document.getElementById("stickyCta");
+  if (sticky){
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        sticky.classList.toggle("isOn", window.scrollY > 260);
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive:true });
+    onScroll();
+  }
+
+  // --- Latest Drop + Gallery + Momentum ---
+  const FALLBACK_VIDEO_ID = "EYw3-ZvAhWE";
 
   const frame = document.getElementById("latestDropFrame");
   const note  = document.getElementById("latestDropNote");
   const badge = document.getElementById("newDropBadge");
   const strip = document.getElementById("thumbStrip");
   const watchBtn = document.getElementById("watchLatestBtn");
+  const videoWrap = document.getElementById("videoWrap");
+  const momentumLine = document.getElementById("momentumLine");
 
   const dropAgo = document.getElementById("dropAgo");
   const dropPill = document.getElementById("dropPill");
   const dropText = document.getElementById("dropText");
 
   function setVideo(videoId){
-    frame.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1";
+    if (!frame) return;
+    frame.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?rel=0&modestbranding=1";
     if (watchBtn) watchBtn.href = "https://www.youtube.com/watch?v=" + videoId;
   }
 
@@ -1479,15 +1303,8 @@ p{margin:0 0 14px}
     if (note) note.textContent = text;
   }
 
-  function showBadge(){
-    if (!badge) return;
-    badge.hidden = false;
-  }
-
-  function hideBadge(){
-    if (!badge) return;
-    badge.hidden = true;
-  }
+  function showBadge(){ if (badge) badge.hidden = false; }
+  function hideBadge(){ if (badge) badge.hidden = true; }
 
   function setBanner(agoText){
     if (dropPill) dropPill.textContent = "Just Dropped";
@@ -1495,9 +1312,13 @@ p{margin:0 0 14px}
     if (dropAgo) dropAgo.textContent = agoText ? agoText : "—";
   }
 
+  function setHot(isHot){
+    if (!videoWrap) return;
+    videoWrap.classList.toggle("videoHot", !!isHot);
+  }
+
   const STORAGE_KEY = "ngs_lastVideoId";
 
-  // Your 10 videos (Video 10 stays Latest Upload dynamically)
   const GALLERY = [
     { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
     { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
@@ -1513,17 +1334,15 @@ p{margin:0 0 14px}
 
   let galleryCurrent = [...GALLERY];
 
-  function hasVideo(list, id){
-    return list.some(v => v.id === id);
-  }
+  function hasVideo(list, id){ return list.some(v => v.id === id); }
 
   function buildThumbStrip(list){
     if (!strip) return;
     strip.innerHTML = list.map(v => `
-      <div class="thumb" role="button" tabindex="0" data-id="${v.id}" aria-label="Play ${v.title}">
+      <div class="thumb" role="button" tabindex="0" data-id="${v.id}" aria-label="Play ${escapeHtml(v.title)}">
         <span class="thumbNowTag" aria-hidden="true">NOW</span>
-        <img loading="lazy" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}">
-        <div class="thumbMeta">${v.title}</div>
+        <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${escapeHtml(v.title)}">
+        <div class="thumbMeta">${escapeHtml(v.title)}</div>
       </div>
     `).join("");
   }
@@ -1535,14 +1354,29 @@ p{margin:0 0 14px}
     });
   }
 
-  // Track thumb clicks
   function trackThumb(videoId){
-    if (typeof gtag === "function") {
-      gtag("event", "click_video_thumb", { video_id: videoId });
-    }
+    track("click_video_thumb", { video_id: videoId });
   }
 
-  // Events ONCE
+  function setMomentum(latestId, list){
+    if (!momentumLine) return;
+    const next = list.filter(v => v.id !== latestId).slice(0, 2);
+    const nowTitle = (list.find(v => v.id === latestId)?.title) || "Latest Upload";
+    const nextA = next[0]?.title || "—";
+    const nextB = next[1]?.title || "—";
+    momentumLine.textContent = `Now trending: ${nowTitle} • Up next: ${nextA} • Fresh pick: ${nextB}`;
+  }
+
+  function escapeHtml(s){
+    return String(s || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  // Events (thumb clicks)
   if (strip){
     strip.addEventListener("click", (e) => {
       const thumb = e.target.closest(".thumb");
@@ -1550,10 +1384,12 @@ p{margin:0 0 14px}
       const vid = thumb.dataset.id;
       setVideo(vid);
       hideBadge();
+      setHot(false);
       setNote("Now playing selected video.");
       setNowPlayingThumb(vid);
       localStorage.setItem(STORAGE_KEY, vid);
       trackThumb(vid);
+      setMomentum(vid, galleryCurrent);
     });
 
     strip.addEventListener("keydown", (e) => {
@@ -1564,18 +1400,20 @@ p{margin:0 0 14px}
       const vid = thumb.dataset.id;
       setVideo(vid);
       hideBadge();
+      setHot(false);
       setNote("Now playing selected video.");
       setNowPlayingThumb(vid);
       localStorage.setItem(STORAGE_KEY, vid);
       trackThumb(vid);
+      setMomentum(vid, galleryCurrent);
     });
   }
 
   // Initial strip
   buildThumbStrip(galleryCurrent);
+  setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
 
   function timeAgoFromUTCString(s){
-    // expects like "2025-12-23 07:02 UTC"
     if (!s) return "";
     const iso = s.replace(" UTC", "Z").replace(" ", "T");
     const d = new Date(iso);
@@ -1589,7 +1427,14 @@ p{margin:0 0 14px}
     return days + " days ago";
   }
 
-  // Cache-bust latest.json so it always refreshes after new commits
+  function minutesSinceUTCString(s){
+    if (!s) return Infinity;
+    const iso = s.replace(" UTC", "Z").replace(" ", "T");
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return Infinity;
+    return Math.max(0, Math.round((Date.now() - d.getTime()) / 60000));
+  }
+
   const latestUrl = "latest.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
 
   fetch(latestUrl, { cache: "no-store" })
@@ -1603,25 +1448,25 @@ p{margin:0 0 14px}
 
       const updatedAtRaw = (data.updatedAt || "").trim();
       const ago = timeAgoFromUTCString(updatedAtRaw);
+      const minsSince = minutesSinceUTCString(updatedAtRaw);
+      const isHot = minsSince <= (48 * 60); // 48 hours
 
       const lastSeen = localStorage.getItem(STORAGE_KEY);
 
       setVideo(latestId);
       setBanner(ago);
+      setHot(isHot);
 
-      // Inject latestId at the front if not present
       if (!hasVideo(galleryCurrent, latestId)){
         galleryCurrent = [{ id: latestId, title: "Latest Upload" }, ...galleryCurrent].slice(0, 10);
-        buildThumbStrip(galleryCurrent);
       } else {
-        // Ensure the "Latest Upload" label is used for the matching ID if it's in the list
         galleryCurrent = galleryCurrent.map(v => (v.id === latestId ? { ...v, title: "Latest Upload" } : v));
-        buildThumbStrip(galleryCurrent);
       }
 
+      buildThumbStrip(galleryCurrent);
       setNowPlayingThumb(latestId);
+      setMomentum(latestId, galleryCurrent);
 
-      // Scroll now-playing thumb into view
       if (strip){
         const now = strip.querySelector(`.thumb[data-id="${latestId}"]`);
         if (now) now.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
@@ -1639,38 +1484,51 @@ p{margin:0 0 14px}
     })
     .catch(() => {
       hideBadge();
+      setHot(false);
       setVideo(FALLBACK_VIDEO_ID);
       setBanner("");
       setNote("Showing fallback (latest auto-update unavailable).");
-
       if (!hasVideo(galleryCurrent, FALLBACK_VIDEO_ID)){
         galleryCurrent = [{ id: FALLBACK_VIDEO_ID, title: "Fallback" }, ...galleryCurrent].slice(0, 10);
         buildThumbStrip(galleryCurrent);
       }
       setNowPlayingThumb(FALLBACK_VIDEO_ID);
+      setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
     });
 
-  // If embed errors, revert to fallback
-  frame.addEventListener("error", () => {
-    hideBadge();
-    setVideo(FALLBACK_VIDEO_ID);
-    setBanner("");
-    setNote("Showing fallback (latest upload can’t be embedded).");
-    setNowPlayingThumb(FALLBACK_VIDEO_ID);
-  });
+  if (frame){
+    frame.addEventListener("error", () => {
+      hideBadge();
+      setHot(false);
+      setVideo(FALLBACK_VIDEO_ID);
+      setBanner("");
+      setNote("Showing fallback (latest upload can’t be embedded).");
+      setNowPlayingThumb(FALLBACK_VIDEO_ID);
+      setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
+    });
+  }
 
-  // Road to 1K (stats.json)
+  // --- Road to 1K (stats.json) ---
   (function(){
     const bar = document.getElementById("subBar");
     const noteEl = document.getElementById("subNote");
     const k1b = document.getElementById("subKpi1b");
     const k2b = document.getElementById("subKpi2b");
     const k3b = document.getElementById("subKpi3b");
+    const milestone = document.getElementById("milestoneLine");
 
     if (!bar || !noteEl || !k1b || !k2b || !k3b) return;
 
     const goal = 1000;
     const statsUrl = "stats.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
+
+    function nextMilestone(subs){
+      const steps = [250, 500, 750, 1000];
+      for (const s of steps){
+        if (subs < s) return s;
+      }
+      return 1000;
+    }
 
     fetch(statsUrl, { cache: "no-store" })
       .then(r => {
@@ -1690,17 +1548,23 @@ p{margin:0 0 14px}
         k1b.textContent = subs.toLocaleString();
         k2b.textContent = `${remaining.toLocaleString()} to go`;
         k3b.textContent = updatedAt ? updatedAt : "—";
+
+        if (milestone){
+          const nm = nextMilestone(subs);
+          milestone.textContent = `Every sub helps — next milestone: ${nm.toLocaleString()}`;
+        }
       })
       .catch(() => {
-        noteEl.textContent = "Subscriber count unavailable (check stats.json).";
+        noteEl.textContent = "Live count updating — check back shortly.";
         bar.style.width = "0%";
         k1b.textContent = "—";
         k2b.textContent = "—";
         k3b.textContent = "—";
+        if (milestone) milestone.textContent = "Every sub helps — next milestone: 250";
       });
   })();
 
-  // Parallax tilt (desktop only)
+  // --- Parallax tilt (desktop only) ---
   (function(){
     const logo = document.getElementById("logoTitle");
     if (!logo) return;
@@ -1710,6 +1574,9 @@ p{margin:0 0 14px}
 
     const img = logo.querySelector("img");
     if (!img) return;
+
+    // Skip tilt on touch devices
+    if ("ontouchstart" in window) return;
 
     function onMove(e){
       const r = logo.getBoundingClientRect();
@@ -1733,13 +1600,12 @@ p{margin:0 0 14px}
     logo.addEventListener("blur", reset, true);
     reset();
   })();
-})();
 
-    // Featured This Week (auto-load from playlist RSS)
+  // --- Featured This Week (auto-load from playlist RSS) ---
   (function loadFeaturedFromPlaylist(){
     const playlistId = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
     const rawFeed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId);
-    const playlistUrl = "https://www.youtube.com/playlist?list=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
+    const playlistUrl = "https://www.youtube.com/playlist?list=" + playlistId;
     const grid = document.getElementById("featuredGrid");
     const fallback = document.getElementById("featuredFallback");
     if (!grid) return;
@@ -1751,24 +1617,31 @@ p{margin:0 0 14px}
       a.target = "_blank";
       a.rel = "noopener";
       a.setAttribute("data-track", "featured_click");
-      a.setAttribute("data-title", title || "Featured pick");
 
       const img = document.createElement("img");
       img.alt = title || "Featured pick";
       img.loading = "lazy";
       img.decoding = "async";
-      img.src = videoId ? ("https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg") : "https://i.ytimg.com/vi_webp/" + "default" + "/hqdefault.webp";
+      img.src = videoId ? ("https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg") : "https://i.ytimg.com/vi/" + FALLBACK_VIDEO_ID + "/hqdefault.jpg";
       a.appendChild(img);
+
+      const meta = document.createElement("div");
+      meta.className = "featureMeta";
+
+      const tag = document.createElement("div");
+      tag.className = "featureTag";
+      tag.textContent = "FEATURED";
+      meta.appendChild(tag);
 
       const t = document.createElement("div");
       t.className = "featureTitle";
       t.textContent = title || "Open on YouTube";
-      a.appendChild(t);
+      meta.appendChild(t);
 
+      a.appendChild(meta);
       return a;
     }
 
-    // Try multiple CORS-friendly endpoints. Different browsers/regions can block one but not another.
     const endpoints = [
       rawFeed,
       "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawFeed),
@@ -1791,7 +1664,6 @@ p{margin:0 0 14px}
     }
 
     function parseAndRenderFromXmlText(xmlText){
-      // Some proxies prepend extra text; try to locate the first "<feed"
       const idx = xmlText.indexOf("<feed");
       const clean = idx >= 0 ? xmlText.slice(idx) : xmlText;
 
@@ -1799,7 +1671,7 @@ p{margin:0 0 14px}
       const entries = Array.from(xml.getElementsByTagName("entry")).slice(0, 3);
 
       if (!entries.length) throw new Error("No entries");
-      grid.innerHTML = ""; // clear "Loading…"
+      grid.innerHTML = "";
 
       entries.forEach(entry => {
         const titleEl = entry.getElementsByTagName("title")[0];
@@ -1808,7 +1680,6 @@ p{margin:0 0 14px}
         const linkEl = entry.getElementsByTagName("link")[0];
         const href = linkEl ? linkEl.getAttribute("href") : playlistUrl;
 
-        // yt:videoId can be namespaced; DOMParser returns tagName with colon, so use getElementsByTagName
         const vidEl = entry.getElementsByTagName("yt:videoId")[0] || entry.getElementsByTagName("videoId")[0];
         const videoId = vidEl ? vidEl.textContent.trim() : "";
 
@@ -1820,10 +1691,8 @@ p{margin:0 0 14px}
 
     function renderFallback(){
       if (fallback) fallback.style.display = "block";
-      // keep loading text if present
     }
 
-    // Attempt 1-3 as XML text; attempt 4 is JSON
     (async function(){
       for (let i = 0; i < endpoints.length; i++){
         const url = endpoints[i];
@@ -1836,7 +1705,6 @@ p{margin:0 0 14px}
             items.forEach(it => {
               const href = it.link || playlistUrl;
               const title = it.title || "Featured pick";
-              // YouTube RSS2JSON items typically have guid/link containing video id
               let videoId = "";
               if (it.guid) {
                 const m = String(it.guid).match(/video:(.+)$/);
@@ -1863,65 +1731,6 @@ p{margin:0 0 14px}
     })();
   })();
 
-</script>
-
-
-<script>
-(function(){
-  const map = {
-    "LATEST":"LATEST",
-    "ROAD TO 1K":"ROAD 1K",
-    "PLAYLISTS":"LISTS",
-    "YOUTUBE":"YT",
-    "TIKTOK":"TT",
-    "INSTAGRAM":"IG"
-  };
-  const mq = window.matchMedia("(max-width: 720px)");
-  let original = new Map();
-
-  function applyShort(){
-    document.querySelectorAll('.topbar a').forEach(a=>{
-      const t = (a.textContent||"").trim().toUpperCase();
-      if(!original.has(a)) original.set(a, a.textContent);
-      if(map[t]) a.textContent = map[t];
-    });
-  }
-  function restore(){
-    original.forEach((v,a)=>{ a.textContent = v; });
-  }
-  function sync(){
-    if(mq.matches) applyShort();
-    else restore();
-  }
-  document.addEventListener("DOMContentLoaded", sync);
-  if(mq.addEventListener){ mq.addEventListener("change", sync); }
-  else if(mq.addListener){ mq.addListener(sync); }
-  window.addEventListener("resize", sync, {passive:true});
-})();
-</script>
-
-
-<script>
-(function(){
-  const w=document.querySelector('.ytWrap');
-  if(w){
-    const id=w.getAttribute('data-yt');
-    const b=w.querySelector('.ytPoster');
-    b&&b.addEventListener('click',()=>{
-      w.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-    });
-  }
-  const els=document.querySelectorAll('section,.hero,.ytWrap,footer');
-  els.forEach(e=>e.classList.add('reveal'));
-  const io=new IntersectionObserver(es=>{
-    es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('isVisible');io.unobserve(x.target);}});
-  },{threshold:.12});
-  els.forEach(e=>io.observe(e));
-  const bar=document.getElementById('stickyCta');
-  if(bar){
-    const f=()=>window.scrollY>260?bar.classList.add('isOn'):bar.classList.remove('isOn');
-    window.addEventListener('scroll',f,{passive:true});f();
-  }
 })();
 </script>
 

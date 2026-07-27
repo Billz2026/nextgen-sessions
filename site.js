@@ -2,6 +2,9 @@
   "use strict";
 
   const artists = Array.isArray(window.NGS_ARTISTS) ? window.NGS_ARTISTS : [];
+  const artistImages = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
+    ? window.NGS_ARTIST_IMAGES
+    : {};
   const featuredGrid = document.getElementById("featuredArtistGrid");
   const rosterGrid = document.getElementById("artistRosterGrid");
   const artistSearch = document.getElementById("artistSearch");
@@ -42,9 +45,19 @@
     return "https://www.youtube.com/results?search_query=" + encodeURIComponent("NextGen Sessions " + name);
   }
 
+  function featuredImage(artist) {
+    const image = artistImages[artist.slug];
+    if (!image || !image.src) return "";
+    const fallback = image.fallback ? ` data-fallback="${escapeHtml(image.fallback)}"` : "";
+    const position = escapeHtml(image.position || "50% 38%");
+    return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
+  }
+
   function featuredCard(artist, index) {
+    const hasImage = Boolean(artistImages[artist.slug]?.src);
     return `
-      <a class="featured-artist-card" data-monogram="${escapeHtml(monogram(artist.name))}" href="${youtubeSearchUrl(artist.name)}" target="_blank" rel="noopener" aria-label="Explore ${escapeHtml(artist.name)} on YouTube">
+      <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${youtubeSearchUrl(artist.name)}" target="_blank" rel="noopener" aria-label="Explore ${escapeHtml(artist.name)} on YouTube">
+        ${featuredImage(artist)}
         <span class="artist-position">Featured ${String(index + 1).padStart(2, "0")}</span>
         <div class="featured-artist-inner">
           <span class="artist-genre">${escapeHtml(artist.genre)}</span>
@@ -52,6 +65,21 @@
           <p>${escapeHtml(artist.summary)}</p>
         </div>
       </a>`;
+  }
+
+  function installImageFallbacks(root) {
+    root.querySelectorAll(".featured-artist-image").forEach(image => {
+      image.addEventListener("error", () => {
+        const fallback = image.dataset.fallback;
+        if (fallback) {
+          image.dataset.fallback = "";
+          image.src = fallback;
+          return;
+        }
+        image.hidden = true;
+        image.closest(".featured-artist-card")?.classList.remove("has-image");
+      }, { once: false });
+    });
   }
 
   function rosterCard(artist) {
@@ -67,6 +95,7 @@
     if (!featuredGrid) return;
     const featured = artists.filter(artist => artist.featured).slice(0, 6);
     featuredGrid.innerHTML = featured.map(featuredCard).join("");
+    installImageFallbacks(featuredGrid);
   }
 
   function renderRoster(query) {

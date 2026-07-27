@@ -2,18 +2,27 @@
   "use strict";
 
   const artists = Array.isArray(window.NGS_ARTISTS) ? window.NGS_ARTISTS : [];
+  const artistImages = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
+    ? window.NGS_ARTIST_IMAGES
+    : {};
   const featuredGrid = document.getElementById("featuredArtistGrid");
   const rosterGrid = document.getElementById("artistRosterGrid");
   const artistSearch = document.getElementById("artistSearch");
   const rosterCount = document.getElementById("rosterCount");
   const releaseGrid = document.getElementById("releaseGrid");
 
+  const FALLBACK_LATEST = {
+    id: "5YgrpFXZ92Q",
+    title: "Rudii Marka – Marked for War",
+    published: ""
+  };
+
   const FALLBACK_RELEASES = [
+    FALLBACK_LATEST,
     { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
     { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
     { id: "Qr1gNggtg8k", title: "Ride On My Enemies" },
     { id: "Zkb80UYO0pY", title: "Money in the Bando" },
-    { id: "5YgrpFXZ92Q", title: "Marked for War" },
     { id: "ccwwJFDErvg", title: "Bulletproof Mind" }
   ];
 
@@ -36,9 +45,19 @@
     return "https://www.youtube.com/results?search_query=" + encodeURIComponent("NextGen Sessions " + name);
   }
 
+  function featuredImage(artist) {
+    const image = artistImages[artist.slug];
+    if (!image || !image.src) return "";
+    const fallback = image.fallback ? ` data-fallback="${escapeHtml(image.fallback)}"` : "";
+    const position = escapeHtml(image.position || "50% 38%");
+    return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
+  }
+
   function featuredCard(artist, index) {
+    const hasImage = Boolean(artistImages[artist.slug]?.src);
     return `
-      <a class="featured-artist-card" data-monogram="${escapeHtml(monogram(artist.name))}" href="${youtubeSearchUrl(artist.name)}" target="_blank" rel="noopener" aria-label="Explore ${escapeHtml(artist.name)} on YouTube">
+      <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${youtubeSearchUrl(artist.name)}" target="_blank" rel="noopener" aria-label="Explore ${escapeHtml(artist.name)} on YouTube">
+        ${featuredImage(artist)}
         <span class="artist-position">Featured ${String(index + 1).padStart(2, "0")}</span>
         <div class="featured-artist-inner">
           <span class="artist-genre">${escapeHtml(artist.genre)}</span>
@@ -46,6 +65,21 @@
           <p>${escapeHtml(artist.summary)}</p>
         </div>
       </a>`;
+  }
+
+  function installImageFallbacks(root) {
+    root.querySelectorAll(".featured-artist-image").forEach(image => {
+      image.addEventListener("error", () => {
+        const fallback = image.dataset.fallback;
+        if (fallback) {
+          image.dataset.fallback = "";
+          image.src = fallback;
+          return;
+        }
+        image.hidden = true;
+        image.closest(".featured-artist-card")?.classList.remove("has-image");
+      }, { once: false });
+    });
   }
 
   function rosterCard(artist) {
@@ -61,6 +95,7 @@
     if (!featuredGrid) return;
     const featured = artists.filter(artist => artist.featured).slice(0, 6);
     featuredGrid.innerHTML = featured.map(featuredCard).join("");
+    installImageFallbacks(featuredGrid);
   }
 
   function renderRoster(query) {
@@ -103,9 +138,14 @@
       </a>`;
   }
 
-  function updateLatest(releases, source) {
-    const valid = Array.isArray(releases) && releases.length ? releases : FALLBACK_RELEASES;
-    const latest = valid[0];
+  function updateLatest(payload) {
+    const source = payload?.source || "fallback";
+    const latestSource = payload?.latestSource || "fallback";
+    const releases = Array.isArray(payload?.releases) && payload.releases.length
+      ? payload.releases
+      : (Array.isArray(payload?.items) && payload.items.length ? payload.items : FALLBACK_RELEASES);
+    const latest = payload?.latest?.id ? payload.latest : (releases[0] || FALLBACK_LATEST);
+
     const frame = document.getElementById("latestVideoFrame");
     const latestTitle = document.getElementById("latestVideoTitle");
     const latestDate = document.getElementById("latestVideoDate");
@@ -122,15 +162,24 @@
       const date = formatDate(latest.published);
       latestDate.textContent = date ? `Published ${date}` : "Latest official NextGen Sessions release";
     }
+
     const watchUrl = `https://www.youtube.com/watch?v=${latest.id}`;
     if (latestLink) latestLink.href = watchUrl;
     if (heroLink) heroLink.href = watchUrl;
+
     if (latestStatus) {
-      latestStatus.textContent = source === "youtube"
-        ? "Updated automatically from the official releases feed"
-        : "Reliable catalogue fallback active";
+      if (source !== "youtube") {
+        latestStatus.textContent = "Reliable catalogue fallback active";
+      } else if (latestSource === "override") {
+        latestStatus.textContent = "Pinned as the current featured release";
+      } else if (latestSource === "channel") {
+        latestStatus.textContent = "Updated automatically from the latest channel upload";
+      } else {
+        latestStatus.textContent = "Updated automatically from the official releases feed";
+      }
     }
-    if (releaseGrid) releaseGrid.innerHTML = valid.slice(0, 6).map(releaseCard).join("");
+
+    if (releaseGrid) releaseGrid.innerHTML = releases.slice(0, 6).map(releaseCard).join("");
   }
 
   renderFeatured();
@@ -140,11 +189,19 @@
     artistSearch.addEventListener("input", event => renderRoster(event.target.value));
   }
 
-  fetch("/api/latest", { headers: { Accept: "application/json" } })
+  fetch("/api/latest", {
+    headers: { Accept: "application/json" },
+    cache: "no-store"
+  })
     .then(response => {
       if (!response.ok) throw new Error("Latest release endpoint unavailable");
       return response.json();
     })
-    .then(data => updateLatest(data.items, data.source))
-    .catch(() => updateLatest(FALLBACK_RELEASES, "fallback"));
+    .then(updateLatest)
+    .catch(() => updateLatest({
+      source: "fallback",
+      latestSource: "fallback",
+      latest: FALLBACK_LATEST,
+      releases: FALLBACK_RELEASES
+    }));
 })();

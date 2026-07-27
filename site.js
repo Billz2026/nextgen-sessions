@@ -8,12 +8,18 @@
   const rosterCount = document.getElementById("rosterCount");
   const releaseGrid = document.getElementById("releaseGrid");
 
+  const FALLBACK_LATEST = {
+    id: "5YgrpFXZ92Q",
+    title: "Rudii Marka – Marked for War",
+    published: ""
+  };
+
   const FALLBACK_RELEASES = [
+    FALLBACK_LATEST,
     { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
     { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
     { id: "Qr1gNggtg8k", title: "Ride On My Enemies" },
     { id: "Zkb80UYO0pY", title: "Money in the Bando" },
-    { id: "5YgrpFXZ92Q", title: "Marked for War" },
     { id: "ccwwJFDErvg", title: "Bulletproof Mind" }
   ];
 
@@ -103,9 +109,14 @@
       </a>`;
   }
 
-  function updateLatest(releases, source) {
-    const valid = Array.isArray(releases) && releases.length ? releases : FALLBACK_RELEASES;
-    const latest = valid[0];
+  function updateLatest(payload) {
+    const source = payload?.source || "fallback";
+    const latestSource = payload?.latestSource || "fallback";
+    const releases = Array.isArray(payload?.releases) && payload.releases.length
+      ? payload.releases
+      : (Array.isArray(payload?.items) && payload.items.length ? payload.items : FALLBACK_RELEASES);
+    const latest = payload?.latest?.id ? payload.latest : (releases[0] || FALLBACK_LATEST);
+
     const frame = document.getElementById("latestVideoFrame");
     const latestTitle = document.getElementById("latestVideoTitle");
     const latestDate = document.getElementById("latestVideoDate");
@@ -122,15 +133,24 @@
       const date = formatDate(latest.published);
       latestDate.textContent = date ? `Published ${date}` : "Latest official NextGen Sessions release";
     }
+
     const watchUrl = `https://www.youtube.com/watch?v=${latest.id}`;
     if (latestLink) latestLink.href = watchUrl;
     if (heroLink) heroLink.href = watchUrl;
+
     if (latestStatus) {
-      latestStatus.textContent = source === "youtube"
-        ? "Updated automatically from the official releases feed"
-        : "Reliable catalogue fallback active";
+      if (source !== "youtube") {
+        latestStatus.textContent = "Reliable catalogue fallback active";
+      } else if (latestSource === "override") {
+        latestStatus.textContent = "Pinned as the current featured release";
+      } else if (latestSource === "channel") {
+        latestStatus.textContent = "Updated automatically from the latest channel upload";
+      } else {
+        latestStatus.textContent = "Updated automatically from the official releases feed";
+      }
     }
-    if (releaseGrid) releaseGrid.innerHTML = valid.slice(0, 6).map(releaseCard).join("");
+
+    if (releaseGrid) releaseGrid.innerHTML = releases.slice(0, 6).map(releaseCard).join("");
   }
 
   renderFeatured();
@@ -140,11 +160,19 @@
     artistSearch.addEventListener("input", event => renderRoster(event.target.value));
   }
 
-  fetch("/api/latest", { headers: { Accept: "application/json" } })
+  fetch("/api/latest", {
+    headers: { Accept: "application/json" },
+    cache: "no-store"
+  })
     .then(response => {
       if (!response.ok) throw new Error("Latest release endpoint unavailable");
       return response.json();
     })
-    .then(data => updateLatest(data.items, data.source))
-    .catch(() => updateLatest(FALLBACK_RELEASES, "fallback"));
+    .then(updateLatest)
+    .catch(() => updateLatest({
+      source: "fallback",
+      latestSource: "fallback",
+      latest: FALLBACK_LATEST,
+      releases: FALLBACK_RELEASES
+    }));
 })();

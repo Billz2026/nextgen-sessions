@@ -1,1788 +1,893 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NextGen Sessions | Original Music and Independent Artists</title>
+  <meta name="description" content="NextGen Sessions releases original UK rap, hip-hop, dancehall, reggae, R&B and global sounds. Discover new artists, releases and music videos.">
+  <link rel="canonical" href="https://nextgensessions.pages.dev/">
 
+  <meta name="google-site-verification" content="lUev-zKM1rd98apFBdY3koCG4QKcd1Wz9lqlfnTY6v0">
 
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NextGen Sessions | Original Music. Distinct Artists.">
+  <meta property="og:description" content="A growing independent music network releasing UK rap, hip-hop, dancehall, reggae, R&B and global sounds.">
+  <meta property="og:url" content="https://nextgensessions.pages.dev/">
+  <meta property="og:image" content="https://nextgensessions.pages.dev/NextGen%20Sessions%20Logo%202026.png">
+  <meta property="og:image:alt" content="NextGen Sessions">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NextGen Sessions | Original Music. Distinct Artists.">
+  <meta name="twitter:description" content="Discover original releases and independent artists across UK rap, hip-hop, dancehall, reggae and R&B.">
+  <meta name="twitter:image" content="https://nextgensessions.pages.dev/NextGen%20Sessions%20Logo%202026.png">
 
-<title>NextGen Sessions | Underground Hip-Hop, Grime & Dancehall Platform</title>
-<meta name="description" content="NextGen Sessions is an underground music platform featuring hip-hop, grime, dancehall, UK rap and emerging artists. Watch new drops, curated playlists and rising talent.">
-<link rel="canonical" href="https://nextgensessions.pages.dev/">
+  <link rel="icon" type="image/png" href="NextGen%20Sessions%20Logo%202026.png">
+  <meta name="theme-color" content="#080808">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="preload" as="image" href="NextGen%20Sessions%20Logo%202026.png">
 
-<!-- Google Search Console verification -->
-<meta name="google-site-verification" content="lUev-zKM1rd98apFBdY3koCG4QKcd1Wz9lqlfnTY6v0">
-
-<!-- Social / Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="NextGen Sessions | Underground Music Platform">
-<meta property="og:description" content="Underground hip-hop, grime, dancehall and emerging artists. New drops, curated playlists and sessions.">
-<meta property="og:url" content="https://nextgensessions.pages.dev/">
-<meta property="og:image" content="https://nextgensessions.pages.dev/NextGen%20Sessions%20Logo%202026.png">
-<meta property="og:image:alt" content="NextGen Sessions logo">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<!-- Twitter Cards -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NextGen Sessions | Underground Music Platform">
-<meta name="twitter:description" content="Underground hip-hop, grime, dancehall and emerging artists. New drops, curated playlists and sessions.">
-<meta name="twitter:image" content="https://nextgensessions.pages.dev/NextGen%20Sessions%20Logo%202026.png">
-
-<!-- SEO -->
-<!-- Social / Open Graph -->
-<!-- Twitter Cards -->
-
-
-
-<!-- Favicon + Theme -->
-<link rel="icon" type="image/png" href="NextGen%20Sessions%20Logo%202026.png">
-<meta name="theme-color" content="#ffd84a">
-
-<!-- Performance -->
-<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-<link rel="preconnect" href="https://www.youtube.com" crossorigin>
-<link rel="preload" as="image" href="NextGen%20Sessions%20Logo%202026.png">
-
-<!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L8FYW2YH5K"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-L8FYW2YH5K');
-</script>
-
-<style>
-:root{
-  --bg:#050505;
-  --yellow:#ffd84a;
-  --text:#f6f1e3;
-  --border:rgba(255,216,74,.25);
-
-  --display-weight: 900;
-  --display-track: .4px;
-}
-
-*{box-sizing:border-box;}
-html{ scroll-behavior:smooth; }
-
-body{
-  margin:0;
-  background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(255,216,74,.15), transparent 60%),
-    #050505;
-  color:var(--text);
-  font-family:Arial, Helvetica, sans-serif;
-  overflow-x:hidden;
-}
-
-/* gold dust background (desktop) */
-body::before{
-  content:"";
-  position:fixed;
-  inset:-20%;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255,216,74,.18) 0 1px, transparent 3px),
-    radial-gradient(circle at 60% 70%, rgba(255,216,74,.15) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 80% 20%, rgba(255,216,74,.12) 0 1px, transparent 3px);
-  animation: floatDust 14s ease-in-out infinite;
-  opacity:.6;
-}
-@keyframes floatDust{
-  0%{transform:translate(0,0)}
-  50%{transform:translate(14px,-10px)}
-  100%{transform:translate(0,0)}
-}
-
-.wrap{
-  width:min(1100px,92vw);
-  margin:0 auto;
-  padding:18px 0 60px;
-}
-
-/* TOP BAR */
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-
-  position:sticky;
-  top:0;
-  z-index:50;
-
-  padding:10px 0;
-  backdrop-filter: blur(10px);
-  background: linear-gradient(180deg, rgba(5,5,5,.92), rgba(5,5,5,.70));
-  border-bottom:1px solid rgba(255,216,74,.12);
-}
-
-/* NAV (uniform) */
-.nav a{
-  color:var(--yellow);
-  text-decoration:none;
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-  margin-left:12px;
-  text-shadow:0 10px 22px rgba(0,0,0,.7), 0 0 18px rgba(255,216,74,.18);
-}
-.nav a:hover{
-  opacity:.9;
-  text-decoration:underline;
-  text-underline-offset:6px;
-}
-.navSep{
-  color:rgba(255,216,74,.45);
-  margin:0 10px;
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-}
-
-/* HERO */
-.hero{
-  margin-top:14px;
-  padding:36px 26px;
-  border-radius:22px;
-  border:1px solid var(--border);
-  background:linear-gradient(180deg, rgba(20,20,20,.9), rgba(5,5,5,.95));
-  box-shadow:0 12px 30px rgba(0,0,0,.6);
-  text-align:center;
-}
-
-/* LOGO TITLE */
-.logo-title{
-  position:relative;
-  max-width:1240px;
-  margin:0 auto 12px;
-  padding:6px 8px 10px;
-  border-radius:20px;
-
-  opacity:0;
-  transform:translateY(14px) scale(.985);
-  animation:
-    logoIn .9s cubic-bezier(.2,.9,.2,1) .15s forwards,
-    logoPulse 4.6s ease-in-out 1.2s infinite;
-
-  --pulse: 1.06;
-}
-
-.logo-title img{
-  width:100%;
-  height:auto;
-  display:block;
-  margin:0 auto;
-  border-radius:0;
-
-  filter:
-    drop-shadow(0 0 22px rgba(255,216,74,.28))
-    drop-shadow(0 18px 28px rgba(0,0,0,.75));
-
-  animation: logoGlow 1.8s ease-in-out .35s both;
-
-  transition: transform .12s ease-out;
-  will-change: transform;
-  transform: scale(var(--pulse));
-  transform-origin:center;
-}
-
-/* Subtle gold radial halo behind logo only */
-.logo-title::before{
-  content:"";
-  position:absolute;
-  inset:-22px -22px -26px -22px;
-  border-radius:26px;
-  background:
-    radial-gradient(700px 260px at 50% 45%,
-      rgba(255,216,74,.20),
-      rgba(255,216,74,.10) 35%,
-      transparent 68%);
-  filter: blur(10px);
-  opacity:.85;
-  pointer-events:none;
-  z-index:0;
-}
-
-/* Premium gold dust around logo only */
-.logo-title::after{
-  content:"";
-  position:absolute;
-  inset:-30px;
-  border-radius:28px;
-  background:
-    radial-gradient(circle at 12% 28%, rgba(255,216,74,.22) 0 1px, transparent 3px),
-    radial-gradient(circle at 22% 68%, rgba(255,216,74,.18) 0 1px, transparent 3px),
-    radial-gradient(circle at 36% 40%, rgba(255,216,74,.14) 0 1.2px, transparent 3px),
-    radial-gradient(circle at 58% 22%, rgba(255,216,74,.16) 0 1px, transparent 3px),
-    radial-gradient(circle at 72% 62%, rgba(255,216,74,.20) 0 1.2px, transparent 3px),
-    radial-gradient(circle at 86% 34%, rgba(255,216,74,.14) 0 1px, transparent 3px);
-  opacity:.50;
-  animation: logoDust 12s ease-in-out infinite;
-  pointer-events:none;
-  z-index:0;
-}
-
-.logo-title img{ position:relative; z-index:1; }
-.logoSweep{ position:absolute; z-index:2; }
-
-.logoSweep{
-  inset:-35%;
-  border-radius:26px;
-  pointer-events:none;
-  mix-blend-mode:screen;
-  opacity:0;
-  background:linear-gradient(120deg,
-    transparent 42%,
-    rgba(255,216,74,.30) 50%,
-    transparent 58%);
-  transform:translateX(-55%);
-  animation: logoSweep 7.5s ease-in-out infinite;
-}
-
-@keyframes logoDust{
-  0%{ transform:translate(0,0); }
-  50%{ transform:translate(10px,-6px); }
-  100%{ transform:translate(0,0); }
-}
-@keyframes logoIn{
-  to{ opacity:1; transform:translateY(0) scale(1); }
-}
-@keyframes logoGlow{
-  0%{
-    filter: drop-shadow(0 0 0 rgba(255,216,74,0))
-            drop-shadow(0 12px 18px rgba(0,0,0,.65));
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NextGen Sessions",
+    "url": "https://nextgensessions.pages.dev/",
+    "logo": "https://nextgensessions.pages.dev/NextGen%20Sessions%20Logo%202026.png",
+    "sameAs": [
+      "https://www.youtube.com/@NextGenSessions",
+      "https://www.tiktok.com/@nextgensessions",
+      "https://www.instagram.com/next.gensessions/"
+    ],
+    "description": "Independent music network releasing original UK rap, hip-hop, dancehall, reggae, R&B and global sounds."
   }
-  55%{
-    filter: drop-shadow(0 0 26px rgba(255,216,74,.30))
-            drop-shadow(0 18px 26px rgba(0,0,0,.75));
-  }
-  100%{
-    filter: drop-shadow(0 0 22px rgba(255,216,74,.24))
-            drop-shadow(0 18px 28px rgba(0,0,0,.75));
-  }
-}
-@keyframes logoSweep{
-  0%{ opacity:0; transform:translateX(-55%); }
-  10%{ opacity:.55; }
-  28%{ opacity:0; transform:translateX(55%); }
-  100%{ opacity:0; transform:translateX(55%); }
-}
-@keyframes logoPulse{
-  0%,100%{ --pulse: 1; }
-  50%{ --pulse: 1.01; }
-}
+  </script>
 
-/* Welcome */
-.welcome{
-  margin-top:8px;
-  max-width:90ch;
-  margin-left:auto;
-  margin-right:auto;
-}
-.welcomeTitle{
-  margin:0 0 6px;
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-  color:var(--yellow);
-  text-shadow:0 10px 22px rgba(0,0,0,.7), 0 0 18px rgba(255,216,74,.14);
-}
-.welcomeText{
-  margin:0;
-  opacity:.92;
-  line-height:1.6;
-  font-weight:800;
-  letter-spacing:.15px;
-}
-.trustLine{
-  margin:10px 0 0;
-  opacity:.82;
-  font-weight:800;
-  letter-spacing:.15px;
-}
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: #111111;
+      --surface-2: #171717;
+      --text: #f4f0e6;
+      --muted: #b5afa2;
+      --gold: #f3c74f;
+      --gold-strong: #ffd75e;
+      --line: rgba(243, 199, 79, 0.22);
+      --white-line: rgba(255, 255, 255, 0.10);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --wrap: min(1180px, 92vw);
+    }
 
-/* Shared hero-level body */
-.heroBody{
-  font-weight:800;
-  line-height:1.6;
-  letter-spacing:.15px;
-  opacity:.92;
-  max-width:90ch;
-  margin-left:auto;
-  margin-right:auto;
-}
+    * { box-sizing: border-box; }
 
-/* CTA */
-.cta{
-  margin-top:16px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 18px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  color:var(--text);
-  text-decoration:none;
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
 
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(900px 480px at 80% -10%, rgba(243, 199, 79, 0.14), transparent 62%),
+        radial-gradient(700px 380px at 0% 22%, rgba(243, 199, 79, 0.06), transparent 70%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
 
-  transition:.18s;
-}
-.btn:hover{
-  border-color:rgba(255,216,74,.45);
-  transform:translateY(-1px);
-}
+    img { max-width: 100%; }
 
-/* Primary gold button */
-.btnPrimary{
-  color:#0b0b0b;
-  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
-  border:1px solid rgba(255,216,74,.35);
-  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.18);
-}
-.btnPrimary:hover{
-  transform:translateY(-2px);
-  box-shadow:0 16px 34px rgba(0,0,0,.6), 0 0 22px rgba(255,216,74,.22);
-}
+    a { color: inherit; }
 
-/* Gold secondary */
-.btnGold{
-  color:#0b0b0b;
-  background:linear-gradient(180deg, rgba(255,216,74,.92), rgba(255,180,30,.88));
-  border:1px solid rgba(255,216,74,.28);
-  box-shadow:0 12px 26px rgba(0,0,0,.5), 0 0 14px rgba(255,216,74,.12);
-}
-.btnGold:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.18);
-}
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 12px;
+      z-index: 999;
+      padding: 10px 14px;
+      background: var(--gold);
+      color: #080808;
+      border-radius: 10px;
+      font-weight: 800;
+      transform: translateY(-160%);
+      transition: transform 160ms ease;
+    }
 
-/* Subscribe micro-copy */
-.subMicro{
-  margin-top:10px;
-  font-size:.92rem;
-  opacity:.78;
-  font-weight:800;
-  letter-spacing:.15px;
-}
+    .skip-link:focus { transform: translateY(0); }
 
-/* GRID */
-.heroGrid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:18px;
-  margin-top:22px;
-  text-align:left;
-}
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--white-line);
+      background: rgba(8, 8, 8, 0.90);
+      backdrop-filter: blur(16px);
+    }
 
-/* CARD */
-.card{
-  background:rgba(10,10,10,.6);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:16px;
-}
-.cardTitle{
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-  color:var(--yellow);
-  margin-bottom:10px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
+    .header-inner {
+      width: var(--wrap);
+      min-height: 76px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
 
-/* NEW DROP badge */
-.badge{
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:.78rem;
-  font-weight:var(--display-weight);
-  letter-spacing:.6px;
-  color:#0b0b0b;
-  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
-  box-shadow:0 10px 24px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.25);
-  border:1px solid rgba(255,216,74,.35);
-  vertical-align:middle;
-  transform:translateY(-1px);
-  position:relative;
-  overflow:hidden;
-  animation: badgePulse 2.2s ease-in-out infinite;
-}
-.badge[hidden]{ display:none !important; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      flex: 0 0 auto;
+    }
 
-.badge::after{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background:linear-gradient(120deg,
-    transparent 45%,
-    rgba(255,255,255,.35) 52%,
-    transparent 60%);
-  transform:translateX(-60%);
-  animation: badgeShine 3.8s ease-in-out infinite;
-  pointer-events:none;
-}
-@keyframes badgePulse{
-  0%,100%{ transform:translateY(-1px) scale(1); }
-  50%{ transform:translateY(-1px) scale(1.04); }
-}
-@keyframes badgeShine{
-  0%{ transform:translateX(-60%); opacity:0; }
-  25%{ opacity:.55; }
-  50%{ transform:translateX(60%); opacity:0; }
-  100%{ transform:translateX(60%); opacity:0; }
-}
+    .brand img {
+      display: block;
+      width: 210px;
+      height: auto;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5));
+    }
 
-/* Just Dropped Banner */
-.dropBanner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:12px 12px;
-  border-radius:14px;
-  border:1px solid rgba(255,216,74,.18);
-  background:linear-gradient(180deg, rgba(255,216,74,.08), rgba(0,0,0,.10));
-  margin-bottom:12px;
-}
-.dropPill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 10px;
-  border-radius:999px;
-  font-weight:var(--display-weight);
-  letter-spacing:.6px;
-  text-transform:uppercase;
-  font-size:.78rem;
-  color:#0b0b0b;
-  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
-  border:1px solid rgba(255,216,74,.35);
-  box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 16px rgba(255,216,74,.18);
-  white-space:nowrap;
-}
-.dropText{
-  flex:1;
-  font-weight:800;
-  letter-spacing:.15px;
-  opacity:.92;
-  line-height:1.35;
-}
-.dropAgo{
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-  color:rgba(255,216,74,.9);
-  opacity:.95;
-  font-size:.85rem;
-  white-space:nowrap;
-}
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 22px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-/* VIDEO */
-.videoWrap{
-  position:relative;
-  width:100%;
-  padding-top:56.25%;
-  border-radius:14px;
-  overflow:hidden;
-  background:#000;
-  border:1px solid rgba(255,216,74,.18);
-}
-.videoWrap.videoHot{
-  border-color: rgba(255,216,74,.55);
-  box-shadow: 0 0 0 1px rgba(255,216,74,.12), 0 18px 40px rgba(0,0,0,.55), 0 0 28px rgba(255,216,74,.10);
-  animation: hotPulse 2.8s ease-in-out infinite;
-}
-@keyframes hotPulse{
-  0%,100%{ box-shadow: 0 0 0 1px rgba(255,216,74,.10), 0 18px 40px rgba(0,0,0,.55), 0 0 22px rgba(255,216,74,.08); }
-  50%{ box-shadow: 0 0 0 1px rgba(255,216,74,.18), 0 18px 40px rgba(0,0,0,.55), 0 0 34px rgba(255,216,74,.12); }
-}
-.videoWrap iframe{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:0;
-}
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
 
-.smallNote{
-  margin-top:10px;
-  opacity:.78;
-  font-size:.92rem;
-  line-height:1.45;
-}
+    .nav a:hover,
+    .nav a:focus-visible { color: var(--gold-strong); }
 
-/* Under video actions */
-.videoActions{
-  margin-top:12px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
+    .nav .nav-cta {
+      padding: 10px 15px;
+      color: #080808;
+      background: var(--gold);
+      border-radius: 999px;
+    }
 
-/* Momentum line */
-.momentumLine{
-  margin-top:12px;
-  padding:10px 12px;
-  border-radius:14px;
-  border:1px solid rgba(255,216,74,.18);
-  background:linear-gradient(180deg, rgba(255,216,74,.06), rgba(0,0,0,.10));
-  font-weight:900;
-  letter-spacing:.15px;
-  opacity:.92;
-}
+    .nav .nav-cta:hover,
+    .nav .nav-cta:focus-visible { color: #080808; background: var(--gold-strong); }
 
-/* THUMB STRIP */
-.thumbStrip{
-  margin-top:14px;
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  padding:10px 4px 2px;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-.thumbStrip::-webkit-scrollbar{ height:8px; }
-.thumbStrip::-webkit-scrollbar-thumb{
-  background:rgba(255,216,74,.22);
-  border-radius:999px;
-}
-.thumb{
-  flex:0 0 auto;
-  width:190px;
-  scroll-snap-align:start;
-  border-radius:14px;
-  border:1px solid rgba(255,216,74,.18);
-  background:rgba(0,0,0,.35);
-  overflow:hidden;
-  cursor:pointer;
-  transition:.18s;
-  position:relative;
-  aspect-ratio:16/9;
-}
-.thumb:hover{
-  transform:translateY(-2px);
-  border-color:rgba(255,216,74,.42);
-}
-.thumb img{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-}
-.thumbMeta{
-  position:absolute;
-  left:0; right:0; bottom:0;
-  padding:10px 10px 11px;
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-  font-size:.86rem;
-  opacity:.98;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.68) 100%);
-}
+    main { width: var(--wrap); margin: 0 auto; }
 
-/* Premium thumb overlays */
-.thumb::after{
-  content:"▶";
-  position:absolute;
-  top:10px;
-  left:10px;
-  width:34px;
-  height:34px;
-  display:grid;
-  place-items:center;
-  border-radius:999px;
-  background:rgba(0,0,0,.55);
-  border:1px solid rgba(255,216,74,.25);
-  color:var(--yellow);
-  font-weight:var(--display-weight);
-  font-size:.95rem;
-  text-shadow:0 10px 22px rgba(0,0,0,.7);
-  pointer-events:none;
-  transform:translateY(0);
-  transition:.18s;
-}
-.thumb:hover::after{
-  transform:translateY(-1px) scale(1.03);
-  border-color:rgba(255,216,74,.45);
-}
-.thumbNow{
-  border-color:rgba(255,216,74,.65) !important;
-  box-shadow:0 14px 30px rgba(0,0,0,.55), 0 0 18px rgba(255,216,74,.12);
-}
-.thumbNowTag{
-  display:none;
-  position:absolute;
-  top:10px;
-  right:10px;
-  padding:5px 9px;
-  border-radius:999px;
-  font-size:.72rem;
-  font-weight:var(--display-weight);
-  letter-spacing:.6px;
-  color:#0b0b0b;
-  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
-  border:1px solid rgba(255,216,74,.35);
-  box-shadow:0 10px 24px rgba(0,0,0,.5), 0 0 18px rgba(255,216,74,.2);
-  pointer-events:none;
-}
-.thumbNow .thumbNowTag{ display:inline-block; }
+    section { scroll-margin-top: 94px; }
 
-/* ROAD TO 1K */
-.section{margin-top:56px; text-align:center;}
-.section h2{
-  color:var(--yellow);
-  margin:0 0 12px;
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-}
-.progressWrap{
-  margin-top:10px;
-  height:14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,216,74,.18);
-  overflow:hidden;
-}
-.progressBar{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg, rgba(255,216,74,1), rgba(255,180,30,1));
-  border-radius:999px;
-  transition:width .6s ease;
-}
+    .hero {
+      padding: 72px 0 58px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(480px, 1.08fr);
+      gap: 48px;
+      align-items: center;
+    }
 
-/* KPI */
-.kpiRow{
-  display:flex;
-  justify-content:space-between;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-top:14px;
-}
-.kpi{
-  min-width:160px;
-  padding:12px 12px 10px;
-  border-radius:14px;
-  border:1px solid rgba(255,216,74,.18);
-  background:linear-gradient(180deg, rgba(255,216,74,.06), rgba(0,0,0,.10));
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-  color:var(--yellow);
-  opacity:.98;
-}
-.kpi small{
-  display:block;
-  margin-top:8px;
-  font-weight:900;
-  letter-spacing:.2px;
-  text-transform:none;
-  color:var(--text);
-  opacity:.92;
-  font-size:1.25rem;
-  line-height:1.2;
-}
-.milestoneLine{
-  margin-top:12px;
-  opacity:.82;
-  font-weight:800;
-}
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
 
-/* PLAYLISTS */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;
-  text-align:left;
-}
-.playCard{
-  text-decoration:none;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
-  background:rgba(10,10,10,.6);
-  transition:.2s;
-}
-.playCard:hover{
-  transform:translateY(-3px);
-  border-color:rgba(255,216,74,.42);
-}
-.playCard img{
-  width:100%;
-  display:block;
-  aspect-ratio:16/9;
-  object-fit:cover;
-}
-.label{
-  padding:14px;
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-}
+    h1, h2, h3, p { margin-top: 0; }
 
-/* About/CTA block */
-.dividerGold{
-  height:1px;
-  background:linear-gradient(90deg, transparent, rgba(255,216,74,.35), transparent);
-  margin:24px 0 18px;
-  border:0;
-}
-.aboutText{ margin:0; }
-.ctaLine{ margin-top:12px; }
-.ctaLine a{
-  color:var(--yellow);
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-  text-decoration:none;
-}
-.ctaLine a:hover{
-  text-decoration:underline;
-  text-underline-offset:6px;
-}
+    h1 {
+      max-width: 720px;
+      margin-bottom: 20px;
+      font-size: clamp(3rem, 6.2vw, 6.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.055em;
+      text-transform: uppercase;
+    }
 
-/* FEATURED THIS WEEK */
-.sectionSub{
-  margin:-4px auto 16px;
-  max-width:760px;
-  opacity:.78;
-  text-align:center;
-}
-.featuredGrid{
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0, 1fr));
-  gap:16px;
-}
-.featureCard{
-  text-decoration:none;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
-  background:rgba(10,10,10,.6);
-  transition:.2s;
-}
-.featureCard:hover{
-  transform:translateY(-2px);
-  border-color:rgba(255,216,74,.42);
-  box-shadow:0 18px 40px rgba(0,0,0,.55);
-}
-.featureCard img{
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:cover;
-  display:block;
-}
-.featureMeta{ padding:14px; }
-.featureTag{
-  display:inline-block;
-  padding:5px 10px;
-  border-radius:999px;
-  font-size:.72rem;
-  letter-spacing:var(--display-track);
-  font-weight:var(--display-weight);
-  color:var(--yellow);
-  border:1px solid rgba(255,216,74,.28);
-  background:rgba(0,0,0,.35);
-  margin-bottom:10px;
-}
-.featureTitle{
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-transform:uppercase;
-}
-.featuredCta{
-  margin-top:14px;
-  text-align:center;
-  opacity:.85;
-}
-.featuredCta a{
-  color:var(--yellow);
-  font-weight:var(--display-weight);
-  letter-spacing:var(--display-track);
-  text-decoration:none;
-  border-bottom:1px solid rgba(255,216,74,.35);
-  padding-bottom:2px;
-}
-.featuredCta a:hover{opacity:.9}
+    .hero-copy {
+      max-width: 650px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: clamp(1.04rem, 1.8vw, 1.25rem);
+      line-height: 1.7;
+    }
 
-/* Footer */
-footer{ margin-top:26px; text-align:center; opacity:.65; }
-.footerLine{ margin-top:8px; opacity:.85; font-weight:800; }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-/* Accessibility */
-a:focus-visible, .thumb:focus-visible{
-  outline:2px solid rgba(255,216,74,.8);
-  outline-offset:3px;
-  border-radius:14px;
-}
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior:auto; }
-  body::before{ animation:none !important; }
-  .logo-title, .logo-title img, .logoSweep{ animation:none !important; }
-  .logo-title{ opacity:1 !important; transform:none !important; }
-  .badge, .videoWrap.videoHot{ animation:none !important; }
-  .badge::after{ animation:none !important; }
-}
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 20px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
 
-/* Reveal */
-.reveal{opacity:0;transform:translateY(10px);transition:520ms ease;}
-.reveal.isVisible{opacity:1;transform:none;}
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(243, 199, 79, 0.55);
+    }
 
-/* Desktop alignment system */
-@media (min-width: 1024px){
-  .hero{
-    display:grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap:26px;
-    align-items:start;
-  }
-  .logo-title,
-  .welcome,
-  .cta{
-    grid-column:1;
-  }
-  .heroGrid{
-    grid-column:2;
-    grid-row:1 / span 6;
-    margin-top:0;
-  }
+    .button-primary {
+      color: #080808;
+      background: var(--gold);
+      border-color: var(--gold);
+    }
 
-  .thumbStrip{
-    overflow:visible;
-    padding:0;
-    scroll-snap-type:none;
-    display:grid;
-    grid-template-columns:repeat(5, minmax(0, 1fr));
-    gap:14px;
-  }
-  .thumb{ width:100%; }
-}
+    .button-primary:hover,
+    .button-primary:focus-visible { background: var(--gold-strong); }
 
-/* Featured responsiveness */
-@media (max-width: 860px){
-  .featuredGrid{ grid-template-columns:1fr; }
-}
+    .button-secondary { background: rgba(255, 255, 255, 0.035); }
 
-/* Mobile layout */
-@media (max-width: 860px){
-  .wrap{ width:min(1100px,94vw); }
+    .hero-proof {
+      margin: 20px 0 0;
+      color: #d3ccbe;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
 
-  .topbar{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:10px;
-    padding:10px 0;
-  }
+    .media-shell {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
 
-  .nav a{
-    margin-left:0;
-    margin-right:12px;
-    display:inline-block;
-  }
-  .navSep{ display:none; }
+    .media-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--white-line);
+    }
 
-  .hero{
-    padding:24px 16px;
-    border-radius:18px;
-  }
+    .media-label strong {
+      color: var(--gold);
+      font-size: 0.76rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
 
-  .logo-title{
-    max-width:100%;
-    margin-bottom:12px;
-    padding:10px 10px 14px;
-  }
+    .media-label span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
 
-  .welcomeText{ font-size:.98rem; line-height:1.55; }
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
 
-  .cta{
-    flex-direction:column;
-    align-items:stretch;
-  }
-  .btn{
-    width:100%;
-    padding:13px 16px;
-  }
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
 
-  .heroGrid{ gap:16px; margin-top:18px; }
-  .card{ padding:14px; border-radius:16px; }
-  .grid{ grid-template-columns:1fr; gap:14px; }
-  .dropBanner{ flex-direction:column; align-items:flex-start; }
-  .dropAgo{ align-self:flex-start; }
-  .kpi{ min-width: 100%; }
-}
+    .section {
+      padding: 70px 0;
+      border-top: 1px solid var(--white-line);
+    }
 
-/* Mobile performance (single) */
-@media (max-width: 768px){
-  html, body{ overflow-x:hidden; }
-  body::before{ display:none !important; }
-  .topbar{
-    backdrop-filter:none !important;
-    -webkit-backdrop-filter:none !important;
-    background: rgba(5,5,5,.92);
-  }
-  section{ scroll-margin-top: 76px; }
-}
+    .section-heading {
+      max-width: 780px;
+      margin-bottom: 30px;
+    }
 
-/* Thumb strip sizing on non-desktop */
-@media (max-width: 1023px){
-  .thumb{ width: 78vw; max-width: 340px; }
-  .thumbStrip::-webkit-scrollbar{ display:none; }
-  .thumbStrip{ scrollbar-width:none; }
-}
+    .section-heading h2 {
+      margin-bottom: 12px;
+      font-size: clamp(2.15rem, 4.4vw, 4.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
 
-/* Playlists readability on small screens */
-@media (max-width: 640px){
-  #playlists .playCard{
-    display:grid;
-    grid-template-columns:128px 1fr;
-    align-items:stretch;
-    overflow:hidden;
-  }
-  #playlists .label{
-    display:flex;
-    align-items:center;
-    padding:14px;
-    font-size:1.02rem;
-    line-height:1.15;
-    text-transform:none;
-    letter-spacing:.2px;
-  }
-}
+    .section-heading p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
 
-/* Mobile nav (single source of truth) */
-@media (max-width: 720px){
-  .topbar{
-    padding: 10px 0;
-    background: rgba(5,5,5,.92);
-    border-bottom: 1px solid rgba(255,216,74,.18);
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
+    .release-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
 
-  .nav{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    padding: 6px 0 2px;
-    margin: 0 auto;
-  }
+    .release-card {
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+      border: 1px solid var(--white-line);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
 
-  .nav a{
-    margin: 0 !important;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height: 46px;
-    padding: 10px 8px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,216,74,.22);
-    background: rgba(255,216,74,.06);
-    font-size: .82rem;
-    letter-spacing: .6px;
-    white-space: normal;
-    text-align:center;
-    text-decoration:none;
-  }
+    .release-card:hover,
+    .release-card:focus-visible {
+      transform: translateY(-5px);
+      border-color: rgba(243, 199, 79, 0.54);
+    }
 
-  .nav a:active{ transform: translateY(1px); }
-}
+    .release-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #050505;
+    }
 
-/* Sticky CTA */
-.stickyCta{
-  position:fixed;
-  left:12px; right:12px;
-  bottom:12px;
-  display:flex;
-  gap:10px;
-  padding:10px;
-  border-radius:18px;
-  background:rgba(0,0,0,.55);
-  border:1px solid rgba(255,216,74,.16);
-  transform:translateY(110%);
-  opacity:0;
-  transition:260ms ease;
-  z-index:999;
-}
-.stickyCta.isOn{ transform:none; opacity:1; }
-.stickyBtn{ flex:1; min-height:44px; }
+    .release-meta { padding: 17px; }
 
-/* Equal-size pill row (Latest + Get Featured) */
-.pillRow{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:12px;
-}
-.pill{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:44px;
-  border-radius:999px;
-  font-weight:900;
-  letter-spacing:.8px;
-  text-transform:uppercase;
-  border:1px solid rgba(255,216,74,.28);
-}
-.pillLatest{
-  color:#0b0b0b;
-  background:linear-gradient(180deg, rgba(255,216,74,1), rgba(255,180,30,1));
-  box-shadow:0 10px 24px rgba(0,0,0,.45);
-}
-.pillFeatured{
-  color:var(--yellow);
-  background:rgba(255,216,74,.06);
-  text-decoration:none;
-}
-.pillFeatured:hover{
-  background:rgba(255,216,74,.12);
-}
+    .tag {
+      display: inline-block;
+      margin-bottom: 9px;
+      color: var(--gold);
+      font-size: 0.70rem;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
 
-</style>
+    .release-meta h3 {
+      margin-bottom: 5px;
+      font-size: 1.08rem;
+      line-height: 1.25;
+    }
+
+    .release-meta p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .artist-card {
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 18px;
+      border: 1px solid var(--white-line);
+      border-radius: var(--radius-md);
+      background:
+        linear-gradient(180deg, rgba(243, 199, 79, 0.02), rgba(243, 199, 79, 0.10)),
+        var(--surface);
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .artist-card:hover,
+    .artist-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(243, 199, 79, 0.50);
+      background:
+        linear-gradient(180deg, rgba(243, 199, 79, 0.04), rgba(243, 199, 79, 0.16)),
+        var(--surface);
+    }
+
+    .artist-card span {
+      color: var(--gold);
+      font-size: 0.70rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .artist-card strong {
+      margin-top: 6px;
+      font-size: 1.18rem;
+      line-height: 1.1;
+    }
+
+    .artist-card small {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .genre-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .genre {
+      padding: 18px 12px;
+      border: 1px solid var(--white-line);
+      border-radius: 14px;
+      background: var(--surface);
+      text-align: center;
+      font-size: 0.80rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .about-copy,
+    .about-panel {
+      padding: clamp(24px, 4vw, 42px);
+      border: 1px solid var(--white-line);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+    }
+
+    .about-copy h2 {
+      margin-bottom: 18px;
+      font-size: clamp(2.2rem, 4vw, 4.3rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .about-copy p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    .about-copy p:last-child { margin-bottom: 0; }
+
+    .about-panel {
+      background:
+        linear-gradient(145deg, rgba(243, 199, 79, 0.16), rgba(243, 199, 79, 0.02) 55%),
+        var(--surface);
+    }
+
+    .about-panel h3 {
+      color: var(--gold);
+      font-size: 0.80rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .about-panel ul {
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .about-panel li {
+      padding: 13px 0;
+      border-top: 1px solid var(--white-line);
+      color: #ddd6c8;
+      font-weight: 750;
+    }
+
+    .submit-banner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: clamp(26px, 5vw, 54px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(520px 240px at 90% 50%, rgba(243, 199, 79, 0.15), transparent 70%),
+        var(--surface);
+    }
+
+    .submit-banner h2 {
+      margin-bottom: 10px;
+      font-size: clamp(2rem, 3.5vw, 3.8rem);
+      line-height: 1;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+
+    .submit-banner p {
+      max-width: 690px;
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .site-footer {
+      width: var(--wrap);
+      margin: 0 auto;
+      padding: 34px 0 48px;
+      border-top: 1px solid var(--white-line);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--muted);
+    }
+
+    .footer-links a:hover,
+    .footer-links a:focus-visible { color: var(--gold); }
+
+    :focus-visible {
+      outline: 2px solid var(--gold-strong);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 1040px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 34px;
+        padding-top: 54px;
+      }
+
+      .hero-copy { max-width: 760px; }
+      .release-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .artist-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .genre-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 820px) {
+      .site-header { position: static; }
+      .header-inner {
+        min-height: auto;
+        padding: 16px 0;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .brand img { width: 190px; }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 12px 18px;
+        flex-wrap: wrap;
+      }
+
+      .nav .nav-cta { padding: 8px 12px; }
+
+      section { scroll-margin-top: 20px; }
+
+      .about-grid { grid-template-columns: 1fr; }
+
+      .submit-banner {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 620px) {
+      :root { --wrap: min(100% - 28px, 1180px); }
+
+      h1 { font-size: clamp(2.75rem, 15vw, 4.3rem); }
+
+      .hero { padding: 42px 0 44px; }
+      .section { padding: 54px 0; }
+
+      .button-row { flex-direction: column; }
+      .button { width: 100%; }
+
+      .media-label {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .release-grid,
+      .artist-grid,
+      .genre-grid { grid-template-columns: 1fr; }
+
+      .artist-card { min-height: 140px; }
+
+      .nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .nav a {
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 8px;
+        border: 1px solid var(--white-line);
+        border-radius: 10px;
+        font-size: 0.73rem;
+      }
+
+      .nav .nav-cta { border-radius: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="NextGen Sessions home">
+        <img src="NextGen Sessions Logo 2026.png" alt="NextGen Sessions">
+      </a>
 
-
-<div class="wrap">
-
-<div class="topbar">
-  <div></div>
-  <nav class="nav" aria-label="Primary">
-    <a href="#latest">Latest</a>
-    <a href="#road">Road to 1K</a>
-    <a href="#playlists">Playlists</a>
-    <span class="navSep">|</span>
-    <a data-track="click_youtube_nav" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
-    <a data-track="click_tiktok_nav" href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
-    <a data-track="click_instagram_nav" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
-  </nav>
-</div>
-
-<section class="hero">
-
-  <!-- LOGO -->
-  <div class="logo-title" id="logoTitle">
-    <span class="logoSweep" aria-hidden="true"></span>
-    <img src="NextGen Sessions Logo 2026.png" alt="NextGen Sessions">
-  </div>
-
-  <!-- WELCOME -->
-  <div class="welcome">
-    <h2 class="welcomeTitle">Welcome to NextGen Sessions</h2>
-    <p class="welcomeText">
-      Breaking boundaries across hip-hop, Bhangra, dancehall, grime, R&amp;B — built for the next generation.
-    </p>
-    <p class="trustLine">Curating independent &amp; underground sounds worldwide.</p>
-  </div>
-
-  <div class="cta">
-    <a class="btn btnGold" data-track="click_watch_youtube" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-    <a class="btn btnGold" data-track="click_get_featured" href="/submit.html">Get Featured</a>
-  </div>
-  <div class="subMicro">Weekly drops · No spam · Independent artists only</div>
-
-  <div class="heroGrid">
-
-    <!-- LATEST DROP -->
-    <div class="card" id="latest">
-      <div class="pillRow">
-  <span class="pill pillLatest">Latest</span>
-  <a class="pill pillFeatured" data-track="click_get_featured" href="/submit.html">Get Featured</a>
-</div>
-<div class="cardTitle" style="display:none">
-        <span class="badge" id="newDropBadge" aria-hidden="true" hidden>NEW DROP</span>
-      </div>
-
-      <div class="dropBanner" id="dropBanner" aria-live="polite">
-        <span class="dropPill" id="dropPill">Just Dropped</span>
-        <div class="dropText" id="dropText">Tap play — the newest session is live.</div>
-        <div class="dropAgo" id="dropAgo">—</div>
-      </div>
-
-      <div class="videoWrap" id="videoWrap">
-        <iframe
-          id="latestDropFrame"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          src="https://www.youtube-nocookie.com/embed/EYw3-ZvAhWE?rel=0&modestbranding=1"
-          title="NextGen Sessions - Latest Drop"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <div class="smallNote" id="latestDropNote">
-        Loading latest upload… (auto-updates)
-      </div>
-
-      <div class="videoActions">
-        <a class="btn btnGold" id="watchLatestBtn" data-track="click_watch_latest" href="https://www.youtube.com/watch?v=EYw3-ZvAhWE" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-      </div>
-
-      <div class="momentumLine" id="momentumLine" aria-live="polite">Loading momentum…</div>
-
-      <div class="thumbStrip" id="thumbStrip" aria-label="Latest videos"></div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#releases">Releases</a>
+        <a href="#artists">Artists</a>
+        <a href="#genres">Genres</a>
+        <a href="#about">About</a>
+        <a href="/submit.html">Submit</a>
+        <a class="nav-cta" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
+      </nav>
     </div>
+  </header>
 
-  </div>
-</section>
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Independent music network</p>
+        <h1 id="hero-title">Original music. Distinct artists. One global platform.</h1>
+        <p class="hero-copy">
+          NextGen Sessions releases original UK rap, hip-hop, dancehall, reggae, R&amp;B and global sounds—built around memorable artists, strong records and cinematic visual campaigns.
+        </p>
 
-<!-- Featured This Week -->
-<section class="section featured" id="featured">
-  <h2>Featured This Week</h2>
-  <p class="sectionSub">Three picks we’re pushing right now — tap in.</p>
+        <div class="button-row">
+          <a class="button button-primary" href="#releases">Explore releases</a>
+          <a class="button button-secondary" href="#artists">Meet the artists</a>
+        </div>
 
-  <div class="featuredGrid" id="featuredGrid" aria-live="polite">
-    <div class="featuredLoading">Loading featured picks…</div>
-  </div>
-
-  <div class="featuredFallback" id="featuredFallback" style="display:none;">
-    Can’t load the featured grid right now — <a href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA" target="_blank" rel="noopener">open the Featured playlist</a>.
-  </div>
-
-  <div class="featuredCta">
-    Want to be featured? <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">DM on Instagram</a>
-  </div>
-</section>
-
-<!-- Road to 1K -->
-<section class="section" id="road">
-  <h2>Road to 1K</h2>
-  <div class="card">
-    <div class="smallNote" id="subNote">Loading subscriber count…</div>
-    <div class="progressWrap" aria-label="Subscriber progress">
-      <div class="progressBar" id="subBar"></div>
-    </div>
-
-    <div class="kpiRow">
-      <div class="kpi" id="subKpi1">Subscribers<small id="subKpi1b">—</small></div>
-      <div class="kpi" id="subKpi2">To Goal<small id="subKpi2b">—</small></div>
-      <div class="kpi" id="subKpi3">Updated<small id="subKpi3b">—</small></div>
-    </div>
-
-    <div class="milestoneLine" id="milestoneLine" aria-live="polite">Every sub helps — next milestone loading…</div>
-  </div>
-</section>
-
-<section class="section" id="playlists">
-  <h2>Playlists</h2>
-
-  <div class="grid">
-    <a class="playCard" data-track="click_playlist_bhangra" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS" target="_blank" rel="noopener">
-      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/MKh3DhWW7oY/hqdefault.jpg" alt="Bhangra playlist thumbnail">
-      <div class="label">🪘 Bhangra</div>
-    </a>
-
-    <a class="playCard" data-track="click_playlist_hiphop" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM" target="_blank" rel="noopener">
-      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/zlkv7m4c8ts/hqdefault.jpg" alt="Hip Hop playlist thumbnail">
-      <div class="label">🎤 Hip Hop</div>
-    </a>
-
-    <a class="playCard" data-track="click_playlist_grime" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN" target="_blank" rel="noopener">
-      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/iJTWEyuVNZY/hqdefault.jpg" alt="Grime & UK Rap playlist thumbnail">
-      <div class="label">🇬🇧 Grime &amp; UK Rap</div>
-    </a>
-
-    <a class="playCard" data-track="click_playlist_dancehall" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC" target="_blank" rel="noopener">
-      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/EYw3-ZvAhWE/hqdefault.jpg" alt="Dancehall & Reggae playlist thumbnail">
-      <div class="label">🔥 Dancehall &amp; Reggae</div>
-    </a>
-
-    <a class="playCard" data-track="click_playlist_ambience" href="https://www.youtube.com/watch?v=JT6-1q1-d-k&list=PL7VCdVWElIJHo4ahyxwbePMN6_I9WIj95" target="_blank" rel="noopener">
-      <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/JT6-1q1-d-k/hqdefault.jpg" alt="Ambience playlist thumbnail">
-      <div class="label">🌙 Ambience</div>
-    </a>
-  </div>
-
-  <hr class="dividerGold">
-
-  <p class="aboutText heroBody">
-    NextGen Sessions curates forward-thinking sounds across hip-hop, Bhangra, dancehall, grime, R&amp;B and more — spotlighting raw talent, culture, and energy from the underground to the global stage.
-  </p>
-
-  <p class="ctaLine heroBody">
-    <span style="font-weight:900; letter-spacing:.4px; text-transform:uppercase;">Artists &amp; Producers:</span>
-    send submissions via <a data-track="click_submit_track" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram DM</a>.
-    Include a private link (YouTube/SoundCloud) and your social handles.
-  </p>
-
-  <div class="card" id="submit" style="margin-top:16px;">
-    <div class="cardTitle">Get Featured</div>
-
-    <p class="smallNote" style="margin:0 0 10px;">
-      Want your track on NextGen Sessions? Send a clean submission and we’ll review it.
-    </p>
-
-    <p class="smallNote" style="margin:0 0 12px;">
-      We listen to every submission. If it fits, we reply.
-    </p>
-
-    <div class="kpiRow" style="margin-top:0;">
-      <div class="kpi">Step 1<small>DM on Instagram</small></div>
-      <div class="kpi">Step 2<small>Private link + socials</small></div>
-      <div class="kpi">Step 3<small>We reply if it fits</small></div>
-    </div>
-
-    <div class="cta" style="margin-top:14px;">
-      <a class="btn btnPrimary" data-track="click_submit_ig" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Submit via Instagram DM</a>
-      <a class="btn btnPrimary" data-track="click_submit_music_email" href="mailto:billz_rida_37er@yahoo.co.uk?subject=NextGen%20Sessions%20Music%20Submission&body=Artist%20Name%3A%0D%0AInstagram%20Handle%3A%0D%0AGenre%3A%0D%0AVibe%20(1%20line)%3A%0D%0APrivate%20Link%20(YouTube%20Unlisted%20or%20SoundCloud)%3A%0D%0ACity/Country%3A%0D%0A">Submit Your Music</a>
-    </div>
-
-    <p class="smallNote" style="margin-top:12px;">
-      Tip: Include genre and a 1-line vibe summary (e.g. “cinematic grime / melodic hook”).
-    </p>
-  </div>
-</section>
-
-<footer>
-  © 2026 NextGen Sessions
-  <div class="footerLine">Built by music lovers. Powered by the underground.</div>
-</footer>
-
-</div>
-
-<!-- Sticky CTA -->
-<div class="stickyCta" id="stickyCta" aria-label="Quick actions">
-  <a class="btn btnGold" data-track="click_get_featured" href="/submit.html">Get Featured</a>
-  <a class="btn btnGold stickyBtn" data-track="sticky_latest" href="#latest">Latest</a>
-</div>
-
-<script>
-/**
- * Unified behaviours:
- * - Click tracking (data-track)
- * - Latest drop from latest.json + thumb strip + momentum line
- * - Road to 1K from stats.json + milestones
- * - Featured This Week from playlist feed
- * - Reveal animations
- * - Sticky CTA (efficient)
- * - Parallax logo tilt (desktop)
- */
-(function(){
-  // --- Analytics helper ---
-  function track(name, params){
-    if (typeof gtag === "function") gtag("event", name, params || {});
-  }
-
-  document.addEventListener("click", function(e){
-    var a = e.target.closest("a[data-track]");
-    if (!a) return;
-    track(a.getAttribute("data-track"), {
-      link_url: a.href,
-      link_text: (a.textContent || "").trim()
-    });
-  });
-
-  // --- Reveal animations ---
-  const revealTargets = document.querySelectorAll("section, .hero, footer");
-  revealTargets.forEach(el => el.classList.add("reveal"));
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("isVisible");
-      io.unobserve(entry.target);
-    });
-  }, { threshold: 0.12 });
-  revealTargets.forEach(el => io.observe(el));
-
-  // --- Sticky CTA (efficient scroll handler) ---
-  const sticky = document.getElementById("stickyCta");
-  if (sticky){
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        sticky.classList.toggle("isOn", window.scrollY > 260);
-        ticking = false;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive:true });
-    onScroll();
-  }
-
-  // --- Latest Drop + Gallery + Momentum ---
-  const FALLBACK_VIDEO_ID = "EYw3-ZvAhWE";
-
-  const frame = document.getElementById("latestDropFrame");
-  const note  = document.getElementById("latestDropNote");
-  const badge = document.getElementById("newDropBadge");
-  const strip = document.getElementById("thumbStrip");
-  const watchBtn = document.getElementById("watchLatestBtn");
-  const videoWrap = document.getElementById("videoWrap");
-  const momentumLine = document.getElementById("momentumLine");
-
-  const dropAgo = document.getElementById("dropAgo");
-  const dropPill = document.getElementById("dropPill");
-  const dropText = document.getElementById("dropText");
-
-  function setVideo(videoId){
-    if (!frame) return;
-    frame.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?rel=0&modestbranding=1";
-    if (watchBtn) watchBtn.href = "https://www.youtube.com/watch?v=" + videoId;
-  }
-
-  function setNote(text){
-    if (note) note.textContent = text;
-  }
-
-  function showBadge(){ if (badge) badge.hidden = false; }
-  function hideBadge(){ if (badge) badge.hidden = true; }
-
-  function setBanner(agoText){
-    if (dropPill) dropPill.textContent = "Just Dropped";
-    if (dropText) dropText.textContent = "Tap play — the newest session is live.";
-    if (dropAgo) dropAgo.textContent = agoText ? agoText : "—";
-  }
-
-  function setHot(isHot){
-    if (!videoWrap) return;
-    videoWrap.classList.toggle("videoHot", !!isHot);
-  }
-
-  const STORAGE_KEY = "ngs_lastVideoId";
-
-  const GALLERY = [
-    { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
-    { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
-    { id: "Qr1gNggtg8k", title: "Ride On My Enemies" },
-    { id: "Zkb80UYO0pY", title: "Money in the Bando" },
-    { id: "5YgrpFXZ92Q", title: "Marked for War" },
-    { id: "ccwwJFDErvg", title: "Bulletproof Mind" },
-    { id: "GgZ7oQEF4CQ", title: "No Face No Case" },
-    { id: "d3bkbzzYeG4", title: "Like Father Like Son" },
-    { id: "Mcc_Da8weAE", title: "Bands" },
-    { id: "TctcNn8cOHs", title: "Latest Upload" }
-  ];
-
-  let galleryCurrent = [...GALLERY];
-
-  function hasVideo(list, id){ return list.some(v => v.id === id); }
-
-  function buildThumbStrip(list){
-    if (!strip) return;
-    strip.innerHTML = list.map(v => `
-      <div class="thumb" role="button" tabindex="0" data-id="${v.id}" aria-label="Play ${escapeHtml(v.title)}">
-        <span class="thumbNowTag" aria-hidden="true">NOW</span>
-        <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${escapeHtml(v.title)}">
-        <div class="thumbMeta">${escapeHtml(v.title)}</div>
+        <p class="hero-proof">New releases throughout the week · Full tracks and music visuals on YouTube</p>
       </div>
-    `).join("");
-  }
 
-  function setNowPlayingThumb(videoId){
-    if (!strip) return;
-    strip.querySelectorAll(".thumb").forEach(t => {
-      t.classList.toggle("thumbNow", t.dataset.id === videoId);
-    });
-  }
+      <div class="media-shell" aria-label="NextGen Sessions featured playlist">
+        <div class="media-label">
+          <strong>Watch NextGen Sessions</strong>
+          <span>Official releases and featured videos</span>
+        </div>
+        <div class="video-frame">
+          <iframe
+            loading="lazy"
+            src="https://www.youtube-nocookie.com/embed/videoseries?list=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA&amp;rel=0"
+            title="NextGen Sessions official releases playlist"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
 
-  function trackThumb(videoId){
-    track("click_video_thumb", { video_id: videoId });
-  }
+    <section class="section" id="releases" aria-labelledby="releases-title">
+      <div class="section-heading">
+        <p class="eyebrow">The catalogue</p>
+        <h2 id="releases-title">Featured releases</h2>
+        <p>Reliable, permanent release cards replace the broken live-feed placeholders. Every title is available immediately, even when an external service is unavailable.</p>
+      </div>
 
-  function setMomentum(latestId, list){
-    if (!momentumLine) return;
-    const next = list.filter(v => v.id !== latestId).slice(0, 2);
-    const nowTitle = (list.find(v => v.id === latestId)?.title) || "Latest Upload";
-    const nextA = next[0]?.title || "—";
-    const nextB = next[1]?.title || "—";
-    momentumLine.textContent = `Now trending: ${nowTitle} • Up next: ${nextA} • Fresh pick: ${nextB}`;
-  }
+      <div class="release-grid">
+        <a class="release-card" href="https://www.youtube.com/watch?v=w8DSI4HZKnM" target="_blank" rel="noopener">
+          <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/w8DSI4HZKnM/hqdefault.jpg" alt="Creep With The Wolf release thumbnail">
+          <div class="release-meta">
+            <span class="tag">Official release</span>
+            <h3>Creep With The Wolf</h3>
+            <p>Watch on YouTube</p>
+          </div>
+        </a>
 
-  function escapeHtml(s){
-    return String(s || "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
+        <a class="release-card" href="https://www.youtube.com/watch?v=8YFWjkhWilc" target="_blank" rel="noopener">
+          <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/8YFWjkhWilc/hqdefault.jpg" alt="Man Moves Different Now release thumbnail">
+          <div class="release-meta">
+            <span class="tag">Official release</span>
+            <h3>Man Moves Different Now</h3>
+            <p>Watch on YouTube</p>
+          </div>
+        </a>
 
-  // Events (thumb clicks)
-  if (strip){
-    strip.addEventListener("click", (e) => {
-      const thumb = e.target.closest(".thumb");
-      if (!thumb) return;
-      const vid = thumb.dataset.id;
-      setVideo(vid);
-      hideBadge();
-      setHot(false);
-      setNote("Now playing selected video.");
-      setNowPlayingThumb(vid);
-      localStorage.setItem(STORAGE_KEY, vid);
-      trackThumb(vid);
-      setMomentum(vid, galleryCurrent);
-    });
+        <a class="release-card" href="https://www.youtube.com/watch?v=Qr1gNggtg8k" target="_blank" rel="noopener">
+          <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/Qr1gNggtg8k/hqdefault.jpg" alt="Ride On My Enemies release thumbnail">
+          <div class="release-meta">
+            <span class="tag">Official release</span>
+            <h3>Ride On My Enemies</h3>
+            <p>Watch on YouTube</p>
+          </div>
+        </a>
 
-    strip.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter" && e.key !== " ") return;
-      const thumb = e.target.closest(".thumb");
-      if (!thumb) return;
-      e.preventDefault();
-      const vid = thumb.dataset.id;
-      setVideo(vid);
-      hideBadge();
-      setHot(false);
-      setNote("Now playing selected video.");
-      setNowPlayingThumb(vid);
-      localStorage.setItem(STORAGE_KEY, vid);
-      trackThumb(vid);
-      setMomentum(vid, galleryCurrent);
-    });
-  }
+        <a class="release-card" href="https://www.youtube.com/watch?v=Zkb80UYO0pY" target="_blank" rel="noopener">
+          <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/Zkb80UYO0pY/hqdefault.jpg" alt="Money in the Bando release thumbnail">
+          <div class="release-meta">
+            <span class="tag">Official release</span>
+            <h3>Money in the Bando</h3>
+            <p>Watch on YouTube</p>
+          </div>
+        </a>
 
-  // Initial strip
-  buildThumbStrip(galleryCurrent);
-  setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
+        <a class="release-card" href="https://www.youtube.com/watch?v=5YgrpFXZ92Q" target="_blank" rel="noopener">
+          <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/5YgrpFXZ92Q/hqdefault.jpg" alt="Marked for War release thumbnail">
+          <div class="release-meta">
+            <span class="tag">Official release</span>
+            <h3>Marked for War</h3>
+            <p>Watch on YouTube</p>
+          </div>
+        </a>
 
-  function timeAgoFromUTCString(s){
-    if (!s) return "";
-    const iso = s.replace(" UTC", "Z").replace(" ", "T");
-    const d = new Date(iso);
-    if (isNaN(d.getTime())) return "";
-    const diffMs = Date.now() - d.getTime();
-    const mins = Math.max(0, Math.round(diffMs / 60000));
-    if (mins < 60) return mins + " min ago";
-    const hrs = Math.round(mins / 60);
-    if (hrs < 48) return hrs + " hours ago";
-    const days = Math.round(hrs / 24);
-    return days + " days ago";
-  }
+        <a class="release-card" href="https://www.youtube.com/watch?v=ccwwJFDErvg" target="_blank" rel="noopener">
+          <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/ccwwJFDErvg/hqdefault.jpg" alt="Bulletproof Mind release thumbnail">
+          <div class="release-meta">
+            <span class="tag">Official release</span>
+            <h3>Bulletproof Mind</h3>
+            <p>Watch on YouTube</p>
+          </div>
+        </a>
+      </div>
 
-  function minutesSinceUTCString(s){
-    if (!s) return Infinity;
-    const iso = s.replace(" UTC", "Z").replace(" ", "T");
-    const d = new Date(iso);
-    if (isNaN(d.getTime())) return Infinity;
-    return Math.max(0, Math.round((Date.now() - d.getTime()) / 60000));
-  }
+      <div class="button-row" style="margin-top: 24px;">
+        <a class="button button-secondary" href="https://www.youtube.com/@NextGenSessions/videos" target="_blank" rel="noopener">View all releases</a>
+      </div>
+    </section>
 
-  const latestUrl = "latest.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
+    <section class="section" id="artists" aria-labelledby="artists-title">
+      <div class="section-heading">
+        <p class="eyebrow">The roster</p>
+        <h2 id="artists-title">Artists with their own lane</h2>
+        <p>NextGen Sessions is built around distinct identities rather than anonymous uploads. Explore a developing roster across UK, Jamaican, US and global music lanes.</p>
+      </div>
 
-  fetch(latestUrl, { cache: "no-store" })
-    .then(r => {
-      if (!r.ok) throw new Error("latest.json not found");
-      return r.json();
-    })
-    .then(data => {
-      const latestId = (data && (data.videoId || data.latestVideoId || data.id) || "").trim();
-      if (!latestId) throw new Error("No videoId in latest.json");
+      <div class="artist-grid">
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Renz+Cole" target="_blank" rel="noopener">
+          <span>UK Rap</span><strong>Renz Cole</strong><small>Modern London rap with sharp personality and seasonal records.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Alia+Bleu" target="_blank" rel="noopener">
+          <span>UK R&amp;B</span><strong>Alia Bleu</strong><small>Late-night soul, emotional boundaries and smooth UK phrasing.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Omari+V" target="_blank" rel="noopener">
+          <span>Reggae</span><strong>Omari V</strong><small>Warm Jamaican reggae built around reflection, love and memory.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Reeko" target="_blank" rel="noopener">
+          <span>Dancehall</span><strong>Reeko</strong><small>Gullyside Jamaican energy with confident hooks and street detail.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Kemarco" target="_blank" rel="noopener">
+          <span>Dancehall</span><strong>Kemarco</strong><small>Dark melodic dancehall shaped by discipline and controlled pressure.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Rudii+Marka" target="_blank" rel="noopener">
+          <span>Dancehall</span><strong>Rudii Marka</strong><small>Youthful melodic gully records with an unmistakable Jamaican identity.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Voss+Carter" target="_blank" rel="noopener">
+          <span>West Coast Hip-Hop</span><strong>Voss Carter</strong><small>Calm authority, legacy themes and cinematic championship energy.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Jay+Starks" target="_blank" rel="noopener">
+          <span>New York Hip-Hop</span><strong>Jay Starks</strong><small>Queens-rooted storytelling with classic city grit and soul.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Rell+Danja" target="_blank" rel="noopener">
+          <span>Dancehall</span><strong>Rell Danja</strong><small>Hard-edged gullyside records about survival, loyalty and consequences.</small>
+        </a>
+        <a class="artist-card" href="https://www.youtube.com/results?search_query=NextGen+Sessions+Deon+Creed" target="_blank" rel="noopener">
+          <span>Soul / R&amp;B</span><strong>Deon Creed</strong><small>Reflective neighbourhood soul with grounded, mature writing.</small>
+        </a>
+      </div>
+    </section>
 
-      const updatedAtRaw = (data.updatedAt || "").trim();
-      const ago = timeAgoFromUTCString(updatedAtRaw);
-      const minsSince = minutesSinceUTCString(updatedAtRaw);
-      const isHot = minsSince <= (48 * 60); // 48 hours
+    <section class="section" id="genres" aria-labelledby="genres-title">
+      <div class="section-heading">
+        <p class="eyebrow">Explore the sound</p>
+        <h2 id="genres-title">Multiple genres. One standard.</h2>
+        <p>The catalogue crosses regional and genre boundaries while keeping a consistent focus on recognisable artists, replayable records and premium presentation.</p>
+      </div>
 
-      const lastSeen = localStorage.getItem(STORAGE_KEY);
+      <div class="genre-grid" aria-label="Genres released by NextGen Sessions">
+        <div class="genre">UK Rap</div>
+        <div class="genre">Hip-Hop</div>
+        <div class="genre">Dancehall</div>
+        <div class="genre">Reggae</div>
+        <div class="genre">R&amp;B</div>
+        <div class="genre">Global Sounds</div>
+      </div>
+    </section>
 
-      setVideo(latestId);
-      setBanner(ago);
-      setHot(isHot);
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="about-grid">
+        <div class="about-copy">
+          <p class="eyebrow">About NextGen</p>
+          <h2 id="about-title">More than a submission page.</h2>
+          <p>NextGen Sessions is an independent music network developing original artist identities, releases and visual campaigns across several genre lanes.</p>
+          <p>The platform is designed to give every release a clear concept, recognisable visual identity and a consistent home on YouTube, TikTok, Instagram and the wider web.</p>
+        </div>
 
-      if (!hasVideo(galleryCurrent, latestId)){
-        galleryCurrent = [{ id: latestId, title: "Latest Upload" }, ...galleryCurrent].slice(0, 10);
-      } else {
-        galleryCurrent = galleryCurrent.map(v => (v.id === latestId ? { ...v, title: "Latest Upload" } : v));
-      }
+        <aside class="about-panel" aria-label="NextGen Sessions focus">
+          <h3>What the platform builds</h3>
+          <ul>
+            <li>Original songs and recurring artists</li>
+            <li>Cinematic cover art and thumbnails</li>
+            <li>Full-release YouTube presentation</li>
+            <li>Short-form launch campaigns</li>
+            <li>A growing cross-genre catalogue</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
 
-      buildThumbStrip(galleryCurrent);
-      setNowPlayingThumb(latestId);
-      setMomentum(latestId, galleryCurrent);
+    <section class="section" id="submit" aria-labelledby="submit-title">
+      <div class="submit-banner">
+        <div>
+          <p class="eyebrow">Artist submissions</p>
+          <h2 id="submit-title">Think your music fits?</h2>
+          <p>Submissions remain open, but they are no longer the main identity of the website. Send a private listening link, your genre, location and a concise description of the record.</p>
+        </div>
+        <a class="button button-primary" href="/submit.html">Submission details</a>
+      </div>
+    </section>
+  </main>
 
-      if (strip){
-        const now = strip.querySelector(`.thumb[data-id="${latestId}"]`);
-        if (now) now.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
-      }
-
-      if (lastSeen && lastSeen !== latestId){
-        showBadge();
-        setNote("Auto-updated to newest upload" + (ago ? " · " + ago : "") + ".");
-      } else {
-        hideBadge();
-        setNote("Showing latest upload" + (ago ? " · " + ago : "") + ".");
-      }
-
-      localStorage.setItem(STORAGE_KEY, latestId);
-    })
-    .catch(() => {
-      hideBadge();
-      setHot(false);
-      setVideo(FALLBACK_VIDEO_ID);
-      setBanner("");
-      setNote("Showing fallback (latest auto-update unavailable).");
-      if (!hasVideo(galleryCurrent, FALLBACK_VIDEO_ID)){
-        galleryCurrent = [{ id: FALLBACK_VIDEO_ID, title: "Fallback" }, ...galleryCurrent].slice(0, 10);
-        buildThumbStrip(galleryCurrent);
-      }
-      setNowPlayingThumb(FALLBACK_VIDEO_ID);
-      setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
-    });
-
-  if (frame){
-    frame.addEventListener("error", () => {
-      hideBadge();
-      setHot(false);
-      setVideo(FALLBACK_VIDEO_ID);
-      setBanner("");
-      setNote("Showing fallback (latest upload can’t be embedded).");
-      setNowPlayingThumb(FALLBACK_VIDEO_ID);
-      setMomentum(FALLBACK_VIDEO_ID, galleryCurrent);
-    });
-  }
-
-  // --- Road to 1K (stats.json) ---
-  (function(){
-    const bar = document.getElementById("subBar");
-    const noteEl = document.getElementById("subNote");
-    const k1b = document.getElementById("subKpi1b");
-    const k2b = document.getElementById("subKpi2b");
-    const k3b = document.getElementById("subKpi3b");
-    const milestone = document.getElementById("milestoneLine");
-
-    if (!bar || !noteEl || !k1b || !k2b || !k3b) return;
-
-    const goal = 1000;
-    const statsUrl = "stats.json?_=" + Date.now() + "&v=" + Math.random().toString(16).slice(2);
-
-    function nextMilestone(subs){
-      const steps = [250, 500, 750, 1000];
-      for (const s of steps){
-        if (subs < s) return s;
-      }
-      return 1000;
-    }
-
-    fetch(statsUrl, { cache: "no-store" })
-      .then(r => {
-        if (!r.ok) throw new Error("stats.json not found");
-        return r.json();
-      })
-      .then(s => {
-        const subs = Number(s.subscribers || 0);
-        const updatedAt = (s.updatedAt || "").trim();
-
-        const pct = Math.max(0, Math.min(100, (subs / goal) * 100));
-        bar.style.width = pct + "%";
-
-        const remaining = Math.max(0, goal - subs);
-
-        noteEl.textContent = `Subscribers: ${subs.toLocaleString()} / ${goal.toLocaleString()}`;
-        k1b.textContent = subs.toLocaleString();
-        k2b.textContent = `${remaining.toLocaleString()} to go`;
-        k3b.textContent = updatedAt ? updatedAt : "—";
-
-        if (milestone){
-          const nm = nextMilestone(subs);
-          milestone.textContent = `Every sub helps — next milestone: ${nm.toLocaleString()}`;
-        }
-      })
-      .catch(() => {
-        noteEl.textContent = "Live count updating — check back shortly.";
-        bar.style.width = "0%";
-        k1b.textContent = "—";
-        k2b.textContent = "—";
-        k3b.textContent = "—";
-        if (milestone) milestone.textContent = "Every sub helps — next milestone: 250";
-      });
-  })();
-
-  // --- Parallax tilt (desktop only) ---
-  (function(){
-    const logo = document.getElementById("logoTitle");
-    if (!logo) return;
-
-    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
-    const img = logo.querySelector("img");
-    if (!img) return;
-
-    // Skip tilt on touch devices
-    if ("ontouchstart" in window) return;
-
-    function onMove(e){
-      const r = logo.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-
-      const rotY = (x - 0.5) * 8;
-      const rotX = (0.5 - y) * 6;
-      const lift = -2;
-
-      img.style.transform =
-        `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(${lift}px)`;
-    }
-
-    function reset(){
-      img.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)";
-    }
-
-    logo.addEventListener("mousemove", onMove);
-    logo.addEventListener("mouseleave", reset);
-    logo.addEventListener("blur", reset, true);
-    reset();
-  })();
-
-  // --- Featured This Week (auto-load from playlist RSS) ---
-  (function loadFeaturedFromPlaylist(){
-    const playlistId = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
-    const rawFeed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId);
-    const playlistUrl = "https://www.youtube.com/playlist?list=" + playlistId;
-    const grid = document.getElementById("featuredGrid");
-    const fallback = document.getElementById("featuredFallback");
-    if (!grid) return;
-
-    function makeCard(href, title, videoId){
-      const a = document.createElement("a");
-      a.className = "featureCard";
-      a.href = href || playlistUrl;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.setAttribute("data-track", "featured_click");
-
-      const img = document.createElement("img");
-      img.alt = title || "Featured pick";
-      img.loading = "lazy";
-      img.decoding = "async";
-      img.src = videoId ? ("https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg") : "https://i.ytimg.com/vi/" + FALLBACK_VIDEO_ID + "/hqdefault.jpg";
-      a.appendChild(img);
-
-      const meta = document.createElement("div");
-      meta.className = "featureMeta";
-
-      const tag = document.createElement("div");
-      tag.className = "featureTag";
-      tag.textContent = "FEATURED";
-      meta.appendChild(tag);
-
-      const t = document.createElement("div");
-      t.className = "featureTitle";
-      t.textContent = title || "Open on YouTube";
-      meta.appendChild(t);
-
-      a.appendChild(meta);
-      return a;
-    }
-
-    const endpoints = [
-      rawFeed,
-      "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawFeed),
-      "https://r.jina.ai/https://www.youtube.com/feeds/videos.xml?playlist_id=" + encodeURIComponent(playlistId),
-      "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rawFeed)
-    ];
-
-    function fetchText(url){
-      return fetch(url, { cache: "no-store" }).then(r => {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.text();
-      });
-    }
-
-    function fetchJson(url){
-      return fetch(url, { cache: "no-store" }).then(r => {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      });
-    }
-
-    function parseAndRenderFromXmlText(xmlText){
-      const idx = xmlText.indexOf("<feed");
-      const clean = idx >= 0 ? xmlText.slice(idx) : xmlText;
-
-      const xml = new DOMParser().parseFromString(clean, "text/xml");
-      const entries = Array.from(xml.getElementsByTagName("entry")).slice(0, 3);
-
-      if (!entries.length) throw new Error("No entries");
-      grid.innerHTML = "";
-
-      entries.forEach(entry => {
-        const titleEl = entry.getElementsByTagName("title")[0];
-        const title = titleEl ? titleEl.textContent.trim() : "Featured pick";
-
-        const linkEl = entry.getElementsByTagName("link")[0];
-        const href = linkEl ? linkEl.getAttribute("href") : playlistUrl;
-
-        const vidEl = entry.getElementsByTagName("yt:videoId")[0] || entry.getElementsByTagName("videoId")[0];
-        const videoId = vidEl ? vidEl.textContent.trim() : "";
-
-        grid.appendChild(makeCard(href, title, videoId));
-      });
-
-      if (fallback) fallback.style.display = "none";
-    }
-
-    function renderFallback(){
-      if (fallback) fallback.style.display = "block";
-    }
-
-    (async function(){
-      for (let i = 0; i < endpoints.length; i++){
-        const url = endpoints[i];
-        try{
-          if (url.includes("rss2json.com")){
-            const data = await fetchJson(url);
-            const items = (data && data.items) ? data.items.slice(0, 3) : [];
-            if (!items.length) throw new Error("No items");
-            grid.innerHTML = "";
-            items.forEach(it => {
-              const href = it.link || playlistUrl;
-              const title = it.title || "Featured pick";
-              let videoId = "";
-              if (it.guid) {
-                const m = String(it.guid).match(/video:(.+)$/);
-                if (m) videoId = m[1];
-              }
-              if (!videoId && href) {
-                const m2 = String(href).match(/[?&]v=([^&]+)/);
-                if (m2) videoId = m2[1];
-              }
-              grid.appendChild(makeCard(href, title, videoId));
-            });
-            if (fallback) fallback.style.display = "none";
-            return;
-          } else {
-            const txt = await fetchText(url);
-            parseAndRenderFromXmlText(txt);
-            return;
-          }
-        } catch(e){
-          // try next endpoint
-        }
-      }
-      renderFallback();
-    })();
-  })();
-
-})();
-</script>
-
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>© 2026 NextGen Sessions. Original music and independent artists.</div>
+      <div class="footer-links">
+        <a href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:billz_rida_37er@yahoo.co.uk">Contact</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

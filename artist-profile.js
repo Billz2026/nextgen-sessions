@@ -1,0 +1,123 @@
+(function () {
+  "use strict";
+
+  const root = document.getElementById("artistProfile");
+  if (!root) return;
+
+  const profiles = window.NGS_ARTIST_PROFILES || {};
+  const slug = String(root.dataset.artist || "").trim();
+  const artist = profiles[slug];
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function youtubeSearchUrl(name) {
+    return "https://www.youtube.com/results?search_query=" + encodeURIComponent("NextGen Sessions " + name);
+  }
+
+  function relatedCard(item) {
+    return `
+      <a class="related-card" href="${youtubeSearchUrl(item.name)}" target="_blank" rel="noopener">
+        <strong>${escapeHtml(item.name)}</strong>
+        <span>${escapeHtml(item.genre)}</span>
+      </a>`;
+  }
+
+  if (!artist) {
+    root.innerHTML = `
+      <section class="profile-error">
+        <p class="eyebrow">Artist profile unavailable</p>
+        <h1>Profile not found.</h1>
+        <p class="hero-copy">This artist page has not been published yet.</p>
+        <a class="button button-primary" href="/#artists">Return to the roster</a>
+      </section>`;
+    return;
+  }
+
+  document.title = `${artist.name} | ${artist.genre} | NextGen Sessions`;
+  const description = document.querySelector('meta[name="description"]');
+  if (description) description.setAttribute("content", artist.headline);
+
+  const video = artist.featuredVideo || {};
+  const imagePosition = escapeHtml(artist.imagePosition || "50% 35%");
+  const related = Array.isArray(artist.related) ? artist.related : [];
+  const bio = Array.isArray(artist.bio) ? artist.bio : [];
+
+  root.innerHTML = `
+    <section class="profile-hero" aria-labelledby="artist-title">
+      <div>
+        <a class="profile-back" href="/#featured-artists">← Back to featured artists</a>
+        <p class="eyebrow">${escapeHtml(artist.eyebrow)}</p>
+        <span class="profile-genre">${escapeHtml(artist.genre)}</span>
+        <h1 class="profile-title" id="artist-title">${escapeHtml(artist.name)}</h1>
+        <p class="profile-headline">${escapeHtml(artist.headline)}</p>
+        <p class="profile-location">${escapeHtml(artist.location)}</p>
+        <div class="button-row" style="margin-top:24px">
+          <a class="button button-primary" href="#featured-release">Watch featured release</a>
+          <a class="button button-secondary" href="${escapeHtml(artist.youtubeUrl)}" target="_blank" rel="noopener">Open YouTube catalogue</a>
+        </div>
+      </div>
+      <div class="profile-image-shell">
+        <img class="profile-image" src="${escapeHtml(artist.image)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition}" onerror="this.onerror=null;this.src='${escapeHtml(artist.imageFallback)}'">
+        <div class="profile-image-label"><strong>${escapeHtml(artist.name)}</strong><span>${escapeHtml(artist.genre)}</span></div>
+      </div>
+    </section>
+
+    <section class="profile-section" id="featured-release" aria-labelledby="featured-release-title">
+      <div class="profile-section-heading">
+        <p class="eyebrow">Featured release</p>
+        <h2 id="featured-release-title">Watch Renz Cole</h2>
+        <p>The artist profile keeps the music central, while the full catalogue remains available through the official NextGen Sessions YouTube channel.</p>
+      </div>
+      <div class="profile-release-grid">
+        <article class="profile-video-card">
+          <div class="profile-video-frame">
+            <iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(video.id)}?rel=0&amp;modestbranding=1" title="${escapeHtml(video.label)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>
+          </div>
+          <div class="profile-video-copy">
+            <span class="tag">Official NextGen Sessions release</span>
+            <h3>${escapeHtml(video.label)}</h3>
+            <p>Watch the full release without leaving the artist page.</p>
+          </div>
+        </article>
+        <aside class="profile-side-panel">
+          <div>
+            <h3>Artist lane</h3>
+            <p>${escapeHtml(artist.headline)}</p>
+          </div>
+          <a class="button button-primary" href="https://www.youtube.com/watch?v=${escapeHtml(video.id)}" target="_blank" rel="noopener">Open video on YouTube</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="profile-section" aria-labelledby="artist-story-title">
+      <div class="profile-section-heading">
+        <p class="eyebrow">Artist identity</p>
+        <h2 id="artist-story-title">A distinct lane within NextGen.</h2>
+      </div>
+      <div class="profile-bio-grid">
+        <article class="profile-bio">${bio.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join("")}</article>
+        <aside class="profile-related">
+          <h3>Related artists</h3>
+          <div class="related-list">${related.map(relatedCard).join("")}</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="profile-section">
+      <div class="profile-cta">
+        <div>
+          <p class="eyebrow">Continue exploring</p>
+          <h2>Discover the full roster.</h2>
+          <p>Browse artists across UK rap, hip-hop, dancehall, reggae, R&amp;B and global sounds.</p>
+        </div>
+        <a class="button button-primary" href="/#artists">Explore all artists</a>
+      </div>
+    </section>`;
+})( );

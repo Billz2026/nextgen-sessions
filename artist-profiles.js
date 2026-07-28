@@ -50,5 +50,30 @@ window.NGS_ARTIST_PROFILES = {
       { "name": "Keisha", "genre": "R&B / Soul" },
       { "name": "Marlo Saint", "genre": "Hip-Hop / R&B" }
     ]
+  },
+  "omari-v": {
+    "name": "Omari V",
+    "path": "/artists/omari-v/",
+    "genre": "Jamaican Reggae",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Warm, reflective Jamaican reggae built around memory, emotional restraint and timeless island atmosphere.",
+    "bio": [
+      "Omari V represents the reflective reggae lane within NextGen Sessions, pairing warm Jamaican instrumentation with calm, emotionally grounded storytelling.",
+      "His records focus on love, change, memory and acceptance, supported by sunlit coastal visuals and an understated vocal identity that keeps the writing at the centre."
+    ],
+    "imageKey": "omari-v",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "TnYNLBDlLx8",
+      "title": "Summer Left Quietly",
+      "label": "Omari V — Summer Left Quietly"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Omari+V",
+    "related": [
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Yung Tafari", "genre": "Reggae / Dancehall" }
+    ]
   }
 };

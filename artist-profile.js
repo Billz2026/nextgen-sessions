@@ -5,6 +5,9 @@
   if (!root) return;
 
   const profiles = window.NGS_ARTIST_PROFILES || {};
+  const imageLibrary = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
+    ? window.NGS_ARTIST_IMAGES
+    : {};
   const slug = String(root.dataset.artist || "").trim();
   const artist = profiles[slug];
   const profileByName = Object.values(profiles).reduce((map, profile) => {
@@ -19,6 +22,11 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
+  }
+
+  function monogram(name) {
+    const words = String(name || "").trim().split(/\s+/).filter(Boolean);
+    return (words.slice(0, 2).map(word => word[0]).join("") || "NG").toUpperCase();
   }
 
   function youtubeSearchUrl(name) {
@@ -53,7 +61,10 @@
   if (description) description.setAttribute("content", artist.headline);
 
   const video = artist.featuredVideo || {};
-  const imagePosition = escapeHtml(artist.imagePosition || "50% 35%");
+  const libraryImage = artist.imageKey ? imageLibrary[artist.imageKey] : null;
+  const imageSrc = String(artist.image || libraryImage?.src || "").trim();
+  const imageFallback = String(artist.imageFallback || libraryImage?.fallback || "").trim();
+  const imagePosition = escapeHtml(artist.imagePosition || libraryImage?.position || "50% 35%");
   const requestedScale = Number(artist.imageScale);
   const imageScale = Number.isFinite(requestedScale) && requestedScale >= 1 && requestedScale <= 2
     ? requestedScale
@@ -63,6 +74,9 @@
   const videoTitle = video.title || video.label || `${artist.name} featured release`;
   const videoLabel = video.label || `${artist.name} — ${videoTitle}`;
   const videoId = String(video.id || "").trim();
+  const portrait = imageSrc
+    ? `<img class="profile-image" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition};transform:scale(${imageScale});transform-origin:${imagePosition}" data-fallback="${escapeHtml(imageFallback)}">`
+    : `<div class="profile-image-placeholder" aria-hidden="true">${escapeHtml(monogram(artist.name))}</div>`;
 
   root.innerHTML = `
     <section class="profile-hero" aria-labelledby="artist-title">
@@ -79,7 +93,7 @@
         </div>
       </div>
       <div class="profile-image-shell">
-        <img class="profile-image" src="${escapeHtml(artist.image)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition};transform:scale(${imageScale});transform-origin:${imagePosition}" data-fallback="${escapeHtml(artist.imageFallback)}">
+        ${portrait}
         <div class="profile-image-label"><strong>${escapeHtml(artist.name)}</strong><span>${escapeHtml(artist.genre)}</span></div>
       </div>
     </section>
@@ -98,7 +112,7 @@
           <div class="profile-video-copy">
             <span class="tag">Official NextGen Sessions release</span>
             <h3>${escapeHtml(videoTitle)}</h3>
-            <p>Watch the full release without leaving the artist page.</p>
+            <p>${videoId ? "Watch the full release without leaving the artist page." : "The official video will be connected before this profile is published."}</p>
           </div>
         </article>
         <aside class="profile-side-panel">

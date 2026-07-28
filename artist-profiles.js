@@ -25,5 +25,30 @@ window.NGS_ARTIST_PROFILES = {
       { "name": "Mace K", "genre": "UK Rap / Grime" },
       { "name": "Reiss", "genre": "UK Rap" }
     ]
+  },
+  "alia-bleu": {
+    "name": "Alia Bleu",
+    "path": "/artists/alia-bleu/",
+    "genre": "UK R&B",
+    "location": "United Kingdom",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Late-night UK R&B shaped by emotional precision, clean boundaries and a distinct visual identity.",
+    "bio": [
+      "Alia Bleu represents the contemporary UK R&B lane within NextGen Sessions, combining smooth vocal presence with emotionally direct writing and polished late-night production.",
+      "Her records explore resilience, self-worth and complicated relationships without losing melody or replay value. Each release is supported by a recognisable blue-toned visual world and a consistent campaign identity."
+    ],
+    "imageKey": "alia-bleu",
+    "imagePosition": "50% 35%",
+    "featuredVideo": {
+      "id": "kK_M5TobLk0",
+      "title": "Dreams Don't Chase You",
+      "label": "Alia Bleu — Dreams Don't Chase You"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Alia+Bleu",
+    "related": [
+      { "name": "Nyah Rae", "genre": "R&B" },
+      { "name": "Keisha", "genre": "R&B / Soul" },
+      { "name": "Marlo Saint", "genre": "Hip-Hop / R&B" }
+    ]
   }
 };

@@ -5,6 +5,9 @@
   const artistImages = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
     ? window.NGS_ARTIST_IMAGES
     : {};
+  const artistProfiles = window.NGS_ARTIST_PROFILES && typeof window.NGS_ARTIST_PROFILES === "object"
+    ? window.NGS_ARTIST_PROFILES
+    : {};
   const featuredGrid = document.getElementById("featuredArtistGrid");
   const rosterGrid = document.getElementById("artistRosterGrid");
   const artistSearch = document.getElementById("artistSearch");
@@ -45,6 +48,22 @@
     return "https://www.youtube.com/results?search_query=" + encodeURIComponent("NextGen Sessions " + name);
   }
 
+  function artistDestination(artist) {
+    const profile = artistProfiles[artist.slug];
+    if (profile?.path) {
+      return {
+        href: profile.path,
+        attributes: "",
+        label: `View ${artist.name} artist profile`
+      };
+    }
+    return {
+      href: youtubeSearchUrl(artist.name),
+      attributes: ' target="_blank" rel="noopener"',
+      label: `Explore ${artist.name} on YouTube`
+    };
+  }
+
   function featuredImage(artist) {
     const image = artistImages[artist.slug];
     if (!image || !image.src) return "";
@@ -55,8 +74,9 @@
 
   function featuredCard(artist, index) {
     const hasImage = Boolean(artistImages[artist.slug]?.src);
+    const destination = artistDestination(artist);
     return `
-      <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${youtubeSearchUrl(artist.name)}" target="_blank" rel="noopener" aria-label="Explore ${escapeHtml(artist.name)} on YouTube">
+      <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
         ${featuredImage(artist)}
         <span class="artist-position">Featured ${String(index + 1).padStart(2, "0")}</span>
         <div class="featured-artist-inner">
@@ -83,8 +103,9 @@
   }
 
   function rosterCard(artist) {
+    const destination = artistDestination(artist);
     return `
-      <a class="artist-roster-card" data-monogram="${escapeHtml(monogram(artist.name))}" href="${youtubeSearchUrl(artist.name)}" target="_blank" rel="noopener" aria-label="Explore ${escapeHtml(artist.name)} on YouTube">
+      <a class="artist-roster-card" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
         <span class="artist-genre">${escapeHtml(artist.genre)}</span>
         <h3>${escapeHtml(artist.name)}</h3>
         <p>${escapeHtml(artist.summary)}</p>

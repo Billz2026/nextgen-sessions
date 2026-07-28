@@ -12,7 +12,8 @@ window.NGS_ARTIST_PROFILES = {
     ],
     "image": "https://i.ytimg.com/vi/JwFCGCLWw0I/maxresdefault.jpg",
     "imageFallback": "https://i.ytimg.com/vi/JwFCGCLWw0I/hqdefault.jpg",
-    "imagePosition": "50% 32%",
+    "imagePosition": "84% 42%",
+    "imageScale": 1.28,
     "featuredVideo": {
       "id": "JwFCGCLWw0I",
       "title": "Heatwave",

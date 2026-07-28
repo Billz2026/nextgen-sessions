@@ -74,6 +74,21 @@
   const videoTitle = video.title || video.label || `${artist.name} featured release`;
   const videoLabel = video.label || `${artist.name} — ${videoTitle}`;
   const videoId = String(video.id || "").trim();
+  const releaseDate = String(video.releaseDate || "").trim();
+  const scheduledRelease = !videoId && Boolean(releaseDate);
+  const releaseEyebrow = scheduledRelease ? "Upcoming release" : "Featured release";
+  const releaseHeading = scheduledRelease ? `Coming ${releaseDate}` : `Watch ${artist.name}`;
+  const releaseFrame = videoId
+    ? `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(videoId)}?rel=0&amp;modestbranding=1" title="${escapeHtml(videoLabel)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>`
+    : scheduledRelease
+      ? `<div class="profile-video-unavailable">${escapeHtml(videoTitle)} releases ${escapeHtml(releaseDate)}.</div>`
+      : '<div class="profile-video-unavailable">Featured release coming soon.</div>';
+  const releaseTag = scheduledRelease ? "Upcoming NextGen Sessions release" : "Official NextGen Sessions release";
+  const releaseCopy = videoId
+    ? "Watch the full release without leaving the artist page."
+    : scheduledRelease
+      ? `The official video will be added when the release goes public on ${releaseDate}.`
+      : "The official video will be connected before this profile is published.";
   const portrait = imageSrc
     ? `<img class="profile-image" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition};transform:scale(${imageScale});transform-origin:${imagePosition}" data-fallback="${escapeHtml(imageFallback)}">`
     : `<div class="profile-image-placeholder" aria-hidden="true">${escapeHtml(monogram(artist.name))}</div>`;
@@ -88,7 +103,7 @@
         <p class="profile-headline">${escapeHtml(artist.headline)}</p>
         <p class="profile-location">${escapeHtml(artist.location)}</p>
         <div class="button-row" style="margin-top:24px">
-          <a class="button button-primary" href="#featured-release">Watch featured release</a>
+          <a class="button button-primary" href="#featured-release">${scheduledRelease ? "View upcoming release" : "Watch featured release"}</a>
           <a class="button button-secondary" href="${escapeHtml(artist.youtubeUrl)}" target="_blank" rel="noopener">Open YouTube catalogue</a>
         </div>
       </div>
@@ -100,19 +115,19 @@
 
     <section class="profile-section" id="featured-release" aria-labelledby="featured-release-title">
       <div class="profile-section-heading">
-        <p class="eyebrow">Featured release</p>
-        <h2 id="featured-release-title">Watch ${escapeHtml(artist.name)}</h2>
-        <p>The artist profile keeps the music central, while the full catalogue remains available through the official NextGen Sessions YouTube channel.</p>
+        <p class="eyebrow">${releaseEyebrow}</p>
+        <h2 id="featured-release-title">${escapeHtml(releaseHeading)}</h2>
+        <p>${scheduledRelease ? `The next official ${artist.name} release is scheduled for ${releaseDate}.` : "The artist profile keeps the music central, while the full catalogue remains available through the official NextGen Sessions YouTube channel."}</p>
       </div>
       <div class="profile-release-grid">
         <article class="profile-video-card">
           <div class="profile-video-frame">
-            ${videoId ? `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(videoId)}?rel=0&amp;modestbranding=1" title="${escapeHtml(videoLabel)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>` : '<div class="profile-video-unavailable">Featured release coming soon.</div>'}
+            ${releaseFrame}
           </div>
           <div class="profile-video-copy">
-            <span class="tag">Official NextGen Sessions release</span>
+            <span class="tag">${releaseTag}</span>
             <h3>${escapeHtml(videoTitle)}</h3>
-            <p>${videoId ? "Watch the full release without leaving the artist page." : "The official video will be connected before this profile is published."}</p>
+            <p>${escapeHtml(releaseCopy)}</p>
           </div>
         </article>
         <aside class="profile-side-panel">

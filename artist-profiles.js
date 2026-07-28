@@ -50,5 +50,106 @@ window.NGS_ARTIST_PROFILES = {
       { "name": "Keisha", "genre": "R&B / Soul" },
       { "name": "Marlo Saint", "genre": "Hip-Hop / R&B" }
     ]
+  },
+  "omari-v": {
+    "name": "Omari V",
+    "path": "/artists/omari-v/",
+    "genre": "Jamaican Reggae",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Warm, reflective Jamaican reggae built around memory, emotional restraint and timeless island atmosphere.",
+    "bio": [
+      "Omari V represents the reflective reggae lane within NextGen Sessions, pairing warm Jamaican instrumentation with calm, emotionally grounded storytelling.",
+      "His records focus on love, change, memory and acceptance, supported by sunlit coastal visuals and an understated vocal identity that keeps the writing at the centre."
+    ],
+    "imageKey": "omari-v",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "TnYNLBDlLx8",
+      "title": "Summer Left Quietly",
+      "label": "Omari V — Summer Left Quietly"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Omari+V",
+    "related": [
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Yung Tafari", "genre": "Reggae / Dancehall" }
+    ]
+  },
+  "reeko": {
+    "name": "Reeko",
+    "path": "/artists/reeko/",
+    "genre": "Jamaican Dancehall",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Melodic Jamaican dancehall with gullyside confidence, nightlife energy and a recognisable street identity.",
+    "bio": [
+      "Reeko brings a melodic Jamaican dancehall lane to NextGen Sessions, balancing street authority with hooks designed to carry beyond the first listen.",
+      "His releases move between gullyside pressure, late-night celebration and sharp observation, supported by a consistent dark visual identity and direct Jamaican delivery."
+    ],
+    "imageKey": "reeko",
+    "imagePosition": "50% 28%",
+    "featuredVideo": {
+      "id": "EbmBjdo8jOI",
+      "title": "After Di Party",
+      "label": "Reeko — After Di Party"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Reeko",
+    "related": [
+      { "name": "Kemarco", "genre": "Jamaican Dancehall" },
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Ragga Blaze", "genre": "Dancehall" }
+    ]
+  },
+  "kemarco": {
+    "name": "Kemarco",
+    "path": "/artists/kemarco/",
+    "genre": "Jamaican Dancehall",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Dark melodic gully dancehall defined by patience, discipline and controlled street pressure.",
+    "bio": [
+      "Kemarco occupies the controlled, calculated side of the NextGen Sessions dancehall roster, favouring patience and timing over reckless reaction.",
+      "His records combine sparse dark production, low-register delivery and melodic hooks with themes of discipline, survival and calm authority under pressure."
+    ],
+    "imageKey": "kemarco",
+    "imagePosition": "50% 32%",
+    "featuredVideo": {
+      "id": "",
+      "title": "Badman Don't Rush",
+      "label": "Kemarco — Badman Don't Rush",
+      "releaseDate": "5 August 2026"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Kemarco",
+    "related": [
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Javon Ranks", "genre": "Dancehall" }
+    ]
+  },
+  "rudii-marka": {
+    "name": "Rudii Marka",
+    "path": "/artists/rudii-marka/",
+    "genre": "Jamaican Dancehall",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Cinematic Jamaican gully dancehall shaped by pressure, survival and controlled melodic menace.",
+    "bio": [
+      "Rudii Marka represents the darker cinematic side of the NextGen Sessions dancehall roster, combining gritty street storytelling with melodic hooks and a composed visual presence.",
+      "His records are built around pressure, loyalty, survival and consequence, delivered through a locked identity of long dreadlocks, dark shades and controlled intensity."
+    ],
+    "imageKey": "rudii-marka",
+    "imagePosition": "50% 35%",
+    "featuredVideo": {
+      "id": "5YgrpFXZ92Q",
+      "title": "Marked for War",
+      "label": "Rudii Marka — Marked for War"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Rudii+Marka",
+    "related": [
+      { "name": "Kemarco", "genre": "Jamaican Dancehall" },
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Javon Ranks", "genre": "Dancehall" }
+    ]
   }
 };

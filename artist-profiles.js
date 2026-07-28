@@ -40,7 +40,7 @@ window.NGS_ARTIST_PROFILES = {
     "imageKey": "alia-bleu",
     "imagePosition": "50% 35%",
     "featuredVideo": {
-      "id": "",
+      "id": "kK_M5TobLk0",
       "title": "Piggyback",
       "label": "Alia Bleu — Piggyback"
     },

@@ -15,7 +15,8 @@ window.NGS_ARTIST_PROFILES = {
     "imagePosition": "50% 32%",
     "featuredVideo": {
       "id": "JwFCGCLWw0I",
-      "label": "Featured Renz Cole release"
+      "title": "Heatwave",
+      "label": "Renz Cole — Heatwave"
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Renz+Cole",
     "related": [

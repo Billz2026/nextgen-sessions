@@ -8,18 +8,29 @@
     image.src = '/NextGen%20Sessions%20Logo%202026.png';
   };
 
-  fetch('/assets/brand-lockup-data.txt?v=c50c699', { cache: 'no-store' })
-    .then((response) => {
-      if (!response.ok) throw new Error('Brand data unavailable');
-      return response.text();
-    })
-    .then((base64) => {
-      const data = base64.trim();
-      if (!data.startsWith('UklGR')) throw new Error('Invalid WebP brand data');
+  const parts = Array.from({ length: 7 }, (_, index) =>
+    `/assets/brand-lockup-hq/part-${String(index).padStart(2, '0')}.txt?v=10102f5`
+  );
 
+  Promise.all(
+    parts.map((url) =>
+      fetch(url, { cache: 'force-cache' }).then((response) => {
+        if (!response.ok) throw new Error(`Brand asset part unavailable: ${url}`);
+        return response.text();
+      })
+    )
+  )
+    .then((segments) => segments.map((segment) => segment.trim()).join(''))
+    .then((base64) => {
+      if (!base64.startsWith('AAAAIGZ0eXBhdmlm')) {
+        throw new Error('Invalid AVIF brand artwork');
+      }
+
+      image.decoding = 'async';
+      image.fetchPriority = 'high';
       image.onload = () => image.classList.add('brand-lockup--loaded');
       image.onerror = showFallback;
-      image.src = `data:image/webp;base64,${data}`;
+      image.src = `data:image/avif;base64,${base64}`;
     })
     .catch(showFallback);
 })();

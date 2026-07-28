@@ -101,6 +101,31 @@ window.NGS_ARTIST_PROFILES = {
       { "name": "Ragga Blaze", "genre": "Dancehall" }
     ]
   },
+  "kemarco": {
+    "name": "Kemarco",
+    "path": "/artists/kemarco/",
+    "genre": "Jamaican Dancehall",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Dark melodic gully dancehall defined by patience, discipline and controlled street pressure.",
+    "bio": [
+      "Kemarco occupies the controlled, calculated side of the NextGen Sessions dancehall roster, favouring patience and timing over reckless reaction.",
+      "His records combine sparse dark production, low-register delivery and melodic hooks with themes of discipline, survival and calm authority under pressure."
+    ],
+    "imageKey": "kemarco",
+    "imagePosition": "50% 32%",
+    "featuredVideo": {
+      "id": "",
+      "title": "Badman Don't Rush",
+      "label": "Kemarco — Badman Don't Rush"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Kemarco",
+    "related": [
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Javon Ranks", "genre": "Dancehall" }
+    ]
+  },
   "rudii-marka": {
     "name": "Rudii Marka",
     "path": "/artists/rudii-marka/",

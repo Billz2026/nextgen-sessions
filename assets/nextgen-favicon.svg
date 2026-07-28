@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">NextGen Sessions</title>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff4a3"/>
+      <stop offset=".28" stop-color="#ffd84a"/>
+      <stop offset=".62" stop-color="#d99508"/>
+      <stop offset="1" stop-color="#8a4d00"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#050505"/>
+  <rect x="2" y="2" width="60" height="60" rx="10" fill="none" stroke="#6f470c" stroke-width="2"/>
+  <text x="32" y="42" text-anchor="middle" fill="url(#gold)" stroke="#7c4700" stroke-width=".8"
+        paint-order="stroke" filter="url(#glow)"
+        font-family="Arial Black, Arial, sans-serif" font-size="31" font-weight="900"
+        letter-spacing="-3">NG</text>
+</svg>

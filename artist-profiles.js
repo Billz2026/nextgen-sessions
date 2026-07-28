@@ -41,8 +41,8 @@ window.NGS_ARTIST_PROFILES = {
     "imagePosition": "50% 35%",
     "featuredVideo": {
       "id": "kK_M5TobLk0",
-      "title": "Dreams Don’t Chase You",
-      "label": "Alia Bleu — Dreams Don’t Chase You"
+      "title": "Dreams Don't Chase You",
+      "label": "Alia Bleu — Dreams Don't Chase You"
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Alia+Bleu",
     "related": [

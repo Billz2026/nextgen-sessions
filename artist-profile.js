@@ -54,6 +54,10 @@
 
   const video = artist.featuredVideo || {};
   const imagePosition = escapeHtml(artist.imagePosition || "50% 35%");
+  const requestedScale = Number(artist.imageScale);
+  const imageScale = Number.isFinite(requestedScale) && requestedScale >= 1 && requestedScale <= 2
+    ? requestedScale
+    : 1;
   const related = Array.isArray(artist.related) ? artist.related : [];
   const bio = Array.isArray(artist.bio) ? artist.bio : [];
   const videoTitle = video.title || video.label || `${artist.name} featured release`;
@@ -75,7 +79,7 @@
         </div>
       </div>
       <div class="profile-image-shell">
-        <img class="profile-image" src="${escapeHtml(artist.image)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition}" data-fallback="${escapeHtml(artist.imageFallback)}">
+        <img class="profile-image" src="${escapeHtml(artist.image)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition};transform:scale(${imageScale});transform-origin:${imagePosition}" data-fallback="${escapeHtml(artist.imageFallback)}">
         <div class="profile-image-label"><strong>${escapeHtml(artist.name)}</strong><span>${escapeHtml(artist.genre)}</span></div>
       </div>
     </section>

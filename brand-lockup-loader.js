@@ -8,8 +8,8 @@
     image.src = '/NextGen%20Sessions%20Logo%202026.png';
   };
 
-  const parts = Array.from({ length: 7 }, (_, index) =>
-    `/assets/brand-lockup-hq/part-${String(index).padStart(2, '0')}.txt?v=10102f5`
+  const parts = Array.from({ length: 9 }, (_, index) =>
+    `/assets/brand-lockup-hq/part-${String(index).padStart(2, '0')}.txt?v=b57f437`
   );
 
   Promise.all(
@@ -22,7 +22,7 @@
   )
     .then((segments) => segments.map((segment) => segment.trim()).join(''))
     .then((base64) => {
-      if (!base64.startsWith('AAAAIGZ0eXBhdmlm')) {
+      if (base64.length !== 87632 || !base64.startsWith('AAAAIGZ0eXBhdmlm')) {
         throw new Error('Invalid AVIF brand artwork');
       }
 

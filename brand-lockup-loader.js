@@ -2,28 +2,24 @@
   const image = document.getElementById('brandLockup');
   if (!image) return;
 
-  fetch('/nextgen-brand-lockup.svg?v=ca2f179', { cache: 'no-store' })
+  const showFallback = () => {
+    image.onload = () => image.classList.add('brand-lockup--fallback');
+    image.onerror = null;
+    image.src = '/NextGen%20Sessions%20Logo%202026.png';
+  };
+
+  fetch('/assets/brand-lockup-data.txt?v=c50c699', { cache: 'no-store' })
     .then((response) => {
-      if (!response.ok) throw new Error('Brand asset unavailable');
+      if (!response.ok) throw new Error('Brand data unavailable');
       return response.text();
     })
-    .then((svg) => {
-      const match = svg.match(/data:image\/webp;base64,([^"'\s<]+)/);
-      if (!match) throw new Error('Embedded brand artwork not found');
+    .then((base64) => {
+      const data = base64.trim();
+      if (!data.startsWith('UklGR')) throw new Error('Invalid WebP brand data');
 
-      const binary = atob(match[1]);
-      const bytes = new Uint8Array(binary.length);
-      for (let index = 0; index < binary.length; index += 1) {
-        bytes[index] = binary.charCodeAt(index);
-      }
-
-      const objectUrl = URL.createObjectURL(new Blob([bytes], { type: 'image/webp' }));
-      image.addEventListener('load', () => URL.revokeObjectURL(objectUrl), { once: true });
-      image.src = objectUrl;
-      image.classList.add('brand-lockup--loaded');
+      image.onload = () => image.classList.add('brand-lockup--loaded');
+      image.onerror = showFallback;
+      image.src = `data:image/webp;base64,${data}`;
     })
-    .catch(() => {
-      image.src = '/NextGen%20Sessions%20Logo%202026.png';
-      image.classList.add('brand-lockup--fallback');
-    });
+    .catch(showFallback);
 })();

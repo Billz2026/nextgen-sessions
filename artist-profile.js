@@ -7,6 +7,10 @@
   const profiles = window.NGS_ARTIST_PROFILES || {};
   const slug = String(root.dataset.artist || "").trim();
   const artist = profiles[slug];
+  const profileByName = Object.values(profiles).reduce((map, profile) => {
+    map[String(profile.name || "").trim().toLowerCase()] = profile;
+    return map;
+  }, {});
 
   function escapeHtml(value) {
     return String(value || "")
@@ -22,8 +26,12 @@
   }
 
   function relatedCard(item) {
+    const profile = profileByName[String(item.name || "").trim().toLowerCase()];
+    const href = profile?.path || youtubeSearchUrl(item.name);
+    const external = profile?.path ? "" : ' target="_blank" rel="noopener"';
+    const label = profile?.path ? `View ${item.name} artist profile` : `Explore ${item.name} on YouTube`;
     return `
-      <a class="related-card" href="${youtubeSearchUrl(item.name)}" target="_blank" rel="noopener">
+      <a class="related-card" href="${escapeHtml(href)}"${external} aria-label="${escapeHtml(label)}">
         <strong>${escapeHtml(item.name)}</strong>
         <span>${escapeHtml(item.genre)}</span>
       </a>`;
@@ -48,6 +56,9 @@
   const imagePosition = escapeHtml(artist.imagePosition || "50% 35%");
   const related = Array.isArray(artist.related) ? artist.related : [];
   const bio = Array.isArray(artist.bio) ? artist.bio : [];
+  const videoTitle = video.title || video.label || `${artist.name} featured release`;
+  const videoLabel = video.label || `${artist.name} — ${videoTitle}`;
+  const videoId = String(video.id || "").trim();
 
   root.innerHTML = `
     <section class="profile-hero" aria-labelledby="artist-title">
@@ -64,7 +75,7 @@
         </div>
       </div>
       <div class="profile-image-shell">
-        <img class="profile-image" src="${escapeHtml(artist.image)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition}" onerror="this.onerror=null;this.src='${escapeHtml(artist.imageFallback)}'">
+        <img class="profile-image" src="${escapeHtml(artist.image)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition}" data-fallback="${escapeHtml(artist.imageFallback)}">
         <div class="profile-image-label"><strong>${escapeHtml(artist.name)}</strong><span>${escapeHtml(artist.genre)}</span></div>
       </div>
     </section>
@@ -72,17 +83,17 @@
     <section class="profile-section" id="featured-release" aria-labelledby="featured-release-title">
       <div class="profile-section-heading">
         <p class="eyebrow">Featured release</p>
-        <h2 id="featured-release-title">Watch Renz Cole</h2>
+        <h2 id="featured-release-title">Watch ${escapeHtml(artist.name)}</h2>
         <p>The artist profile keeps the music central, while the full catalogue remains available through the official NextGen Sessions YouTube channel.</p>
       </div>
       <div class="profile-release-grid">
         <article class="profile-video-card">
           <div class="profile-video-frame">
-            <iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(video.id)}?rel=0&amp;modestbranding=1" title="${escapeHtml(video.label)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>
+            ${videoId ? `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(videoId)}?rel=0&amp;modestbranding=1" title="${escapeHtml(videoLabel)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>` : '<div class="profile-video-unavailable">Featured release coming soon.</div>'}
           </div>
           <div class="profile-video-copy">
             <span class="tag">Official NextGen Sessions release</span>
-            <h3>${escapeHtml(video.label)}</h3>
+            <h3>${escapeHtml(videoTitle)}</h3>
             <p>Watch the full release without leaving the artist page.</p>
           </div>
         </article>
@@ -91,7 +102,7 @@
             <h3>Artist lane</h3>
             <p>${escapeHtml(artist.headline)}</p>
           </div>
-          <a class="button button-primary" href="https://www.youtube.com/watch?v=${escapeHtml(video.id)}" target="_blank" rel="noopener">Open video on YouTube</a>
+          ${videoId ? `<a class="button button-primary" href="https://www.youtube.com/watch?v=${escapeHtml(videoId)}" target="_blank" rel="noopener">Open video on YouTube</a>` : ""}
         </aside>
       </div>
     </section>
@@ -120,4 +131,17 @@
         <a class="button button-primary" href="/#artists">Explore all artists</a>
       </div>
     </section>`;
-})( );
+
+  const profileImage = root.querySelector(".profile-image");
+  if (profileImage) {
+    profileImage.addEventListener("error", () => {
+      const fallback = profileImage.dataset.fallback;
+      if (fallback && profileImage.src !== fallback) {
+        profileImage.src = fallback;
+        return;
+      }
+      profileImage.hidden = true;
+      profileImage.closest(".profile-image-shell")?.classList.add("profile-image-missing");
+    });
+  }
+})();

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 360" role="img" aria-labelledby="title desc">
+  <title id="title">NextGen Sessions</title>
+  <desc id="desc">NextGen Sessions gold brand lockup with Original Music Network tagline.</desc>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff3a1"/>
+      <stop offset="0.18" stop-color="#ffd84a"/>
+      <stop offset="0.5" stop-color="#f5b000"/>
+      <stop offset="0.78" stop-color="#ffd84a"/>
+      <stop offset="1" stop-color="#9b5b00"/>
+    </linearGradient>
+    <linearGradient id="goldTag" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d88d00"/>
+      <stop offset="0.22" stop-color="#ffe36d"/>
+      <stop offset="0.5" stop-color="#f4b900"/>
+      <stop offset="0.78" stop-color="#ffe36d"/>
+      <stop offset="1" stop-color="#d88d00"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-40%" width="160%" height="180%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 1  0 .72 0 0 .55  0 0 .2 0 0  0 0 0 .75 0" result="goldGlow"/>
+      <feMerge><feMergeNode in="goldGlow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow" x="-20%" y="-25%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="9" stdDeviation="7" flood-color="#000" flood-opacity=".8"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ffbd17" flood-opacity=".5"/>
+    </filter>
+    <clipPath id="logoCrop"><rect x="0" y="0" width="330" height="350" rx="0"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#logoCrop)">
+    <image href="/NextGen%20Sessions%20Logo%202026.png" x="-34" y="-25" width="390" height="390" preserveAspectRatio="xMidYMid meet" filter="url(#glow)"/>
+  </g>
+
+  <g transform="translate(320 18)" filter="url(#shadow)">
+    <text x="0" y="126" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="142" font-weight="900" letter-spacing="3" fill="#6a3a00" stroke="#2a1700" stroke-width="10" paint-order="stroke">NEXTGEN</text>
+    <text x="0" y="126" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="142" font-weight="900" letter-spacing="3" fill="url(#gold)" stroke="#ffe36d" stroke-width="2" paint-order="stroke">NEXTGEN</text>
+
+    <text x="49" y="252" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="126" font-weight="900" letter-spacing="5" fill="#6a3a00" stroke="#2a1700" stroke-width="10" paint-order="stroke">SESSIONS</text>
+    <text x="49" y="252" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="126" font-weight="900" letter-spacing="5" fill="url(#gold)" stroke="#ffe36d" stroke-width="2" paint-order="stroke">SESSIONS</text>
+  </g>
+
+  <line x1="371" y1="286" x2="1172" y2="286" stroke="url(#goldTag)" stroke-width="5" filter="url(#glow)"/>
+  <text x="771" y="332" text-anchor="middle" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="37" font-weight="900" letter-spacing="10" fill="url(#goldTag)" stroke="#5b3500" stroke-width="1.2" paint-order="stroke" filter="url(#shadow)">ORIGINAL MUSIC NETWORK</text>
+</svg>

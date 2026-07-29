@@ -1,5 +1,7 @@
 const PLAYLIST_ID = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
 const PLAYLIST_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
+const CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
+const CHANNEL_FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
 const FALLBACK_RELEASES = [
   { id: "5YgrpFXZ92Q", title: "Rudii Marka - Marked for War", published: "" },
@@ -67,6 +69,26 @@ function newestFirst(items) {
   );
 }
 
+function uniqueReleases(items) {
+  const seen = new Set();
+  return items.filter(item => {
+    if (seen.has(item.id)) return false;
+    seen.add(item.id);
+    return true;
+  });
+}
+
+async function fetchFeed(url) {
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/atom+xml, application/xml, text/xml",
+      "User-Agent": "NextGenSessionsWebsite/4.0"
+    }
+  });
+  if (!response.ok) throw new Error(`YouTube feed returned ${response.status}`);
+  return response.text();
+}
+
 function jsonResponse(payload, cacheControl) {
   return new Response(JSON.stringify(payload), {
     headers: {
@@ -84,22 +106,26 @@ export async function onRequestGet(context) {
   if (cached) return cached;
 
   try {
-    const response = await fetch(PLAYLIST_FEED_URL, {
-      headers: {
-        Accept: "application/atom+xml, application/xml, text/xml",
-        "User-Agent": "NextGenSessionsWebsite/4.0"
-      }
-    });
-    if (!response.ok) throw new Error(`YouTube feed returned ${response.status}`);
+    const [playlistResult, channelResult] = await Promise.allSettled([
+      fetchFeed(PLAYLIST_FEED_URL),
+      fetchFeed(CHANNEL_FEED_URL)
+    ]);
+    const playlistItems = playlistResult.status === "fulfilled" ? parseFeed(playlistResult.value) : [];
+    const channelItems = channelResult.status === "fulfilled" ? parseFeed(channelResult.value) : [];
+    const liveItems = [...playlistItems, ...channelItems].filter(isFullRelease);
+    if (!liveItems.length) throw new Error("Official release feeds unavailable");
 
-    const releases = newestFirst(parseFeed(await response.text()))
+    const releases = newestFirst(uniqueReleases([
+      ...liveItems,
+      ...FALLBACK_RELEASES
+    ]))
       .filter(isFullRelease)
       .slice(0, 25);
-    if (!releases.length) throw new Error("No official releases found");
 
     const output = jsonResponse({
-      source: "official-playlist",
+      source: "official-catalogue",
       playlistId: PLAYLIST_ID,
+      channelId: CHANNEL_ID,
       generatedAt: new Date().toISOString(),
       total: releases.length,
       releases

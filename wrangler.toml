@@ -1,0 +1,7 @@
+name = "nextgensessions"
+compatibility_date = "2026-07-29"
+pages_build_output_dir = "."
+
+[[analytics_engine_datasets]]
+binding = "ANALYTICS"
+dataset = "nextgen_sessions_events"

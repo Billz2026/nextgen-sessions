@@ -71,13 +71,13 @@
   }
 
   function inferGroup(rawTitle, artist) {
-    const mapped = artistGroups[normaliseText(artist?.genre)];
-    if (mapped) return mapped;
     const title = normaliseText(rawTitle);
     if (/dancehall|reggae|gully|jamaican/.test(title)) return "Dancehall & Reggae";
     if (/uk rap|grime|london rap/.test(title)) return "UK Rap & Grime";
     if (/r&b|rnb|soul/.test(title)) return "R&B & Soul";
     if (/punjabi|bhangra|arabic|oud|global|afro|latin/.test(title)) return "Global Sounds";
+    const mapped = artistGroups[normaliseText(artist?.genre)];
+    if (mapped) return mapped;
     return "Hip-Hop";
   }
 
@@ -96,10 +96,13 @@
 
     if (artistPattern && artistPattern.test(title)) {
       title = title.replace(new RegExp(`^.*?${artistPattern.source}\\s*[-–—:]\\s*`, "i"), "");
+      title = title.replace(new RegExp(`^${artistPattern.source}\\s+`, "i"), "");
       if (normaliseText(title) === normaliseText(artistName)) title = "";
     }
 
     title = title
+      .replace(/\s+(uk rap|grime|dancehall|reggae|hip-?hop|r&b|rnb|soul|afro swing|global pop)\s+20\d{2}$/i, "")
+      .replace(/\s*(?:[-–—]\s*)?\d{1,2}(?:st|nd|rd|th)?\s+(?:january|february|march|april|may|june|july|august|september|october|november|december)(?:\s+20\d{2})?$/i, "")
       .replace(/\s+(official\s+(music\s+)?video|official\s+audio|visuali[sz]er|lyric\s+video)$/i, "")
       .replace(/\s+\|\s+.*$/i, "")
       .trim();
@@ -120,6 +123,16 @@
       group: inferGroup(release.title, artist),
       rawTitle: release.title || ""
     };
+  }
+
+  function uniquePreparedReleases(releases) {
+    const seen = new Set();
+    return releases.filter(release => {
+      const key = normaliseText(`${release.artist}|${release.title}`);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
   }
 
   function formatDate(value) {
@@ -233,11 +246,12 @@
       const releases = Array.isArray(payload?.releases) && payload.releases.length
         ? payload.releases
         : fallbackReleases;
-      catalogue = releases.map(prepareRelease);
+      catalogue = uniquePreparedReleases(releases.map(prepareRelease));
       render();
     })
     .catch(() => {
-      catalogue = fallbackReleases.map(prepareRelease);
+      catalogue = uniquePreparedReleases(fallbackReleases.map(prepareRelease));
       render();
     });
 })();
+

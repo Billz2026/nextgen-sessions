@@ -115,11 +115,17 @@
     if (override) {
       return { ...release, ...override, rawTitle: release.title || override.title };
     }
+
     const artist = findArtist(release.title);
+    if (!artist) return null;
+
+    const title = cleanReleaseTitle(release.title, artist.name);
+    if (!title || normaliseText(title) === normaliseText(artist.name)) return null;
+
     return {
       ...release,
-      artist: artist?.name || "NextGen Sessions",
-      title: cleanReleaseTitle(release.title, artist?.name || ""),
+      artist: artist.name,
+      title,
       group: inferGroup(release.title, artist),
       rawTitle: release.title || ""
     };
@@ -251,11 +257,11 @@
       const releases = Array.isArray(payload?.releases) && payload.releases.length
         ? payload.releases
         : fallbackReleases;
-      catalogue = uniquePreparedReleases(releases.map(prepareRelease));
+      catalogue = uniquePreparedReleases(releases.map(prepareRelease).filter(Boolean));
       render();
     })
     .catch(() => {
-      catalogue = uniquePreparedReleases(fallbackReleases.map(prepareRelease));
+      catalogue = uniquePreparedReleases(fallbackReleases.map(prepareRelease).filter(Boolean));
       render();
     });
 })();

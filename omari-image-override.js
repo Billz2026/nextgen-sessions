@@ -1,6 +1,16 @@
 window.NGS_ARTIST_IMAGES = window.NGS_ARTIST_IMAGES || {};
-window.NGS_ARTIST_IMAGES["omari-v"] = {
-  src: "https://i.ytimg.com/vi/TnYNLBDlLx8/maxresdefault.jpg",
-  fallback: "https://i.ytimg.com/vi/TnYNLBDlLx8/hqdefault.jpg",
-  position: "50% 30%"
-};
+
+Object.assign(window.NGS_ARTIST_IMAGES, {
+  "renz-cole": {
+    src: "/api/artist-image?artist=renz-cole",
+    position: "50% 32%"
+  },
+  reeko: {
+    src: "/api/artist-image?artist=reeko",
+    position: "50% 28%"
+  },
+  "omari-v": {
+    src: "/api/artist-image?artist=omari-v",
+    position: "50% 30%"
+  }
+});

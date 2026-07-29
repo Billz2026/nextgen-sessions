@@ -156,16 +156,21 @@
 
     const art = document.createElement("div");
     art.className = "archive-release-art";
+    art.dataset.monogram = release.artist
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(part => part[0])
+      .join("")
+      .toUpperCase() || "NG";
     const image = document.createElement("img");
     image.loading = "lazy";
     image.decoding = "async";
-    image.src = `https://i.ytimg.com/vi/${release.id}/maxresdefault.jpg`;
+    image.src = `/api/release-image?id=${encodeURIComponent(release.id)}`;
     image.alt = `${release.title} by ${release.artist}`;
     image.addEventListener("error", () => {
-      if (!image.dataset.fallbackUsed) {
-        image.dataset.fallbackUsed = "true";
-        image.src = `https://i.ytimg.com/vi/${release.id}/hqdefault.jpg`;
-      }
+      image.hidden = true;
+      art.classList.add("image-unavailable");
     });
     const play = document.createElement("span");
     play.className = "archive-release-play";
@@ -254,4 +259,3 @@
       render();
     });
 })();
-

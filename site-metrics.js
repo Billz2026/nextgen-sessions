@@ -40,6 +40,14 @@
     send(event, label);
   }
 
+  const footerLinks = document.querySelector(".footer-links");
+  if (footerLinks && !footerLinks.querySelector('a[href="/privacy/"]')) {
+    const privacyLink = document.createElement("a");
+    privacyLink.href = "/privacy/";
+    privacyLink.textContent = "Privacy";
+    footerLinks.append(privacyLink);
+  }
+
   function youtubeLabel(href) {
     try {
       const url = new URL(href, location.href);

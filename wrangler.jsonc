@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
-  "name": "nextgen-sessions-production",
+  "name": "nextgen-sessions-staging",
   "compatibility_date": "2026-07-29",
   "main": ".worker/index.js",
   "assets": {

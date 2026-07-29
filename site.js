@@ -68,8 +68,9 @@
     const image = artistImages[artist.slug];
     if (!image || !image.src) return "";
     const fallback = image.fallback ? ` data-fallback="${escapeHtml(image.fallback)}"` : "";
+    const srcset = image.srcset ? ` srcset="${escapeHtml(image.srcset)}" sizes="(max-width: 720px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw"` : "";
     const position = escapeHtml(image.position || "50% 38%");
-    return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
+    return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
   }
 
   function featuredCard(artist, index) {
@@ -93,6 +94,7 @@
         const fallback = image.dataset.fallback;
         if (fallback) {
           image.dataset.fallback = "";
+          image.removeAttribute("srcset");
           image.src = fallback;
           return;
         }

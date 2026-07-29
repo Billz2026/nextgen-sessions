@@ -1,13 +1,6 @@
 (function () {
   "use strict";
 
-  if (!document.querySelector('script[src="/site-metrics.js"]')) {
-    const metrics = document.createElement("script");
-    metrics.src = "/site-metrics.js";
-    metrics.async = true;
-    document.head.append(metrics);
-  }
-
   const artists = Array.isArray(window.NGS_ARTISTS) ? window.NGS_ARTISTS : [];
   const artistImages = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
     ? window.NGS_ARTIST_IMAGES

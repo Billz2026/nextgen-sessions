@@ -62,7 +62,7 @@
 
   const video = artist.featuredVideo || {};
   const libraryImage = artist.imageKey ? imageLibrary[artist.imageKey] : null;
-  const imageSrc = String(artist.image || libraryImage?.src || "").trim();
+  const imageSrc = String(artist.image || libraryImage?.portrait || libraryImage?.src || "").trim();
   const imageFallback = String(artist.imageFallback || libraryImage?.fallback || "").trim();
   const imagePosition = escapeHtml(artist.imagePosition || libraryImage?.position || "50% 35%");
   const requestedScale = Number(artist.imageScale);

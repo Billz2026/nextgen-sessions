@@ -68,17 +68,17 @@
     const image = artistImages[artist.slug];
     if (!image || !image.src) return "";
     const fallback = image.fallback ? ` data-fallback="${escapeHtml(image.fallback)}"` : "";
+    const srcset = image.srcset ? ` srcset="${escapeHtml(image.srcset)}" sizes="(max-width: 720px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw"` : "";
     const position = escapeHtml(image.position || "50% 38%");
-    return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
+    return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
   }
 
-  function featuredCard(artist, index) {
+  function featuredCard(artist) {
     const hasImage = Boolean(artistImages[artist.slug]?.src);
     const destination = artistDestination(artist);
     return `
       <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
         ${featuredImage(artist)}
-        <span class="artist-position">Featured ${String(index + 1).padStart(2, "0")}</span>
         <div class="featured-artist-inner">
           <span class="artist-genre">${escapeHtml(artist.genre)}</span>
           <h3>${escapeHtml(artist.name)}</h3>
@@ -93,6 +93,7 @@
         const fallback = image.dataset.fallback;
         if (fallback) {
           image.dataset.fallback = "";
+          image.removeAttribute("srcset");
           image.src = fallback;
           return;
         }

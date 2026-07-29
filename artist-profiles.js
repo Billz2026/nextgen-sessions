@@ -10,10 +10,8 @@ window.NGS_ARTIST_PROFILES = {
       "Renz Cole represents the contemporary UK rap lane within NextGen Sessions: direct delivery, recognisable visual identity and records built around strong concepts rather than anonymous uploads.",
       "His catalogue combines London perspective with polished, cinematic presentation across full releases, cover campaigns and short-form promotion."
     ],
-    "image": "https://i.ytimg.com/vi/JwFCGCLWw0I/maxresdefault.jpg",
-    "imageFallback": "https://i.ytimg.com/vi/JwFCGCLWw0I/hqdefault.jpg",
-    "imagePosition": "84% 42%",
-    "imageScale": 1.28,
+    "imageKey": "renz-cole",
+    "imagePosition": "50% 35%",
     "featuredVideo": {
       "id": "JwFCGCLWw0I",
       "title": "Heatwave",

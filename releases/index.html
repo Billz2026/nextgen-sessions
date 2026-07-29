@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Releases | NextGen Sessions Music Catalogue</title>
+  <meta name="description" content="Explore original music from the NextGen Sessions roster across dancehall, reggae, UK rap, grime, hip-hop, R&B, soul and global sounds.">
+  <link rel="canonical" href="https://nextgensessions.pages.dev/releases/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Releases | NextGen Sessions">
+  <meta property="og:description" content="Explore original music from across the NextGen Sessions roster.">
+  <meta property="og:url" content="https://nextgensessions.pages.dev/releases/">
+  <meta property="og:image" content="https://nextgensessions.pages.dev/assets/nextgen-social-card.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Releases | NextGen Sessions">
+  <meta name="twitter:description" content="Search the NextGen Sessions catalogue by artist, title or genre.">
+  <meta name="twitter:image" content="https://nextgensessions.pages.dev/assets/nextgen-social-card.webp">
+  <link rel="icon" type="image/svg+xml" href="/assets/nextgen-favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#080808">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/releases.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"NextGen Sessions Releases","url":"https://nextgensessions.pages.dev/releases/","description":"The official release catalogue from NextGen Sessions.","isPartOf":{"@type":"WebSite","name":"NextGen Sessions","url":"https://nextgensessions.pages.dev/"}}</script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="NextGen Sessions home"><img src="/assets/nextgen-wordmark.webp" width="1000" height="425" alt="NextGen Sessions"></a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="/">Home</a>
+      <a href="/artists/">Artists</a>
+      <a aria-current="page" href="/releases/">Releases</a>
+      <a href="/#about">About</a>
+      <a href="/submit.html">Submit</a>
+      <a class="nav-cta" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" class="releases-page">
+  <section class="releases-hero" aria-labelledby="releases-page-title">
+    <div>
+      <p class="eyebrow">Official catalogue</p>
+      <h1 id="releases-page-title">Original releases. One place.</h1>
+      <p>Explore original music from across the NextGen Sessions roster. Search by artist or title, or move through the catalogue by sound.</p>
+    </div>
+    <div class="archive-mark" aria-hidden="true"><span>NG</span><strong>Catalogue</strong></div>
+  </section>
+
+  <section class="archive-section" aria-labelledby="archive-title">
+    <div class="archive-heading">
+      <div>
+        <p class="eyebrow">Browse releases</p>
+        <h2 id="archive-title">Find your next track</h2>
+      </div>
+      <p class="archive-count" id="releaseCount" aria-live="polite">Loading catalogue…</p>
+    </div>
+
+    <form class="archive-controls" id="releaseArchiveControls" role="search">
+      <label class="sr-only" for="releaseSearch">Search releases by artist or title</label>
+      <input class="release-search" id="releaseSearch" type="search" placeholder="Search artist or song title" autocomplete="off">
+      <div class="release-filters" aria-label="Filter releases by genre">
+        <button class="release-filter is-active" type="button" data-filter="All" aria-pressed="true">All</button>
+        <button class="release-filter" type="button" data-filter="Dancehall &amp; Reggae" aria-pressed="false">Dancehall &amp; Reggae</button>
+        <button class="release-filter" type="button" data-filter="UK Rap &amp; Grime" aria-pressed="false">UK Rap &amp; Grime</button>
+        <button class="release-filter" type="button" data-filter="Hip-Hop" aria-pressed="false">Hip-Hop</button>
+        <button class="release-filter" type="button" data-filter="R&amp;B &amp; Soul" aria-pressed="false">R&amp;B &amp; Soul</button>
+        <button class="release-filter" type="button" data-filter="Global Sounds" aria-pressed="false">Global Sounds</button>
+      </div>
+    </form>
+
+    <div class="archive-grid is-loading" id="releaseArchiveGrid" aria-busy="true">
+      <div class="release-skeleton" aria-hidden="true"></div>
+      <div class="release-skeleton" aria-hidden="true"></div>
+      <div class="release-skeleton" aria-hidden="true"></div>
+    </div>
+
+    <div class="archive-empty" id="releaseArchiveEmpty" hidden>
+      <h3>No releases found</h3>
+      <p>Try another artist, title or genre.</p>
+      <button class="button button-secondary" id="clearReleaseFilters" type="button">Clear filters</button>
+    </div>
+
+    <noscript>
+      <div class="archive-empty">
+        <h3>Explore the full catalogue on YouTube</h3>
+        <p>JavaScript is required for search and genre filters.</p>
+        <a class="button button-primary" href="https://www.youtube.com/playlist?list=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA">Open official playlist</a>
+      </div>
+    </noscript>
+  </section>
+
+  <section class="archive-cta" aria-labelledby="archive-cta-title">
+    <div>
+      <p class="eyebrow">Keep listening</p>
+      <h2 id="archive-cta-title">More music lands every week.</h2>
+      <p>Subscribe on YouTube for full releases, official visuals and new artists from across the NextGen Sessions roster.</p>
+    </div>
+    <a class="button button-primary" href="https://www.youtube.com/@NextGenSessions?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>© 2026 NextGen Sessions. Original music and independent artists.</div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/artists/">Artists</a>
+      <a href="/releases/">Releases</a>
+      <a href="/submit.html">Submit music</a>
+      <a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/artists.js" defer></script>
+<script src="/releases.js" defer></script>
+</body>
+</html>

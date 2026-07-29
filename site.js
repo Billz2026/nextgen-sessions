@@ -13,6 +13,11 @@
   const artistSearch = document.getElementById("artistSearch");
   const rosterCount = document.getElementById("rosterCount");
   const releaseGrid = document.getElementById("releaseGrid");
+  const latestPlayer = document.getElementById("latestVideoFrame");
+  const latestVideoPlay = document.getElementById("latestVideoPlay");
+  const latestVideoThumbnail = document.getElementById("latestVideoThumbnail");
+  let activeLatest = null;
+  let latestPlayerLoaded = false;
 
   const FALLBACK_LATEST = {
     id: "5YgrpFXZ92Q",
@@ -28,6 +33,64 @@
     { id: "Zkb80UYO0pY", title: "Money in the Bando" },
     { id: "ccwwJFDErvg", title: "Bulletproof Mind" }
   ];
+
+  function validVideoId(value) {
+    const id = String(value || "").trim();
+    return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : FALLBACK_LATEST.id;
+  }
+
+  function latestTitle(release) {
+    return String(release?.title || "Latest NextGen Sessions release").trim();
+  }
+
+  function updateLatestPlayer(release) {
+    const next = {
+      id: validVideoId(release?.id),
+      title: latestTitle(release)
+    };
+    activeLatest = next;
+    if (!latestPlayer) return;
+
+    latestPlayer.dataset.videoId = next.id;
+    if (latestPlayerLoaded) {
+      const frame = latestPlayer.querySelector("iframe");
+      if (frame && frame.dataset.videoId !== next.id) {
+        frame.dataset.videoId = next.id;
+        frame.title = next.title;
+        frame.src = `https://www.youtube-nocookie.com/embed/${next.id}?rel=0&modestbranding=1&autoplay=1`;
+      }
+      return;
+    }
+
+    if (latestVideoThumbnail) {
+      latestVideoThumbnail.src = `/api/release-image?id=${encodeURIComponent(next.id)}`;
+    }
+    if (latestVideoPlay) {
+      latestVideoPlay.classList.remove("is-fallback");
+      latestVideoPlay.setAttribute("aria-label", `Play ${next.title}`);
+    }
+  }
+
+  function loadLatestPlayer() {
+    if (!latestPlayer || latestPlayerLoaded) return;
+    const release = activeLatest || FALLBACK_LATEST;
+    const frame = document.createElement("iframe");
+    frame.dataset.videoId = validVideoId(release.id);
+    frame.title = latestTitle(release);
+    frame.loading = "eager";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    frame.allowFullscreen = true;
+    frame.src = `https://www.youtube-nocookie.com/embed/${frame.dataset.videoId}?rel=0&modestbranding=1&autoplay=1`;
+    latestPlayerLoaded = true;
+    latestPlayer.classList.add("is-loaded");
+    latestPlayer.replaceChildren(frame);
+  }
+
+  latestVideoPlay?.addEventListener("click", loadLatestPlayer);
+  latestVideoThumbnail?.addEventListener("error", () => {
+    latestVideoPlay?.classList.add("is-fallback");
+  });
 
   function escapeHtml(value) {
     return String(value || "")
@@ -150,7 +213,7 @@
     const date = formatDate(release.published);
     return `
       <a class="release-card" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">
-        <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="${title} release thumbnail">
+        <img loading="lazy" decoding="async" src="/api/release-image?id=${encodeURIComponent(release.id)}" alt="${title} release thumbnail">
         <div class="release-meta">
           <span class="tag">Official release</span>
           <h3>${title}</h3>
@@ -166,17 +229,13 @@
       : (Array.isArray(payload?.items) && payload.items.length ? payload.items : FALLBACK_RELEASES);
     const latest = payload?.latest?.id ? payload.latest : (releases[0] || FALLBACK_LATEST);
 
-    const frame = document.getElementById("latestVideoFrame");
     const latestTitle = document.getElementById("latestVideoTitle");
     const latestDate = document.getElementById("latestVideoDate");
     const latestLink = document.getElementById("latestWatchLink");
     const heroLink = document.getElementById("heroLatestLink");
     const latestStatus = document.getElementById("latestStatus");
 
-    if (frame) {
-      frame.src = `https://www.youtube-nocookie.com/embed/${latest.id}?rel=0&modestbranding=1`;
-      frame.title = latest.title || "Latest NextGen Sessions release";
-    }
+    updateLatestPlayer(latest);
     if (latestTitle) latestTitle.textContent = latest.title || "Latest NextGen Sessions release";
     if (latestDate) {
       const date = formatDate(latest.published);

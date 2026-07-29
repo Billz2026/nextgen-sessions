@@ -73,13 +73,12 @@
     return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
   }
 
-  function featuredCard(artist, index) {
+  function featuredCard(artist) {
     const hasImage = Boolean(artistImages[artist.slug]?.src);
     const destination = artistDestination(artist);
     return `
       <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
         ${featuredImage(artist)}
-        <span class="artist-position">Featured ${String(index + 1).padStart(2, "0")}</span>
         <div class="featured-artist-inner">
           <span class="artist-genre">${escapeHtml(artist.genre)}</span>
           <h3>${escapeHtml(artist.name)}</h3>

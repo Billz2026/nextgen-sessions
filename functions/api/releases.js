@@ -112,7 +112,7 @@ export async function onRequestGet(context) {
     ]);
     const playlistItems = playlistResult.status === "fulfilled" ? parseFeed(playlistResult.value) : [];
     const channelItems = channelResult.status === "fulfilled" ? parseFeed(channelResult.value) : [];
-    const liveItems = [...playlistItems, ...channelItems].filter(isFullRelease);
+    const liveItems = (playlistItems.length ? playlistItems : channelItems).filter(isFullRelease);
     if (!liveItems.length) throw new Error("Official release feeds unavailable");
 
     const releases = newestFirst(uniqueReleases([

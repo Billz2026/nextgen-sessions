@@ -39,8 +39,45 @@
     return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : FALLBACK_LATEST.id;
   }
 
+  function normaliseText(value) {
+    return String(value || "").toLowerCase().replace(/[’‘]/g, "'").trim();
+  }
+
+  function escapePattern(value) {
+    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function displayReleaseTitle(rawTitle) {
+    const raw = String(rawTitle || "Latest NextGen Sessions release").trim();
+    const segments = raw.split("|").map(part => part.trim()).filter(Boolean);
+    const artist = [...artists]
+      .sort((a, b) => b.name.length - a.name.length)
+      .find(item => normaliseText(raw).includes(normaliseText(item.name)));
+
+    let title = artist
+      ? (segments.find(part => normaliseText(part).includes(normaliseText(artist.name))) || raw)
+      : (segments[0] || raw);
+
+    if (artist) {
+      const artistPattern = escapePattern(artist.name);
+      title = title
+        .replace(new RegExp(`^.*?${artistPattern}\\s*[-–—:]\\s*`, "i"), "")
+        .replace(new RegExp(`^${artistPattern}\\s+`, "i"), "");
+    }
+
+    title = title
+      .replace(/\s+\d{1,2}(?:st|nd|rd|th)?\s+(?:january|february|march|april|may|june|july|august|september|october|november|december)(?:\s+20\d{2})?$/i, "")
+      .replace(/\s+(?:uk rap|grime|dancehall|reggae|hip-?hop|r&b|rnb|soul|global pop)\s+20\d{2}$/i, "")
+      .replace(/\s+(?:official\s+(?:music\s+)?video|official\s+audio|visuali[sz]er|lyric\s+video)$/i, "")
+      .replace(/\s+nextgen sessions$/i, "")
+      .trim();
+
+    if (!title) title = segments[0] || "Latest NextGen Sessions release";
+    return artist ? `${artist.name} – ${title}` : title;
+  }
+
   function latestTitle(release) {
-    return String(release?.title || "Latest NextGen Sessions release").trim();
+    return displayReleaseTitle(release?.title);
   }
 
   function updateLatestPlayer(release) {
@@ -209,7 +246,7 @@
 
   function releaseCard(release) {
     const id = escapeHtml(release.id);
-    const title = escapeHtml(release.title || "NextGen Sessions release");
+    const title = escapeHtml(displayReleaseTitle(release.title || "NextGen Sessions release"));
     const date = formatDate(release.published);
     return `
       <a class="release-card" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">
@@ -236,7 +273,7 @@
     const latestStatus = document.getElementById("latestStatus");
 
     updateLatestPlayer(latest);
-    if (latestTitle) latestTitle.textContent = latest.title || "Latest NextGen Sessions release";
+    if (latestTitle) latestTitle.textContent = displayReleaseTitle(latest.title);
     if (latestDate) {
       const date = formatDate(latest.published);
       latestDate.textContent = date ? `Published ${date}` : "Latest official NextGen Sessions release";

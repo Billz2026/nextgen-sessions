@@ -11,6 +11,7 @@ Public website for [NextGen Sessions](https://nextgensessions.pages.dev/), an in
 - `functions/api/latest.js` — Cloudflare Pages Function that reads the latest eligible YouTube channel uploads
 - `functions/api/releases.js` — Cloudflare Pages Function that reads the official releases playlist
 - `site.js` — shared roster and release rendering
+- `navigation.js` — accessible responsive navigation shared across every page
 - `releases.js` — release catalogue parsing, search and filtering
 - `styles.css` — shared visual system
 - `404.html` — branded not-found response

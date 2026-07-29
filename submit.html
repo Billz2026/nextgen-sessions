@@ -61,16 +61,16 @@
         <input type="hidden" name="_next" value="https://nextgensessions.pages.dev/submit.html?success=1">
         <input type="text" name="_honey" hidden tabindex="-1" autocomplete="off">
         <div class="form-grid">
-          <div class="field"><label for="artist">Artist name</label><input id="artist" name="Artist Name" autocomplete="organization" required></div>
+          <div class="field"><label for="artist">Artist name</label><input id="artist" name="Artist Name" type="text" autocomplete="organization" required></div>
           <div class="field"><label for="email">Email address</label><input id="email" name="Reply Email" type="email" autocomplete="email" required></div>
         </div>
         <div class="form-grid">
-          <div class="field"><label for="social">Main social handle</label><input id="social" name="Social Handle" placeholder="@yourhandle"></div>
+          <div class="field"><label for="social">Main social handle</label><input id="social" name="Social Handle" type="text" placeholder="@yourhandle"></div>
           <div class="field"><label for="genre">Genre</label><select id="genre" name="Genre" required><option value="">Select one</option><option>Hip-Hop</option><option>UK Rap / Grime</option><option>Dancehall / Reggae</option><option>R&amp;B / Soul</option><option>Punjabi</option><option>Global Sounds</option><option>Other</option></select></div>
         </div>
         <div class="field"><label for="link">Private listening link</label><input id="link" name="Private Link" type="url" inputmode="url" placeholder="https://…" required><p class="help">Check that anyone with the link can listen.</p></div>
         <div class="form-grid">
-          <div class="field"><label for="location">City / country</label><input id="location" name="City and Country"></div>
+          <div class="field"><label for="location">City / country</label><input id="location" name="City and Country" type="text"></div>
           <div class="field"><label for="status">Release status</label><select id="status" name="Release Status"><option value="">Select one</option><option>Unreleased</option><option>Coming soon</option><option>Already released</option></select></div>
         </div>
         <div class="field"><label for="summary">Artist and track summary</label><textarea id="summary" name="Artist and Track Summary" maxlength="700" placeholder="Tell us what makes the track distinctive, who you are and what you want to build." required></textarea></div>
@@ -86,6 +86,7 @@
   </div>
 </main>
 <footer class="site-footer"><div class="footer-inner"><div>© 2026 NextGen Sessions. Original music and independent artists.</div><div class="footer-links"><a href="/">Home</a><a href="/artists/">Artists</a><a href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a></div></div></footer>
+<script src="/navigation.js" defer></script>
 <script>
   if (new URLSearchParams(location.search).get("success") === "1") {
     const box = document.getElementById("successBox");

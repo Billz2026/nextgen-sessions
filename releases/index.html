@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Releases | NextGen Sessions Music Catalogue</title>
-  <meta name="description" content="Explore original music from the NextGen Sessions roster across dancehall, reggae, UK rap, grime, hip-hop, R&B, soul and global sounds.">
+  <meta name="description" content="Explore original music from the NextGen Sessions roster across dancehall, reggae, UK rap, grime, hip-hop, R&amp;B, soul and global sounds.">
   <link rel="canonical" href="https://nextgensessions.pages.dev/releases/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Releases | NextGen Sessions">
@@ -61,7 +61,8 @@
     <form class="archive-controls" id="releaseArchiveControls" role="search">
       <label class="sr-only" for="releaseSearch">Search releases by artist or title</label>
       <input class="release-search" id="releaseSearch" type="search" placeholder="Search artist or song title" autocomplete="off">
-      <div class="release-filters" aria-label="Filter releases by genre">
+      <button class="sr-only" type="submit">Search releases</button>
+      <div class="release-filters" role="group" aria-label="Filter releases by genre">
         <button class="release-filter is-active" type="button" data-filter="All" aria-pressed="true">All</button>
         <button class="release-filter" type="button" data-filter="Dancehall &amp; Reggae" aria-pressed="false">Dancehall &amp; Reggae</button>
         <button class="release-filter" type="button" data-filter="UK Rap &amp; Grime" aria-pressed="false">UK Rap &amp; Grime</button>
@@ -115,6 +116,7 @@
   </div>
 </footer>
 
+<script src="/navigation.js" defer></script>
 <script src="/artists.js" defer></script>
 <script src="/releases.js" defer></script>
 </body>

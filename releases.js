@@ -1,13 +1,6 @@
 (function () {
   "use strict";
 
-  if (!document.querySelector('script[src="/site-metrics.js"]')) {
-    const metrics = document.createElement("script");
-    metrics.src = "/site-metrics.js";
-    metrics.async = true;
-    document.head.append(metrics);
-  }
-
   const grid = document.getElementById("releaseArchiveGrid");
   if (!grid) return;
 

@@ -2,7 +2,7 @@ const PLAYLIST_ID = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
 const PLAYLIST_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
 
 const FALLBACK_LATEST = {
-  id: "5YgrpFXZ92Q",
+  id: "ZON1AsWLrIE",
   title: "Rudii Marka – Marked for War",
   published: ""
 };

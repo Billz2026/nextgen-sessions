@@ -118,14 +118,14 @@ export async function onRequestGet(context) {
     }
 
     const override = validOverride(context);
-    const releases = channelItems.length ? channelItems.slice(0, 8)
-      : (playlistItems.length ? playlistItems.slice(0, 8) : FALLBACK_RELEASES);
+    const releases = playlistItems.length ? playlistItems.slice(0, 8)
+      : (channelItems.length ? channelItems.slice(0, 8) : FALLBACK_RELEASES);
     const latest = override || releases[0] || FALLBACK_LATEST;
 
     const output = jsonResponse({
       source: "youtube",
-      latestSource: override ? "override" : (channelItems.length ? "channel" : "playlist"),
-      releasesSource: channelItems.length ? "channel" : "playlist",
+      latestSource: override ? "override" : (playlistItems.length ? "playlist" : "channel"),
+      releasesSource: playlistItems.length ? "playlist" : "channel",
       playlistId: PLAYLIST_ID,
       channelId,
       generatedAt: new Date().toISOString(),

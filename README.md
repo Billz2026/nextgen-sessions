@@ -1,6 +1,6 @@
 # NextGen Sessions website
 
-Public website for [NextGen Sessions](https://nextgensessions.pages.dev/), an independent multi-artist music network.
+Public website for [NextGen Sessions](https://nextgensessions.com/), an independent multi-artist music network.
 
 ## Structure
 

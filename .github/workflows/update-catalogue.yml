@@ -1,0 +1,51 @@
+name: Update Release Catalogue
+
+on:
+  schedule:
+    - cron: "20 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-catalogue.yml"
+      - "scripts/update-catalogue.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-catalogue
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Build catalogue from public playlists
+        env:
+          YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python3 scripts/update-catalogue.py releases.json
+
+      - name: Validate catalogue
+        run: |
+          python3 - <<'PY'
+          import json
+          with open("releases.json", encoding="utf-8") as handle:
+              data = json.load(handle)
+          assert data["total"] == len(data["releases"])
+          assert len({item["id"] for item in data["releases"]}) == data["total"]
+          assert data["total"] >= 80, f"Unexpectedly small catalogue: {data['total']}"
+          print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
+          PY
+
+      - name: Publish changed catalogue
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add releases.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-update release catalogue"
+          git push

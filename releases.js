@@ -44,7 +44,7 @@
   };
 
   const releaseOverrides = {
-    "ZON1AsWLrIE": { artist: "Rudii Marka", title: "Marked for War", group: "Dancehall & Reggae" },
+    "5YgrpFXZ92Q": { artist: "Rudii Marka", title: "Marked for War", group: "Dancehall & Reggae" },
     "zrnWeU7KRS0": { artist: "Mizzy G", title: "Corner To Crown", group: "UK Rap & Grime" },
     "U6lh9buVYHg": { artist: "Reeko", title: "Smile Wid Knife", group: "Dancehall & Reggae" },
     "oc7Cryy5xTM": { artist: "Reeko", title: "Nuff Man A Watch", group: "Dancehall & Reggae" },
@@ -52,7 +52,7 @@
     "s0ZS2HJjw2M": { artist: "Renz Cole", title: "False Nine", group: "UK Rap & Grime" },
     "yU4fK6aSqEg": { artist: "Renz Cole", title: "Playmaker", group: "UK Rap & Grime" },
     "Xj806cr_eS4": { artist: "Jay Starks", title: "Queens in My Soul", group: "Hip-Hop" },
-    "ESEyLheoF9Q": { artist: "Kastro", title: "Urban Reign", group: "Dancehall & Reggae" },
+    "ESEyLheoF9Q": { artist: "Kastro", title: "Urban Reign", group: "UK Rap & Grime" },
     "ZR6vqKxmngw": { artist: "Kemar Ranka", title: "Top Ranka", group: "Dancehall & Reggae" },
     "VwLzUxVabSQ": { artist: "Reeko", title: "Mi Call Di Shots", group: "Dancehall & Reggae" }
   };
@@ -118,6 +118,13 @@
   }
 
   function prepareRelease(release) {
+    if (release?.artist && release?.title && release?.group) {
+      return {
+        ...release,
+        rawTitle: release.rawTitle || `${release.artist} - ${release.title}`
+      };
+    }
+
     const override = releaseOverrides[release.id];
     if (override) {
       return { ...release, ...override, rawTitle: release.title || override.title };
@@ -252,18 +259,27 @@
     search?.focus();
   });
 
-  fetch("/api/releases", {
-    headers: { Accept: "application/json" },
-    cache: "no-store"
-  })
-    .then(response => {
-      if (!response.ok) throw new Error("Release catalogue unavailable");
-      return response.json();
-    })
-    .then(payload => {
-      const releases = Array.isArray(payload?.releases) && payload.releases.length
-        ? payload.releases
-        : fallbackReleases;
+  async function loadCatalogue() {
+    for (const endpoint of ["/releases.json", "/api/releases"]) {
+      try {
+        const response = await fetch(endpoint, {
+          headers: { Accept: "application/json" },
+          cache: "no-store"
+        });
+        if (!response.ok) continue;
+        const payload = await response.json();
+        if (Array.isArray(payload?.releases) && payload.releases.length) {
+          return payload.releases;
+        }
+      } catch (_) {
+        // Try the next controlled source.
+      }
+    }
+    return fallbackReleases;
+  }
+
+  loadCatalogue()
+    .then(releases => {
       catalogue = uniquePreparedReleases(releases.map(prepareRelease).filter(Boolean));
       render();
     })

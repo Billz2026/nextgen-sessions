@@ -27,7 +27,7 @@
   let latestPlayerLoaded = false;
 
   const FALLBACK_LATEST = {
-    id: "5YgrpFXZ92Q",
+    id: "ZON1AsWLrIE",
     title: "Rudii Marka – Marked for War",
     published: ""
   };

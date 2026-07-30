@@ -44,7 +44,7 @@
   };
 
   const releaseOverrides = {
-    "5YgrpFXZ92Q": { artist: "Rudii Marka", title: "Marked for War", group: "Dancehall & Reggae" },
+    "ZON1AsWLrIE": { artist: "Rudii Marka", title: "Marked for War", group: "Dancehall & Reggae" },
     "zrnWeU7KRS0": { artist: "Mizzy G", title: "Corner To Crown", group: "UK Rap & Grime" },
     "U6lh9buVYHg": { artist: "Reeko", title: "Smile Wid Knife", group: "Dancehall & Reggae" },
     "oc7Cryy5xTM": { artist: "Reeko", title: "Nuff Man A Watch", group: "Dancehall & Reggae" },
@@ -52,7 +52,7 @@
     "s0ZS2HJjw2M": { artist: "Renz Cole", title: "False Nine", group: "UK Rap & Grime" },
     "yU4fK6aSqEg": { artist: "Renz Cole", title: "Playmaker", group: "UK Rap & Grime" },
     "Xj806cr_eS4": { artist: "Jay Starks", title: "Queens in My Soul", group: "Hip-Hop" },
-    "ESEyLheoF9Q": { artist: "Kastro", title: "Urban Reign", group: "UK Rap & Grime" },
+    "ESEyLheoF9Q": { artist: "Kastro", title: "Urban Reign", group: "Dancehall & Reggae" },
     "ZR6vqKxmngw": { artist: "Kemar Ranka", title: "Top Ranka", group: "Dancehall & Reggae" },
     "VwLzUxVabSQ": { artist: "Reeko", title: "Mi Call Di Shots", group: "Dancehall & Reggae" }
   };

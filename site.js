@@ -168,18 +168,29 @@
           return;
         }
         image.hidden = true;
-        image.closest(".featured-artist-card")?.classList.remove("has-image");
+        image.closest(".featured-artist-card, .artist-roster-card")?.classList.remove("has-image");
       }, { once: false });
     });
   }
 
   function rosterCard(artist) {
     const destination = artistDestination(artist);
+    const image = artistImages[artist.slug];
+    const hasImage = Boolean(image?.src);
+    const fallback = image?.fallback ? ` data-fallback="${escapeHtml(image.fallback)}"` : "";
+    const srcset = image?.srcset ? ` srcset="${escapeHtml(image.srcset)}" sizes="(max-width: 720px) calc(50vw - 28px), (max-width: 980px) 33vw, 25vw"` : "";
+    const position = escapeHtml(image?.position || "50% 38%");
+    const portrait = hasImage
+      ? `<img class="artist-roster-image featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`
+      : "";
     return `
-      <a class="artist-roster-card" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
-        <span class="artist-genre">${escapeHtml(artist.genre)}</span>
-        <h3>${escapeHtml(artist.name)}</h3>
-        <p>${escapeHtml(artist.summary)}</p>
+      <a class="artist-roster-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
+        ${portrait}
+        <div class="artist-roster-copy">
+          <span class="artist-genre">${escapeHtml(artist.genre)}</span>
+          <h3>${escapeHtml(artist.name)}</h3>
+          <p>${escapeHtml(artist.summary)}</p>
+        </div>
       </a>`;
   }
 
@@ -198,6 +209,7 @@
       .sort((a, b) => a.name.localeCompare(b.name, "en-GB"));
 
     rosterGrid.innerHTML = filtered.map(rosterCard).join("");
+    installImageFallbacks(rosterGrid);
     if (rosterCount) {
       rosterCount.textContent = `${filtered.length} artist${filtered.length === 1 ? "" : "s"}${term ? " found" : ""}`;
     }

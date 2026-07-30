@@ -40,5 +40,12 @@ window.NGS_ARTIST_IMAGES = {
     portrait: "/assets/artists/rudii-marka-portrait.webp",
     fallback: "/assets/artists/rudii-marka-card-640.webp",
     position: "50% 42%"
+  },
+  "alonzo-ray": {
+    src: "/assets/artists/alonzo-ray-card.webp",
+    srcset: "/assets/artists/alonzo-ray-card-640.webp 640w, /assets/artists/alonzo-ray-card.webp 1024w",
+    portrait: "/assets/artists/alonzo-ray-portrait.webp",
+    fallback: "/assets/artists/alonzo-ray-card-640.webp",
+    position: "50% 38%"
   }
 };

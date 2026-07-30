@@ -4,7 +4,7 @@ const CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
 const CHANNEL_FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
 const FALLBACK_RELEASES = [
-  { id: "5YgrpFXZ92Q", title: "Rudii Marka - Marked for War", published: "" },
+  { id: "ZON1AsWLrIE", title: "Rudii Marka - Marked for War", published: "" },
   { id: "zrnWeU7KRS0", title: "Mizzy G - Corner To Crown", published: "" },
   { id: "U6lh9buVYHg", title: "Reeko - Smile Wid Knife", published: "" },
   { id: "oc7Cryy5xTM", title: "Reeko - Nuff Man A Watch", published: "" },

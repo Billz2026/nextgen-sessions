@@ -19,7 +19,7 @@ window.NGS_ARTIST_PROFILES = {
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Renz+Cole",
     "related": [
-      { "name": "Kastro", "genre": "UK Rap" },
+      { "name": "Kastro", "genre": "Jamaican Dancehall" },
       { "name": "Mace K", "genre": "UK Rap / Grime" },
       { "name": "Reiss", "genre": "UK Rap" }
     ]
@@ -139,7 +139,7 @@ window.NGS_ARTIST_PROFILES = {
     "imageKey": "rudii-marka",
     "imagePosition": "50% 35%",
     "featuredVideo": {
-      "id": "5YgrpFXZ92Q",
+      "id": "ZON1AsWLrIE",
       "title": "Marked for War",
       "label": "Rudii Marka — Marked for War"
     },

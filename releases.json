@@ -1,19 +1,673 @@
 {
-  "source": "catalogue-bootstrap",
-  "generatedAt": "",
-  "total": 11,
-  "counts": {},
+  "source": "curated-youtube-playlists",
+  "generatedAt": "2026-07-30T12:32:04.766592Z",
+  "total": 82,
+  "counts": {
+    "Dancehall & Reggae": 26,
+    "UK Rap & Grime": 19,
+    "Hip-Hop / G-Funk": 17,
+    "Asian": 3,
+    "Lovers Rock": 7,
+    "R&B & Soul": 6,
+    "Late Night Afro": 3,
+    "Arabic": 1
+  },
   "releases": [
-    {"id":"ZON1AsWLrIE","artist":"Rudii Marka","title":"Marked for War","group":"Dancehall & Reggae","published":"","rawTitle":"Rudii Marka - Marked for War"},
-    {"id":"zrnWeU7KRS0","artist":"Mizzy G","title":"Corner To Crown","group":"UK Rap & Grime","published":"","rawTitle":"Mizzy G - Corner To Crown"},
-    {"id":"U6lh9buVYHg","artist":"Reeko","title":"Smile Wid Knife","group":"Dancehall & Reggae","published":"","rawTitle":"Reeko - Smile Wid Knife"},
-    {"id":"oc7Cryy5xTM","artist":"Reeko","title":"Nuff Man A Watch","group":"Dancehall & Reggae","published":"","rawTitle":"Reeko - Nuff Man A Watch"},
-    {"id":"JwFCGCLWw0I","artist":"Renz Cole","title":"Outside Till Late","group":"UK Rap & Grime","published":"","rawTitle":"Renz Cole - Outside Till Late"},
-    {"id":"s0ZS2HJjw2M","artist":"Renz Cole","title":"False Nine","group":"UK Rap & Grime","published":"","rawTitle":"Renz Cole - False Nine"},
-    {"id":"yU4fK6aSqEg","artist":"Renz Cole","title":"Playmaker","group":"UK Rap & Grime","published":"","rawTitle":"Renz Cole - Playmaker"},
-    {"id":"Xj806cr_eS4","artist":"Jay Starks","title":"Queens in My Soul","group":"Hip-Hop / G-Funk","published":"","rawTitle":"Jay Starks - Queens in My Soul"},
-    {"id":"ESEyLheoF9Q","artist":"Kastro","title":"Urban Reign","group":"Dancehall & Reggae","published":"","rawTitle":"Kastro - Urban Reign"},
-    {"id":"ZR6vqKxmngw","artist":"Kemar Ranka","title":"Top Ranka","group":"Dancehall & Reggae","published":"","rawTitle":"Kemar Ranka - Top Ranka"},
-    {"id":"VwLzUxVabSQ","artist":"Reeko","title":"Mi Call Di Shots","group":"Dancehall & Reggae","published":"","rawTitle":"Reeko - Mi Call Di Shots"}
+    {
+      "id": "uSlZrZJompg",
+      "artist": "Zara Veli",
+      "title": "Don’t Call Past 2",
+      "group": "R&B & Soul",
+      "published": "2026-07-30T12:25:38Z",
+      "rawTitle": "Zara Veli – Don’t Call Past 2 | Don’t Call Me… | UK Garage R&B 2026 | NextGen Sessions"
+    },
+    {
+      "id": "Jsayjeif8WE",
+      "artist": "Zara Veli",
+      "title": "Too Boujee To Beg",
+      "group": "R&B & Soul",
+      "published": "2026-07-30T12:25:08Z",
+      "rawTitle": "Zara Veli – Too Boujee To Beg | Luxury UK R&B 2026 | NextGen Sessions"
+    },
+    {
+      "id": "TnYNLBDlLx8",
+      "artist": "Omari V",
+      "title": "When Di Breeze Call",
+      "group": "Lovers Rock",
+      "published": "2026-07-17T15:41:27Z",
+      "rawTitle": "JAMAICAN SUMMER | Omari V - When Di Breeze Call | Lovers Rock Reggae 2026 | NextGen Sessions"
+    },
+    {
+      "id": "RvRq-zwGfKc",
+      "artist": "Voss Carter",
+      "title": "Sunshine On The Way Home",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-07-12T13:41:07Z",
+      "rawTitle": "SUMMER IN NEW YORK | Voss Carter - Sunshine On The Way Home | HipHop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "ZON1AsWLrIE",
+      "artist": "Rudii Marka",
+      "title": "Marked Rudeboi",
+      "group": "Dancehall & Reggae",
+      "published": "2026-07-12T10:37:19Z",
+      "rawTitle": "Rudii Marka - Marked Rudeboi | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "ESEyLheoF9Q",
+      "artist": "KING WITHOUT CROWN Kastro",
+      "title": "Urban Reign",
+      "group": "Dancehall & Reggae",
+      "published": "2026-07-05T15:29:59Z",
+      "rawTitle": "KING WITHOUT CROWN Kastro - Urban Reign | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "7e9xY0b-QMQ",
+      "artist": "Mace K",
+      "title": "Somethin’ In The Endz ft. Leon Reid UK Rap 2026",
+      "group": "UK Rap & Grime",
+      "published": "2026-07-04T18:12:45Z",
+      "rawTitle": "Mace K - Somethin’ In The Endz ft. Leon Reid UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "zrnWeU7KRS0",
+      "artist": "Mizzy G",
+      "title": "Corner To Crown",
+      "group": "UK Rap & Grime",
+      "published": "2026-07-02T15:46:50Z",
+      "rawTitle": "POWER AIN’T PEACE | Mizzy G - Corner To Crown | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "919KvYLP_OQ",
+      "artist": "Rell Danja",
+      "title": "Cross Me, Regret It",
+      "group": "Dancehall & Reggae",
+      "published": "2026-07-01T18:01:56Z",
+      "rawTitle": "NO MORE WARNINGS | Rell Danja - Cross Me, Regret It | Dark Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "U6lh9buVYHg",
+      "artist": "Reeko",
+      "title": "Smile Wid Knife",
+      "group": "Dancehall & Reggae",
+      "published": "2026-06-30T10:53:00Z",
+      "rawTitle": "Reeko - Smile Wid Knife | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "ODkPrTj34cY",
+      "artist": "Manny Virk",
+      "title": "Pind Ton Shehar",
+      "group": "Asian",
+      "published": "2026-06-29T16:08:18Z",
+      "rawTitle": "PIND MADE HIM | Manny Virk - Pind Ton Shehar | Punjabi Hip-Hop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "xLFZKSjvzl0",
+      "artist": "Jay Starks",
+      "title": "No Shade In Queens",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-06-25T11:01:58Z",
+      "rawTitle": "NO SHADE ALL SUMMER | Jay Starks - No Shade In Queens | HipHop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "n6OLDR0PUkw",
+      "artist": "Jay Starks",
+      "title": "Jamaica Avenue",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-06-19T15:13:18Z",
+      "rawTitle": "JAMAICA AVENUE | Jay Starks - Jamaica Avenue | Hip Hop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "BujVqCAUh28",
+      "artist": "Karvell Reign",
+      "title": "California Gold",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-06-17T15:36:12Z",
+      "rawTitle": "SUNSET HITS DIFFERENT | Karvell Reign - California Gold | HipHop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "o57kRImFP0c",
+      "artist": "Leila Nour",
+      "title": "Noor El Oud",
+      "group": "Arabic",
+      "published": "2026-06-17T07:52:14Z",
+      "rawTitle": "SCENT OF LOVE | Leila Nour - Noor El Oud | Arabic R&B 2026 | NextGen Sessions"
+    },
+    {
+      "id": "kK_M5TobLk0",
+      "artist": "Alia Bleu",
+      "title": "Dreams Don’t Chase You",
+      "group": "R&B & Soul",
+      "published": "2026-06-15T13:32:10Z",
+      "rawTitle": "DREAMS DON’T CHASE YOU | Alia Bleu - Dreams Don’t Chase You | UK R&B 2026 | NextGen Sessions"
+    },
+    {
+      "id": "JwFCGCLWw0I",
+      "artist": "Renz Cole",
+      "title": "Outside Till Late",
+      "group": "UK Rap & Grime",
+      "published": "2026-06-12T17:43:08Z",
+      "rawTitle": "SUMMER NIGHTS FEEL LIKE THIS | Renz Cole - Outside Till Late | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "N5Dc3MkrGEo",
+      "artist": "Tayo Wray",
+      "title": "Gold Ain’t Quiet",
+      "group": "Late Night Afro",
+      "published": "2026-06-04T07:41:29Z",
+      "rawTitle": "GOLD ATTRACTS SNAKES | Tayo Wray - Gold Ain’t Quiet | Afro UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "EbmBjdo8jOI",
+      "artist": "Reeko",
+      "title": "After Di Shots",
+      "group": "Dancehall & Reggae",
+      "published": "2026-06-02T13:45:45Z",
+      "rawTitle": "MI RUN IT NOW | Reeko - After Di Shots | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "OoY5iutAac4",
+      "artist": "Voss Carter",
+      "title": "Came This Far",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-06-02T07:38:29Z",
+      "rawTitle": "CAN’T FALL BACK NOW | Voss Carter - Came This Far | HipHop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "4mu5NVxUeII",
+      "artist": "Rell Danja",
+      "title": "No Sleep Fi Di Wicked",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-29T07:46:03Z",
+      "rawTitle": "CAN’T SLEEP | Rell Danja - No Sleep Fi Di Wicked | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "vuW6OZPoApg",
+      "artist": "Deon Creed",
+      "title": "Soul of the Southside",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-05-26T07:52:56Z",
+      "rawTitle": "THE STREETS STILL PRAY | Deon Creed - Soul of the Southside | Hip-Hop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "4g-SeSyohOw",
+      "artist": "Yung Tafari",
+      "title": "Light Through Di Dark",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-22T12:50:11Z",
+      "rawTitle": "WHEN THE LIGHT FINDS YOU | Yung Tafari - Light Through Di Dark | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "bsaqZDgvb9U",
+      "artist": "Killa K",
+      "title": "Full Send",
+      "group": "UK Rap & Grime",
+      "published": "2026-05-22T08:39:10Z",
+      "rawTitle": "Killa K - Full Send | UK Grime 2026 | NextGen Sessions"
+    },
+    {
+      "id": "s0ZS2HJjw2M",
+      "artist": "Renz Cole",
+      "title": "False Nine",
+      "group": "UK Rap & Grime",
+      "published": "2026-05-20T12:28:18Z",
+      "rawTitle": "Renz Cole - False Nine | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "PI3OXiRlcHU",
+      "artist": "Jay Starks",
+      "title": "Architect of Havoc",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-05-19T15:01:15Z",
+      "rawTitle": "Jay Starks - Architect of Havoc | Hiphop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "AMdc_Z9bh30",
+      "artist": "Kemar Ranka",
+      "title": "Crown Heavy",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-19T07:17:21Z",
+      "rawTitle": "Kemar Ranka - Crown Heavy | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "ZR6vqKxmngw",
+      "artist": "Kemar Ranka",
+      "title": "Top Ranka",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-14T12:08:30Z",
+      "rawTitle": "Kemar Ranka - Top Ranka |  Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "3KqBiAq2ctA",
+      "artist": "Omari V",
+      "title": "Whispers in the Wind",
+      "group": "Lovers Rock",
+      "published": "2026-05-14T07:00:50Z",
+      "rawTitle": "Omari V - Whispers in the Wind | Lovers Rock Reggae 2026 | NextGen Sessions"
+    },
+    {
+      "id": "bB_APAjvIc8",
+      "artist": "Jay Starks",
+      "title": "Queens in My Soul",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-05-13T12:21:38Z",
+      "rawTitle": "Jay Starks - Queens in My Soul | HipHop East Coast Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "6_JazAd0_n0",
+      "artist": "Yung Tafari",
+      "title": "Gully Testament",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-13T07:32:14Z",
+      "rawTitle": "Yung Tafari - Gully Testament | Only God Know | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "GThzJQUIl7c",
+      "artist": "Rookz",
+      "title": "Name Still Rings",
+      "group": "UK Rap & Grime",
+      "published": "2026-05-12T12:46:59Z",
+      "rawTitle": "Rookz - Name Still Rings | UK Grime Road Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "3nEDJw-gvGI",
+      "artist": "Asif Sultaan",
+      "title": "Nazar",
+      "group": "Asian",
+      "published": "2026-05-12T08:12:46Z",
+      "rawTitle": "Asif Sultaan - Nazar | Too Blessed | South Asian Trap Fusion 2026 | NextGen Sessions"
+    },
+    {
+      "id": "4ohHWcjmNYM",
+      "artist": "Javon Ranks",
+      "title": "Dem Cyan Move Mi",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-11T16:08:36Z",
+      "rawTitle": "Javon Ranks - Dem Cyan Move Mi | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "2B2qbJnWN7c",
+      "artist": "Ragga Blaze",
+      "title": "Fire Still A Burn",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-11T12:24:40Z",
+      "rawTitle": "Ragga Blaze - Fire Still A Burn | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "j647wv0Duf0",
+      "artist": "Omari V",
+      "title": "Yuh Gone Already",
+      "group": "Lovers Rock",
+      "published": "2026-05-11T07:49:39Z",
+      "rawTitle": "Omari V — Yuh Gone Already | Lovers Rock Reggae 2026 | NextGen Sessions"
+    },
+    {
+      "id": "dzjwPvGRc9I",
+      "artist": "Jahmari Danza",
+      "title": "Gyal Affi Wine",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-08T15:48:16Z",
+      "rawTitle": "Jahmari Danza – Gyal Affi Wine | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "PDXfsJv9jKA",
+      "artist": "Jay Starks",
+      "title": "It’s A Cold Summer",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-05-07T15:27:55Z",
+      "rawTitle": "Jay Starks - It’s A Cold Summer | Hiphop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "lCRLgfdiqRI",
+      "artist": "Andre Kadeem",
+      "title": "Don’t Watch That",
+      "group": "UK Rap & Grime",
+      "published": "2026-05-06T12:10:56Z",
+      "rawTitle": "Andre Kadeem – Don’t Watch That | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "sJQSOw2Sto4",
+      "artist": "Keisha",
+      "title": "Mi Know Mi Worth",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-04T15:30:00Z",
+      "rawTitle": "Keisha – Mi Know Mi Worth | Mi Done See Clear | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "J6Gkeg1eiIc",
+      "artist": "Rell Danger",
+      "title": "Nuh Fi Chat",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-04T14:02:12Z",
+      "rawTitle": "Rell Danger – Nuh Fi Chat | Dem A Pree… | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "RG4fABy1bkU",
+      "artist": "Marlo Saint",
+      "title": "One Night Only",
+      "group": "Late Night Afro",
+      "published": "2026-05-04T09:47:31Z",
+      "rawTitle": "Marlo Saint – One Night Only | Don’t Get Attached | Afro Swing 2026 | NextGen Sessions"
+    },
+    {
+      "id": "uxHGB1ZhEoo",
+      "artist": "Karvell Reign",
+      "title": "Ain’t The Same",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-05-03T21:52:43Z",
+      "rawTitle": "Karvell Reign – Ain’t The Same | It Don’t Feel The Same… | West Coast G-Funk 2026 | NextGen Sessions"
+    },
+    {
+      "id": "oc7Cryy5xTM",
+      "artist": "Reeko",
+      "title": "Nuff Man A Watch",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-03T11:03:12Z",
+      "rawTitle": "Reeko – Nuff Man A Watch | They Watching Me… | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "H7FJw00hBt4",
+      "artist": "Darian Gayle",
+      "title": "Talk Di Tings",
+      "group": "Lovers Rock",
+      "published": "2026-05-02T17:34:25Z",
+      "rawTitle": "Darian Gayle – Talk Di Tings | Mi Hear Dem Talk… | Lovers Rock Reggae 2026 | NextGen Sessions"
+    },
+    {
+      "id": "BFzlo4I5smA",
+      "artist": "Yung Tafari",
+      "title": "One Man Army",
+      "group": "Dancehall & Reggae",
+      "published": "2026-05-02T16:20:39Z",
+      "rawTitle": "Yung Tafari – One Man Army | They Want Me Down… I Rise | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "Dvfg251n0Pk",
+      "artist": "Reiss",
+      "title": "On Route",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-26T17:08:28Z",
+      "rawTitle": "Reiss – On Route | We Still Got Time… | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "FvNsYb5g4pg",
+      "artist": "Reiss",
+      "title": "On A Regular",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-26T16:13:21Z",
+      "rawTitle": "Reiss – On A Regular | This Ain’t New To Me… | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "hqMBHn0L_DM",
+      "artist": "Reiss",
+      "title": "Already Know Single",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-24T12:30:10Z",
+      "rawTitle": "Reiss – Already Know Single | You Knew Already… | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "7T37ikylqho",
+      "artist": "Isaac Grey",
+      "title": "After the Rain",
+      "group": "Lovers Rock",
+      "published": "2026-04-24T07:28:05Z",
+      "rawTitle": "Isaac Grey – After the Rain | Lovers Rock 2026 | NextGen Sessions"
+    },
+    {
+      "id": "s4v_aLpMo4Q",
+      "artist": "Nyah Rae",
+      "title": "I’m Not Surprised",
+      "group": "R&B & Soul",
+      "published": "2026-04-23T07:10:00Z",
+      "rawTitle": "Nyah Rae – I’m Not Surprised | Left On Read | R&B 2026 | NextGen Sessions"
+    },
+    {
+      "id": "zNM_65xgiIc",
+      "artist": "Marlo Saint",
+      "title": "Play It Right",
+      "group": "Late Night Afro",
+      "published": "2026-04-21T12:21:01Z",
+      "rawTitle": "Marlo Saint – Play It Right | Afro Swing 2026 | NextGen Sessions"
+    },
+    {
+      "id": "IsS48ruiXuI",
+      "artist": "Mariana Lo",
+      "title": "Don’t Get Too Close",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-21T07:26:22Z",
+      "rawTitle": "Mariana Lo – Don’t Get Too Close | Cold Energy UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "i2xhycshXEg",
+      "artist": "Rell Danja",
+      "title": "Nuh Friend In The Street (No Friends Left)",
+      "group": "Dancehall & Reggae",
+      "published": "2026-04-20T15:39:04Z",
+      "rawTitle": "Rell Danja – Nuh Friend In The Street (No Friends Left) | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "fm8t-R8RLHY",
+      "artist": "Omari V",
+      "title": "No Fire In Your Eyes",
+      "group": "Lovers Rock",
+      "published": "2026-04-20T07:51:31Z",
+      "rawTitle": "Omari V – No Fire In Your Eyes | Lovers Rock Reggae 2026 | NextGen Sessions"
+    },
+    {
+      "id": "fXF2mQ2A6vw",
+      "artist": "RAFE",
+      "title": "On Blast",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-19T13:46:45Z",
+      "rawTitle": "RAFE – On Blast | Grime 2026 | NextGen Sessions"
+    },
+    {
+      "id": "-3EnE4VgAzA",
+      "artist": "Isaac Grey",
+      "title": "Street Whispers",
+      "group": "Lovers Rock",
+      "published": "2026-04-19T12:47:29Z",
+      "rawTitle": "Isaac Grey – Street Whispers | Lovers Rock 2026 | NextGen Sessions"
+    },
+    {
+      "id": "rhsufV3JeKQ",
+      "artist": "Ragga Blaze",
+      "title": "Fire Don",
+      "group": "Dancehall & Reggae",
+      "published": "2026-04-17T14:24:58Z",
+      "rawTitle": "Ragga Blaze – Fire Don | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "7EXt64hyMfA",
+      "artist": "Asif Sultaan",
+      "title": "WAZAN",
+      "group": "Asian",
+      "published": "2026-04-17T12:28:17Z",
+      "rawTitle": "Asif Sultaan – WAZAN | Melodic Pakistani Hip-Hop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "OMlS1Rmd2Uc",
+      "artist": "Keisha",
+      "title": "Hold Mi Down",
+      "group": "Dancehall & Reggae",
+      "published": "2026-04-17T07:38:57Z",
+      "rawTitle": "Keisha – Hold Mi Down | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "OSPS78aPkS0",
+      "artist": "Karvell Reign",
+      "title": "Still Walk Alone",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-04-16T15:47:41Z",
+      "rawTitle": "Karvell Reign – Still Walk Alone | West Coast G-Funk 2026 | NextGen Sessions"
+    },
+    {
+      "id": "vsvn0Qkifv0",
+      "artist": "Reiss",
+      "title": "No Comment",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-15T16:06:39Z",
+      "rawTitle": "Reiss – No Comment | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "02d0BdKLyBA",
+      "artist": "Renz Cole",
+      "title": "Catch My Wave",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-15T07:32:45Z",
+      "rawTitle": "Renz Cole – Catch My Wave | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "tmeLFCqItcM",
+      "artist": "Javon Ranks",
+      "title": "Still Hold Firm",
+      "group": "Dancehall & Reggae",
+      "published": "2026-04-15T07:10:58Z",
+      "rawTitle": "Javon Ranks – Still Hold Firm | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "bLbzbDbzLk8",
+      "artist": "Alonzo Ray",
+      "title": "All In My Name",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-04-13T12:55:04Z",
+      "rawTitle": "Alonzo Ray – All In My Name | West Coast Hip-Hop 2026 | NextGen Sessions | NextGen Sessions"
+    },
+    {
+      "id": "GlobzSyoDe0",
+      "artist": "Alonzo Ray",
+      "title": "Pasadena",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-04-12T12:28:23Z",
+      "rawTitle": "Alonzo Ray - Pasadena | West Coast Hip-Hop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "5mhMjzPHZ_Q",
+      "artist": "Alonzo Ray",
+      "title": "What It Took",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-04-11T22:42:33Z",
+      "rawTitle": "Alonzo Ray – What It Took | West Coast Hip Hop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "fLfjnUKfjxU",
+      "artist": "Alonzo Ray",
+      "title": "Seasoned",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-04-11T21:12:37Z",
+      "rawTitle": "Alonzo Ray – Seasoned | West Coast Hip-Hop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "YovBcIeWV98",
+      "artist": "Nyah Rae",
+      "title": "You Can’t Afford Me",
+      "group": "R&B & Soul",
+      "published": "2026-04-09T12:55:30Z",
+      "rawTitle": "Nyah Rae - You Can’t Afford Me | R&B 2026 | NextGen Sessions"
+    },
+    {
+      "id": "XUXUyj5uHkM",
+      "artist": "Renz Cole",
+      "title": "They Know Now",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-06T12:17:07Z",
+      "rawTitle": "Renz Cole - They Know Now | Playmaker | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "4TFIW-WTuww",
+      "artist": "Renz Cole",
+      "title": "No Assist Ting",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-04T22:17:05Z",
+      "rawTitle": "Renz Cole – No Assist Ting | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "KskYFpBEudA",
+      "artist": "Nyah Rae",
+      "title": "No Reply",
+      "group": "R&B & Soul",
+      "published": "2026-04-02T12:15:33Z",
+      "rawTitle": "Nyah Rae – No Reply | R&B 2026 | NextGen Session"
+    },
+    {
+      "id": "ms-IKCbxjlY",
+      "artist": "Renz Cole",
+      "title": "Playmaker",
+      "group": "UK Rap & Grime",
+      "published": "2026-04-01T16:41:55Z",
+      "rawTitle": "Renz Cole - Playmaker | UK Rap Single 2026 | NextGen Sessions"
+    },
+    {
+      "id": "ks4bSmghnDI",
+      "artist": "NextGen Sessions",
+      "title": "Reeko",
+      "group": "Dancehall & Reggae",
+      "published": "2026-04-01T07:02:40Z",
+      "rawTitle": "Reeko | Mi Call Di Shots Single | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "uB8nYq1co8c",
+      "artist": "Reeko",
+      "title": "Nuh Love Round Ya",
+      "group": "Dancehall & Reggae",
+      "published": "2026-03-29T14:52:49Z",
+      "rawTitle": "Reeko - Nuh Love Round Ya | Dancehall 2026 | Mi Call Di Shots Album | NextGen Sessions"
+    },
+    {
+      "id": "7gXvSVq-T_c",
+      "artist": "Reeko",
+      "title": "Gully Boss From Mi Call Di Shots Album",
+      "group": "Dancehall & Reggae",
+      "published": "2026-03-29T12:32:02Z",
+      "rawTitle": "Reeko – Gully Boss From Mi Call Di Shots Album | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "C6eDlpA08pg",
+      "artist": "Reeko",
+      "title": "Ready Fi War From Mi Call Di Shots Album",
+      "group": "Dancehall & Reggae",
+      "published": "2026-03-27T12:59:11Z",
+      "rawTitle": "Reeko – Ready Fi War From Mi Call Di Shots Album  | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "wvMNh7u0C4E",
+      "artist": "NextGen Sessions",
+      "title": "Ride Wid Mi",
+      "group": "Dancehall & Reggae",
+      "published": "2026-03-26T08:50:52Z",
+      "rawTitle": "Ride Wid Mi | Reeko x Keisha | From Mi Call Di Shots Album | Dancehall 2026 | NextGen Sessions"
+    },
+    {
+      "id": "8F6RpKZi1z8",
+      "artist": "NextGen Sessions",
+      "title": "What You Saying?",
+      "group": "UK Rap & Grime",
+      "published": "2026-03-24T13:10:03Z",
+      "rawTitle": "What You Saying? | UK Rap 2026 | NextGen Sessions"
+    },
+    {
+      "id": "fJhjx56Ars4",
+      "artist": "Voss Carter",
+      "title": "Undisputed",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-03-23T08:28:03Z",
+      "rawTitle": "Voss Carter - Undisputed |  Single Hip-Hop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "Tr4JQQdaSlY",
+      "artist": "Voss Carter",
+      "title": "Levels Above",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-03-21T18:24:40Z",
+      "rawTitle": "Voss Carter - Levels Above | Hiphop 2026 | NextGen Sessions"
+    },
+    {
+      "id": "mQlg95cX7QM",
+      "artist": "NextGen Sessions",
+      "title": "Kinda Digital & Analog",
+      "group": "UK Rap & Grime",
+      "published": "2026-01-24T18:55:23Z",
+      "rawTitle": "Kinda Digital & Analog | NextGen Sessions"
+    }
   ]
 }

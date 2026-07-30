@@ -25,10 +25,19 @@ PLAYLISTS = [
 ]
 
 EXCLUDED = re.compile(
-    r"\b(shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|"
-    r"mashup|mix|full album)\b|#shorts",
+    r"\b(shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight)\b|#shorts",
     re.IGNORECASE,
 )
+
+KNOWN_ARTISTS = [
+    "Rudii Marka", "Rell Danja", "Rell Danger", "Kemar Ranka", "Jahmari Danza",
+    "Yung Tafari", "Ragga Blaze", "Javon Ranks", "Kemarco", "Kastro", "Reeko",
+    "Mizzy G", "Mace K", "Renz Cole", "Killa K", "Andre Kadeem", "Reiss", "Rafe",
+    "Rookz", "Voss Carter", "Jay Starks", "Karvell Reign", "Alonzo Ray",
+    "Deon Creed", "Manny Virk", "Asif Sultaan", "Alia Bleu", "Zara Veli",
+    "Nyah Rae", "Keisha", "Marlo Saint", "Mariana Lo", "Tayo Wray", "Omari V",
+    "Darian Gayle", "Isaac Grey", "Leila Nour",
+]
 
 
 def youtube_api(resource: str, **params: str) -> dict:
@@ -59,6 +68,29 @@ def playlist_items(playlist_id: str) -> list[dict]:
 
 def split_artist_title(raw_title: str) -> tuple[str, str]:
     segments = [segment.strip() for segment in raw_title.split("|") if segment.strip()]
+    for segment in segments:
+        for artist in KNOWN_ARTISTS:
+            match = re.search(
+                rf"\b{re.escape(artist)}\s*[-–—]\s*(.+)$",
+                segment,
+                flags=re.IGNORECASE,
+            )
+            if match:
+                return artist, clean_title(match.group(1))
+
+    if segments:
+        for artist in KNOWN_ARTISTS:
+            if segments[0].casefold() == artist.casefold() and len(segments) > 1:
+                return artist, clean_title(segments[1])
+
+    if len(segments) > 1:
+        credited = [
+            artist for artist in KNOWN_ARTISTS
+            if re.search(rf"\b{re.escape(artist)}\b", segments[1], flags=re.IGNORECASE)
+        ]
+        if credited:
+            return " x ".join(credited), clean_title(segments[0])
+
     candidates = segments[1:2] + segments[:1] + segments[2:]
     for candidate in candidates:
         match = re.match(r"^(.*?)\s+[-–—]\s+(.+)$", candidate)
@@ -71,10 +103,17 @@ def split_artist_title(raw_title: str) -> tuple[str, str]:
 
 
 def clean_title(value: str) -> str:
-    return re.sub(
+    cleaned = re.sub(
         r"\s+(official\s+(music\s+)?video|official\s+audio|visuali[sz]er|lyric\s+video)$",
         "",
         value,
+        flags=re.IGNORECASE,
+    ).strip()
+    return re.sub(
+        r"\s+(single|uk rap|grime|dancehall|reggae|hip-?hop|r&b|rnb|soul|"
+        r"afro swing)(?:\s+20\d{2})?$",
+        "",
+        cleaned,
         flags=re.IGNORECASE,
     ).strip()
 

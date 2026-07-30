@@ -72,8 +72,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Kastro",
     "slug": "kastro",
-    "genre": "UK Rap",
-    "summary": "Street-focused UK rap with direct delivery and heavyweight production.",
+    "genre": "Jamaican Dancehall",
+    "summary": "Hard-edged Jamaican dancehall with direct delivery and heavyweight production.",
     "featured": false
   },
   {
@@ -205,8 +205,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Mariana Lo",
     "slug": "mariana-lo",
-    "genre": "Global Pop",
-    "summary": "A developing global-pop identity built around melody and visual character.",
+    "genre": "Pop / R&B",
+    "summary": "Melodic pop and R&B shaped by warm coastal energy and a polished visual identity.",
     "featured": false
   },
   {

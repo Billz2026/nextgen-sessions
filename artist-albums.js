@@ -14,6 +14,7 @@
         title: "Playmaker",
         year: "2026",
         coverVideoId: "ms-IKCbxjlY",
+        fullAlbumVideoId: "yU4fK6aSqEg",
         description: "A football-coded UK rap project built around self-belief, movement, pressure and creating chances without waiting for permission.",
         tracks: [
           { id: "ms-IKCbxjlY", title: "Playmaker" },
@@ -29,6 +30,7 @@
         title: "Mi Call Di Shots",
         year: "2026",
         coverVideoId: "ks4bSmghnDI",
+        fullAlbumVideoId: "VwLzUxVabSQ",
         description: "A Jamaican dancehall project centred on authority, survival, loyalty and controlled gullyside pressure.",
         tracks: [
           { id: "ks4bSmghnDI", title: "Mi Call Di Shots" },
@@ -44,6 +46,7 @@
         title: "Top Ranka",
         year: "2026",
         coverVideoId: "ZR6vqKxmngw",
+        fullAlbumVideoId: "RBtL3sJQTTw",
         description: "A cinematic dancehall album built around rank, pressure, spiritual authority and the weight that comes with carrying the crown.",
         tracks: [
           { id: "ZR6vqKxmngw", title: "Top Ranka" },
@@ -56,6 +59,7 @@
         title: "Queens in My Soul",
         year: "2026",
         coverVideoId: "bB_APAjvIc8",
+        fullAlbumVideoId: "Xj806cr_eS4",
         description: "A Queens-rooted hip-hop album shaped by neighbourhood memory, Jamaica Avenue perspective, ambition and long-term legacy.",
         tracks: [
           { id: "bB_APAjvIc8", title: "Queens in My Soul" },
@@ -63,6 +67,36 @@
           { id: "xLFZKSjvzl0", title: "No Shade In Queens" },
           { id: "PI3OXiRlcHU", title: "Architect of Havoc" }
         ]
+      }
+    ],
+    "alonzo-ray": [
+      {
+        title: "Seasoned",
+        year: "2026",
+        coverVideoId: "PZtq68Vo7OU",
+        fullAlbumVideoId: "PZtq68Vo7OU",
+        description: "A mature West Coast hip-hop album built around experience, patience, spiritual alignment and long-term perspective.",
+        tracks: []
+      }
+    ],
+    "reiss": [
+      {
+        title: "Nothing Given",
+        year: "2026",
+        coverVideoId: "ULjYMdDHySM",
+        fullAlbumVideoId: "ULjYMdDHySM",
+        description: "A focused UK rap album centred on discipline, earned progress and refusing to expect shortcuts.",
+        tracks: []
+      }
+    ],
+    "voss-carter": [
+      {
+        title: "Heavyweight",
+        year: "2026",
+        coverVideoId: "tlv_IqPiV1Y",
+        fullAlbumVideoId: "tlv_IqPiV1Y",
+        description: "A composed West Coast hip-hop album about legacy, endurance, authority and the weight carried after success.",
+        tracks: []
       }
     ]
   };
@@ -116,6 +150,7 @@
       .replace(/\b(?:official\s+)?album\s+(?:video|audio)\b/gi, "")
       .replace(/\b20\d{2}\b/g, "")
       .replace(/\bnextgen\s+sessions\b/gi, "")
+      .replace(/\(\s*\)|\[\s*\]/g, "")
       .replace(/^\s*[-–—:|]+|[-–—:|]+\s*$/g, "")
       .replace(/\s{2,}/g, " ")
       .trim();

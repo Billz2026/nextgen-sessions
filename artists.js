@@ -4,42 +4,46 @@ window.NGS_ARTISTS = [
     "slug": "renz-cole",
     "genre": "UK Rap",
     "summary": "Modern London rap with sharp personality, summer energy and memorable hooks.",
-    "featured": true
+    "featured": true,
+    "featuredRank": 1
   },
   {
     "name": "Alia Bleu",
     "slug": "alia-bleu",
     "genre": "UK R&B",
     "summary": "Late-night soul, emotional boundaries and smooth UK phrasing.",
-    "featured": true
+    "featured": true,
+    "featuredRank": 3
   },
   {
     "name": "Omari V",
     "slug": "omari-v",
     "genre": "Jamaican Reggae",
     "summary": "Warm reggae shaped by reflection, love, memory and changing seasons.",
-    "featured": true
+    "featured": false
   },
   {
     "name": "Reeko",
     "slug": "reeko",
     "genre": "Jamaican Dancehall",
     "summary": "Gullyside energy with confident hooks, street detail and strong identity.",
-    "featured": true
+    "featured": true,
+    "featuredRank": 2
   },
   {
     "name": "Kemarco",
     "slug": "kemarco",
     "genre": "Dark Melodic Dancehall",
     "summary": "Controlled pressure, discipline and cold melodic Jamaican production.",
-    "featured": true
+    "featured": false
   },
   {
     "name": "Rudii Marka",
     "slug": "rudii-marka",
     "genre": "Jamaican Dancehall",
     "summary": "Youthful melodic gully records with an unmistakable Jamaican presence.",
-    "featured": true
+    "featured": true,
+    "featuredRank": 7
   },
   {
     "name": "Voss Carter",
@@ -53,21 +57,24 @@ window.NGS_ARTISTS = [
     "slug": "jay-starks",
     "genre": "New York Hip-Hop",
     "summary": "Queens-rooted storytelling with classic city grit, soul and perspective.",
-    "featured": false
+    "featured": true,
+    "featuredRank": 5
   },
   {
     "name": "Rell Danja",
     "slug": "rell-danja",
     "genre": "Jamaican Dancehall",
     "summary": "Hard-edged gullyside records about survival, loyalty and consequences.",
-    "featured": false
+    "featured": true,
+    "featuredRank": 9
   },
   {
     "name": "Deon Creed",
     "slug": "deon-creed",
     "genre": "Soul / R&B",
     "summary": "Reflective neighbourhood soul with grounded, mature writing.",
-    "featured": false
+    "featured": true,
+    "featuredRank": 6
   },
   {
     "name": "Kastro",
@@ -95,7 +102,8 @@ window.NGS_ARTISTS = [
     "slug": "kemar-ranka",
     "genre": "Dancehall",
     "summary": "A developing dancehall identity within the NextGen Sessions roster.",
-    "featured": false
+    "featured": true,
+    "featuredRank": 4
   },
   {
     "name": "Leila Nour",
@@ -123,7 +131,8 @@ window.NGS_ARTISTS = [
     "slug": "asif-sultaan",
     "genre": "Punjabi / Bhangra",
     "summary": "Modern Punjabi records with commanding vocals and crossover production.",
-    "featured": false
+    "featured": true,
+    "featuredRank": 11
   },
   {
     "name": "Javon Ranks",
@@ -172,7 +181,8 @@ window.NGS_ARTISTS = [
     "slug": "marlo-saint",
     "genre": "Hip-Hop / R&B",
     "summary": "Late-night melodic hip-hop with a clean, cinematic mood.",
-    "featured": false
+    "featured": true,
+    "featuredRank": 12
   },
   {
     "name": "Karvell Reign",
@@ -193,7 +203,8 @@ window.NGS_ARTISTS = [
     "slug": "reiss",
     "genre": "UK Rap",
     "summary": "Direct UK rap with modern production and focused delivery.",
-    "featured": false
+    "featured": true,
+    "featuredRank": 8
   },
   {
     "name": "Nyah Rae",
@@ -221,6 +232,126 @@ window.NGS_ARTISTS = [
     "slug": "alonzo-ray",
     "genre": "Hip-Hop / Soul",
     "summary": "Soulful hip-hop with mature writing and a cinematic finish.",
-    "featured": false
+    "featured": true,
+    "featuredRank": 10
   }
 ];
+
+(function () {
+  "use strict";
+
+  const FEATURED_LIMIT = 12;
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function monogram(name) {
+    const words = String(name || "").trim().split(/\s+/).filter(Boolean);
+    return (words.slice(0, 2).map(word => word[0]).join("") || "NG").toUpperCase();
+  }
+
+  function youtubeSearchUrl(name) {
+    return "https://www.youtube.com/results?search_query=" +
+      encodeURIComponent("NextGen Sessions " + name);
+  }
+
+  function destinationFor(artist, profiles) {
+    const profile = profiles[artist.slug];
+    if (profile?.path) {
+      return {
+        href: profile.path,
+        attributes: "",
+        label: `View ${artist.name} artist profile`
+      };
+    }
+    return {
+      href: youtubeSearchUrl(artist.name),
+      attributes: ' target="_blank" rel="noopener"',
+      label: `Explore ${artist.name} on YouTube`
+    };
+  }
+
+  function portraitFor(artist, images) {
+    const image = images[artist.slug];
+    if (!image?.src) return "";
+    const fallback = image.fallback
+      ? ` data-fallback="${escapeHtml(image.fallback)}"`
+      : "";
+    const srcset = image.srcset
+      ? ` srcset="${escapeHtml(image.srcset)}" sizes="(max-width: 720px) calc(100vw - 40px), (max-width: 980px) 50vw, 25vw"`
+      : "";
+    const position = escapeHtml(image.position || "50% 38%");
+    return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
+  }
+
+  function cardFor(artist, images, profiles) {
+    const destination = destinationFor(artist, profiles);
+    const hasImage = Boolean(images[artist.slug]?.src);
+    return `
+      <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
+        ${portraitFor(artist, images)}
+        <div class="featured-artist-inner">
+          <span class="artist-genre">${escapeHtml(artist.genre)}</span>
+          <h3>${escapeHtml(artist.name)}</h3>
+          <p>${escapeHtml(artist.summary)}</p>
+        </div>
+      </a>`;
+  }
+
+  function installImageFallbacks(grid) {
+    grid.querySelectorAll(".featured-artist-image").forEach(image => {
+      image.addEventListener("error", () => {
+        const fallback = image.dataset.fallback;
+        if (fallback) {
+          image.dataset.fallback = "";
+          image.removeAttribute("srcset");
+          image.src = fallback;
+          return;
+        }
+        image.hidden = true;
+        image.closest(".featured-artist-card")?.classList.remove("has-image");
+      });
+    });
+  }
+
+  function renderTwelveFeaturedArtists() {
+    const grid = document.getElementById("featuredArtistGrid");
+    if (!grid) return;
+
+    const artists = Array.isArray(window.NGS_ARTISTS) ? window.NGS_ARTISTS : [];
+    const images = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
+      ? window.NGS_ARTIST_IMAGES
+      : {};
+    const profiles = window.NGS_ARTIST_PROFILES && typeof window.NGS_ARTIST_PROFILES === "object"
+      ? window.NGS_ARTIST_PROFILES
+      : {};
+
+    const featured = artists
+      .filter(artist => artist.featured)
+      .sort((a, b) => (a.featuredRank || 999) - (b.featuredRank || 999))
+      .slice(0, FEATURED_LIMIT);
+
+    grid.innerHTML = featured.map(artist => cardFor(artist, images, profiles)).join("");
+    installImageFallbacks(grid);
+
+    const section = document.getElementById("featured-artists");
+    const description = section?.querySelector(".section-heading > p:last-child");
+    if (description) {
+      description.textContent =
+        "A curated selection of artists shaping the current sound of NextGen Sessions. Each brings a distinct voice, style and story.";
+    }
+  }
+
+  const stylesheet = document.createElement("link");
+  stylesheet.rel = "stylesheet";
+  stylesheet.href = "/featured-artists-12.css";
+  document.head.append(stylesheet);
+
+  window.addEventListener("DOMContentLoaded", renderTwelveFeaturedArtists, { once: true });
+})();

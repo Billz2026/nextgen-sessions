@@ -199,5 +199,30 @@ window.NGS_ARTIST_PROFILES = {
       { "name": "Mace K", "genre": "UK Rap / Grime" },
       { "name": "Reiss", "genre": "UK Rap" }
     ]
+  },
+  "asif-sultaan": {
+    "name": "Asif Sultaan",
+    "path": "/artists/asif-sultaan/",
+    "genre": "Punjabi / South Asian Fusion",
+    "location": "South Asian diaspora",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Modern Punjabi crossover shaped by commanding vocals, South Asian trap texture and polished global production.",
+    "bio": [
+      "Asif Sultaan represents the Punjabi and South Asian crossover lane within NextGen Sessions, combining a commanding vocal presence with contemporary rhythm and cinematic production.",
+      "His music balances cultural identity with modern scale, using melody, percussion and trap-influenced detail to create records that sit naturally between regional sound and global hip-hop presentation."
+    ],
+    "image": "/api/release-image?id=3nEDJw-gvGI",
+    "imagePosition": "50% 38%",
+    "featuredVideo": {
+      "id": "3nEDJw-gvGI",
+      "title": "Nazar",
+      "label": "Asif Sultaan — Nazar"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Asif+Sultaan",
+    "related": [
+      { "name": "Manny Virk", "genre": "Punjabi / Bhangra" },
+      { "name": "Leila Nour", "genre": "Arabic Soul / Oud" },
+      { "name": "Zara Veli", "genre": "Pop / R&B" }
+    ]
   }
 };

@@ -174,5 +174,30 @@ window.NGS_ARTIST_PROFILES = {
       { "name": "Karvell Reign", "genre": "West Coast Hip-Hop" },
       { "name": "Deon Creed", "genre": "Soul / R&B" }
     ]
+  },
+  "andre-kadeem": {
+    "name": "Andre Kadeem",
+    "path": "/artists/andre-kadeem/",
+    "genre": "UK Rap",
+    "location": "London, UK",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Grounded London rap with composed delivery, direct observation and a modern street perspective.",
+    "bio": [
+      "Andre Kadeem represents a measured London rap lane within NextGen Sessions, favouring clear observation and controlled delivery over exaggerated performance.",
+      "His writing is built around self-possession, everyday pressure and knowing when outside opinions do not deserve attention. The presentation stays direct and contemporary, keeping the perspective and bars at the centre."
+    ],
+    "image": "/api/release-image?id=lCRLgfdiqRI",
+    "imagePosition": "50% 38%",
+    "featuredVideo": {
+      "id": "lCRLgfdiqRI",
+      "title": "Don't Watch That",
+      "label": "Andre Kadeem — Don't Watch That"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Andre+Kadeem",
+    "related": [
+      { "name": "Renz Cole", "genre": "UK Rap" },
+      { "name": "Mace K", "genre": "UK Rap / Grime" },
+      { "name": "Reiss", "genre": "UK Rap" }
+    ]
   }
 };

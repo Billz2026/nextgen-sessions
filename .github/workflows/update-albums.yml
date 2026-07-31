@@ -1,0 +1,145 @@
+name: Update Album Catalogue
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "35 6 * * *"
+  push:
+    paths:
+      - ".github/workflows/update-albums.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-album-catalogue-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      ALBUM_PLAYLIST_ID: PL7VCdVWElIJG6xBdzB-142fxazeXgB5XR
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Build album catalogue
+        run: |
+          set -euo pipefail
+
+          if [ -z "${YOUTUBE_API_KEY:-}" ]; then
+            echo "YOUTUBE_API_KEY is not configured."
+            exit 1
+          fi
+
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.parse
+          import urllib.request
+          from datetime import datetime, timezone
+
+          API_KEY = os.environ["YOUTUBE_API_KEY"]
+          PLAYLIST_ID = os.environ["ALBUM_PLAYLIST_ID"]
+          API_ROOT = "https://www.googleapis.com/youtube/v3"
+
+          def request_json(endpoint, params):
+              query = urllib.parse.urlencode({**params, "key": API_KEY})
+              request = urllib.request.Request(
+                  f"{API_ROOT}/{endpoint}?{query}",
+                  headers={"Accept": "application/json", "User-Agent": "NextGen-Sessions-Catalogue/1.0"},
+              )
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  return json.load(response)
+
+          playlist_items = []
+          page_token = None
+          while True:
+              params = {
+                  "part": "contentDetails,snippet",
+                  "playlistId": PLAYLIST_ID,
+                  "maxResults": 50,
+              }
+              if page_token:
+                  params["pageToken"] = page_token
+              payload = request_json("playlistItems", params)
+              playlist_items.extend(payload.get("items", []))
+              page_token = payload.get("nextPageToken")
+              if not page_token:
+                  break
+
+          video_ids = []
+          positions = {}
+          for item in playlist_items:
+              video_id = item.get("contentDetails", {}).get("videoId")
+              title = item.get("snippet", {}).get("title", "")
+              if not video_id or title in {"Private video", "Deleted video"}:
+                  continue
+              video_ids.append(video_id)
+              positions[video_id] = item.get("snippet", {}).get("position", 0)
+
+          videos = {}
+          for index in range(0, len(video_ids), 50):
+              batch = video_ids[index:index + 50]
+              payload = request_json(
+                  "videos",
+                  {
+                      "part": "snippet,status",
+                      "id": ",".join(batch),
+                      "maxResults": 50,
+                  },
+              )
+              for item in payload.get("items", []):
+                  if item.get("status", {}).get("privacyStatus") != "public":
+                      continue
+                  videos[item["id"]] = item
+
+          albums = []
+          for video_id in video_ids:
+              item = videos.get(video_id)
+              if not item:
+                  continue
+              snippet = item.get("snippet", {})
+              thumbnails = snippet.get("thumbnails", {})
+              thumbnail = ""
+              for key in ("maxres", "standard", "high", "medium", "default"):
+                  if thumbnails.get(key, {}).get("url"):
+                      thumbnail = thumbnails[key]["url"]
+                      break
+              albums.append({
+                  "id": video_id,
+                  "rawTitle": snippet.get("title", "").strip(),
+                  "published": snippet.get("publishedAt", ""),
+                  "position": positions.get(video_id, 0),
+                  "thumbnail": thumbnail,
+              })
+
+          albums.sort(key=lambda album: (album.get("position", 0), album.get("published", "")))
+          output = {
+              "source": "youtube-album-playlist",
+              "playlistId": PLAYLIST_ID,
+              "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+              "total": len(albums),
+              "albums": albums,
+          }
+
+          with open("albums.json", "w", encoding="utf-8") as handle:
+              json.dump(output, handle, ensure_ascii=False, indent=2)
+              handle.write("\n")
+
+          print(f"Wrote {len(albums)} albums from playlist {PLAYLIST_ID}")
+          PY
+
+      - name: Commit catalogue update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add albums.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-update album catalogue"
+          git push

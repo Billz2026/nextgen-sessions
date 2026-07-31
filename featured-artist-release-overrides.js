@@ -9,6 +9,10 @@
   const overrides = profile?.releaseTitleOverrides;
   if (!overrides || typeof overrides !== "object") return;
 
+  function setText(element, value) {
+    if (element && element.textContent.trim() !== value) element.textContent = value;
+  }
+
   function applyOverrides() {
     root.querySelectorAll("[data-play-release]").forEach(button => {
       const id = String(button.dataset.playRelease || "").trim();
@@ -16,12 +20,10 @@
       if (!title) return;
 
       const releaseCard = button.closest(".discography-card,.latest-release-card");
-      const cardHeading = releaseCard?.querySelector("h3");
-      if (cardHeading) cardHeading.textContent = title;
+      setText(releaseCard?.querySelector("h3"), title);
 
       const albumTrack = button.closest(".album-track");
-      const trackHeading = albumTrack?.querySelector("strong");
-      if (trackHeading) trackHeading.textContent = title;
+      setText(albumTrack?.querySelector("strong"), title);
     });
   }
 

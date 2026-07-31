@@ -48,6 +48,16 @@ jobs:
           PLAYLIST_ID = os.environ["ALBUM_PLAYLIST_ID"]
           API_ROOT = "https://www.googleapis.com/youtube/v3"
 
+          VERIFIED_ALBUMS = {
+              "Xj806cr_eS4": {"artist": "Jay Starks", "albumTitle": "Queens in My Soul"},
+              "RBtL3sJQTTw": {"artist": "Kemar Ranka", "albumTitle": "Top Ranka"},
+              "ULjYMdDHySM": {"artist": "Reiss", "albumTitle": "Nothing Given"},
+              "PZtq68Vo7OU": {"artist": "Alonzo Ray", "albumTitle": "Seasoned"},
+              "yU4fK6aSqEg": {"artist": "Renz Cole", "albumTitle": "Playmaker"},
+              "VwLzUxVabSQ": {"artist": "Reeko", "albumTitle": "Mi Call Di Shots"},
+              "tlv_IqPiV1Y": {"artist": "Voss Carter", "albumTitle": "Heavyweight"},
+          }
+
           def request_json(endpoint, params):
               query = urllib.parse.urlencode({**params, "key": API_KEY})
               request = urllib.request.Request(
@@ -111,13 +121,16 @@ jobs:
                   if thumbnails.get(key, {}).get("url"):
                       thumbnail = thumbnails[key]["url"]
                       break
-              albums.append({
+
+              album = {
                   "id": video_id,
                   "rawTitle": snippet.get("title", "").strip(),
                   "published": snippet.get("publishedAt", ""),
                   "position": positions.get(video_id, 0),
                   "thumbnail": thumbnail,
-              })
+              }
+              album.update(VERIFIED_ALBUMS.get(video_id, {}))
+              albums.append(album)
 
           albums.sort(key=lambda album: (album.get("position", 0), album.get("published", "")))
           output = {

@@ -190,8 +190,8 @@ window.NGS_ARTIST_PROFILES = {
     "imagePosition": "50% 38%",
     "featuredVideo": {
       "id": "lCRLgfdiqRI",
-      "title": "Don't Watch That",
-      "label": "Andre Kadeem — Don't Watch That"
+      "title": "Don’t Watch That",
+      "label": "Andre Kadeem — Don’t Watch That"
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Andre+Kadeem",
     "related": [

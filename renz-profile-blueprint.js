@@ -12,6 +12,15 @@
     return /^[A-Za-z0-9_-]{6,20}$/.test(id) ? id : "";
   }
 
+  function escapeHtml(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
   function textFrom(element, selector, fallback) {
     return String(element?.querySelector(selector)?.textContent || fallback || "").trim();
   }
@@ -96,7 +105,7 @@
     const link = root.querySelector("[data-featured-link]");
 
     if (frame) {
-      frame.innerHTML = `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${id}?rel=0&amp;modestbranding=1&amp;autoplay=1" title="Renz Cole — ${title}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>`;
+      frame.innerHTML = `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${id}?rel=0&amp;modestbranding=1&amp;autoplay=1" title="Renz Cole — ${escapeHtml(title)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>`;
     }
     if (heading) heading.textContent = title;
     if (tag) tag.textContent = sourceLabel || "Now playing";
@@ -153,6 +162,7 @@
   }
 
   function handlePlayIntent(event) {
+    if (!(event.target instanceof Element)) return;
     const trigger = event.target.closest(
       "[data-play-release],[data-play-album],.discography-art.is-quick-play,.latest-release-art.is-quick-play"
     );
@@ -173,7 +183,7 @@
       if (!id) return;
 
       card.dataset.profileReleaseId = id;
-      playButton.textContent = "Play now";
+      if (playButton.textContent.trim() !== "Play now") playButton.textContent = "Play now";
 
       const art = card.querySelector(".discography-art,.latest-release-art");
       if (art && !art.classList.contains("is-quick-play")) {
@@ -190,7 +200,7 @@
     });
 
     root.querySelectorAll(".album-track [data-play-release]").forEach(button => {
-      button.textContent = "Play now";
+      if (button.textContent.trim() !== "Play now") button.textContent = "Play now";
     });
 
     root.querySelectorAll(".album-meta span").forEach(span => {

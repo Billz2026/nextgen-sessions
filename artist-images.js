@@ -28,9 +28,9 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 42%"
   },
   "kemar-ranka": {
-    src: "/assets/artists/kemar-ranka-portrait.svg",
-    portrait: "/assets/artists/kemar-ranka-portrait.svg",
-    fallback: "/assets/artists/kemar-ranka-portrait.svg",
+    src: "/assets/artists/kemar-ranka-portrait.webp",
+    portrait: "/assets/artists/kemar-ranka-portrait.webp",
+    fallback: "/assets/artists/kemar-ranka-portrait.webp",
     position: "50% 38%"
   },
   "kemarco": {

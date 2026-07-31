@@ -27,6 +27,12 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/reeko-card-640.webp",
     position: "50% 42%"
   },
+  "kemar-ranka": {
+    src: "/assets/artists/kemar-ranka-portrait.svg",
+    portrait: "/assets/artists/kemar-ranka-portrait.svg",
+    fallback: "/assets/artists/kemar-ranka-portrait.svg",
+    position: "50% 38%"
+  },
   "kemarco": {
     src: "/assets/artists/kemarco-card.webp",
     srcset: "/assets/artists/kemarco-card-640.webp 640w, /assets/artists/kemarco-card.webp 1024w",

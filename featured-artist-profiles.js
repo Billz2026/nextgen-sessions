@@ -143,7 +143,7 @@
         "Kemar Ranka represents the authoritative Jamaican dancehall lane within NextGen Sessions, pairing controlled delivery with heavyweight production and a composed visual presence.",
         "His music examines status, pressure and leadership without relying on empty aggression. The Top Ranka album establishes that identity through crown imagery, spiritual weight and records designed to feel deliberate rather than rushed."
       ],
-      image: "/assets/artists/kemar-ranka-portrait.svg",
+      image: "/assets/artists/kemar-ranka-portrait.webp",
       imagePosition: "50% 38%",
       featuredVideo: {
         id: "AMdc_Z9bh30",

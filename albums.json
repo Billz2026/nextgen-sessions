@@ -1,0 +1,71 @@
+{
+  "source": "youtube-album-playlist",
+  "playlistId": "PL7VCdVWElIJG6xBdzB-142fxazeXgB5XR",
+  "generatedAt": "2026-07-31T11:25:32.708501Z",
+  "total": 7,
+  "albums": [
+    {
+      "id": "Xj806cr_eS4",
+      "rawTitle": "QUEENS MADE HIM | Jay Starks - Queens in My Soul | East Coast Hip-Hop Album 2026 | NextGen Sessions",
+      "published": "2026-07-03T17:00:01Z",
+      "position": 0,
+      "thumbnail": "https://i.ytimg.com/vi/Xj806cr_eS4/maxresdefault.jpg",
+      "artist": "Jay Starks",
+      "albumTitle": "Queens in My Soul"
+    },
+    {
+      "id": "RBtL3sJQTTw",
+      "rawTitle": "Kemar Ranka - Top Ranka Full Album | Dancehall 2026 | NextGen Sessions",
+      "published": "2026-05-28T18:00:05Z",
+      "position": 1,
+      "thumbnail": "https://i.ytimg.com/vi/RBtL3sJQTTw/maxresdefault.jpg",
+      "artist": "Kemar Ranka",
+      "albumTitle": "Top Ranka"
+    },
+    {
+      "id": "ULjYMdDHySM",
+      "rawTitle": "Reiss – Nothing Given (Full Album) | Already Know...No Comment | UK Rap 2026 | NextGen Sessions",
+      "published": "2026-05-08T18:00:35Z",
+      "position": 2,
+      "thumbnail": "https://i.ytimg.com/vi/ULjYMdDHySM/maxresdefault.jpg",
+      "artist": "Reiss",
+      "albumTitle": "Nothing Given"
+    },
+    {
+      "id": "PZtq68Vo7OU",
+      "rawTitle": "Alonzo Ray – Seasoned (Full Album) | West Coast Hip-Hop 2026 | No Skips | NextGen Sessions",
+      "published": "2026-04-17T18:00:32Z",
+      "position": 3,
+      "thumbnail": "https://i.ytimg.com/vi/PZtq68Vo7OU/maxresdefault.jpg",
+      "artist": "Alonzo Ray",
+      "albumTitle": "Seasoned"
+    },
+    {
+      "id": "yU4fK6aSqEg",
+      "rawTitle": "Renz Cole - Playmaker Album | UK Rap 2026 | NextGen Sessions",
+      "published": "2026-04-10T18:00:00Z",
+      "position": 4,
+      "thumbnail": "https://i.ytimg.com/vi/yU4fK6aSqEg/maxresdefault.jpg",
+      "artist": "Renz Cole",
+      "albumTitle": "Playmaker"
+    },
+    {
+      "id": "VwLzUxVabSQ",
+      "rawTitle": "Reeko – Mi Call Di Shots Album | Dancehall 2026 | NextGen Sessions",
+      "published": "2026-04-03T18:00:24Z",
+      "position": 5,
+      "thumbnail": "https://i.ytimg.com/vi/VwLzUxVabSQ/maxresdefault.jpg",
+      "artist": "Reeko",
+      "albumTitle": "Mi Call Di Shots"
+    },
+    {
+      "id": "tlv_IqPiV1Y",
+      "rawTitle": "Voss Carter – Heavyweight | Full Hiphop Album 2026 | NextGen Sessions",
+      "published": "2026-03-27T19:00:44Z",
+      "position": 6,
+      "thumbnail": "https://i.ytimg.com/vi/tlv_IqPiV1Y/maxresdefault.jpg",
+      "artist": "Voss Carter",
+      "albumTitle": "Heavyweight"
+    }
+  ]
+}

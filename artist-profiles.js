@@ -149,5 +149,80 @@ window.NGS_ARTIST_PROFILES = {
       { "name": "Reeko", "genre": "Jamaican Dancehall" },
       { "name": "Javon Ranks", "genre": "Dancehall" }
     ]
+  },
+  "alonzo-ray": {
+    "name": "Alonzo Ray",
+    "path": "/artists/alonzo-ray/",
+    "genre": "West Coast Hip-Hop / Soul",
+    "location": "Pasadena, California",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Mature West Coast hip-hop and soul built around reflection, long-term vision and late-night Pasadena atmosphere.",
+    "bio": [
+      "Alonzo Ray represents the reflective West Coast lane within NextGen Sessions, pairing laid-back confidence with grounded writing about discipline, spiritual alignment and the work behind lasting progress.",
+      "His records draw on Pasadena nights, warm live instrumentation and subtle G-funk colour without relying on nostalgia. The voice stays calm and natural, placing perspective, legacy and personal growth ahead of empty bravado."
+    ],
+    "imageKey": "alonzo-ray",
+    "imagePosition": "50% 38%",
+    "featuredVideo": {
+      "id": "GlobzSyoDe0",
+      "title": "Pasadena",
+      "label": "Alonzo Ray — Pasadena"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Alonzo+Ray",
+    "related": [
+      { "name": "Voss Carter", "genre": "West Coast Hip-Hop" },
+      { "name": "Karvell Reign", "genre": "West Coast Hip-Hop" },
+      { "name": "Deon Creed", "genre": "Soul / R&B" }
+    ]
+  },
+  "andre-kadeem": {
+    "name": "Andre Kadeem",
+    "path": "/artists/andre-kadeem/",
+    "genre": "UK Rap",
+    "location": "London, UK",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Grounded London rap with composed delivery, direct observation and a modern street perspective.",
+    "bio": [
+      "Andre Kadeem represents a measured London rap lane within NextGen Sessions, favouring clear observation and controlled delivery over exaggerated performance.",
+      "His writing is built around self-possession, everyday pressure and knowing when outside opinions do not deserve attention. The presentation stays direct and contemporary, keeping the perspective and bars at the centre."
+    ],
+    "image": "/api/release-image?id=lCRLgfdiqRI",
+    "imagePosition": "50% 38%",
+    "featuredVideo": {
+      "id": "lCRLgfdiqRI",
+      "title": "Don’t Watch That",
+      "label": "Andre Kadeem — Don’t Watch That"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Andre+Kadeem",
+    "related": [
+      { "name": "Renz Cole", "genre": "UK Rap" },
+      { "name": "Mace K", "genre": "UK Rap / Grime" },
+      { "name": "Reiss", "genre": "UK Rap" }
+    ]
+  },
+  "asif-sultaan": {
+    "name": "Asif Sultaan",
+    "path": "/artists/asif-sultaan/",
+    "genre": "Punjabi / South Asian Fusion",
+    "location": "South Asian diaspora",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Modern Punjabi crossover shaped by commanding vocals, South Asian trap texture and polished global production.",
+    "bio": [
+      "Asif Sultaan represents the Punjabi and South Asian crossover lane within NextGen Sessions, combining a commanding vocal presence with contemporary rhythm and cinematic production.",
+      "His music balances cultural identity with modern scale, using melody, percussion and trap-influenced detail to create records that sit naturally between regional sound and global hip-hop presentation."
+    ],
+    "image": "/api/release-image?id=3nEDJw-gvGI",
+    "imagePosition": "50% 38%",
+    "featuredVideo": {
+      "id": "3nEDJw-gvGI",
+      "title": "Nazar",
+      "label": "Asif Sultaan — Nazar"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Asif+Sultaan",
+    "related": [
+      { "name": "Manny Virk", "genre": "Punjabi / Bhangra" },
+      { "name": "Leila Nour", "genre": "Arabic Soul / Oud" },
+      { "name": "Zara Veli", "genre": "Pop / R&B" }
+    ]
   }
 };

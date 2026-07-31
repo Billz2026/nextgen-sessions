@@ -149,5 +149,30 @@ window.NGS_ARTIST_PROFILES = {
       { "name": "Reeko", "genre": "Jamaican Dancehall" },
       { "name": "Javon Ranks", "genre": "Dancehall" }
     ]
+  },
+  "alonzo-ray": {
+    "name": "Alonzo Ray",
+    "path": "/artists/alonzo-ray/",
+    "genre": "West Coast Hip-Hop / Soul",
+    "location": "Pasadena, California",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Mature West Coast hip-hop and soul built around reflection, long-term vision and late-night Pasadena atmosphere.",
+    "bio": [
+      "Alonzo Ray represents the reflective West Coast lane within NextGen Sessions, pairing laid-back confidence with grounded writing about discipline, spiritual alignment and the work behind lasting progress.",
+      "His records draw on Pasadena nights, warm live instrumentation and subtle G-funk colour without relying on nostalgia. The voice stays calm and natural, placing perspective, legacy and personal growth ahead of empty bravado."
+    ],
+    "imageKey": "alonzo-ray",
+    "imagePosition": "50% 38%",
+    "featuredVideo": {
+      "id": "GlobzSyoDe0",
+      "title": "Pasadena",
+      "label": "Alonzo Ray — Pasadena"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Alonzo+Ray",
+    "related": [
+      { "name": "Voss Carter", "genre": "West Coast Hip-Hop" },
+      { "name": "Karvell Reign", "genre": "West Coast Hip-Hop" },
+      { "name": "Deon Creed", "genre": "Soul / R&B" }
+    ]
   }
 };

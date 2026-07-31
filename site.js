@@ -28,7 +28,7 @@
 
   const FALLBACK_LATEST = {
     id: "ZON1AsWLrIE",
-    title: "Rudii Marka – Marked for War",
+    title: "Rudii Marka – Marked Rudeboi",
     published: ""
   };
 

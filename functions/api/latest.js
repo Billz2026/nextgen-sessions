@@ -3,7 +3,7 @@ const PLAYLIST_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=
 
 const FALLBACK_LATEST = {
   id: "ZON1AsWLrIE",
-  title: "Rudii Marka – Marked for War",
+  title: "Rudii Marka – Marked Rudeboi",
   published: ""
 };
 
@@ -96,7 +96,7 @@ function jsonResponse(payload, cacheControl) {
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=4", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=5", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

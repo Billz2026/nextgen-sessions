@@ -43,3 +43,17 @@ Do not create a separate playback script for each featured artist.
 ## Renz Cole release rule
 
 Outside Till Late remains the latest public release until Heatwave is published and enters the official UK Rap & Grime playlist catalogue. Heatwave must not be manually exposed before its YouTube release. Once the catalogue refreshes, it should appear once, sort newest-first and become the automatic latest release. The editorial Featured Release remains Outside Till Late until NextGen Sessions deliberately changes it.
+
+## Lock-in QA
+
+Before applying this blueprint to another artist, verify on desktop and mobile:
+
+- Every song artwork and Play now control starts the correct release.
+- Switching tracks replaces the existing iframe rather than creating another player.
+- Stop removes active audio, clears the gold highlight and restores the editorial featured release.
+- Escape also stops playback for keyboard users.
+- The now-playing bar never covers essential controls.
+- Album quick play and the full-album button work.
+- Missing artwork falls back without breaking YouTube access.
+- A catalogue outage still leaves protected fallback releases available.
+- New releases appear once and sort newest-first after catalogue refresh.

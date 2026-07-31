@@ -111,6 +111,14 @@ if (window.NGS_ARTIST_PROFILES["renz-cole"]) {
     },
     "additionalReleases": [
       {
+        "id": "Sra1722xEFE",
+        "artist": "Renz Cole",
+        "title": "Heatwave",
+        "group": "UK Rap & Grime",
+        "published": "2026-07-31T17:00:00Z",
+        "source": "scheduled-profile-override"
+      },
+      {
         "id": "JwFCGCLWw0I",
         "artist": "Renz Cole",
         "title": "Outside Till Late",

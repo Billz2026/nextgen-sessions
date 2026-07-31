@@ -5,23 +5,75 @@ window.NGS_ARTIST_PROFILES = {
     "genre": "UK Rap",
     "location": "London, UK",
     "eyebrow": "NextGen Sessions featured artist",
-    "headline": "Modern London rap with sharp personality, summer energy and memorable hooks.",
+    "headline": "Modern London rap with sharp personality, football-coded confidence, summer energy and memorable hooks.",
     "bio": [
-      "Renz Cole represents the contemporary UK rap lane within NextGen Sessions: direct delivery, recognisable visual identity and records built around strong concepts rather than anonymous uploads.",
-      "His catalogue combines London perspective with polished, cinematic presentation across full releases, cover campaigns and short-form promotion."
+      "Renz Cole represents the contemporary UK rap lane within NextGen Sessions: direct delivery, recognisable visual identity and songs built around clear concepts rather than anonymous uploads.",
+      "His catalogue moves between football-coded ambition, London pressure and warmer late-night records, supported by polished artwork, full-length releases and a consistent campaign identity."
     ],
     "imageKey": "renz-cole",
     "imagePosition": "50% 35%",
     "featuredVideo": {
       "id": "JwFCGCLWw0I",
-      "title": "Heatwave",
-      "label": "Renz Cole — Heatwave"
+      "title": "Outside Till Late",
+      "label": "Renz Cole — Outside Till Late",
+      "published": "2026-06-12T17:43:08Z"
+    },
+    "catalogueAliases": ["Renz Cole"],
+    "additionalReleases": [
+      {
+        "id": "JwFCGCLWw0I",
+        "artist": "Renz Cole",
+        "title": "Outside Till Late",
+        "group": "UK Rap & Grime",
+        "published": "2026-06-12T17:43:08Z"
+      },
+      {
+        "id": "s0ZS2HJjw2M",
+        "artist": "Renz Cole",
+        "title": "False Nine",
+        "group": "UK Rap & Grime",
+        "published": "2026-05-20T12:28:18Z"
+      },
+      {
+        "id": "02d0BdKLyBA",
+        "artist": "Renz Cole",
+        "title": "Catch My Wave",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-15T07:32:45Z"
+      },
+      {
+        "id": "XUXUyj5uHkM",
+        "artist": "Renz Cole",
+        "title": "They Know Now",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-06T12:17:07Z"
+      },
+      {
+        "id": "4TFIW-WTuww",
+        "artist": "Renz Cole",
+        "title": "No Assist Ting",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-04T22:17:05Z"
+      },
+      {
+        "id": "ms-IKCbxjlY",
+        "artist": "Renz Cole",
+        "title": "Playmaker",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-01T16:41:55Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "albumLabel": "Playmaker album",
+      "aboutLabel": "About Renz",
+      "compactViewThreshold": 10
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Renz+Cole",
     "related": [
-      { "name": "Kastro", "genre": "Jamaican Dancehall" },
-      { "name": "Mace K", "genre": "UK Rap / Grime" },
-      { "name": "Reiss", "genre": "UK Rap" }
+      { "name": "Reiss", "genre": "UK Rap" },
+      { "name": "Andre Kadeem", "genre": "UK Rap" },
+      { "name": "Mace K", "genre": "UK Rap / Grime" }
     ]
   },
   "alia-bleu": {

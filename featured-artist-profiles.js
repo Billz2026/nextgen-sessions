@@ -191,8 +191,8 @@
         "Jay Starks represents the Queens storytelling lane within NextGen Sessions, combining classic New York perspective with soulful production and grounded writing about identity, ambition and the blocks that shaped him.",
         "His catalogue treats Queens as more than scenery. Jamaica Avenue, corner politics, neighbourhood pride and personal legacy form a connected world across the Queens in My Soul album and its standalone releases."
       ],
-      image: "/api/release-image?id=Xj806cr_eS4",
-      imagePosition: "76% 38%",
+      image: "/assets/artists/jay-starks-portrait.webp?v=20260801-1",
+      imagePosition: "50% 38%",
       featuredVideo: {
         id: "xLFZKSjvzl0",
         title: "No Shade In Queens",

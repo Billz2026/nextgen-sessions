@@ -33,6 +33,12 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/kemar-ranka-portrait.webp?v=20260801-3",
     position: "50% 38%"
   },
+  "jay-starks": {
+    src: "/api/release-image?id=Xj806cr_eS4",
+    portrait: "/api/release-image?id=Xj806cr_eS4",
+    fallback: "/api/release-image?id=xLFZKSjvzl0",
+    position: "76% 38%"
+  },
   "kemarco": {
     src: "/assets/artists/kemarco-card.webp",
     srcset: "/assets/artists/kemarco-card-640.webp 640w, /assets/artists/kemarco-card.webp 1024w",

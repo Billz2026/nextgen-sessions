@@ -34,10 +34,10 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 38%"
   },
   "jay-starks": {
-    src: "/api/release-image?id=Xj806cr_eS4",
-    portrait: "/api/release-image?id=Xj806cr_eS4",
-    fallback: "/api/release-image?id=xLFZKSjvzl0",
-    position: "76% 38%"
+    src: "/assets/artists/jay-starks-portrait.webp?v=20260801-1",
+    portrait: "/assets/artists/jay-starks-portrait.webp?v=20260801-1",
+    fallback: "/assets/artists/jay-starks-portrait.webp?v=20260801-1",
+    position: "50% 38%"
   },
   "kemarco": {
     src: "/assets/artists/kemarco-card.webp",

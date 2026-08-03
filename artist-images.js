@@ -40,9 +40,9 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 36%"
   },
   "deon-creed": {
-    src: "/assets/artists/deon-creed-portrait-v2.webp?v=20260803-2",
-    portrait: "/assets/artists/deon-creed-portrait-v2.webp?v=20260803-2",
-    fallback: "/assets/artists/deon-creed-portrait-v2.webp?v=20260803-2",
+    src: "/assets/artists/deon-creed-portrait.webp?v=20260803-3",
+    portrait: "/assets/artists/deon-creed-portrait.webp?v=20260803-3",
+    fallback: "/assets/artists/deon-creed-portrait.webp?v=20260803-3",
     position: "50% 34%"
   },
   "kemarco": {

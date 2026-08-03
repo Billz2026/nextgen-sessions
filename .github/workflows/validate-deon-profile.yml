@@ -4,10 +4,12 @@ on:
   pull_request:
     paths:
       - "artist-images.js"
+      - "index.html"
+      - "artists/index.html"
       - "artists/deon-creed/**"
-      - "assets/artists/deon-creed-portrait-v2/**"
+      - "assets/artists/deon-creed-portrait.webp"
       - "deon-creed-profile-fix.js"
-      - "functions/assets/artists/deon-creed-portrait-v2.webp.js"
+      - ".github/workflows/validate-deon-profile.yml"
   workflow_dispatch:
 
 permissions:
@@ -22,19 +24,26 @@ jobs:
 
       - name: Validate JavaScript syntax
         run: |
+          node --check artist-images.js
           node --check deon-creed-profile-fix.js
-          node --check functions/assets/artists/deon-creed-portrait-v2.webp.js
 
-      - name: Rebuild and validate portrait
+      - name: Validate direct portrait file
         run: |
           set -euo pipefail
-          cat assets/artists/deon-creed-portrait-v2/part-*.txt > /tmp/deon.b64
-          base64 --decode /tmp/deon.b64 > /tmp/deon.webp
           python3 - <<'PY'
           from pathlib import Path
-          image = Path('/tmp/deon.webp').read_bytes()
-          assert len(image) == 20048, f'Unexpected portrait size: {len(image)}'
+          image = Path('assets/artists/deon-creed-portrait.webp').read_bytes()
+          assert len(image) == 12700, f'Unexpected portrait size: {len(image)}'
           assert image[:4] == b'RIFF', f'Invalid RIFF header: {image[:4]!r}'
           assert image[8:12] == b'WEBP', f'Invalid WebP signature: {image[8:12]!r}'
-          print('Portrait integrity verified:', len(image), 'bytes')
+          print('Direct portrait verified:', len(image), 'bytes')
           PY
+
+      - name: Validate website references
+        run: |
+          set -euo pipefail
+          grep -q '/assets/artists/deon-creed-portrait.webp?v=20260803-3' artist-images.js
+          grep -q '/assets/artists/deon-creed-portrait.webp?v=20260803-3' deon-creed-profile-fix.js
+          grep -q 'artist-images.js?v=20260803-deon3' index.html
+          grep -q 'artist-images.js?v=20260803-deon3' artists/index.html
+          grep -q 'artist-images.js?v=20260803-deon3' artists/deon-creed/index.html

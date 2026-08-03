@@ -81,7 +81,7 @@ jobs:
           SERVER_PID=$!
           trap 'kill $SERVER_PID' EXIT
           sleep 2
-          cat > /tmp/deon-smoke.mjs <<'JS'
+          cat > ./deon-smoke.mjs <<'JS'
           import { chromium } from 'playwright';
           import assert from 'node:assert/strict';
 
@@ -142,7 +142,8 @@ jobs:
 
           await browser.close();
           JS
-          node /tmp/deon-smoke.mjs
+          node ./deon-smoke.mjs
+          rm -f ./deon-smoke.mjs
 
       - name: Upload desktop and mobile screenshots
         uses: actions/upload-artifact@v4

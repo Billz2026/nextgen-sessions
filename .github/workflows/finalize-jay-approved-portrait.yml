@@ -24,28 +24,17 @@ jobs:
           ref: agent/perfect-jay-starks-profile
           fetch-depth: 0
 
-      - name: Assemble and install approved portrait
+      - name: Install approved portrait and playback fix
         shell: bash
         run: |
           set -euo pipefail
 
-          expected=(
-            .jay-portrait/chunk-00.txt
-            .jay-portrait/chunk-01.txt
-            .jay-portrait/chunk-02.txt
-            .jay-portrait/chunk-03.txt
-            .jay-portrait/chunk-04.txt
-            .jay-portrait/chunk-05.txt
-          )
+          if [[ ! -f .jay-portrait/portrait.b64 ]]; then
+            echo "Portrait payload has not arrived yet"
+            exit 0
+          fi
 
-          for file in "${expected[@]}"; do
-            if [[ ! -f "$file" ]]; then
-              echo "Waiting for all portrait chunks; missing $file"
-              exit 0
-            fi
-          done
-
-          cat "${expected[@]}" | base64 --decode > /tmp/jay-starks-approved.webp
+          base64 --decode .jay-portrait/portrait.b64 > /tmp/jay-starks-approved.webp
 
           python3 - <<'PY'
           from pathlib import Path
@@ -53,7 +42,7 @@ jobs:
 
           path = Path('/tmp/jay-starks-approved.webp')
           data = path.read_bytes()
-          expected = '59ecde5a95ccfda0aa0ad3bb5c9cac73c274c7775fcf0413b437e09208ab2be8'
+          expected = 'fe506b5895a2cd71e8cda4ea7f1e8d8c01072140f91bcc4ddb0222fd178b9c66'
           actual = hashlib.sha256(data).hexdigest()
           if actual != expected:
               raise SystemExit(f'Portrait checksum mismatch: {actual}')
@@ -122,18 +111,14 @@ jobs:
               '?rel=0&amp;modestbranding=1&amp;autoplay=1"',
               '?rel=0&amp;modestbranding=1&amp;autoplay=1&amp;playsinline=1"',
           )
-          old = '''    bar.hidden = false;
-            document.body.classList.add("has-profile-player");
-            setActiveRelease(id);
-          }'''
-          new = '''    bar.hidden = false;
-            document.body.classList.add("has-profile-player");
-            setActiveRelease(id);
-            smoothScrollTo("featured-release");
-          }'''
-          if old not in experience:
-              raise SystemExit('Could not locate shared player completion block')
-          experience = experience.replace(old, new, 1)
+          experience, count = re.subn(
+              r'(bar\.hidden = false;\s*document\.body\.classList\.add\("has-profile-player"\);\s*setActiveRelease\(id\);)',
+              r'\1\n    smoothScrollTo("featured-release");',
+              experience,
+              count=1,
+          )
+          if count != 1:
+              raise SystemExit('Could not add one-tap scroll/play behaviour')
           experience_path.write_text(experience)
 
           for obsolete in (

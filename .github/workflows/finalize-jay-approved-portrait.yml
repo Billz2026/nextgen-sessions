@@ -29,12 +29,14 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [[ ! -f .jay-portrait/portrait.b64 ]]; then
-            echo "Portrait payload has not arrived yet"
-            exit 0
-          fi
+          for file in .jay-portrait/part-00.txt .jay-portrait/part-01.txt .jay-portrait/part-02.txt; do
+            if [[ ! -f "$file" ]]; then
+              echo "Waiting for $file"
+              exit 0
+            fi
+          done
 
-          base64 --decode .jay-portrait/portrait.b64 > /tmp/jay-starks-approved.webp
+          cat .jay-portrait/part-00.txt .jay-portrait/part-01.txt .jay-portrait/part-02.txt | base64 --decode > /tmp/jay-starks-approved.webp
 
           python3 - <<'PY'
           from pathlib import Path
@@ -42,7 +44,7 @@ jobs:
 
           path = Path('/tmp/jay-starks-approved.webp')
           data = path.read_bytes()
-          expected = 'fe506b5895a2cd71e8cda4ea7f1e8d8c01072140f91bcc4ddb0222fd178b9c66'
+          expected = '2dd9ad504fdb9811acf1451c27c99e251841efad916b2efffa8af726d079fa59'
           actual = hashlib.sha256(data).hexdigest()
           if actual != expected:
               raise SystemExit(f'Portrait checksum mismatch: {actual}')

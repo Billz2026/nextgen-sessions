@@ -24,6 +24,42 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Renz Cole", "genre": "UK Rap" }
     ]
   },
+  "deon-creed": {
+    "name": "Deon Creed",
+    "path": "/artists/deon-creed/",
+    "genre": "Soul / R&B",
+    "location": "United States",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Reflective neighbourhood soul shaped by faith, responsibility, resilience and grounded adult perspective.",
+    "bio": [
+      "Deon Creed represents the grounded soul and R&B lane within NextGen Sessions, combining mature writing with warm production and a calm, direct vocal presence.",
+      "His music focuses on neighbourhood memory, responsibility, faith and the pressure of carrying people through difficult seasons. The presentation stays human and understated, keeping the story ahead of empty performance."
+    ],
+    "imageKey": "deon-creed",
+    "imagePosition": "50% 34%",
+    "featuredVideo": {
+      "id": "vuW6OZPoApg",
+      "title": "Soul of the Southside",
+      "label": "Deon Creed — Soul of the Southside",
+      "published": "2026-05-26T07:52:56Z"
+    },
+    "catalogueAliases": ["Deon Creed"],
+    "additionalReleases": [
+      {
+        "id": "vuW6OZPoApg",
+        "artist": "Deon Creed",
+        "title": "Soul of the Southside",
+        "group": "Hip-Hop / G-Funk",
+        "published": "2026-05-26T07:52:56Z"
+      }
+    ],
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Deon+Creed",
+    "related": [
+      { "name": "Alonzo Ray", "genre": "Hip-Hop / Soul" },
+      { "name": "Alia Bleu", "genre": "UK R&B" },
+      { "name": "Voss Carter", "genre": "West Coast Hip-Hop" }
+    ]
+  },
   "kemar-ranka": {
     "name": "Kemar Ranka",
     "path": "/artists/kemar-ranka/",

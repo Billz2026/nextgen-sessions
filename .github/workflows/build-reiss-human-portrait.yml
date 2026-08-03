@@ -1,0 +1,76 @@
+name: Build approved Reiss portrait
+
+on:
+  pull_request:
+    paths:
+      - ".tmp/reiss-human/**"
+      - "scripts/build-reiss-human-portrait.py"
+      - ".github/workflows/build-reiss-human-portrait.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.ref == 'agent/reiss-human-portrait'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout portrait branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/reiss-human-portrait
+          fetch-depth: 0
+
+      - name: Install image tools
+        run: python -m pip install --quiet pillow
+
+      - name: Build approved responsive portrait assets
+        run: python scripts/build-reiss-human-portrait.py
+
+      - name: Validate generated portrait files
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          expected = {
+              'assets/artists/reiss-portrait.webp': (1120, 1400),
+              'assets/artists/reiss-card.webp': (1024, 1280),
+              'assets/artists/reiss-card-640.webp': (640, 800),
+          }
+          for filename, dimensions in expected.items():
+              data = Path(filename).read_bytes()
+              assert data[:4] == b'RIFF'
+              assert data[8:12] == b'WEBP'
+              with Image.open(filename) as image:
+                  assert image.size == dimensions
+              assert len(data) > 40_000
+              print(filename, dimensions, len(data))
+          PY
+          grep -q 'reiss-card.webp?v=20260803-reiss2' artist-images.js
+          grep -q 'reiss-card-640.webp?v=20260803-reiss2' artist-images.js
+          grep -q 'reiss-portrait.webp?v=20260803-reiss2' artist-images.js
+          grep -q 'artist-images.js?v=20260803-reiss2' index.html
+          grep -q 'artist-images.js?v=20260803-reiss2' artists/index.html
+          grep -q 'artist-images.js?v=20260803-reiss2' artists/reiss/index.html
+
+      - name: Commit generated website assets
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            assets/artists/reiss-portrait.webp \
+            assets/artists/reiss-card.webp \
+            assets/artists/reiss-card-640.webp \
+            artist-images.js \
+            index.html \
+            artists/index.html \
+            artists/reiss/index.html
+          if git diff --cached --quiet; then
+            echo "Approved portrait assets are already current"
+            exit 0
+          fi
+          git commit -m "Replace Reiss artwork with approved human portrait"
+          git push origin HEAD:agent/reiss-human-portrait

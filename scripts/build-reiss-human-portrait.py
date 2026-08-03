@@ -11,6 +11,7 @@ PARTS_DIR = ROOT / ".tmp" / "reiss-human"
 ASSET_DIR = ROOT / "assets" / "artists"
 CACHE_OLD = "20260803-reiss1"
 CACHE_NEW = "20260803-reiss2"
+ASSET_CACHE_NEW = "20260803-reiss1&portrait=human2"
 
 OUTPUTS = {
     "reiss-portrait.webp": ((1120, 1400), 88),
@@ -18,8 +19,7 @@ OUTPUTS = {
     "reiss-card-640.webp": ((640, 800), 88),
 }
 
-TEXT_FILES = [
-    ROOT / "artist-images.js",
+HTML_FILES = [
     ROOT / "index.html",
     ROOT / "artists" / "index.html",
     ROOT / "artists" / "reiss" / "index.html",
@@ -55,7 +55,16 @@ def write_assets(source: Image.Image) -> None:
 
 
 def update_cache_references() -> None:
-    for path in TEXT_FILES:
+    mapping_path = ROOT / "artist-images.js"
+    mapping = mapping_path.read_text(encoding="utf-8")
+    old_asset_cache = f"?v={CACHE_OLD}"
+    new_asset_cache = f"?v={ASSET_CACHE_NEW}"
+    if mapping.count(old_asset_cache) < 4:
+        raise RuntimeError("Expected Reiss asset cache references were not found")
+    mapping_path.write_text(mapping.replace(old_asset_cache, new_asset_cache), encoding="utf-8")
+    print("Updated", mapping_path.relative_to(ROOT))
+
+    for path in HTML_FILES:
         text = path.read_text(encoding="utf-8")
         if CACHE_OLD not in text:
             raise RuntimeError(f"Expected cache key not found in {path.relative_to(ROOT)}")

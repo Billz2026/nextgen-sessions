@@ -172,7 +172,7 @@
     const link = root.querySelector("[data-featured-link]");
 
     if (frame) {
-      frame.innerHTML = `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(id)}?rel=0&amp;modestbranding=1&amp;autoplay=1" title="${escapeHtml(`${artist.name} — ${title}`)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>`;
+      frame.innerHTML = `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(id)}?rel=0&amp;modestbranding=1&amp;autoplay=1&amp;playsinline=1" title="${escapeHtml(`${artist.name} — ${title}`)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>`;
     }
     if (heading) heading.textContent = title;
     if (tag) tag.textContent = sourceLabel || "Now playing";
@@ -201,6 +201,7 @@
     bar.hidden = false;
     document.body.classList.add("has-profile-player");
     setActiveRelease(id);
+    smoothScrollTo("featured-release");
   }
 
   function releaseDetails(trigger) {

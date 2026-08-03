@@ -181,4 +181,69 @@
       ]
     });
   }
+
+  const jay = profiles["jay-starks"];
+  if (jay) {
+    Object.assign(jay, {
+      eyebrow: "NextGen Sessions featured artist",
+      headline: "Queens-rooted hip-hop shaped by neighbourhood memory, Jamaica Avenue perspective, ambition and long-term legacy.",
+      bio: [
+        "Jay Starks represents the Queens storytelling lane within NextGen Sessions, combining classic New York perspective with soulful production and grounded writing about identity, ambition and the blocks that shaped him.",
+        "His catalogue treats Queens as more than scenery. Jamaica Avenue, corner politics, neighbourhood pride and personal legacy form a connected world across the Queens in My Soul album and its standalone releases."
+      ],
+      image: "/assets/artists/jay-starks-portrait-approved.webp?v=20260803-1",
+      imagePosition: "50% 38%",
+      featuredVideo: {
+        id: "xLFZKSjvzl0",
+        title: "No Shade In Queens",
+        label: "Jay Starks — No Shade In Queens",
+        published: "2026-06-25T11:01:58Z"
+      },
+      catalogueAliases: ["Jay Starks"],
+      additionalReleases: [
+        {
+          id: "xLFZKSjvzl0",
+          artist: "Jay Starks",
+          title: "No Shade In Queens",
+          group: "Hip-Hop / G-Funk",
+          published: "2026-06-25T11:01:58Z"
+        },
+        {
+          id: "n6OLDR0PUkw",
+          artist: "Jay Starks",
+          title: "Jamaica Avenue",
+          group: "Hip-Hop / G-Funk",
+          published: "2026-06-19T15:13:18Z"
+        },
+        {
+          id: "PI3OXiRlcHU",
+          artist: "Jay Starks",
+          title: "Architect of Havoc",
+          group: "Hip-Hop / G-Funk",
+          published: "2026-05-19T15:01:15Z"
+        },
+        {
+          id: "bB_APAjvIc8",
+          artist: "Jay Starks",
+          title: "Queens in My Soul",
+          group: "Hip-Hop / G-Funk",
+          published: "2026-05-13T12:21:38Z"
+        }
+      ],
+      releaseTitleOverrides: {
+        "bB_APAjvIc8": "Queens in My Soul"
+      },
+      featuredExperience: {
+        enabled: true,
+        albumLabel: "Queens in My Soul album",
+        aboutLabel: "About Jay",
+        compactViewThreshold: 10
+      },
+      related: [
+        { name: "Alonzo Ray", genre: "Hip-Hop / Soul" },
+        { name: "Voss Carter", genre: "West Coast Hip-Hop" },
+        { name: "Karvell Reign", genre: "West Coast Hip-Hop" }
+      ]
+    });
+  }
 })();

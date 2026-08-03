@@ -1,0 +1,44 @@
+name: Clean Deon legacy assets
+
+on:
+  push:
+    branches:
+      - agent/cleanup-deon-legacy-assets
+    paths:
+      - ".github/workflows/cleanup-deon-legacy.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Remove obsolete Deon delivery workaround
+        run: |
+          set -euo pipefail
+          rm -rf assets/artists/deon-creed-portrait-v2
+          rm -f assets/artists/deon-creed-portrait-approved.webp
+          rm -f functions/assets/artists/deon-creed-portrait-v2.webp.js
+          rm -f .github/workflows/cleanup-deon-legacy.yml
+
+      - name: Confirm current assets remain
+        run: |
+          test -f assets/artists/deon-creed-portrait.webp
+          test -f assets/artists/deon-creed-card.webp
+          test -f assets/artists/deon-creed-card-640.webp
+          grep -q 'deon-creed-card.webp?v=20260803-4' artist-images.js
+          grep -q 'ZSjRD_3B5uk' artist-profiles-expanded.js
+
+      - name: Commit cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Remove obsolete Deon portrait workaround"
+          git push origin HEAD:${{ github.ref_name }}

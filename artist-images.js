@@ -61,10 +61,10 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 42%"
   },
   "reiss": {
-    src: "/assets/artists/reiss-card.webp?v=20260803-reiss1",
-    srcset: "/assets/artists/reiss-card-640.webp?v=20260803-reiss1 640w, /assets/artists/reiss-card.webp?v=20260803-reiss1 1024w",
-    portrait: "/assets/artists/reiss-portrait.webp?v=20260803-reiss1",
-    fallback: "/assets/artists/reiss-card-640.webp?v=20260803-reiss1",
+    src: "/assets/artists/reiss-card.webp?v=20260803-reiss1&portrait=human2",
+    srcset: "/assets/artists/reiss-card-640.webp?v=20260803-reiss1&portrait=human2 640w, /assets/artists/reiss-card.webp?v=20260803-reiss1&portrait=human2 1024w",
+    portrait: "/assets/artists/reiss-portrait.webp?v=20260803-reiss1&portrait=human2",
+    fallback: "/assets/artists/reiss-card-640.webp?v=20260803-reiss1&portrait=human2",
     position: "50% 32%"
   },
   "alonzo-ray": {

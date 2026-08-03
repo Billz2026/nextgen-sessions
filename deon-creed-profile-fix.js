@@ -4,7 +4,7 @@
   const root = document.getElementById("artistProfile");
   if (!root || root.dataset.artist !== "deon-creed") return;
 
-  const PORTRAIT_URL = "/assets/artists/deon-creed-portrait-v2.webp?v=20260803-2";
+  const PORTRAIT_URL = "/assets/artists/deon-creed-portrait.webp?v=20260803-3";
   const FALLBACK_RELEASE = {
     id: "vuW6OZPoApg",
     artist: "Deon Creed",
@@ -53,7 +53,7 @@
     if (!image) return;
     image.hidden = false;
     image.removeAttribute("srcset");
-    image.dataset.fallback = "";
+    image.dataset.fallback = PORTRAIT_URL;
     image.src = PORTRAIT_URL;
     image.style.objectPosition = "50% 34%";
     image.style.transform = "scale(1)";

@@ -38,13 +38,19 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     "imageKey": "deon-creed",
     "imagePosition": "50% 34%",
     "featuredVideo": {
-      "id": "vuW6OZPoApg",
-      "title": "Soul of the Southside",
-      "label": "Deon Creed — Soul of the Southside",
-      "published": "2026-05-26T07:52:56Z"
+      "id": "ZSjRD_3B5uk",
+      "title": "Days Like These",
+      "label": "Deon Creed — Days Like These"
     },
     "catalogueAliases": ["Deon Creed"],
     "additionalReleases": [
+      {
+        "id": "ZSjRD_3B5uk",
+        "artist": "Deon Creed",
+        "title": "Days Like These",
+        "group": "Soul / R&B",
+        "published": ""
+      },
       {
         "id": "vuW6OZPoApg",
         "artist": "Deon Creed",

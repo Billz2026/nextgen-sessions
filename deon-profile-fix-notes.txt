@@ -1,0 +1,1 @@
+Deon Creed profile correction: verified portrait route, live catalogue refresh and one-click autoplay handling.

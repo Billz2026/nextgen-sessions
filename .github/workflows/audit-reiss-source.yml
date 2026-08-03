@@ -22,7 +22,7 @@ jobs:
       - name: Collect Reiss release artwork
         run: |
           set -euo pipefail
-          mkdir -p /tmp/reiss-source
+          mkdir -p /tmp/reiss-source/originals /tmp/reiss-source/contact
 
           for item in \
             "ULjYMdDHySM:nothing-given" \
@@ -34,10 +34,10 @@ jobs:
             name="${item##*:}"
             if ! curl --fail --location --silent --show-error \
               "https://i.ytimg.com/vi/${id}/maxresdefault.jpg" \
-              --output "/tmp/reiss-source/${name}.jpg"; then
+              --output "/tmp/reiss-source/originals/${name}.jpg"; then
               curl --fail --location --silent --show-error \
                 "https://i.ytimg.com/vi/${id}/hqdefault.jpg" \
-                --output "/tmp/reiss-source/${name}.jpg"
+                --output "/tmp/reiss-source/originals/${name}.jpg"
             fi
           done
 
@@ -46,6 +46,8 @@ jobs:
           from PIL import Image, ImageDraw, ImageFont, ImageOps
 
           root = Path('/tmp/reiss-source')
+          originals = root / 'originals'
+          contact = root / 'contact'
           order = [
               ('nothing-given.jpg', 'Nothing Given · album'),
               ('on-route.jpg', 'On Route'),
@@ -57,23 +59,22 @@ jobs:
           cards = []
 
           for filename, label in order:
-              path = root / filename
+              path = originals / filename
               image = Image.open(path).convert('RGB')
               assert image.width >= 480 and image.height >= 270, (filename, image.size)
+              print(filename, image.size)
               card = ImageOps.fit(image, (640, 360), method=Image.Resampling.LANCZOS)
               draw = ImageDraw.Draw(card)
               box = draw.textbbox((0, 0), label, font=font)
               draw.rectangle((0, 0, box[2] + 18, box[3] + 14), fill='black')
               draw.text((9, 7), label, fill='white', font=font)
-              card.save(root / filename, quality=94)
+              card.save(contact / filename, quality=94)
               cards.append(card)
 
           sheet = Image.new('RGB', (1280, 1080), 'black')
           for index, card in enumerate(cards):
-              x = (index % 2) * 640
-              y = (index // 2) * 360
-              sheet.paste(card, (x, y))
-          sheet.save(root / 'reiss-release-art-contact-sheet.jpg', quality=94)
+              sheet.paste(card, ((index % 2) * 640, (index // 2) * 360))
+          sheet.save(contact / 'reiss-release-art-contact-sheet.jpg', quality=94)
           PY
 
       - name: Upload Reiss source audit
@@ -81,5 +82,6 @@ jobs:
         with:
           name: reiss-visual-source-audit
           path: |
-            /tmp/reiss-source/*.jpg
+            /tmp/reiss-source/originals/*.jpg
+            /tmp/reiss-source/contact/reiss-release-art-contact-sheet.jpg
           retention-days: 7

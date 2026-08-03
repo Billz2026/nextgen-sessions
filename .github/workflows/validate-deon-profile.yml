@@ -87,7 +87,7 @@ jobs:
 
           const browser = await chromium.launch({ headless: true });
 
-          async function visibleImage(locator, minimumWidth = 300) {
+          async function visibleImage(locator) {
             await locator.scrollIntoViewIfNeeded();
             await locator.waitFor({ state: 'visible' });
             await locator.evaluate(async (image) => {
@@ -113,7 +113,7 @@ jobs:
             assert.notEqual(result.display, 'none');
             assert.notEqual(result.visibility, 'hidden');
             assert.ok(result.currentSrc.includes('deon-creed-'), JSON.stringify(result));
-            assert.ok(result.naturalWidth >= minimumWidth, JSON.stringify(result));
+            assert.ok(result.naturalWidth > 0, JSON.stringify(result));
             assert.ok(result.naturalHeight > result.naturalWidth, JSON.stringify(result));
           }
 

@@ -128,8 +128,8 @@ jobs:
             await visibleImage(featuredCard.locator('img.featured-artist-image'));
 
             await page.goto('http://127.0.0.1:4173/artists/', { waitUntil: 'networkidle' });
-            const rosterCard = page.locator('.featured-artist-card', { hasText: 'Deon Creed' });
-            await visibleImage(rosterCard.locator('img.featured-artist-image'));
+            const rosterCard = page.locator('.artist-roster-card', { hasText: 'Deon Creed' });
+            await visibleImage(rosterCard.locator('img.artist-roster-image'));
 
             await page.goto('http://127.0.0.1:4173/artists/deon-creed/', { waitUntil: 'networkidle' });
             const profileImage = page.locator('.profile-image');

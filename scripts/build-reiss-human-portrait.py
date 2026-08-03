@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 from io import BytesIO
 from pathlib import Path
 
@@ -12,6 +13,15 @@ ASSET_DIR = ROOT / "assets" / "artists"
 CACHE_OLD = "20260803-reiss1"
 CACHE_NEW = "20260803-reiss2"
 ASSET_CACHE_NEW = "20260803-reiss1&portrait=human2"
+
+EXPECTED_PARTS = {
+    "part-00.txt": (8000, "1544efa18b8d107c33747e9b16a856ee12bb03aed9dee55aa2b090258d54a79c"),
+    "part-01.txt": (14500, "6cb1bc12938d040e19d4534589b6771dd86ec82f3870593480effbf0e08736e7"),
+    "part-02.txt": (14500, "12c9533ceebac8771ff6a80e8742ec39ff5ccf7f68d9ba25f1b05617b686c62c"),
+    "part-03.txt": (14500, "bfc7aebc6fa799b536ef88b785f7d7715c8e3cc496170b6b3f8ad50490a34a45"),
+    "part-04.txt": (13736, "1024fa9bd2c0a28f9051435e0e1ed6a9cbd81b99add064ef53af19fa6c22e0ca"),
+}
+EXPECTED_FULL_HASH = "d4544d733df2e19894c961ce56053c6a2dacd5df7524308a2f340332806b2b58"
 
 OUTPUTS = {
     "reiss-portrait.webp": ((1120, 1400), 88),
@@ -31,7 +41,24 @@ def load_source() -> Image.Image:
     if len(parts) != 5:
         raise RuntimeError(f"Expected 5 source chunks, found {len(parts)}")
 
-    encoded = "".join(part.read_text(encoding="utf-8").strip() for part in parts)
+    chunks: list[str] = []
+    failures: list[str] = []
+    for part in parts:
+        chunk = part.read_text(encoding="utf-8").strip()
+        actual_hash = hashlib.sha256(chunk.encode("utf-8")).hexdigest()
+        expected_length, expected_hash = EXPECTED_PARTS[part.name]
+        print(part.name, len(chunk), actual_hash)
+        if len(chunk) != expected_length or actual_hash != expected_hash:
+            failures.append(part.name)
+        chunks.append(chunk)
+    if failures:
+        raise RuntimeError("Portrait transfer checksum failed for: " + ", ".join(failures))
+
+    encoded = "".join(chunks)
+    full_hash = hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+    if full_hash != EXPECTED_FULL_HASH:
+        raise RuntimeError(f"Full portrait transfer checksum failed: {full_hash}")
+
     raw = base64.b64decode(encoded, validate=True)
     image = Image.open(BytesIO(raw)).convert("RGB")
     if image.size != (1120, 1400):

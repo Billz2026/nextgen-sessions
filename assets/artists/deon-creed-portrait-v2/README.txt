@@ -1,1 +1,0 @@
-This directory stores the approved Deon Creed WebP as base64 chunks. The Cloudflare Pages Function at /functions/assets/artists/deon-creed-portrait-v2.webp.js assembles, validates and serves the image as image/webp.

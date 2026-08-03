@@ -60,6 +60,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/rudii-marka-card-640.webp",
     position: "50% 42%"
   },
+  "reiss": {
+    src: "/assets/artists/reiss-card.webp?v=20260803-reiss1",
+    srcset: "/assets/artists/reiss-card-640.webp?v=20260803-reiss1 640w, /assets/artists/reiss-card.webp?v=20260803-reiss1 1024w",
+    portrait: "/assets/artists/reiss-portrait.webp?v=20260803-reiss1",
+    fallback: "/assets/artists/reiss-card-640.webp?v=20260803-reiss1",
+    position: "50% 32%"
+  },
   "alonzo-ray": {
     src: "/assets/artists/alonzo-ray-card.webp",
     srcset: "/assets/artists/alonzo-ray-card-640.webp 640w, /assets/artists/alonzo-ray-card.webp 1024w",

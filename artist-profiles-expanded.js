@@ -96,18 +96,56 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     "path": "/artists/reiss/",
     "genre": "UK Rap",
     "location": "United Kingdom",
-    "eyebrow": "NextGen Sessions artist",
+    "eyebrow": "NextGen Sessions featured artist",
     "headline": "Focused UK rap shaped by discipline, earned progress, direct delivery and refusal to expect shortcuts.",
     "bio": [
       "Reiss represents a focused UK rap lane within NextGen Sessions, favouring concise writing, direct delivery and records built around steady progress rather than exaggerated claims.",
       "His catalogue moves through routine, momentum and self-reliance, with the Nothing Given album tying those themes into a clear statement about earning every step forward."
     ],
-    "image": "/api/release-image?id=ULjYMdDHySM",
-    "imagePosition": "50% 38%",
+    "imageKey": "reiss",
+    "imagePosition": "50% 32%",
     "featuredVideo": {
       "id": "Dvfg251n0Pk",
       "title": "On Route",
-      "label": "Reiss — On Route"
+      "label": "Reiss — On Route",
+      "published": "2026-04-26T17:08:28Z"
+    },
+    "catalogueAliases": ["Reiss"],
+    "additionalReleases": [
+      {
+        "id": "Dvfg251n0Pk",
+        "artist": "Reiss",
+        "title": "On Route",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-26T17:08:28Z"
+      },
+      {
+        "id": "FvNsYb5g4pg",
+        "artist": "Reiss",
+        "title": "On A Regular",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-26T16:13:21Z"
+      },
+      {
+        "id": "hqMBHn0L_DM",
+        "artist": "Reiss",
+        "title": "Already Know",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-24T12:30:10Z"
+      },
+      {
+        "id": "vsvn0Qkifv0",
+        "artist": "Reiss",
+        "title": "No Comment",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-15T16:06:39Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "albumLabel": "Nothing Given album",
+      "aboutLabel": "About Reiss",
+      "compactViewThreshold": 10
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Reiss",
     "related": [

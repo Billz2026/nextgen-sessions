@@ -86,7 +86,12 @@
         coverVideoId: "ULjYMdDHySM",
         fullAlbumVideoId: "ULjYMdDHySM",
         description: "A focused UK rap album centred on discipline, earned progress and refusing to expect shortcuts.",
-        tracks: []
+        tracks: [
+          { id: "vsvn0Qkifv0", title: "No Comment" },
+          { id: "hqMBHn0L_DM", title: "Already Know" },
+          { id: "FvNsYb5g4pg", title: "On A Regular" },
+          { id: "Dvfg251n0Pk", title: "On Route" }
+        ]
       }
     ],
     "voss-carter": [

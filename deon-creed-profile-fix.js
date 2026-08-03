@@ -4,14 +4,27 @@
   const root = document.getElementById("artistProfile");
   if (!root || root.dataset.artist !== "deon-creed") return;
 
-  const PORTRAIT_URL = "/assets/artists/deon-creed-portrait.webp?v=20260803-3";
-  const FALLBACK_RELEASE = {
-    id: "vuW6OZPoApg",
-    artist: "Deon Creed",
-    title: "Soul of the Southside",
-    group: "Hip-Hop / G-Funk",
-    published: "2026-05-26T07:52:56Z"
-  };
+  const PORTRAIT_URL = "/assets/artists/deon-creed-portrait.webp?v=20260803-4";
+  const PORTRAIT_SRCSET = "/assets/artists/deon-creed-card-640.webp?v=20260803-4 640w, /assets/artists/deon-creed-card.webp?v=20260803-4 1024w, /assets/artists/deon-creed-portrait.webp?v=20260803-4 1120w";
+  const PORTRAIT_FALLBACK = "/assets/artists/deon-creed-card-640.webp?v=20260803-4";
+  const FALLBACK_RELEASES = [
+    {
+      id: "ZSjRD_3B5uk",
+      artist: "Deon Creed",
+      title: "Days Like These",
+      group: "Soul / R&B",
+      published: "",
+      priority: 100
+    },
+    {
+      id: "vuW6OZPoApg",
+      artist: "Deon Creed",
+      title: "Soul of the Southside",
+      group: "Hip-Hop / G-Funk",
+      published: "2026-05-26T07:52:56Z",
+      priority: 50
+    }
+  ];
 
   function normalise(value) {
     return String(value || "")
@@ -52,8 +65,9 @@
     const image = root.querySelector(".profile-image");
     if (!image) return;
     image.hidden = false;
-    image.removeAttribute("srcset");
-    image.dataset.fallback = PORTRAIT_URL;
+    image.srcset = PORTRAIT_SRCSET;
+    image.sizes = "(max-width: 760px) calc(100vw - 40px), 48vw";
+    image.dataset.fallback = PORTRAIT_FALLBACK;
     image.src = PORTRAIT_URL;
     image.style.objectPosition = "50% 34%";
     image.style.transform = "scale(1)";
@@ -78,7 +92,8 @@
       artist: "Deon Creed",
       title,
       group: String(item?.group || "Soul / R&B").trim(),
-      published: String(item?.published || "").trim()
+      published: String(item?.published || "").trim(),
+      priority: Number(item?.priority || 0)
     };
   }
 
@@ -91,7 +106,11 @@
         seen.add(release.id);
         return true;
       })
-      .sort((a, b) => (Date.parse(b.published || "") || 0) - (Date.parse(a.published || "") || 0));
+      .sort((a, b) => {
+        const priorityDifference = Number(b.priority || 0) - Number(a.priority || 0);
+        if (priorityDifference) return priorityDifference;
+        return (Date.parse(b.published || "") || 0) - (Date.parse(a.published || "") || 0);
+      });
   }
 
   function artwork(release, className) {
@@ -104,7 +123,7 @@
 
   function latestMarkup(release) {
     return `
-      <article class="latest-release-card">
+      <article class="latest-release-card" data-release-id="${escapeHtml(release.id)}" data-release-title="${escapeHtml(release.title)}" data-release-group="${escapeHtml(release.group)}" data-release-published="${escapeHtml(release.published)}">
         ${artwork(release, "latest-release-art")}
         <div class="latest-release-copy">
           <span class="tag">Latest release</span>
@@ -144,7 +163,7 @@
     if (latestHost) latestHost.innerHTML = latestMarkup(releases[0]);
     if (grid) grid.innerHTML = releases.map(cardMarkup).join("");
     if (count) count.textContent = `${releases.length} release${releases.length === 1 ? "" : "s"}`;
-    if (status) status.textContent = "Updated from the live official catalogue";
+    if (status) status.textContent = "Updated from the official Deon Creed catalogue";
   }
 
   async function refreshCatalogue() {
@@ -158,9 +177,9 @@
       const live = Array.isArray(payload?.releases)
         ? payload.releases.map(prepareRelease).filter(Boolean)
         : [];
-      renderCatalogue(uniqueSorted([...live, FALLBACK_RELEASE]));
+      renderCatalogue(uniqueSorted([...FALLBACK_RELEASES, ...live]));
     } catch (_) {
-      renderCatalogue([FALLBACK_RELEASE]);
+      renderCatalogue(FALLBACK_RELEASES);
     }
   }
 

@@ -190,9 +190,9 @@
     return [];
   }
 
-  function featuredFrame(release, scheduledRelease, releaseDate) {
+  function featuredFrame(release, scheduledRelease, releaseDate, autoplay = false) {
     if (release?.id) {
-      return `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(release.id)}?rel=0&amp;modestbranding=1" title="${escapeHtml(`${artist.name} — ${release.title}`)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>`;
+      return `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(release.id)}?rel=0&amp;modestbranding=1${autoplay ? "&amp;autoplay=1" : ""}" title="${escapeHtml(`${artist.name} — ${release.title}`)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>`;
     }
     if (scheduledRelease) {
       return `<div class="profile-video-unavailable">${escapeHtml(release?.title || "Upcoming release")} releases ${escapeHtml(releaseDate)}.</div>`;
@@ -248,7 +248,7 @@
     const tag = root.querySelector("[data-featured-tag]");
     const copy = root.querySelector("[data-featured-copy]");
     const link = root.querySelector("[data-featured-link]");
-    if (frame) frame.innerHTML = featuredFrame(release, false, "");
+    if (frame) frame.innerHTML = featuredFrame(release, false, "", true);
     if (title) title.textContent = release.title;
     if (tag) tag.textContent = sourceLabel || "Now playing";
     if (copy) copy.textContent = `${release.group} · ${formatDate(release.published)}`;

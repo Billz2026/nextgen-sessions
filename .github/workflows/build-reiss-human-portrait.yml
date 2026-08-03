@@ -48,9 +48,9 @@ jobs:
               assert len(data) > 40_000
               print(filename, dimensions, len(data))
           PY
-          grep -q 'reiss-card.webp?v=20260803-reiss2' artist-images.js
-          grep -q 'reiss-card-640.webp?v=20260803-reiss2' artist-images.js
-          grep -q 'reiss-portrait.webp?v=20260803-reiss2' artist-images.js
+          grep -q 'reiss-card.webp?v=20260803-reiss1&portrait=human2' artist-images.js
+          grep -q 'reiss-card-640.webp?v=20260803-reiss1&portrait=human2' artist-images.js
+          grep -q 'reiss-portrait.webp?v=20260803-reiss1&portrait=human2' artist-images.js
           grep -q 'artist-images.js?v=20260803-reiss2' index.html
           grep -q 'artist-images.js?v=20260803-reiss2' artists/index.html
           grep -q 'artist-images.js?v=20260803-reiss2' artists/reiss/index.html

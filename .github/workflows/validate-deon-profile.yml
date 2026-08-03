@@ -140,9 +140,9 @@ jobs:
             await count.waitFor({ state: 'visible' });
             await page.waitForFunction(() => {
               const value = document.querySelector('[data-discography-count]')?.textContent || '';
-              return /2 releases/.test(value);
+              return /2 releases/i.test(value);
             });
-            assert.match(await count.innerText(), /2 releases/);
+            assert.match(await count.innerText(), /2 releases/i);
 
             const daysCard = page.locator('.discography-card', { hasText: 'Days Like These' });
             await daysCard.waitFor({ state: 'visible' });

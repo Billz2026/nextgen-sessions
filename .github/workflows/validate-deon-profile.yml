@@ -1,0 +1,40 @@
+name: Validate Deon Creed profile
+
+on:
+  pull_request:
+    paths:
+      - "artist-images.js"
+      - "artists/deon-creed/**"
+      - "assets/artists/deon-creed-portrait-v2/**"
+      - "deon-creed-profile-fix.js"
+      - "functions/assets/artists/deon-creed-portrait-v2.webp.js"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate JavaScript syntax
+        run: |
+          node --check deon-creed-profile-fix.js
+          node --check functions/assets/artists/deon-creed-portrait-v2.webp.js
+
+      - name: Rebuild and validate portrait
+        run: |
+          set -euo pipefail
+          cat assets/artists/deon-creed-portrait-v2/part-*.txt > /tmp/deon.b64
+          base64 --decode /tmp/deon.b64 > /tmp/deon.webp
+          python3 - <<'PY'
+          from pathlib import Path
+          image = Path('/tmp/deon.webp').read_bytes()
+          assert len(image) == 20048, f'Unexpected portrait size: {len(image)}'
+          assert image[:4] == b'RIFF', f'Invalid RIFF header: {image[:4]!r}'
+          assert image[8:12] == b'WEBP', f'Invalid WebP signature: {image[8:12]!r}'
+          print('Portrait integrity verified:', len(image), 'bytes')
+          PY

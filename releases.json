@@ -1,14 +1,14 @@
 {
   "source": "curated-youtube-playlists",
-  "generatedAt": "2026-08-03T15:21:32.767171Z",
-  "total": 81,
+  "generatedAt": "2026-08-03T20:03:00.316560Z",
+  "total": 82,
   "counts": {
     "Dancehall & Reggae": 26,
     "UK Rap & Grime": 18,
     "Hip-Hop / G-Funk": 17,
     "Asian": 3,
     "Lovers Rock": 7,
-    "R&B & Soul": 6,
+    "R&B & Soul": 7,
     "Late Night Afro": 3,
     "Arabic": 1
   },
@@ -28,6 +28,14 @@
       "group": "R&B & Soul",
       "published": "2026-07-30T12:25:08Z",
       "rawTitle": "Zara Veli – Too Boujee To Beg | Luxury UK R&B 2026 | NextGen Sessions"
+    },
+    {
+      "id": "xicnIGw-ei8",
+      "artist": "Alia Bleu",
+      "title": "Piggyback",
+      "group": "R&B & Soul",
+      "published": "2026-07-21T12:29:20Z",
+      "rawTitle": "They Lean on You | Alia Bleu - Piggyback | R&B 2026 | NextGen Sessions"
     },
     {
       "id": "Sra1722xEFE",

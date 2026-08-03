@@ -136,13 +136,18 @@ jobs:
             await visibleImage(profileImage);
             assert.equal(await page.locator('.profile-image-shell.profile-image-missing').count(), 0);
 
-            const daysCard = page.locator('.discography-card', { hasText: 'Days Like These' });
-            await daysCard.scrollIntoViewIfNeeded();
-            await daysCard.waitFor({ state: 'visible' });
-            await page.locator('[data-discography-count]').waitFor({ state: 'visible' });
-            assert.match(await page.locator('[data-discography-count]').innerText(), /2 releases/);
+            const count = page.locator('[data-discography-count]');
+            await count.waitFor({ state: 'visible' });
+            await page.waitForFunction(() => {
+              const value = document.querySelector('[data-discography-count]')?.textContent || '';
+              return /2 releases/.test(value);
+            });
+            assert.match(await count.innerText(), /2 releases/);
 
+            const daysCard = page.locator('.discography-card', { hasText: 'Days Like These' });
+            await daysCard.waitFor({ state: 'visible' });
             await daysCard.getByRole('button', { name: 'Play here' }).click();
+
             const iframe = page.locator('[data-featured-frame] iframe');
             await iframe.waitFor({ state: 'attached' });
             const source = await iframe.getAttribute('src');

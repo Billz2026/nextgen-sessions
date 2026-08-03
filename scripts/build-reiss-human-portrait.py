@@ -19,7 +19,10 @@ EXPECTED_PARTS = {
     "part-01.txt": (14500, "6cb1bc12938d040e19d4534589b6771dd86ec82f3870593480effbf0e08736e7"),
     "part-02.txt": (14500, "12c9533ceebac8771ff6a80e8742ec39ff5ccf7f68d9ba25f1b05617b686c62c"),
     "part-03.txt": (14500, "bfc7aebc6fa799b536ef88b785f7d7715c8e3cc496170b6b3f8ad50490a34a45"),
-    "part-04.txt": (13736, "1024fa9bd2c0a28f9051435e0e1ed6a9cbd81b99add064ef53af19fa6c22e0ca"),
+    "part-04a.txt": (3500, "39abdd22d4b360fcfbbe7c9f76acda27d7ffc444b61895e63de519ef61f3482d"),
+    "part-04b.txt": (3500, "14434ac35494a9476def5b4ba7a8b6eb432b2bf21df2b1b3be308fdadd61a95f"),
+    "part-04c.txt": (3500, "6cb0a96f8336150f896559868071f6f77f0a197229dfc05d4a1bb9e302dfaaec"),
+    "part-04d.txt": (3236, "ced24381070b0204c9edd52aa9bc980d9b754c68c7f21fbb545b18ba56353b1b"),
 }
 EXPECTED_FULL_HASH = "d4544d733df2e19894c961ce56053c6a2dacd5df7524308a2f340332806b2b58"
 
@@ -38,8 +41,8 @@ HTML_FILES = [
 
 def load_source() -> Image.Image:
     parts = sorted(PARTS_DIR.glob("part-*.txt"))
-    if len(parts) != 5:
-        raise RuntimeError(f"Expected 5 source chunks, found {len(parts)}")
+    if [part.name for part in parts] != list(EXPECTED_PARTS):
+        raise RuntimeError(f"Unexpected portrait chunks: {[part.name for part in parts]}")
 
     chunks: list[str] = []
     failures: list[str] = []

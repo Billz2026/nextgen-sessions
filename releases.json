@@ -1,10 +1,10 @@
 {
   "source": "curated-youtube-playlists",
-  "generatedAt": "2026-08-03T10:09:29.171421Z",
-  "total": 83,
+  "generatedAt": "2026-08-03T15:21:32.767171Z",
+  "total": 81,
   "counts": {
     "Dancehall & Reggae": 26,
-    "UK Rap & Grime": 20,
+    "UK Rap & Grime": 18,
     "Hip-Hop / G-Funk": 17,
     "Asian": 3,
     "Lovers Rock": 7,
@@ -646,14 +646,6 @@
       "rawTitle": "Ride Wid Mi | Reeko x Keisha | From Mi Call Di Shots Album | Dancehall 2026 | NextGen Sessions"
     },
     {
-      "id": "8F6RpKZi1z8",
-      "artist": "NextGen Sessions",
-      "title": "What You Saying?",
-      "group": "UK Rap & Grime",
-      "published": "2026-03-24T13:10:03Z",
-      "rawTitle": "What You Saying? | UK Rap 2026 | NextGen Sessions"
-    },
-    {
       "id": "fJhjx56Ars4",
       "artist": "Voss Carter",
       "title": "Undisputed",
@@ -668,14 +660,6 @@
       "group": "Hip-Hop / G-Funk",
       "published": "2026-03-21T18:24:40Z",
       "rawTitle": "Voss Carter - Levels Above | Hiphop 2026 | NextGen Sessions"
-    },
-    {
-      "id": "mQlg95cX7QM",
-      "artist": "NextGen Sessions",
-      "title": "Kinda Digital & Analog",
-      "group": "UK Rap & Grime",
-      "published": "2026-01-24T18:55:23Z",
-      "rawTitle": "Kinda Digital & Analog | NextGen Sessions"
     }
   ]
 }

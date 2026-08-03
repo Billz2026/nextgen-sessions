@@ -16,81 +16,64 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install media tools
-        run: |
-          python -m pip install --quiet --upgrade yt-dlp pillow
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
+      - name: Install image tools
+        run: python -m pip install --quiet --upgrade pillow
 
-      - name: Extract Reiss reference frames
+      - name: Collect Reiss release artwork
         run: |
           set -euo pipefail
           mkdir -p /tmp/reiss-source
 
-          for item in "Dvfg251n0Pk:on-route" "FvNsYb5g4pg:on-a-regular"; do
+          for item in \
+            "ULjYMdDHySM:nothing-given" \
+            "Dvfg251n0Pk:on-route" \
+            "FvNsYb5g4pg:on-a-regular" \
+            "hqMBHn0L_DM:already-know" \
+            "vsvn0Qkifv0:no-comment"; do
             id="${item%%:*}"
             name="${item##*:}"
-            yt-dlp \
-              --no-playlist \
-              --remote-components ejs:github \
-              -f "bestvideo[height<=720]+bestaudio/best[height<=720]" \
-              --merge-output-format mp4 \
-              -o "/tmp/reiss-source/${name}.%(ext)s" \
-              "https://www.youtube.com/watch?v=${id}"
+            if ! curl --fail --location --silent --show-error \
+              "https://i.ytimg.com/vi/${id}/maxresdefault.jpg" \
+              --output "/tmp/reiss-source/${name}.jpg"; then
+              curl --fail --location --silent --show-error \
+                "https://i.ytimg.com/vi/${id}/hqdefault.jpg" \
+                --output "/tmp/reiss-source/${name}.jpg"
+            fi
           done
-
-          yt-dlp \
-            --no-playlist \
-            --skip-download \
-            --write-thumbnail \
-            --convert-thumbnails png \
-            -o "/tmp/reiss-source/nothing-given" \
-            "https://www.youtube.com/watch?v=ULjYMdDHySM"
 
           python3 - <<'PY'
           from pathlib import Path
-          import subprocess
-          from PIL import Image, ImageDraw, ImageFont
+          from PIL import Image, ImageDraw, ImageFont, ImageOps
 
           root = Path('/tmp/reiss-source')
-          video_files = sorted(root.glob('*.mp4'))
-          assert video_files, 'No Reiss videos were downloaded'
-
-          def duration(path: Path) -> float:
-              output = subprocess.check_output([
-                  'ffprobe', '-v', 'error', '-show_entries',
-                  'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1',
-                  str(path)
-              ], text=True).strip()
-              return float(output)
-
+          order = [
+              ('nothing-given.jpg', 'Nothing Given · album'),
+              ('on-route.jpg', 'On Route'),
+              ('on-a-regular.jpg', 'On A Regular'),
+              ('already-know.jpg', 'Already Know'),
+              ('no-comment.jpg', 'No Comment'),
+          ]
           font = ImageFont.load_default()
-          for video in video_files:
-              total = duration(video)
-              frames = []
-              for index, fraction in enumerate((0.08, 0.16, 0.24, 0.32, 0.40, 0.52, 0.64, 0.76, 0.88), start=1):
-                  second = max(1.0, total * fraction)
-                  output = root / f'{video.stem}-frame-{index:02d}.png'
-                  subprocess.run([
-                      'ffmpeg', '-loglevel', 'error', '-y', '-ss', f'{second:.3f}',
-                      '-i', str(video), '-frames:v', '1', '-vf',
-                      'scale=480:-2', str(output)
-                  ], check=True)
-                  image = Image.open(output).convert('RGB')
-                  draw = ImageDraw.Draw(image)
-                  label = f'{video.stem} · frame {index} · {second:.1f}s'
-                  box = draw.textbbox((0, 0), label, font=font)
-                  draw.rectangle((0, 0, box[2] + 12, box[3] + 10), fill='black')
-                  draw.text((6, 5), label, fill='white', font=font)
-                  image.save(output, quality=92)
-                  frames.append(image)
+          cards = []
 
-              width = max(image.width for image in frames)
-              height = max(image.height for image in frames)
-              sheet = Image.new('RGB', (width * 3, height * 3), 'black')
-              for i, image in enumerate(frames):
-                  sheet.paste(image, ((i % 3) * width, (i // 3) * height))
-              sheet.save(root / f'{video.stem}-contact-sheet.jpg', quality=92)
+          for filename, label in order:
+              path = root / filename
+              image = Image.open(path).convert('RGB')
+              assert image.width >= 480 and image.height >= 270, (filename, image.size)
+              card = ImageOps.fit(image, (640, 360), method=Image.Resampling.LANCZOS)
+              draw = ImageDraw.Draw(card)
+              box = draw.textbbox((0, 0), label, font=font)
+              draw.rectangle((0, 0, box[2] + 18, box[3] + 14), fill='black')
+              draw.text((9, 7), label, fill='white', font=font)
+              card.save(root / filename, quality=94)
+              cards.append(card)
+
+          sheet = Image.new('RGB', (1280, 1080), 'black')
+          for index, card in enumerate(cards):
+              x = (index % 2) * 640
+              y = (index // 2) * 360
+              sheet.paste(card, (x, y))
+          sheet.save(root / 'reiss-release-art-contact-sheet.jpg', quality=94)
           PY
 
       - name: Upload Reiss source audit
@@ -98,7 +81,5 @@ jobs:
         with:
           name: reiss-visual-source-audit
           path: |
-            /tmp/reiss-source/*-contact-sheet.jpg
-            /tmp/reiss-source/*-frame-*.png
-            /tmp/reiss-source/nothing-given.png
+            /tmp/reiss-source/*.jpg
           retention-days: 7

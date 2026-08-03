@@ -1,0 +1,104 @@
+name: Audit Reiss visual source
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/audit-reiss-source.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install media tools
+        run: |
+          python -m pip install --quiet --upgrade yt-dlp pillow
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Extract Reiss reference frames
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/reiss-source
+
+          for item in "Dvfg251n0Pk:on-route" "FvNsYb5g4pg:on-a-regular"; do
+            id="${item%%:*}"
+            name="${item##*:}"
+            yt-dlp \
+              --no-playlist \
+              --remote-components ejs:github \
+              -f "bestvideo[height<=720]+bestaudio/best[height<=720]" \
+              --merge-output-format mp4 \
+              -o "/tmp/reiss-source/${name}.%(ext)s" \
+              "https://www.youtube.com/watch?v=${id}"
+          done
+
+          yt-dlp \
+            --no-playlist \
+            --skip-download \
+            --write-thumbnail \
+            --convert-thumbnails png \
+            -o "/tmp/reiss-source/nothing-given" \
+            "https://www.youtube.com/watch?v=ULjYMdDHySM"
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          from PIL import Image, ImageDraw, ImageFont
+
+          root = Path('/tmp/reiss-source')
+          video_files = sorted(root.glob('*.mp4'))
+          assert video_files, 'No Reiss videos were downloaded'
+
+          def duration(path: Path) -> float:
+              output = subprocess.check_output([
+                  'ffprobe', '-v', 'error', '-show_entries',
+                  'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1',
+                  str(path)
+              ], text=True).strip()
+              return float(output)
+
+          font = ImageFont.load_default()
+          for video in video_files:
+              total = duration(video)
+              frames = []
+              for index, fraction in enumerate((0.08, 0.16, 0.24, 0.32, 0.40, 0.52, 0.64, 0.76, 0.88), start=1):
+                  second = max(1.0, total * fraction)
+                  output = root / f'{video.stem}-frame-{index:02d}.png'
+                  subprocess.run([
+                      'ffmpeg', '-loglevel', 'error', '-y', '-ss', f'{second:.3f}',
+                      '-i', str(video), '-frames:v', '1', '-vf',
+                      'scale=480:-2', str(output)
+                  ], check=True)
+                  image = Image.open(output).convert('RGB')
+                  draw = ImageDraw.Draw(image)
+                  label = f'{video.stem} · frame {index} · {second:.1f}s'
+                  box = draw.textbbox((0, 0), label, font=font)
+                  draw.rectangle((0, 0, box[2] + 12, box[3] + 10), fill='black')
+                  draw.text((6, 5), label, fill='white', font=font)
+                  image.save(output, quality=92)
+                  frames.append(image)
+
+              width = max(image.width for image in frames)
+              height = max(image.height for image in frames)
+              sheet = Image.new('RGB', (width * 3, height * 3), 'black')
+              for i, image in enumerate(frames):
+                  sheet.paste(image, ((i % 3) * width, (i // 3) * height))
+              sheet.save(root / f'{video.stem}-contact-sheet.jpg', quality=92)
+          PY
+
+      - name: Upload Reiss source audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: reiss-visual-source-audit
+          path: |
+            /tmp/reiss-source/*-contact-sheet.jpg
+            /tmp/reiss-source/*-frame-*.png
+            /tmp/reiss-source/nothing-given.png
+          retention-days: 7

@@ -88,7 +88,17 @@ jobs:
           const browser = await chromium.launch({ headless: true });
 
           async function visibleImage(locator, minimumWidth = 300) {
+            await locator.scrollIntoViewIfNeeded();
             await locator.waitFor({ state: 'visible' });
+            await locator.evaluate(async (image) => {
+              if (!image.complete && typeof image.decode === 'function') {
+                try {
+                  await image.decode();
+                } catch (_) {
+                  // The assertions below report any genuine load failure.
+                }
+              }
+            });
             const result = await locator.evaluate((image) => ({
               complete: image.complete,
               naturalWidth: image.naturalWidth,
@@ -127,6 +137,7 @@ jobs:
             assert.equal(await page.locator('.profile-image-shell.profile-image-missing').count(), 0);
 
             const daysCard = page.locator('.discography-card', { hasText: 'Days Like These' });
+            await daysCard.scrollIntoViewIfNeeded();
             await daysCard.waitFor({ state: 'visible' });
             await page.locator('[data-discography-count]').waitFor({ state: 'visible' });
             assert.match(await page.locator('[data-discography-count]').innerText(), /2 releases/);

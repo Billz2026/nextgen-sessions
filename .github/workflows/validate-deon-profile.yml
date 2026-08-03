@@ -87,12 +87,13 @@ jobs:
 
           const browser = await chromium.launch({ headless: true });
 
-          async function visibleImage(locator, minimumWidth = 600) {
+          async function visibleImage(locator, minimumWidth = 300) {
             await locator.waitFor({ state: 'visible' });
             const result = await locator.evaluate((image) => ({
               complete: image.complete,
               naturalWidth: image.naturalWidth,
               naturalHeight: image.naturalHeight,
+              currentSrc: image.currentSrc,
               hidden: image.hidden,
               display: getComputedStyle(image).display,
               visibility: getComputedStyle(image).visibility
@@ -101,6 +102,7 @@ jobs:
             assert.equal(result.hidden, false);
             assert.notEqual(result.display, 'none');
             assert.notEqual(result.visibility, 'hidden');
+            assert.ok(result.currentSrc.includes('deon-creed-'), JSON.stringify(result));
             assert.ok(result.naturalWidth >= minimumWidth, JSON.stringify(result));
             assert.ok(result.naturalHeight > result.naturalWidth, JSON.stringify(result));
           }

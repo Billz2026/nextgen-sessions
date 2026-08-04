@@ -22,13 +22,26 @@ jobs:
           npm install --no-save playwright@1.54.2
           npx playwright install --with-deps chromium
 
+      - name: Start local website
+        run: |
+          python3 -m http.server 4173 > /tmp/alonzo-server.log 2>&1 &
+          echo $! > /tmp/alonzo-server.pid
+          for attempt in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:4173/artists/alonzo-ray/ | grep -q '20260804-alonzo2'; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/alonzo-server.log
+          exit 1
+
       - name: Validate portrait and one-click album playback
         run: |
           mkdir -p alonzo-smoke
           cat > /tmp/alonzo-smoke.cjs <<'JS'
           const { chromium } = require('playwright');
 
-          const target = 'https://3f867f4f.nextgensessions.pages.dev/artists/alonzo-ray/';
+          const target = 'http://127.0.0.1:4173/artists/alonzo-ray/';
           const cases = [
             { name: 'desktop', viewport: { width: 1440, height: 1000 } },
             { name: 'mobile', viewport: { width: 390, height: 844 } }
@@ -38,7 +51,7 @@ jobs:
             const browser = await chromium.launch({ headless: true });
             for (const testCase of cases) {
               const page = await browser.newPage({ viewport: testCase.viewport });
-              await page.goto(`${target}?smoke=${Date.now()}`, { waitUntil: 'networkidle', timeout: 90000 });
+              await page.goto(target, { waitUntil: 'networkidle', timeout: 90000 });
 
               const portrait = page.locator('.profile-image');
               await portrait.waitFor({ state: 'visible', timeout: 30000 });

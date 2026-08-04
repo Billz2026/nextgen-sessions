@@ -1,0 +1,51 @@
+name: Apply Alonzo profile fix
+
+on:
+  pull_request:
+    paths:
+      - "scripts/fix-alonzo-profile.py"
+      - ".github/workflows/apply-alonzo-profile-fix.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-validate:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.ref == 'fix/alonzo-profile-player'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fix branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/alonzo-profile-player
+          fetch-depth: 0
+
+      - name: Apply deterministic fix
+        run: python scripts/fix-alonzo-profile.py
+
+      - name: Validate JavaScript and page references
+        run: |
+          set -euo pipefail
+          node --check artist-profiles.js
+          node --check artist-albums.js
+          grep -q '"imagePosition": "50% 8%"' artist-profiles.js
+          grep -q 'modestbranding=1&amp;autoplay=1' artist-albums.js
+          grep -q 'artist-profiles.js?v=20260804-alonzo1' artists/alonzo-ray/index.html
+          grep -q 'artist-albums.js?v=20260804-alonzo1' artists/alonzo-ray/index.html
+          test -f assets/artists/alonzo-ray-portrait.webp
+          test -f assets/artists/alonzo-ray-card.webp
+          test -f assets/artists/alonzo-ray-card-640.webp
+
+      - name: Commit production changes
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artist-profiles.js artist-albums.js artists/alonzo-ray/index.html
+          if git diff --cached --quiet; then
+            echo "Alonzo profile fixes are already applied"
+            exit 0
+          fi
+          git commit -m "Fix Alonzo portrait crop and album autoplay"
+          git push origin HEAD:fix/alonzo-profile-player

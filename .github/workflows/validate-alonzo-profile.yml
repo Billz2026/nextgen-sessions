@@ -22,20 +22,6 @@ jobs:
           npm install --no-save playwright@1.54.2
           npx playwright install --with-deps chromium
 
-      - name: Wait for Cloudflare branch preview
-        run: |
-          set -euo pipefail
-          url="https://fix-alonzo-profile-player.nextgensessions.pages.dev/artists/alonzo-ray/"
-          for attempt in $(seq 1 30); do
-            if curl -LfsS "$url" | grep -q '20260804-alonzo1'; then
-              echo "Preview is ready"
-              exit 0
-            fi
-            sleep 10
-          done
-          echo "Preview did not update in time" >&2
-          exit 1
-
       - name: Validate portrait and one-click album playback
         run: |
           mkdir -p alonzo-smoke

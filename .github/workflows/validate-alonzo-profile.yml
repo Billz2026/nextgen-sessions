@@ -82,7 +82,7 @@ jobs:
             process.exit(1);
           });
           JS
-          node /tmp/alonzo-smoke.cjs
+          NODE_PATH="$(npm root)" node /tmp/alonzo-smoke.cjs
 
       - name: Upload validation screenshots
         uses: actions/upload-artifact@v4

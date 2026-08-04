@@ -1,5 +1,7 @@
 const PLAYLIST_ID = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
+const CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
 const PLAYLIST_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
+const CHANNEL_FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
 const FALLBACK_LATEST = {
   id: "ZON1AsWLrIE",
@@ -42,11 +44,6 @@ function parseFeed(xml) {
   })).filter(item => /^[A-Za-z0-9_-]{11}$/.test(item.id));
 }
 
-function extractChannelId(xml) {
-  const match = String(xml || "").match(/<yt:channelId[^>]*>(UC[A-Za-z0-9_-]+)<\/yt:channelId>/i);
-  return match ? match[1] : "";
-}
-
 function newestFirst(items) {
   return [...items].sort((a, b) =>
     (Date.parse(b.published || b.updated || "") || 0) -
@@ -63,11 +60,20 @@ function isOfficialRelease(item) {
   ].some(pattern => pattern.test(title));
 }
 
+function uniqueReleases(items) {
+  const seen = new Set();
+  return items.filter(item => {
+    if (!item?.id || seen.has(item.id)) return false;
+    seen.add(item.id);
+    return true;
+  });
+}
+
 async function fetchFeed(url) {
   const response = await fetch(url, {
     headers: {
       Accept: "application/atom+xml, application/xml, text/xml",
-      "User-Agent": "NextGenSessionsWebsite/3.0"
+      "User-Agent": "NextGenSessionsWebsite/5.0"
     }
   });
   if (!response.ok) throw new Error(`YouTube feed returned ${response.status}`);
@@ -96,43 +102,43 @@ function jsonResponse(payload, cacheControl) {
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=4", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=5", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   try {
-    const playlistXml = await fetchFeed(PLAYLIST_FEED_URL);
-    const playlistItems = newestFirst(parseFeed(playlistXml)).filter(isOfficialRelease);
-    const channelId = extractChannelId(playlistXml);
+    const [channelResult, playlistResult] = await Promise.allSettled([
+      fetchFeed(CHANNEL_FEED_URL),
+      fetchFeed(PLAYLIST_FEED_URL)
+    ]);
 
-    let channelItems = [];
-    if (channelId) {
-      try {
-        const channelXml = await fetchFeed(
-          `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`
-        );
-        channelItems = newestFirst(parseFeed(channelXml)).filter(isOfficialRelease);
-      } catch (_) {
-        channelItems = [];
-      }
-    }
+    const channelItems = channelResult.status === "fulfilled"
+      ? newestFirst(parseFeed(channelResult.value)).filter(isOfficialRelease)
+      : [];
+    const playlistItems = playlistResult.status === "fulfilled"
+      ? newestFirst(parseFeed(playlistResult.value)).filter(isOfficialRelease)
+      : [];
+
+    const liveItems = uniqueReleases([...channelItems, ...playlistItems]);
+    if (!liveItems.length) throw new Error("YouTube release feeds unavailable");
 
     const override = validOverride(context);
-    const releases = channelItems.length ? channelItems.slice(0, 8)
-      : (playlistItems.length ? playlistItems.slice(0, 8) : FALLBACK_RELEASES);
-    const latest = override || releases[0] || FALLBACK_LATEST;
+    const releases = newestFirst(liveItems).slice(0, 8);
+    const latest = override || channelItems[0] || playlistItems[0] || releases[0];
 
     const output = jsonResponse({
       source: "youtube",
       latestSource: override ? "override" : (channelItems.length ? "channel" : "playlist"),
-      releasesSource: channelItems.length ? "channel" : "playlist",
+      releasesSource: channelItems.length && playlistItems.length
+        ? "channel+playlist"
+        : (channelItems.length ? "channel" : "playlist"),
       playlistId: PLAYLIST_ID,
-      channelId,
+      channelId: CHANNEL_ID,
       generatedAt: new Date().toISOString(),
       latest,
       releases,
       items: releases
-    }, "public, max-age=120, s-maxage=300, stale-while-revalidate=3600");
+    }, "public, max-age=60, s-maxage=120, stale-while-revalidate=600");
 
     context.waitUntil(cache.put(cacheKey, output.clone()));
     return output;
@@ -141,10 +147,12 @@ export async function onRequestGet(context) {
       source: "fallback",
       latestSource: "fallback",
       releasesSource: "fallback",
+      playlistId: PLAYLIST_ID,
+      channelId: CHANNEL_ID,
       generatedAt: new Date().toISOString(),
       latest: FALLBACK_LATEST,
       releases: FALLBACK_RELEASES,
       items: FALLBACK_RELEASES
-    }, "public, max-age=60, s-maxage=120");
+    }, "public, max-age=30, s-maxage=60");
   }
 }

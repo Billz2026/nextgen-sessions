@@ -154,6 +154,23 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Mace K", "genre": "UK Rap / Grime" }
     ]
   },
+  "rell-danja": {
+  "name": "Rell Danja",
+  "path": "/artists/rell-danja/",
+  "genre": "Jamaican Dancehall",
+  "location": "Jamaica",
+  "eyebrow": "NextGen Sessions featured artist",
+  "headline": "Hard-edged gullyside dancehall shaped by survival, loyalty, sleepless pressure and consequences.",
+  "imageKey": "rell-danja",
+  "imagePosition": "50% 31%",
+  "featuredVideo": {
+    "id": "919KvYLP_OQ",
+    "title": "Cross Me, Regret It",
+    "label": "Rell Danja — Cross Me, Regret It",
+    "published": "2026-07-01T18:01:56Z"
+  },
+  "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Rell+Danja"
+},
   "voss-carter": {
     "name": "Voss Carter",
     "path": "/artists/voss-carter/",

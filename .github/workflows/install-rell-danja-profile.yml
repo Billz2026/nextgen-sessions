@@ -70,66 +70,81 @@ jobs:
         run: |
           cat > .smoke-rell.mjs <<'JS'
           import { chromium } from 'playwright';
+          import assert from 'node:assert/strict';
           import fs from 'node:fs';
 
           const browser = await chromium.launch({ headless: true });
           fs.mkdirSync('rell-smoke', { recursive: true });
 
-          async function assertCardImage(page, url, viewport, label) {
-            await page.setViewportSize(viewport);
-            await page.goto(url, { waitUntil: 'networkidle' });
-            const card = page.locator('a[href="/artists/rell-danja/"]').filter({ hasText: 'Rell Danja' }).first();
-            await card.waitFor({ state: 'visible', timeout: 15000 });
-            const image = card.locator('img').first();
-            await image.waitFor({ state: 'visible', timeout: 15000 });
-            const loaded = await image.evaluate(img => img.complete && img.naturalWidth > 0 && img.naturalHeight > 0 && img.currentSrc.includes('rell-danja'));
-            if (!loaded) throw new Error(`${label}: Rell Danja image did not load`);
+          async function visibleRellImage(locator, label) {
+            await locator.scrollIntoViewIfNeeded();
+            await locator.waitFor({ state: 'visible', timeout: 15000 });
+            await locator.evaluate(async image => {
+              if (!image.complete && typeof image.decode === 'function') {
+                try { await image.decode(); } catch (_) {}
+              }
+            });
+            const state = await locator.evaluate(image => ({
+              complete: image.complete,
+              naturalWidth: image.naturalWidth,
+              naturalHeight: image.naturalHeight,
+              currentSrc: image.currentSrc,
+              hidden: image.hidden,
+              display: getComputedStyle(image).display,
+              visibility: getComputedStyle(image).visibility
+            }));
+            assert.equal(state.complete, true, `${label}: ${JSON.stringify(state)}`);
+            assert.equal(state.hidden, false, `${label}: ${JSON.stringify(state)}`);
+            assert.notEqual(state.display, 'none', `${label}: ${JSON.stringify(state)}`);
+            assert.notEqual(state.visibility, 'hidden', `${label}: ${JSON.stringify(state)}`);
+            assert.ok(state.currentSrc.includes('rell-danja-'), `${label}: ${JSON.stringify(state)}`);
+            assert.ok(state.naturalWidth > 0, `${label}: ${JSON.stringify(state)}`);
+            assert.ok(state.naturalHeight > state.naturalWidth, `${label}: ${JSON.stringify(state)}`);
           }
 
-          async function testProfile(viewport, screenshot) {
-            const page = await browser.newPage({ viewport });
+          for (const test of [
+            { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+            { name: 'mobile', viewport: { width: 390, height: 844 } }
+          ]) {
+            const page = await browser.newPage({ viewport: test.viewport });
+
+            await page.goto('http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
+            const featured = page.locator('.featured-artist-card', { hasText: 'Rell Danja' }).first();
+            await featured.waitFor({ state: 'attached', timeout: 15000 });
+            await visibleRellImage(featured.locator('img.featured-artist-image'), `${test.name} homepage`);
+
+            await page.goto('http://127.0.0.1:4173/artists/', { waitUntil: 'networkidle' });
+            const roster = page.locator('.artist-roster-card', { hasText: 'Rell Danja' }).first();
+            await roster.waitFor({ state: 'attached', timeout: 15000 });
+            await visibleRellImage(roster.locator('img.artist-roster-image'), `${test.name} roster`);
+
             await page.goto('http://127.0.0.1:4173/artists/rell-danja/', { waitUntil: 'networkidle' });
-            const portrait = page.locator('.profile-image');
-            await portrait.waitFor({ state: 'visible', timeout: 15000 });
-            const portraitState = await portrait.evaluate(img => {
-              const rect = img.getBoundingClientRect();
-              return {
-                loaded: img.complete && img.naturalWidth > 0 && img.currentSrc.includes('rell-danja-portrait.webp'),
-                visible: rect.width > 180 && rect.height > 220,
-                position: getComputedStyle(img).objectPosition
-              };
-            });
-            if (!portraitState.loaded || !portraitState.visible) throw new Error(`Profile portrait failed: ${JSON.stringify(portraitState)}`);
+            await visibleRellImage(page.locator('.profile-image'), `${test.name} profile`);
+            assert.equal(await page.locator('.profile-image-shell.profile-image-missing').count(), 0);
 
             const count = page.locator('[data-discography-count]');
             await count.waitFor({ state: 'visible', timeout: 15000 });
-            const countText = (await count.textContent() || '').toLowerCase();
-            if (!countText.includes('3 release')) throw new Error(`Unexpected catalogue count: ${countText}`);
+            await page.waitForFunction(() => /3 releases/i.test(document.querySelector('[data-discography-count]')?.textContent || ''), null, { timeout: 15000 });
+            assert.match(await count.innerText(), /3 releases/i);
 
             const titles = await page.locator('[data-discography-grid] .discography-card h3').allTextContents();
             for (const expected of ['Cross Me, Regret It', 'No Sleep Fi Di Wicked', 'Nuh Friend In The Street (No Friends Left)']) {
-              if (!titles.includes(expected)) throw new Error(`Missing release: ${expected}`);
+              assert.ok(titles.includes(expected), `Missing ${expected}: ${JSON.stringify(titles)}`);
             }
 
-            await page.locator('[data-play-release="919KvYLP_OQ"]').first().click();
+            const featuredRelease = page.locator('.discography-card', { hasText: 'Cross Me, Regret It' }).first();
+            await featuredRelease.waitFor({ state: 'visible', timeout: 15000 });
+            await featuredRelease.getByRole('button', { name: 'Play here' }).click();
             const iframe = page.locator('[data-featured-frame] iframe');
             await iframe.waitFor({ state: 'attached', timeout: 10000 });
             const src = await iframe.getAttribute('src');
-            if (!src?.includes('919KvYLP_OQ') || !src.includes('autoplay=1')) throw new Error(`Autoplay iframe incorrect: ${src}`);
+            assert.ok(src?.includes('919KvYLP_OQ'), src || 'missing iframe source');
+            assert.ok(src?.includes('autoplay=1'), src || 'missing iframe source');
 
-            await page.screenshot({ path: screenshot, fullPage: true });
+            await page.screenshot({ path: `rell-smoke/rell-${test.name}.png`, fullPage: true });
             await page.close();
           }
 
-          const page = await browser.newPage();
-          await assertCardImage(page, 'http://127.0.0.1:4173/#featured-artists', { width: 1440, height: 1000 }, 'desktop homepage');
-          await assertCardImage(page, 'http://127.0.0.1:4173/artists/', { width: 1440, height: 1000 }, 'desktop roster');
-          await assertCardImage(page, 'http://127.0.0.1:4173/#featured-artists', { width: 390, height: 844 }, 'mobile homepage');
-          await assertCardImage(page, 'http://127.0.0.1:4173/artists/', { width: 390, height: 844 }, 'mobile roster');
-          await page.close();
-
-          await testProfile({ width: 1440, height: 1000 }, 'rell-smoke/rell-desktop.png');
-          await testProfile({ width: 390, height: 844 }, 'rell-smoke/rell-mobile.png');
           await browser.close();
           console.log('Rell Danja responsive smoke tests passed');
           JS

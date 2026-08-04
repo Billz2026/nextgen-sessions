@@ -67,6 +67,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/reiss-card-640.webp?v=20260803-reiss1&portrait=human4",
     position: "50% 32%"
   },
+  "rell-danja": {
+    src: "/assets/artists/rell-danja-card.webp?v=20260804-rell1",
+    srcset: "/assets/artists/rell-danja-card-640.webp?v=20260804-rell1 640w, /assets/artists/rell-danja-card.webp?v=20260804-rell1 1024w",
+    portrait: "/assets/artists/rell-danja-portrait.webp?v=20260804-rell1",
+    fallback: "/assets/artists/rell-danja-card-640.webp?v=20260804-rell1",
+    position: "50% 31%"
+  },
   "alonzo-ray": {
     src: "/assets/artists/alonzo-ray-card.webp",
     srcset: "/assets/artists/alonzo-ray-card-640.webp 640w, /assets/artists/alonzo-ray-card.webp 1024w",

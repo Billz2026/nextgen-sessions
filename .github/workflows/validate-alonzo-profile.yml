@@ -1,0 +1,106 @@
+name: Validate Alonzo profile
+
+on:
+  pull_request:
+    paths:
+      - "artist-profiles.js"
+      - "artist-albums.js"
+      - "artists/alonzo-ray/index.html"
+      - ".github/workflows/validate-alonzo-profile.yml"
+  workflow_dispatch:
+
+jobs:
+  browser-smoke:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.ref == 'fix/alonzo-profile-player'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Chromium test runner
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+
+      - name: Wait for Cloudflare branch preview
+        run: |
+          set -euo pipefail
+          url="https://fix-alonzo-profile-player.nextgensessions.pages.dev/artists/alonzo-ray/"
+          for attempt in $(seq 1 30); do
+            if curl -fsS "$url" | grep -q '20260804-alonzo1'; then
+              echo "Preview is ready"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Preview did not update in time" >&2
+          exit 1
+
+      - name: Validate portrait and one-click album playback
+        run: |
+          mkdir -p alonzo-smoke
+          cat > /tmp/alonzo-smoke.cjs <<'JS'
+          const { chromium } = require('playwright');
+
+          const target = 'https://fix-alonzo-profile-player.nextgensessions.pages.dev/artists/alonzo-ray/';
+          const cases = [
+            { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+            { name: 'mobile', viewport: { width: 390, height: 844 } }
+          ];
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            for (const testCase of cases) {
+              const page = await browser.newPage({ viewport: testCase.viewport });
+              await page.goto(target, { waitUntil: 'networkidle', timeout: 90000 });
+
+              const portrait = page.locator('.profile-image');
+              await portrait.waitFor({ state: 'visible', timeout: 30000 });
+              await portrait.scrollIntoViewIfNeeded();
+              const portraitState = await portrait.evaluate((image) => ({
+                complete: image.complete,
+                naturalWidth: image.naturalWidth,
+                naturalHeight: image.naturalHeight,
+                objectPosition: getComputedStyle(image).objectPosition,
+                box: image.getBoundingClientRect().toJSON()
+              }));
+              if (!portraitState.complete || portraitState.naturalWidth < 600 || portraitState.naturalHeight < 750) {
+                throw new Error(`${testCase.name}: portrait did not load at production quality: ${JSON.stringify(portraitState)}`);
+              }
+              if (portraitState.objectPosition !== '50% 8%') {
+                throw new Error(`${testCase.name}: unexpected portrait focus ${portraitState.objectPosition}`);
+              }
+              if (portraitState.box.width < 250 || portraitState.box.height < 250) {
+                throw new Error(`${testCase.name}: portrait frame is too small: ${JSON.stringify(portraitState.box)}`);
+              }
+
+              const albumButton = page.getByRole('button', { name: 'Play full album here' });
+              await albumButton.waitFor({ state: 'visible', timeout: 30000 });
+              await albumButton.click();
+              const frame = page.locator('[data-featured-frame] iframe');
+              await frame.waitFor({ state: 'attached', timeout: 15000 });
+              const src = await frame.getAttribute('src');
+              if (!src || !src.includes('/embed/PZtq68Vo7OU') || !src.includes('autoplay=1')) {
+                throw new Error(`${testCase.name}: album did not switch to autoplay iframe: ${src}`);
+              }
+
+              await page.screenshot({
+                path: `alonzo-smoke/alonzo-${testCase.name}.png`,
+                fullPage: true
+              });
+              await page.close();
+            }
+            await browser.close();
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          JS
+          node /tmp/alonzo-smoke.cjs
+
+      - name: Upload validation screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: alonzo-profile-smoke
+          path: alonzo-smoke/*.png
+          retention-days: 7

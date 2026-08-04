@@ -28,7 +28,7 @@ jobs:
           cat > /tmp/alonzo-smoke.cjs <<'JS'
           const { chromium } = require('playwright');
 
-          const target = 'https://fix-alonzo-profile-player.nextgensessions.pages.dev/artists/alonzo-ray/';
+          const target = 'https://3f867f4f.nextgensessions.pages.dev/artists/alonzo-ray/';
           const cases = [
             { name: 'desktop', viewport: { width: 1440, height: 1000 } },
             { name: 'mobile', viewport: { width: 390, height: 844 } }
@@ -38,7 +38,7 @@ jobs:
             const browser = await chromium.launch({ headless: true });
             for (const testCase of cases) {
               const page = await browser.newPage({ viewport: testCase.viewport });
-              await page.goto(target, { waitUntil: 'networkidle', timeout: 90000 });
+              await page.goto(`${target}?smoke=${Date.now()}`, { waitUntil: 'networkidle', timeout: 90000 });
 
               const portrait = page.locator('.profile-image');
               await portrait.waitFor({ state: 'visible', timeout: 30000 });

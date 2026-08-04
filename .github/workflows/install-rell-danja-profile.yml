@@ -1,0 +1,166 @@
+name: Install and validate Rell Danja profile
+
+on:
+  pull_request:
+    paths:
+      - "assets/artists/rell-danja-*.webp"
+      - "scripts/install-rell-danja-profile.py"
+      - ".github/workflows/install-rell-danja-profile.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install-and-test:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.ref == 'agent/rell-danja-profile-production'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/rell-danja-profile-production
+          fetch-depth: 0
+
+      - name: Install Rell Danja profile
+        run: python3 scripts/install-rell-danja-profile.py
+
+      - name: Validate production files
+        run: |
+          set -euo pipefail
+          node --check artist-images.js
+          node --check artists/rell-danja/profile.js
+          grep -q '"rell-danja"' artist-images.js
+          grep -q '/assets/artists/rell-danja-card.webp?v=20260804-rell1' artist-images.js
+          grep -q '/artist-images.js?v=20260804-rell1' index.html
+          grep -q '/artist-images.js?v=20260804-rell1' artists/index.html
+          grep -q 'data-artist="rell-danja"' artists/rell-danja/index.html
+          grep -q '919KvYLP_OQ' artists/rell-danja/profile.js
+          grep -q '4mu5NVxUeII' artists/rell-danja/profile.js
+          grep -q 'i2xhycshXEg' artists/rell-danja/profile.js
+          grep -q 'https://nextgensessions.com/artists/rell-danja/' sitemap.xml
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+
+          expected = {
+              "assets/artists/rell-danja-portrait.webp": (1120, 1400),
+              "assets/artists/rell-danja-card.webp": (1024, 1280),
+              "assets/artists/rell-danja-card-640.webp": (640, 800),
+          }
+          for filename, dimensions in expected.items():
+              data = Path(filename).read_bytes()
+              assert data[:4] == b"RIFF"
+              assert data[8:12] == b"WEBP"
+              assert len(data) > 35_000
+              with Image.open(filename) as image:
+                  assert image.format == "WEBP"
+                  assert image.size == dimensions
+              print(filename, dimensions, len(data))
+          PY
+
+      - name: Install Chromium test runner
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.54.2
+          npx playwright install --with-deps chromium
+
+      - name: Run desktop and mobile smoke tests
+        run: |
+          cat > .smoke-rell.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+
+          const browser = await chromium.launch({ headless: true });
+          fs.mkdirSync('rell-smoke', { recursive: true });
+
+          async function assertCardImage(page, url, viewport, label) {
+            await page.setViewportSize(viewport);
+            await page.goto(url, { waitUntil: 'networkidle' });
+            const card = page.locator('a[href="/artists/rell-danja/"]').filter({ hasText: 'Rell Danja' }).first();
+            await card.waitFor({ state: 'visible', timeout: 15000 });
+            const image = card.locator('img').first();
+            await image.waitFor({ state: 'visible', timeout: 15000 });
+            const loaded = await image.evaluate(img => img.complete && img.naturalWidth > 0 && img.naturalHeight > 0 && img.currentSrc.includes('rell-danja'));
+            if (!loaded) throw new Error(`${label}: Rell Danja image did not load`);
+          }
+
+          async function testProfile(viewport, screenshot) {
+            const page = await browser.newPage({ viewport });
+            await page.goto('http://127.0.0.1:4173/artists/rell-danja/', { waitUntil: 'networkidle' });
+            const portrait = page.locator('.profile-image');
+            await portrait.waitFor({ state: 'visible', timeout: 15000 });
+            const portraitState = await portrait.evaluate(img => {
+              const rect = img.getBoundingClientRect();
+              return {
+                loaded: img.complete && img.naturalWidth > 0 && img.currentSrc.includes('rell-danja-portrait.webp'),
+                visible: rect.width > 180 && rect.height > 220,
+                position: getComputedStyle(img).objectPosition
+              };
+            });
+            if (!portraitState.loaded || !portraitState.visible) throw new Error(`Profile portrait failed: ${JSON.stringify(portraitState)}`);
+
+            const count = page.locator('[data-discography-count]');
+            await count.waitFor({ state: 'visible', timeout: 15000 });
+            const countText = (await count.textContent() || '').toLowerCase();
+            if (!countText.includes('3 release')) throw new Error(`Unexpected catalogue count: ${countText}`);
+
+            const titles = await page.locator('[data-discography-grid] .discography-card h3').allTextContents();
+            for (const expected of ['Cross Me, Regret It', 'No Sleep Fi Di Wicked', 'Nuh Friend In The Street (No Friends Left)']) {
+              if (!titles.includes(expected)) throw new Error(`Missing release: ${expected}`);
+            }
+
+            await page.locator('[data-play-release="919KvYLP_OQ"]').first().click();
+            const iframe = page.locator('[data-featured-frame] iframe');
+            await iframe.waitFor({ state: 'attached', timeout: 10000 });
+            const src = await iframe.getAttribute('src');
+            if (!src?.includes('919KvYLP_OQ') || !src.includes('autoplay=1')) throw new Error(`Autoplay iframe incorrect: ${src}`);
+
+            await page.screenshot({ path: screenshot, fullPage: true });
+            await page.close();
+          }
+
+          const page = await browser.newPage();
+          await assertCardImage(page, 'http://127.0.0.1:4173/#featured-artists', { width: 1440, height: 1000 }, 'desktop homepage');
+          await assertCardImage(page, 'http://127.0.0.1:4173/artists/', { width: 1440, height: 1000 }, 'desktop roster');
+          await assertCardImage(page, 'http://127.0.0.1:4173/#featured-artists', { width: 390, height: 844 }, 'mobile homepage');
+          await assertCardImage(page, 'http://127.0.0.1:4173/artists/', { width: 390, height: 844 }, 'mobile roster');
+          await page.close();
+
+          await testProfile({ width: 1440, height: 1000 }, 'rell-smoke/rell-desktop.png');
+          await testProfile({ width: 390, height: 844 }, 'rell-smoke/rell-mobile.png');
+          await browser.close();
+          console.log('Rell Danja responsive smoke tests passed');
+          JS
+          python3 -m http.server 4173 >/tmp/rell-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          sleep 2
+          node .smoke-rell.mjs
+
+      - name: Upload validation screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: rell-danja-responsive-smoke
+          path: rell-smoke/*.png
+          if-no-files-found: error
+
+      - name: Commit production profile changes
+        run: |
+          set -euo pipefail
+          rm -rf node_modules package.json package-lock.json .smoke-rell.mjs rell-smoke
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artist-images.js \
+            index.html \
+            artists/index.html \
+            artists/rell-danja/index.html \
+            artists/rell-danja/profile.js \
+            sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Rell Danja production profile is already current"
+            exit 0
+          fi
+          git commit -m "Complete Rell Danja artist profile"
+          git push origin HEAD:agent/rell-danja-profile-production

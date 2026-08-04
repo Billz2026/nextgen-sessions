@@ -28,6 +28,7 @@ jobs:
       - name: Validate production files
         run: |
           set -euo pipefail
+          python3 -m pip install --quiet pillow
           node --check artist-images.js
           node --check artists/rell-danja/profile.js
           grep -q '"rell-danja"' artist-images.js

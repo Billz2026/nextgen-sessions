@@ -75,10 +75,10 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 31%"
   },
   "alonzo-ray": {
-    src: "/assets/artists/alonzo-ray-card.webp",
-    srcset: "/assets/artists/alonzo-ray-card-640.webp 640w, /assets/artists/alonzo-ray-card.webp 1024w",
-    portrait: "/assets/artists/alonzo-ray-portrait.webp",
-    fallback: "/assets/artists/alonzo-ray-card-640.webp",
+    src: "/assets/artists/alonzo-ray-card.webp?v=20260805-alonzo6",
+    srcset: "/assets/artists/alonzo-ray-card-640.webp?v=20260805-alonzo6 640w, /assets/artists/alonzo-ray-card.webp?v=20260805-alonzo6 1024w",
+    portrait: "/assets/artists/alonzo-ray-portrait.webp?v=20260805-alonzo6",
+    fallback: "/assets/artists/alonzo-ray-card-640.webp?v=20260805-alonzo6",
     position: "50% 38%"
   },
   "asif-sultaan": {
@@ -119,5 +119,11 @@ if (Array.isArray(window.NGS_ARTISTS)) {
   if (deon) {
     deon.genre = "Soul / R&B";
     deon.summary = "Reflective neighbourhood soul shaped by faith, responsibility, resilience and mature perspective.";
+  }
+
+  const alonzo = window.NGS_ARTISTS.find(artist => artist.slug === "alonzo-ray");
+  if (alonzo) {
+    alonzo.genre = "West Coast Hip-Hop / Soul";
+    alonzo.summary = "Reflective Pasadena hip-hop shaped by soulful production, long-term vision and mature perspective.";
   }
 }

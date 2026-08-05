@@ -1,0 +1,57 @@
+name: Install Marlo Saint Portrait
+
+on:
+  push:
+    paths:
+      - ".marlo-upload/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-marlo-saint-portrait
+  cancel-in-progress: true
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check upload parts
+        id: parts
+        shell: bash
+        run: |
+          set -euo pipefail
+          ready=true
+          for part in 01 02 03 04 05; do
+            if [ ! -f ".marlo-upload/part-${part}.txt" ]; then
+              ready=false
+            fi
+          done
+          echo "ready=${ready}" >> "$GITHUB_OUTPUT"
+
+      - name: Decode portrait asset
+        if: steps.parts.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/artists
+          cat .marlo-upload/part-*.txt | tr -d '\r\n ' | base64 --decode > assets/artists/marlo-saint-portrait.webp
+          cp assets/artists/marlo-saint-portrait.webp assets/artists/marlo-saint-card.webp
+          cp assets/artists/marlo-saint-portrait.webp assets/artists/marlo-saint-card-640.webp
+          test -s assets/artists/marlo-saint-portrait.webp
+          file assets/artists/marlo-saint-portrait.webp
+
+      - name: Commit portrait assets
+        if: steps.parts.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/artists/marlo-saint-portrait.webp assets/artists/marlo-saint-card.webp assets/artists/marlo-saint-card-640.webp
+          git commit -m "Add approved Marlo Saint portrait assets" || exit 0
+          git push

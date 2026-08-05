@@ -207,7 +207,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "Marlo Saint represents the late-night Afro-swing and Afro-fusion lane within NextGen Sessions, combining calm melodic delivery with a bouncy rhythmic pocket and polished nightlife production.",
       "His current releases focus on attraction, boundaries and no-strings connections. Play It Right and One Night Only are supported by a consistent visual world of luxury interiors, city lights and composed, detached confidence."
     ],
-    "image": "/api/release-image?id=RG4fABy1bkU",
+    "imageKey": "marlo-saint",
     "imagePosition": "50% 38%",
     "featuredVideo": {
       "id": "RG4fABy1bkU",

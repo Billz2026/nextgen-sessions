@@ -214,7 +214,8 @@ window.NGS_ARTIST_PROFILES = {
       "His records draw on Pasadena nights, warm live instrumentation and subtle G-funk colour without relying on nostalgia. The voice stays calm and natural, placing perspective, legacy and personal growth ahead of empty bravado."
     ],
     "imageKey": "alonzo-ray",
-    "imagePosition": "50% 0%",
+    "image": "/assets/artists/alonzo-ray-card.webp?v=20260805-alonzo5",
+    "imagePosition": "50% 50%",
     "featuredVideo": {
       "id": "GlobzSyoDe0",
       "title": "Pasadena",

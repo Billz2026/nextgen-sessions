@@ -155,22 +155,22 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     ]
   },
   "rell-danja": {
-  "name": "Rell Danja",
-  "path": "/artists/rell-danja/",
-  "genre": "Jamaican Dancehall",
-  "location": "Jamaica",
-  "eyebrow": "NextGen Sessions featured artist",
-  "headline": "Hard-edged gullyside dancehall shaped by survival, loyalty, sleepless pressure and consequences.",
-  "imageKey": "rell-danja",
-  "imagePosition": "50% 31%",
-  "featuredVideo": {
-    "id": "919KvYLP_OQ",
-    "title": "Cross Me, Regret It",
-    "label": "Rell Danja — Cross Me, Regret It",
-    "published": "2026-07-01T18:01:56Z"
+    "name": "Rell Danja",
+    "path": "/artists/rell-danja/",
+    "genre": "Jamaican Dancehall",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Hard-edged gullyside dancehall shaped by survival, loyalty, sleepless pressure and consequences.",
+    "imageKey": "rell-danja",
+    "imagePosition": "50% 31%",
+    "featuredVideo": {
+      "id": "919KvYLP_OQ",
+      "title": "Cross Me, Regret It",
+      "label": "Rell Danja — Cross Me, Regret It",
+      "published": "2026-07-01T18:01:56Z"
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Rell+Danja"
   },
-  "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Rell+Danja"
-},
   "voss-carter": {
     "name": "Voss Carter",
     "path": "/artists/voss-carter/",
@@ -194,6 +194,49 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Alonzo Ray", "genre": "Hip-Hop / Soul" },
       { "name": "Jay Starks", "genre": "New York Hip-Hop" },
       { "name": "Karvell Reign", "genre": "West Coast Hip-Hop" }
+    ]
+  },
+  "marlo-saint": {
+    "name": "Marlo Saint",
+    "path": "/artists/marlo-saint/",
+    "genre": "UK Afro-Swing / R&B",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions featured artist",
+    "headline": "Late-night UK Afro-swing shaped by smooth melody, confident boundaries and polished city-night production.",
+    "bio": [
+      "Marlo Saint represents the late-night Afro-swing and Afro-fusion lane within NextGen Sessions, combining calm melodic delivery with a bouncy rhythmic pocket and polished nightlife production.",
+      "His current releases focus on attraction, boundaries and no-strings connections. Play It Right and One Night Only are supported by a consistent visual world of luxury interiors, city lights and composed, detached confidence."
+    ],
+    "image": "/api/release-image?id=RG4fABy1bkU",
+    "imagePosition": "50% 38%",
+    "featuredVideo": {
+      "id": "RG4fABy1bkU",
+      "title": "One Night Only",
+      "label": "Marlo Saint — One Night Only",
+      "published": "2026-05-04T09:47:31Z"
+    },
+    "catalogueAliases": ["Marlo Saint"],
+    "additionalReleases": [
+      {
+        "id": "RG4fABy1bkU",
+        "artist": "Marlo Saint",
+        "title": "One Night Only",
+        "group": "Late Night Afro",
+        "published": "2026-05-04T09:47:31Z"
+      },
+      {
+        "id": "zNM_65xgiIc",
+        "artist": "Marlo Saint",
+        "title": "Play It Right",
+        "group": "Late Night Afro",
+        "published": "2026-04-21T12:21:01Z"
+      }
+    ],
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Marlo+Saint",
+    "related": [
+      { "name": "Alia Bleu", "genre": "UK R&B" },
+      { "name": "Nyah Rae", "genre": "R&B" },
+      { "name": "Mariana Lo", "genre": "Pop / R&B" }
     ]
   }
 });

@@ -95,3 +95,17 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 38%"
   }
 };
+
+if (Array.isArray(window.NGS_ARTISTS)) {
+  const asif = window.NGS_ARTISTS.find(artist => artist.slug === "asif-sultaan");
+  if (asif) {
+    asif.genre = "Punjabi / South Asian Fusion";
+    asif.summary = "Modern Punjabi crossover with commanding vocals, South Asian trap texture and polished global production.";
+  }
+
+  const marlo = window.NGS_ARTISTS.find(artist => artist.slug === "marlo-saint");
+  if (marlo) {
+    marlo.genre = "UK Afro-Swing / R&B";
+    marlo.summary = "Late-night Afro-swing with smooth melody, confident boundaries and polished city-night production.";
+  }
+}

@@ -34,9 +34,9 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 38%"
   },
   "jay-starks": {
-    src: "/assets/artists/jay-starks-portrait-approved.webp?v=20260803-1",
-    portrait: "/assets/artists/jay-starks-portrait-approved.webp?v=20260803-1",
-    fallback: "/assets/artists/jay-starks-portrait-approved.webp?v=20260803-1",
+    src: "/assets/artists/jay-starks-portrait-approved.webp?v=20260805-jay4",
+    portrait: "/assets/artists/jay-starks-portrait-approved.webp?v=20260805-jay4",
+    fallback: "/assets/artists/jay-starks-portrait-approved.webp?v=20260805-jay4",
     position: "50% 36%"
   },
   "deon-creed": {

@@ -81,6 +81,12 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/alonzo-ray-card-640.webp",
     position: "50% 38%"
   },
+  "asif-sultaan": {
+    src: "/assets/artists/asif-sultaan-portrait.webp?v=20260805-asif1",
+    portrait: "/assets/artists/asif-sultaan-portrait.webp?v=20260805-asif1",
+    fallback: "/assets/artists/asif-sultaan-portrait.webp?v=20260805-asif1",
+    position: "50% 36%"
+  },
   "marlo-saint": {
     src: "/assets/artists/marlo-saint-card.webp?v=20260805-marlo2",
     srcset: "/assets/artists/marlo-saint-card-640.webp?v=20260805-marlo2 640w, /assets/artists/marlo-saint-card.webp?v=20260805-marlo2 720w",

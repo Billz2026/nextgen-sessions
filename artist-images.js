@@ -1,10 +1,10 @@
 window.NGS_ARTIST_IMAGES = {
   "renz-cole": {
-    src: "/assets/artists/renz-cole-card.webp",
-    srcset: "/assets/artists/renz-cole-card-640.webp 640w, /assets/artists/renz-cole-card.webp 1024w",
-    portrait: "/assets/artists/renz-cole-portrait.webp",
-    fallback: "/assets/artists/renz-cole-card-640.webp",
-    position: "50% 42%"
+    src: "/assets/artists/renz-cole-card.webp?v=20260805-renz6",
+    srcset: "/assets/artists/renz-cole-card-640.webp?v=20260805-renz6 640w, /assets/artists/renz-cole-card.webp?v=20260805-renz6 1024w",
+    portrait: "/assets/artists/renz-cole-portrait.webp?v=20260805-renz6",
+    fallback: "/assets/artists/renz-cole-card-640.webp?v=20260805-renz6",
+    position: "50% 35%"
   },
   "alia-bleu": {
     src: "/assets/artists/alia-bleu-card.webp",
@@ -97,6 +97,12 @@ window.NGS_ARTIST_IMAGES = {
 };
 
 if (Array.isArray(window.NGS_ARTISTS)) {
+  const renz = window.NGS_ARTISTS.find(artist => artist.slug === "renz-cole");
+  if (renz) {
+    renz.genre = "UK Rap";
+    renz.summary = "Modern London rap with football-coded confidence, sharp personality, summer movement and memorable hooks.";
+  }
+
   const asif = window.NGS_ARTISTS.find(artist => artist.slug === "asif-sultaan");
   if (asif) {
     asif.genre = "Punjabi / South Asian Fusion";

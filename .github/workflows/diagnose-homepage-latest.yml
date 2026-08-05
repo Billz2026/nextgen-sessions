@@ -1,9 +1,9 @@
 name: Diagnose homepage latest release
 
 on:
-  push:
+  pull_request:
     branches:
-      - fix/homepage-latest-and-alonzo-crop
+      - main
   workflow_dispatch:
 
 jobs:

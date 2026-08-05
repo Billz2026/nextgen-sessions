@@ -27,16 +27,16 @@
   let latestPlayerLoaded = false;
 
   const FALLBACK_LATEST = {
-    id: "uSlZrZJompg",
-    title: "Zara Veli – Don’t Call Past 2",
-    published: "2026-07-30T12:25:38Z"
+    id: "xicnIGw-ei8",
+    title: "Alia Bleu – Piggyback",
+    published: "2026-08-03T17:00:30+00:00"
   };
 
   const FALLBACK_RELEASES = [
     FALLBACK_LATEST,
-    { id: "Jsayjeif8WE", title: "Zara Veli – Too Boujee To Beg", published: "2026-07-30T12:25:08Z" },
-    { id: "xicnIGw-ei8", title: "Alia Bleu – Piggyback", published: "2026-07-21T12:29:20Z" },
-    { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-20T15:35:30Z" },
+    { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00" },
+    { id: "6H6yq_1bEsQ", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00" },
+    { id: "ZSjRD_3B5uk", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00" },
     { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-17T15:41:27Z" },
     { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-12T13:41:07Z" }
   ];
@@ -287,7 +287,8 @@
     if (!id) return null;
     const artist = String(release?.artist || "").trim();
     const releaseTitle = String(release?.title || "").trim();
-    const title = artist && releaseTitle
+    const hasArtistPrefix = artist && releaseTitle.toLowerCase().startsWith(artist.toLowerCase());
+    const title = artist && releaseTitle && !hasArtistPrefix
       ? `${artist} – ${releaseTitle}`
       : (releaseTitle || "Latest NextGen Sessions release");
     return {
@@ -347,8 +348,8 @@
   }
 
   Promise.allSettled([
-    fetchJson("/api/latest?v=6"),
-    fetchJson("/releases.json?homepage=20260805")
+    fetchJson("/api/latest?v=7"),
+    fetchJson("/releases.json?homepage=20260805b")
   ]).then(results => {
     const apiPayload = results[0].status === "fulfilled" ? results[0].value : null;
     const cataloguePayload = results[1].status === "fulfilled" ? results[1].value : null;

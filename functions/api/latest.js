@@ -1,19 +1,20 @@
 const PLAYLIST_ID = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
 const CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
+const CHANNEL_VIDEOS_URL = "https://www.youtube.com/@NextGenSessions/videos";
 const PLAYLIST_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
 const CHANNEL_FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
 const FALLBACK_LATEST = {
-  id: "uSlZrZJompg",
-  title: "Zara Veli – Don’t Call Past 2",
-  published: "2026-07-30T12:25:38Z"
+  id: "xicnIGw-ei8",
+  title: "Alia Bleu – Piggyback",
+  published: "2026-08-03T17:00:30+00:00"
 };
 
 const FALLBACK_RELEASES = [
   FALLBACK_LATEST,
-  { id: "Jsayjeif8WE", title: "Zara Veli – Too Boujee To Beg", published: "2026-07-30T12:25:08Z" },
-  { id: "xicnIGw-ei8", title: "Alia Bleu – Piggyback", published: "2026-07-21T12:29:20Z" },
-  { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-20T15:35:30Z" },
+  { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00" },
+  { id: "6H6yq_1bEsQ", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00" },
+  { id: "ZSjRD_3B5uk", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00" },
   { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-17T15:41:27Z" },
   { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-12T13:41:07Z" }
 ];
@@ -73,7 +74,7 @@ async function fetchFeed(url) {
   const response = await fetch(url, {
     headers: {
       Accept: "application/atom+xml, application/xml, text/xml",
-      "User-Agent": "NextGenSessionsWebsite/6.0"
+      "User-Agent": "NextGenSessionsWebsite/7.0"
     }
   });
   if (!response.ok) throw new Error(`YouTube feed returned ${response.status}`);
@@ -99,7 +100,7 @@ function normaliseCatalogueItem(item) {
 
 async function fetchCatalogue(context) {
   const url = new URL("/releases.json", context.request.url);
-  url.searchParams.set("latest", "v6");
+  url.searchParams.set("latest", "v7");
   const request = new Request(url.toString(), {
     headers: { Accept: "application/json" }
   });
@@ -110,6 +111,69 @@ async function fetchCatalogue(context) {
   const payload = await response.json();
   const releases = Array.isArray(payload?.releases) ? payload.releases : [];
   return releases.map(normaliseCatalogueItem).filter(Boolean);
+}
+
+function enrichWithCatalogue(items, catalogueItems) {
+  const catalogueById = new Map(catalogueItems.map(item => [item.id, item]));
+  return items.map(item => {
+    const catalogue = catalogueById.get(item.id);
+    return catalogue
+      ? { ...catalogue, ...item, title: catalogue.title }
+      : item;
+  });
+}
+
+function extractChannelVideoIds(html) {
+  const matches = String(html || "").matchAll(/"videoId":"([A-Za-z0-9_-]{11})"/g);
+  const ids = [];
+  const seen = new Set();
+  for (const match of matches) {
+    const id = match[1];
+    if (seen.has(id)) continue;
+    seen.add(id);
+    ids.push(id);
+    if (ids.length >= 20) break;
+  }
+  return ids;
+}
+
+async function fetchOEmbedTitle(id) {
+  const url = `https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${id}`)}&format=json`;
+  const response = await fetch(url, {
+    headers: { Accept: "application/json" }
+  });
+  if (!response.ok) throw new Error(`YouTube oEmbed returned ${response.status}`);
+  const payload = await response.json();
+  return String(payload?.title || "").trim();
+}
+
+async function fetchChannelPage(catalogueItems) {
+  const response = await fetch(CHANNEL_VIDEOS_URL, {
+    headers: {
+      Accept: "text/html,application/xhtml+xml",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36"
+    }
+  });
+  if (!response.ok) throw new Error(`YouTube channel page returned ${response.status}`);
+  const ids = extractChannelVideoIds(await response.text());
+  if (!ids.length) throw new Error("No public channel videos found");
+
+  const catalogueById = new Map(catalogueItems.map(item => [item.id, item]));
+  const releases = [];
+  for (const id of ids) {
+    let release = catalogueById.get(id) || null;
+    if (!release) {
+      try {
+        const title = await fetchOEmbedTitle(id);
+        release = title ? { id, title, published: "", updated: "" } : null;
+      } catch (_) {
+        release = null;
+      }
+    }
+    if (release && isOfficialRelease(release)) releases.push(release);
+    if (releases.length >= 8) break;
+  }
+  return releases;
 }
 
 function validOverride(context) {
@@ -134,7 +198,7 @@ function jsonResponse(payload, cacheControl) {
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=6", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=7", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -145,42 +209,61 @@ export async function onRequestGet(context) {
       fetchCatalogue(context)
     ]);
 
-    const channelItems = channelResult.status === "fulfilled"
-      ? newestFirst(parseFeed(channelResult.value)).filter(isOfficialRelease)
-      : [];
-    const playlistItems = playlistResult.status === "fulfilled"
-      ? newestFirst(parseFeed(playlistResult.value)).filter(isOfficialRelease)
-      : [];
     const catalogueItems = catalogueResult.status === "fulfilled"
       ? newestFirst(catalogueResult.value)
       : [];
+    const channelItems = channelResult.status === "fulfilled"
+      ? enrichWithCatalogue(newestFirst(parseFeed(channelResult.value)).filter(isOfficialRelease), catalogueItems)
+      : [];
+    const playlistItems = playlistResult.status === "fulfilled"
+      ? enrichWithCatalogue(newestFirst(parseFeed(playlistResult.value)).filter(isOfficialRelease), catalogueItems)
+      : [];
 
-    const releases = newestFirst(uniqueReleases([
-      ...channelItems,
-      ...playlistItems,
-      ...catalogueItems
-    ])).slice(0, 8);
+    let channelPageItems = [];
+    if (!channelItems.length) {
+      try {
+        channelPageItems = await fetchChannelPage(catalogueItems);
+      } catch (_) {
+        channelPageItems = [];
+      }
+    }
+
+    const primaryItems = channelItems.length
+      ? channelItems
+      : channelPageItems.length
+        ? channelPageItems
+        : playlistItems.length
+          ? playlistItems
+          : catalogueItems;
+    const releases = uniqueReleases([
+      ...primaryItems,
+      ...catalogueItems,
+      ...playlistItems
+    ]).slice(0, 8);
     if (!releases.length) throw new Error("All latest-release sources are unavailable");
 
     const override = validOverride(context);
-    const latest = override || releases[0];
+    const latest = override || primaryItems[0] || releases[0];
     const latestSource = override
       ? "override"
-      : channelItems.some(item => item.id === latest.id)
+      : channelItems.length
         ? "channel"
-        : playlistItems.some(item => item.id === latest.id)
-          ? "playlist"
-          : "catalogue";
+        : channelPageItems.length
+          ? "channel-page"
+          : playlistItems.length
+            ? "playlist"
+            : "catalogue";
     const releaseSources = [
       channelItems.length ? "channel" : "",
+      channelPageItems.length ? "channel-page" : "",
       playlistItems.length ? "playlist" : "",
       catalogueItems.length ? "catalogue" : ""
     ].filter(Boolean);
 
     const output = jsonResponse({
-      source: releaseSources.join("+") || "catalogue",
+      source: releaseSources.join("+") || "fallback",
       latestSource,
-      releasesSource: releaseSources.join("+") || "catalogue",
+      releasesSource: releaseSources.join("+") || "fallback",
       playlistId: PLAYLIST_ID,
       channelId: CHANNEL_ID,
       generatedAt: new Date().toISOString(),

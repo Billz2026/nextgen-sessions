@@ -29,38 +29,12 @@ def main() -> None:
     html = re.sub(r"20260805-alonzo\d+", "20260805-alonzo5", html)
     page.write_text(html, encoding="utf-8")
 
-    validation = ROOT / ".github/workflows/validate-homepage-latest-fix.yml"
-    workflow = validation.read_text(encoding="utf-8")
-    workflow = workflow.replace("assert.equal(state.objectPosition, '50% 0%');", "assert.equal(state.objectPosition, '50% 50%');")
-    old_state = '''              const state = await portrait.evaluate(image => ({
-                objectPosition: getComputedStyle(image).objectPosition,
-                naturalWidth: image.naturalWidth,
-                naturalHeight: image.naturalHeight,
-                box: image.getBoundingClientRect().toJSON()
-              }));'''
-    new_state = '''              const state = await portrait.evaluate(image => ({
-                src: image.getAttribute('src'),
-                objectPosition: getComputedStyle(image).objectPosition,
-                naturalWidth: image.naturalWidth,
-                naturalHeight: image.naturalHeight,
-                box: image.getBoundingClientRect().toJSON()
-              }));'''
-    if old_state not in workflow:
-        raise RuntimeError("Could not extend Alonzo browser assertion state")
-    workflow = workflow.replace(old_state, new_state, 1)
-    marker = "              assert.equal(state.objectPosition, '50% 50%');"
-    if marker not in workflow:
-        raise RuntimeError("Could not update Alonzo object-position assertion")
-    workflow = workflow.replace(marker, marker + "\n              assert.ok(state.src.includes('alonzo-ray-card.webp'));", 1)
-    validation.write_text(workflow, encoding="utf-8")
-
     checks = {
         profiles: [
             '"image": "/assets/artists/alonzo-ray-card.webp?v=20260805-alonzo5"',
             '"imagePosition": "50% 50%"',
         ],
         page: ["20260805-alonzo5"],
-        validation: ["state.src.includes('alonzo-ray-card.webp')", "'50% 50%'"],
     }
     for path, needles in checks.items():
         body = path.read_text(encoding="utf-8")

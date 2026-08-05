@@ -27,18 +27,18 @@
   let latestPlayerLoaded = false;
 
   const FALLBACK_LATEST = {
-    id: "ZON1AsWLrIE",
-    title: "Rudii Marka – Marked for War",
-    published: ""
+    id: "xicnIGw-ei8",
+    title: "Alia Bleu – Piggyback",
+    published: "2026-08-03T17:00:30+00:00"
   };
 
   const FALLBACK_RELEASES = [
     FALLBACK_LATEST,
-    { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
-    { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
-    { id: "Qr1gNggtg8k", title: "Ride On My Enemies" },
-    { id: "Zkb80UYO0pY", title: "Money in the Bando" },
-    { id: "ccwwJFDErvg", title: "Bulletproof Mind" }
+    { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00" },
+    { id: "6H6yq_1bEsQ", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00" },
+    { id: "ZSjRD_3B5uk", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00" },
+    { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-17T15:41:27Z" },
+    { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-12T13:41:07Z" }
   ];
 
   function validVideoId(value) {
@@ -277,19 +277,98 @@
     artistSearch.addEventListener("input", event => renderRoster(event.target.value));
   }
 
-  fetch("/api/latest", {
-    headers: { Accept: "application/json" },
-    cache: "no-store"
-  })
-    .then(response => {
-      if (!response.ok) throw new Error("Latest release endpoint unavailable");
-      return response.json();
-    })
-    .then(updateLatest)
-    .catch(() => updateLatest({
-      source: "fallback",
-      latestSource: "fallback",
-      latest: FALLBACK_LATEST,
-      releases: FALLBACK_RELEASES
-    }));
+  function safeVideoId(value) {
+    const id = String(value || "").trim();
+    return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : "";
+  }
+
+  function normaliseHomepageRelease(release) {
+    const id = safeVideoId(release?.id);
+    if (!id) return null;
+    const artist = String(release?.artist || "").trim();
+    const releaseTitle = String(release?.title || "").trim();
+    const hasArtistPrefix = artist && releaseTitle.toLowerCase().startsWith(artist.toLowerCase());
+    const title = artist && releaseTitle && !hasArtistPrefix
+      ? `${artist} – ${releaseTitle}`
+      : (releaseTitle || "Latest NextGen Sessions release");
+    return {
+      id,
+      title,
+      published: String(release?.published || release?.updated || "").trim()
+    };
+  }
+
+  function releaseTimestamp(release) {
+    return Date.parse(release?.published || "") || 0;
+  }
+
+  function uniqueHomepageReleases(releases) {
+    const seen = new Set();
+    return releases.filter(release => {
+      if (!release?.id || seen.has(release.id)) return false;
+      seen.add(release.id);
+      return true;
+    });
+  }
+
+  function payloadReleases(payload) {
+    const items = Array.isArray(payload?.releases) && payload.releases.length
+      ? payload.releases
+      : (Array.isArray(payload?.items) ? payload.items : []);
+    return items.map(normaliseHomepageRelease).filter(Boolean);
+  }
+
+  function mergeHomepageReleases(releases) {
+    const byId = new Map();
+    releases.forEach(release => {
+      if (!release?.id) return;
+      const existing = byId.get(release.id);
+      if (!existing || releaseTimestamp(release) > releaseTimestamp(existing)) {
+        byId.set(release.id, release);
+      }
+    });
+    return [...byId.values()].sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a));
+  }
+
+  function buildHomepagePayload(apiPayload, cataloguePayload) {
+    const apiReleases = payloadReleases(apiPayload);
+    const catalogueReleases = payloadReleases(cataloguePayload);
+    const fallbackReleases = FALLBACK_RELEASES
+      .map(normaliseHomepageRelease)
+      .filter(Boolean);
+    const offlineReleases = mergeHomepageReleases([
+      ...catalogueReleases,
+      ...fallbackReleases
+    ]);
+    const releases = uniqueHomepageReleases([
+      ...apiReleases,
+      ...offlineReleases
+    ]);
+
+    const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
+    const latest = apiLatest || offlineReleases[0] || FALLBACK_LATEST;
+
+    return { latest, releases };
+  }
+
+  async function fetchJson(url) {
+    const response = await fetch(url, {
+      headers: { Accept: "application/json" },
+      cache: "no-store"
+    });
+    if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+    return response.json();
+  }
+
+  Promise.allSettled([
+    fetchJson("/api/latest?v=7"),
+    fetchJson("/releases.json?homepage=20260805b")
+  ]).then(results => {
+    const apiPayload = results[0].status === "fulfilled" ? results[0].value : null;
+    const cataloguePayload = results[1].status === "fulfilled" ? results[1].value : null;
+    updateLatest(buildHomepagePayload(apiPayload, cataloguePayload));
+  }).catch(() => updateLatest({
+    latest: FALLBACK_LATEST,
+    releases: FALLBACK_RELEASES
+  }));
 })();

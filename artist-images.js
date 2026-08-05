@@ -95,3 +95,11 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 38%"
   }
 };
+
+if (!document.querySelector('script[data-asif-portrait-loader]')) {
+  const loader = document.createElement("script");
+  loader.src = "/asif-portrait-loader.js?v=20260805-asif3";
+  loader.defer = true;
+  loader.dataset.asifPortraitLoader = "true";
+  document.head.append(loader);
+}

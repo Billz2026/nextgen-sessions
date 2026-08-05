@@ -4,18 +4,18 @@ const PLAYLIST_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=
 const CHANNEL_FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
 const FALLBACK_LATEST = {
-  id: "ZON1AsWLrIE",
-  title: "Rudii Marka – Marked for War",
-  published: ""
+  id: "uSlZrZJompg",
+  title: "Zara Veli – Don’t Call Past 2",
+  published: "2026-07-30T12:25:38Z"
 };
 
 const FALLBACK_RELEASES = [
   FALLBACK_LATEST,
-  { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
-  { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
-  { id: "Qr1gNggtg8k", title: "Ride On My Enemies" },
-  { id: "Zkb80UYO0pY", title: "Money in the Bando" },
-  { id: "ccwwJFDErvg", title: "Bulletproof Mind" }
+  { id: "Jsayjeif8WE", title: "Zara Veli – Too Boujee To Beg", published: "2026-07-30T12:25:08Z" },
+  { id: "xicnIGw-ei8", title: "Alia Bleu – Piggyback", published: "2026-07-21T12:29:20Z" },
+  { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-20T15:35:30Z" },
+  { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-17T15:41:27Z" },
+  { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-12T13:41:07Z" }
 ];
 
 function decodeXml(value) {
@@ -73,11 +73,43 @@ async function fetchFeed(url) {
   const response = await fetch(url, {
     headers: {
       Accept: "application/atom+xml, application/xml, text/xml",
-      "User-Agent": "NextGenSessionsWebsite/5.0"
+      "User-Agent": "NextGenSessionsWebsite/6.0"
     }
   });
   if (!response.ok) throw new Error(`YouTube feed returned ${response.status}`);
   return response.text();
+}
+
+function normaliseCatalogueItem(item) {
+  const id = String(item?.id || "").trim();
+  if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return null;
+  const artist = String(item?.artist || "").trim();
+  const releaseTitle = String(item?.title || "").trim();
+  if (!releaseTitle) return null;
+  return {
+    id,
+    title: artist ? `${artist} – ${releaseTitle}` : releaseTitle,
+    artist,
+    releaseTitle,
+    group: String(item?.group || "Official release").trim(),
+    published: String(item?.published || "").trim(),
+    updated: ""
+  };
+}
+
+async function fetchCatalogue(context) {
+  const url = new URL("/releases.json", context.request.url);
+  url.searchParams.set("latest", "v6");
+  const request = new Request(url.toString(), {
+    headers: { Accept: "application/json" }
+  });
+  const response = context.env?.ASSETS?.fetch
+    ? await context.env.ASSETS.fetch(request)
+    : await fetch(request);
+  if (!response.ok) throw new Error(`Release catalogue returned ${response.status}`);
+  const payload = await response.json();
+  const releases = Array.isArray(payload?.releases) ? payload.releases : [];
+  return releases.map(normaliseCatalogueItem).filter(Boolean);
 }
 
 function validOverride(context) {
@@ -102,14 +134,15 @@ function jsonResponse(payload, cacheControl) {
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=5", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=6", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   try {
-    const [channelResult, playlistResult] = await Promise.allSettled([
+    const [channelResult, playlistResult, catalogueResult] = await Promise.allSettled([
       fetchFeed(CHANNEL_FEED_URL),
-      fetchFeed(PLAYLIST_FEED_URL)
+      fetchFeed(PLAYLIST_FEED_URL),
+      fetchCatalogue(context)
     ]);
 
     const channelItems = channelResult.status === "fulfilled"
@@ -118,20 +151,36 @@ export async function onRequestGet(context) {
     const playlistItems = playlistResult.status === "fulfilled"
       ? newestFirst(parseFeed(playlistResult.value)).filter(isOfficialRelease)
       : [];
+    const catalogueItems = catalogueResult.status === "fulfilled"
+      ? newestFirst(catalogueResult.value)
+      : [];
 
-    const liveItems = uniqueReleases([...channelItems, ...playlistItems]);
-    if (!liveItems.length) throw new Error("YouTube release feeds unavailable");
+    const releases = newestFirst(uniqueReleases([
+      ...channelItems,
+      ...playlistItems,
+      ...catalogueItems
+    ])).slice(0, 8);
+    if (!releases.length) throw new Error("All latest-release sources are unavailable");
 
     const override = validOverride(context);
-    const releases = newestFirst(liveItems).slice(0, 8);
-    const latest = override || channelItems[0] || playlistItems[0] || releases[0];
+    const latest = override || releases[0];
+    const latestSource = override
+      ? "override"
+      : channelItems.some(item => item.id === latest.id)
+        ? "channel"
+        : playlistItems.some(item => item.id === latest.id)
+          ? "playlist"
+          : "catalogue";
+    const releaseSources = [
+      channelItems.length ? "channel" : "",
+      playlistItems.length ? "playlist" : "",
+      catalogueItems.length ? "catalogue" : ""
+    ].filter(Boolean);
 
     const output = jsonResponse({
-      source: "youtube",
-      latestSource: override ? "override" : (channelItems.length ? "channel" : "playlist"),
-      releasesSource: channelItems.length && playlistItems.length
-        ? "channel+playlist"
-        : (channelItems.length ? "channel" : "playlist"),
+      source: releaseSources.join("+") || "catalogue",
+      latestSource,
+      releasesSource: releaseSources.join("+") || "catalogue",
       playlistId: PLAYLIST_ID,
       channelId: CHANNEL_ID,
       generatedAt: new Date().toISOString(),

@@ -318,22 +318,35 @@
     return items.map(normaliseHomepageRelease).filter(Boolean);
   }
 
+  function mergeHomepageReleases(releases) {
+    const byId = new Map();
+    releases.forEach(release => {
+      if (!release?.id) return;
+      const existing = byId.get(release.id);
+      if (!existing || releaseTimestamp(release) > releaseTimestamp(existing)) {
+        byId.set(release.id, release);
+      }
+    });
+    return [...byId.values()].sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a));
+  }
+
   function buildHomepagePayload(apiPayload, cataloguePayload) {
     const apiReleases = payloadReleases(apiPayload);
     const catalogueReleases = payloadReleases(cataloguePayload);
+    const fallbackReleases = FALLBACK_RELEASES
+      .map(normaliseHomepageRelease)
+      .filter(Boolean);
+    const offlineReleases = mergeHomepageReleases([
+      ...catalogueReleases,
+      ...fallbackReleases
+    ]);
     const releases = uniqueHomepageReleases([
       ...apiReleases,
-      ...catalogueReleases,
-      ...FALLBACK_RELEASES.map(normaliseHomepageRelease).filter(Boolean)
-    ]).sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a));
+      ...offlineReleases
+    ]);
 
     const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
-    const catalogueLatest = catalogueReleases[0] || null;
-    const latest = apiPayload?.latestSource === "override" && apiLatest
-      ? apiLatest
-      : [apiLatest, catalogueLatest, ...releases]
-        .filter(Boolean)
-        .sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a))[0] || FALLBACK_LATEST;
+    const latest = apiLatest || offlineReleases[0] || FALLBACK_LATEST;
 
     return { latest, releases };
   }

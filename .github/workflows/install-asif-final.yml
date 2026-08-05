@@ -1,0 +1,49 @@
+name: Install final Asif portrait
+
+on:
+  push:
+    paths:
+      - '.asif-final/**'
+      - '.github/workflows/install-asif-final.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check all portrait parts exist
+        id: ready
+        shell: bash
+        run: |
+          ready=true
+          for part in 01 02 03 04 05 06 07 08 09; do
+            test -f ".asif-final/part-${part}.txt" || ready=false
+          done
+          echo "ready=${ready}" >> "$GITHUB_OUTPUT"
+
+      - name: Decode and verify portrait
+        if: steps.ready.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/artists
+          cat .asif-final/part-*.txt | tr -d '\r\n ' | base64 --decode > assets/artists/asif-sultaan-portrait-final.webp
+          test -s assets/artists/asif-sultaan-portrait-final.webp
+          file assets/artists/asif-sultaan-portrait-final.webp | grep -q 'Web/P image'
+
+      - name: Commit portrait
+        if: steps.ready.outputs.ready == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/artists/asif-sultaan-portrait-final.webp
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Install verified Asif Sultaan portrait"
+          git push

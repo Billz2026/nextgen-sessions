@@ -1,0 +1,64 @@
+name: Install Asif Sultaan Portrait
+
+on:
+  push:
+    paths:
+      - ".asif-upload/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-asif-sultaan-portrait
+  cancel-in-progress: true
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check upload files
+        id: files
+        shell: bash
+        run: |
+          set -euo pipefail
+          ready=true
+          for part in 01 02 03 04 05; do
+            if [ ! -f ".asif-upload/full-part-${part}.txt" ]; then
+              ready=false
+            fi
+          done
+          for part in 01 02; do
+            if [ ! -f ".asif-upload/small-part-${part}.txt" ]; then
+              ready=false
+            fi
+          done
+          echo "ready=${ready}" >> "$GITHUB_OUTPUT"
+
+      - name: Decode portrait assets
+        if: steps.files.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/artists
+          cat .asif-upload/full-part-*.txt | tr -d '\r\n ' | base64 --decode > assets/artists/asif-sultaan-portrait.webp
+          cp assets/artists/asif-sultaan-portrait.webp assets/artists/asif-sultaan-card.webp
+          cat .asif-upload/small-part-*.txt | tr -d '\r\n ' | base64 --decode > assets/artists/asif-sultaan-card-640.webp
+          test -s assets/artists/asif-sultaan-portrait.webp
+          test -s assets/artists/asif-sultaan-card-640.webp
+          file assets/artists/asif-sultaan-portrait.webp
+          file assets/artists/asif-sultaan-card-640.webp
+
+      - name: Commit portrait assets
+        if: steps.files.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/artists/asif-sultaan-portrait.webp assets/artists/asif-sultaan-card.webp assets/artists/asif-sultaan-card-640.webp
+          git commit -m "Add approved Asif Sultaan portrait assets" || exit 0
+          git push

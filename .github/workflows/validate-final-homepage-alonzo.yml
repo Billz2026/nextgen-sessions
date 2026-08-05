@@ -1,0 +1,145 @@
+name: Validate final homepage and Alonzo fix
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - functions/api/latest.js
+      - site.js
+      - index.html
+      - artist-profiles.js
+      - artists/alonzo-ray/index.html
+      - .github/workflows/validate-final-homepage-alonzo.yml
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate source and endpoint failover
+        run: |
+          node --check site.js
+          node --check functions/api/latest.js
+          cp functions/api/latest.js /tmp/latest.mjs
+          cat > /tmp/test-latest.mjs <<'JS'
+          import assert from 'node:assert/strict';
+          import { pathToFileURL } from 'node:url';
+
+          globalThis.caches = { default: { async match() { return null; }, async put() {} } };
+          const { onRequestGet } = await import(pathToFileURL('/tmp/latest.mjs'));
+          const catalogue = { releases: [
+            { id: 'xicnIGw-ei8', artist: 'Alia Bleu', title: 'Piggyback', published: '2026-07-21T12:29:20Z', group: 'R&B & Soul' },
+            { id: 'Sra1722xEFE', artist: 'Renz Cole', title: 'Heatwave', published: '2026-07-20T15:35:30Z', group: 'UK Rap & Grime' }
+          ] };
+          const response = (body, status = 200, type = 'text/plain') => new Response(body, { status, headers: { 'content-type': type } });
+
+          globalThis.fetch = async input => {
+            const url = String(input?.url || input);
+            if (url.includes('/feeds/videos.xml')) return response('not found', 404);
+            if (url.includes('/@NextGenSessions/videos')) return response('{"videoId":"xicnIGw-ei8"}{"videoId":"Sra1722xEFE"}');
+            throw new Error(`Unexpected fetch ${url}`);
+          };
+
+          const result = await onRequestGet({
+            request: new Request('https://nextgensessions.test/api/latest'),
+            env: { ASSETS: { async fetch() { return response(JSON.stringify(catalogue), 200, 'application/json'); } } },
+            waitUntil() {}
+          });
+          const payload = await result.json();
+          assert.equal(payload.latestSource, 'channel-page');
+          assert.equal(payload.latest.id, 'xicnIGw-ei8');
+          assert.equal(payload.latest.title, 'Alia Bleu – Piggyback');
+          console.log('Endpoint failover passed');
+          JS
+          node /tmp/test-latest.mjs
+          grep -q '"image": "/assets/artists/alonzo-ray-card.webp?v=20260805-alonzo5"' artist-profiles.js
+          grep -q '"imagePosition": "50% 50%"' artist-profiles.js
+
+      - name: Install Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+
+      - name: Start local site
+        run: |
+          python -m http.server 4173 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:4173/ >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/site.log
+          exit 1
+
+      - name: Browser validation
+        run: |
+          mkdir -p final-smoke
+          cat > /tmp/final-smoke.cjs <<'JS'
+          const { chromium } = require('playwright');
+          const assert = require('node:assert/strict');
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const cases = [
+              { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+              { name: 'mobile', viewport: { width: 390, height: 844 } }
+            ];
+
+            for (const testCase of cases) {
+              const page = await browser.newPage({ viewport: testCase.viewport });
+              await page.goto('http://127.0.0.1:4173/', { waitUntil: 'domcontentloaded' });
+              await page.waitForFunction(() => document.querySelector('#latestVideoTitle')?.textContent === 'Alia Bleu – Piggyback');
+              assert.equal(await page.locator('#latestVideoFrame').getAttribute('data-video-id'), 'xicnIGw-ei8');
+              assert.ok((await page.locator('#latestWatchLink').getAttribute('href')).includes('xicnIGw-ei8'));
+              await page.locator('#latestVideoPlay').click();
+              const frame = page.locator('#latestVideoFrame iframe');
+              await frame.waitFor({ state: 'attached' });
+              const src = await frame.getAttribute('src');
+              assert.ok(src.includes('/embed/xicnIGw-ei8'));
+              assert.ok(src.includes('autoplay=1'));
+              await page.screenshot({ path: `final-smoke/homepage-${testCase.name}.png`, fullPage: false });
+              await page.close();
+            }
+
+            for (const testCase of cases) {
+              const page = await browser.newPage({ viewport: testCase.viewport });
+              await page.goto('http://127.0.0.1:4173/artists/alonzo-ray/', { waitUntil: 'domcontentloaded' });
+              const portrait = page.locator('.profile-image');
+              await portrait.waitFor({ state: 'visible' });
+              await page.waitForFunction(() => {
+                const image = document.querySelector('.profile-image');
+                return image?.complete && image.naturalWidth > 0;
+              });
+              const state = await portrait.evaluate(image => ({
+                src: image.getAttribute('src'),
+                position: getComputedStyle(image).objectPosition,
+                naturalWidth: image.naturalWidth,
+                naturalHeight: image.naturalHeight,
+                box: image.getBoundingClientRect().toJSON()
+              }));
+              assert.ok(state.src.includes('alonzo-ray-card.webp'));
+              assert.equal(state.position, '50% 50%');
+              assert.equal(state.naturalWidth, 1024);
+              assert.equal(state.naturalHeight, 1024);
+              assert.ok(state.box.width >= 250 && state.box.height >= 250);
+              await page.screenshot({ path: `final-smoke/alonzo-${testCase.name}.png`, fullPage: false });
+              await page.close();
+            }
+
+            await browser.close();
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          JS
+          NODE_PATH="$(npm root)" node /tmp/final-smoke.cjs
+
+      - name: Upload final screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-homepage-alonzo-smoke
+          path: final-smoke/*.png
+          retention-days: 7

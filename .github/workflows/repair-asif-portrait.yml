@@ -1,0 +1,45 @@
+name: Repair Asif Sultaan Portrait
+
+on:
+  push:
+    paths:
+      - ".asif-repair/trigger.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-asif-sultaan-portrait
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Rebuild valid WebP asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/artists
+          {
+            printf 'U'
+            cat .asif-repair/part-01.txt .asif-repair/part-02.txt .asif-repair/part-03.txt .asif-repair/part-04.txt .asif-repair/part-05.txt .asif-repair/part-06.txt .asif-repair/part-07.txt
+          } | tr -d '\r\n ' | base64 --decode > assets/artists/asif-sultaan-portrait.webp
+          cp assets/artists/asif-sultaan-portrait.webp assets/artists/asif-sultaan-card.webp
+          cp assets/artists/asif-sultaan-portrait.webp assets/artists/asif-sultaan-card-640.webp
+          test -s assets/artists/asif-sultaan-portrait.webp
+          file assets/artists/asif-sultaan-portrait.webp | grep -qi webp
+
+      - name: Commit repaired assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/artists/asif-sultaan-portrait.webp assets/artists/asif-sultaan-card.webp assets/artists/asif-sultaan-card-640.webp
+          git commit -m "Repair Asif Sultaan portrait assets" || exit 0
+          git push

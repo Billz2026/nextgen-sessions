@@ -21,11 +21,11 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 42%"
   },
   "reeko": {
-    src: "/assets/artists/reeko-card.webp",
-    srcset: "/assets/artists/reeko-card-640.webp 640w, /assets/artists/reeko-card.webp 1024w",
-    portrait: "/assets/artists/reeko-portrait.webp",
-    fallback: "/assets/artists/reeko-card-640.webp",
-    position: "50% 42%"
+    src: "/assets/artists/reeko-card.webp?v=20260805-reeko6",
+    srcset: "/assets/artists/reeko-card-640.webp?v=20260805-reeko6 640w, /assets/artists/reeko-card.webp?v=20260805-reeko6 1024w",
+    portrait: "/assets/artists/reeko-portrait.webp?v=20260805-reeko6",
+    fallback: "/assets/artists/reeko-card-640.webp?v=20260805-reeko6",
+    position: "50% 28%"
   },
   "kemar-ranka": {
     src: "/assets/artists/kemar-ranka-portrait.webp?v=20260805-kemar4",
@@ -101,6 +101,12 @@ if (Array.isArray(window.NGS_ARTISTS)) {
   if (renz) {
     renz.genre = "UK Rap";
     renz.summary = "Modern London rap with football-coded confidence, sharp personality, summer movement and memorable hooks.";
+  }
+
+  const reeko = window.NGS_ARTISTS.find(artist => artist.slug === "reeko");
+  if (reeko) {
+    reeko.genre = "Jamaican Dancehall";
+    reeko.summary = "Melodic gully dancehall shaped by authority, loyalty, nightlife energy and sharp street observation.";
   }
 
   const asif = window.NGS_ARTISTS.find(artist => artist.slug === "asif-sultaan");

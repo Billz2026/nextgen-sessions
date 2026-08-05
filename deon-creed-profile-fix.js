@@ -4,9 +4,9 @@
   const root = document.getElementById("artistProfile");
   if (!root || root.dataset.artist !== "deon-creed") return;
 
-  const PORTRAIT_URL = "/assets/artists/deon-creed-portrait.webp?v=20260803-4";
-  const PORTRAIT_SRCSET = "/assets/artists/deon-creed-card-640.webp?v=20260803-4 640w, /assets/artists/deon-creed-card.webp?v=20260803-4 1024w, /assets/artists/deon-creed-portrait.webp?v=20260803-4 1120w";
-  const PORTRAIT_FALLBACK = "/assets/artists/deon-creed-card-640.webp?v=20260803-4";
+  const PORTRAIT_URL = "/assets/artists/deon-creed-portrait.webp?v=20260805-deon5";
+  const PORTRAIT_SRCSET = "/assets/artists/deon-creed-card-640.webp?v=20260805-deon5 640w, /assets/artists/deon-creed-card.webp?v=20260805-deon5 1024w, /assets/artists/deon-creed-portrait.webp?v=20260805-deon5 1120w";
+  const PORTRAIT_FALLBACK = "/assets/artists/deon-creed-card-640.webp?v=20260805-deon5";
   const FALLBACK_RELEASES = [
     {
       id: "ZSjRD_3B5uk",
@@ -87,13 +87,14 @@
       title = match?.[1]?.trim() || title || "Official release";
     }
 
+    const known = FALLBACK_RELEASES.find(release => release.id === id);
     return {
       id,
       artist: "Deon Creed",
       title,
-      group: String(item?.group || "Soul / R&B").trim(),
-      published: String(item?.published || "").trim(),
-      priority: Number(item?.priority || 0)
+      group: String(item?.group || known?.group || "Soul / R&B").trim(),
+      published: String(item?.published || known?.published || "").trim(),
+      priority: Number(known?.priority || item?.priority || 0)
     };
   }
 
@@ -166,21 +167,27 @@
     if (status) status.textContent = "Updated from the official Deon Creed catalogue";
   }
 
-  async function refreshCatalogue() {
-    try {
-      const response = await fetch("/api/releases?_=" + Date.now(), {
-        headers: { Accept: "application/json" },
-        cache: "no-store"
-      });
-      if (!response.ok) throw new Error("Catalogue API unavailable");
-      const payload = await response.json();
-      const live = Array.isArray(payload?.releases)
-        ? payload.releases.map(prepareRelease).filter(Boolean)
-        : [];
-      renderCatalogue(uniqueSorted([...FALLBACK_RELEASES, ...live]));
-    } catch (_) {
-      renderCatalogue(FALLBACK_RELEASES);
+  async function loadCatalogue() {
+    for (const endpoint of ["/releases.json", "/api/releases"]) {
+      try {
+        const response = await fetch(endpoint, {
+          headers: { Accept: "application/json" },
+          cache: "no-store"
+        });
+        if (!response.ok) continue;
+        const payload = await response.json();
+        if (Array.isArray(payload?.releases)) return payload.releases;
+      } catch (_) {
+        // Try the controlled fallback source.
+      }
     }
+    return [];
+  }
+
+  async function refreshCatalogue() {
+    const catalogue = await loadCatalogue();
+    const live = catalogue.map(prepareRelease).filter(Boolean);
+    renderCatalogue(uniqueSorted([...FALLBACK_RELEASES, ...live]));
   }
 
   function releaseFromButton(button) {
@@ -234,9 +241,7 @@
   fixPortrait();
 
   const status = root.querySelector("[data-discography-status]");
-  if (status && !/loading/i.test(status.textContent || "")) {
-    refreshCatalogue();
-  } else if (status) {
+  if (status && /loading/i.test(status.textContent || "")) {
     const observer = new MutationObserver(() => {
       if (/loading/i.test(status.textContent || "")) return;
       observer.disconnect();
@@ -248,6 +253,6 @@
       refreshCatalogue();
     }, 1500);
   } else {
-    window.setTimeout(refreshCatalogue, 500);
+    window.setTimeout(refreshCatalogue, 300);
   }
 })();

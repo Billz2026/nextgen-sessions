@@ -1,0 +1,211 @@
+name: Validate homepage latest fix
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - functions/api/latest.js
+      - site.js
+      - index.html
+      - artist-profiles.js
+      - artists/alonzo-ray/index.html
+      - .github/workflows/validate-homepage-latest-fix.yml
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JavaScript syntax
+        run: |
+          node --check site.js
+          node --check functions/api/latest.js
+
+      - name: Test latest endpoint source failover
+        run: |
+          cp functions/api/latest.js /tmp/latest.mjs
+          cat > /tmp/test-latest.mjs <<'JS'
+          import assert from 'node:assert/strict';
+          import { pathToFileURL } from 'node:url';
+
+          globalThis.caches = {
+            default: {
+              async match() { return null; },
+              async put() {}
+            }
+          };
+
+          const { onRequestGet } = await import(pathToFileURL('/tmp/latest.mjs'));
+          const catalogue = {
+            releases: [
+              {
+                id: 'xicnIGw-ei8',
+                artist: 'Alia Bleu',
+                title: 'Piggyback',
+                published: '2026-07-21T12:29:20Z',
+                group: 'R&B & Soul'
+              },
+              {
+                id: 'Sra1722xEFE',
+                artist: 'Renz Cole',
+                title: 'Heatwave',
+                published: '2026-07-20T15:35:30Z',
+                group: 'UK Rap & Grime'
+              }
+            ]
+          };
+
+          function response(body, status = 200, contentType = 'text/plain') {
+            return new Response(body, { status, headers: { 'content-type': contentType } });
+          }
+
+          async function callWith(fetchImpl) {
+            globalThis.fetch = fetchImpl;
+            const result = await onRequestGet({
+              request: new Request('https://nextgensessions.test/api/latest'),
+              env: {
+                ASSETS: {
+                  async fetch() {
+                    return response(JSON.stringify(catalogue), 200, 'application/json');
+                  }
+                }
+              },
+              waitUntil() {}
+            });
+            return result.json();
+          }
+
+          const channelPagePayload = await callWith(async input => {
+            const url = String(input?.url || input);
+            if (url.includes('/feeds/videos.xml')) return response('not found', 404);
+            if (url.includes('/@NextGenSessions/videos')) {
+              return response('{"videoId":"xicnIGw-ei8"}{"videoId":"Sra1722xEFE"}');
+            }
+            throw new Error(`Unexpected fetch: ${url}`);
+          });
+          assert.equal(channelPagePayload.latestSource, 'channel-page');
+          assert.equal(channelPagePayload.latest.id, 'xicnIGw-ei8');
+          assert.equal(channelPagePayload.latest.title, 'Alia Bleu – Piggyback');
+
+          const atom = `<?xml version="1.0" encoding="UTF-8"?>
+          <feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns="http://www.w3.org/2005/Atom">
+            <entry><yt:videoId>xicnIGw-ei8</yt:videoId><title>They Lean on You | Alia Bleu - Piggyback | R&amp;B 2026 | NextGen Sessions</title><published>2026-08-03T17:00:30+00:00</published><updated>2026-08-03T17:00:42+00:00</updated></entry>
+            <entry><yt:videoId>Sra1722xEFE</yt:videoId><title>LONDON’S OUTSIDE | Renz Cole - Heatwave | UK Rap 2026 | NextGen Sessions</title><published>2026-07-31T17:00:33+00:00</published><updated>2026-07-31T17:00:47+00:00</updated></entry>
+          </feed>`;
+          const feedPayload = await callWith(async input => {
+            const url = String(input?.url || input);
+            if (url.includes('channel_id=')) return response(atom, 200, 'application/atom+xml');
+            if (url.includes('playlist_id=')) return response('not found', 404);
+            throw new Error(`Unexpected fetch: ${url}`);
+          });
+          assert.equal(feedPayload.latestSource, 'channel');
+          assert.equal(feedPayload.latest.id, 'xicnIGw-ei8');
+          assert.equal(feedPayload.latest.title, 'Alia Bleu – Piggyback');
+          assert.equal(feedPayload.latest.published, '2026-08-03T17:00:30+00:00');
+
+          console.log('Latest endpoint failover tests passed');
+          JS
+          node /tmp/test-latest.mjs
+
+      - name: Install browser test runner
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+
+      - name: Start local website
+        run: |
+          python -m http.server 4173 --bind 127.0.0.1 >/tmp/nextgen-server.log 2>&1 &
+          echo $! > /tmp/nextgen-server.pid
+          for attempt in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:4173/ >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/nextgen-server.log
+          exit 1
+
+      - name: Validate homepage and Alonzo profile in browser
+        run: |
+          mkdir -p latest-smoke
+          cat > /tmp/browser-smoke.cjs <<'JS'
+          const { chromium } = require('playwright');
+          const assert = require('node:assert/strict');
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+
+            for (const testCase of [
+              { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+              { name: 'mobile', viewport: { width: 390, height: 844 } }
+            ]) {
+              const page = await browser.newPage({ viewport: testCase.viewport });
+              await page.goto('http://127.0.0.1:4173/', { waitUntil: 'domcontentloaded' });
+              await page.locator('#latestVideoTitle').waitFor({ state: 'visible' });
+              await page.waitForFunction(() => document.querySelector('#latestVideoTitle')?.textContent?.includes('Alia Bleu'));
+
+              assert.equal(await page.locator('#latestVideoTitle').textContent(), 'Alia Bleu – Piggyback');
+              assert.equal(await page.locator('#latestVideoFrame').getAttribute('data-video-id'), 'xicnIGw-ei8');
+              assert.ok((await page.locator('#latestWatchLink').getAttribute('href')).includes('xicnIGw-ei8'));
+
+              await page.locator('#latestVideoPlay').click();
+              const homepageFrame = page.locator('#latestVideoFrame iframe');
+              await homepageFrame.waitFor({ state: 'attached' });
+              const homepageSrc = await homepageFrame.getAttribute('src');
+              assert.ok(homepageSrc.includes('/embed/xicnIGw-ei8'));
+              assert.ok(homepageSrc.includes('autoplay=1'));
+
+              await page.screenshot({
+                path: `latest-smoke/homepage-${testCase.name}.png`,
+                fullPage: false
+              });
+              await page.close();
+            }
+
+            for (const testCase of [
+              { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+              { name: 'mobile', viewport: { width: 390, height: 844 } }
+            ]) {
+              const page = await browser.newPage({ viewport: testCase.viewport });
+              await page.goto('http://127.0.0.1:4173/artists/alonzo-ray/', { waitUntil: 'domcontentloaded' });
+              const portrait = page.locator('.profile-image');
+              await portrait.waitFor({ state: 'visible' });
+              await page.waitForFunction(() => {
+                const image = document.querySelector('.profile-image');
+                return image?.complete && image.naturalWidth > 0;
+              });
+              const state = await portrait.evaluate(image => ({
+                objectPosition: getComputedStyle(image).objectPosition,
+                naturalWidth: image.naturalWidth,
+                naturalHeight: image.naturalHeight,
+                box: image.getBoundingClientRect().toJSON()
+              }));
+              assert.equal(state.objectPosition, '50% 0%');
+              assert.ok(state.naturalWidth >= 600);
+              assert.ok(state.naturalHeight >= 750);
+              assert.ok(state.box.width >= 250);
+              assert.ok(state.box.height >= 250);
+
+              await page.screenshot({
+                path: `latest-smoke/alonzo-${testCase.name}.png`,
+                fullPage: false
+              });
+              await page.close();
+            }
+
+            await browser.close();
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          JS
+          NODE_PATH="$(npm root)" node /tmp/browser-smoke.cjs
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: homepage-alonzo-smoke
+          path: latest-smoke/*.png
+          retention-days: 7

@@ -205,7 +205,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     "headline": "Late-night UK Afro-swing shaped by smooth melody, confident boundaries and polished city-night production.",
     "bio": [
       "Marlo Saint represents the late-night Afro-swing and Afro-fusion lane within NextGen Sessions, combining calm melodic delivery with a bouncy rhythmic pocket and polished nightlife production.",
-      "His current releases focus on attraction, boundaries and no-strings connections. Play It Right and One Night Only are supported by a consistent visual world of luxury interiors, city lights and composed, detached confidence."
+      "His current catalogue focuses on attraction, boundaries and no-strings connections. One Night Only and Play It Right share a consistent visual world of luxury interiors, city lights and composed confidence, giving Marlo a clear identity across both sound and presentation."
     ],
     "imageKey": "marlo-saint",
     "imagePosition": "50% 38%",
@@ -232,6 +232,12 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "published": "2026-04-21T12:21:01Z"
       }
     ],
+    "featuredExperience": {
+      "enabled": true,
+      "albumLabel": "Marlo Saint catalogue",
+      "aboutLabel": "About Marlo Saint",
+      "compactViewThreshold": 6
+    },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Marlo+Saint",
     "related": [
       { "name": "Alia Bleu", "genre": "UK R&B" },

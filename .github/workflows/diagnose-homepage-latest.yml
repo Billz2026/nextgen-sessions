@@ -10,7 +10,7 @@ jobs:
   diagnose:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect live endpoint and YouTube feeds
+      - name: Inspect live endpoint and YouTube sources
         shell: bash
         run: |
           set -euo pipefail
@@ -49,3 +49,36 @@ jobs:
 
           inspect_feed 'CHANNEL FEED' 'https://www.youtube.com/feeds/videos.xml?channel_id=UCJdBLa1mf6yxk7xaOzSpBjg' /tmp/channel.xml
           inspect_feed 'RELEASE PLAYLIST FEED' 'https://www.youtube.com/feeds/videos.xml?playlist_id=PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA' /tmp/playlist.xml
+
+          echo '=== CHANNEL VIDEOS PAGE ==='
+          curl -L --fail --silent --show-error \
+            -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36' \
+            'https://www.youtube.com/@NextGenSessions/videos' > /tmp/channel-videos.html
+          python - <<'PY' > /tmp/video-ids.txt
+          import re
+          html=open('/tmp/channel-videos.html', encoding='utf-8', errors='ignore').read()
+          seen=set()
+          for video_id in re.findall(r'"videoId":"([A-Za-z0-9_-]{11})"', html):
+              if video_id in seen:
+                  continue
+              seen.add(video_id)
+              print(video_id)
+              if len(seen) >= 12:
+                  break
+          PY
+          echo "Resolved $(wc -l < /tmp/video-ids.txt) unique channel video IDs"
+          while read -r video_id; do
+            [ -n "$video_id" ] || continue
+            payload=$(curl -L --silent --show-error \
+              "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${video_id}&format=json" || true)
+            VIDEO_ID="$video_id" PAYLOAD="$payload" python - <<'PY'
+          import json, os
+          video_id=os.environ['VIDEO_ID']
+          raw=os.environ.get('PAYLOAD','')
+          try:
+              data=json.loads(raw)
+              print(f"{video_id} | {data.get('title','')} | {data.get('author_name','')}")
+          except Exception:
+              print(f"{video_id} | oEmbed unavailable")
+          PY
+          done < /tmp/video-ids.txt

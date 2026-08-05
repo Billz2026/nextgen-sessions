@@ -7,11 +7,11 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 35%"
   },
   "alia-bleu": {
-    src: "/assets/artists/alia-bleu-card.webp",
-    srcset: "/assets/artists/alia-bleu-card-640.webp 640w, /assets/artists/alia-bleu-card.webp 1024w",
-    portrait: "/assets/artists/alia-bleu-portrait.webp",
-    fallback: "/assets/artists/alia-bleu-card-640.webp",
-    position: "50% 42%"
+    src: "/assets/artists/alia-bleu-card.webp?v=20260805-alia6",
+    srcset: "/assets/artists/alia-bleu-card-640.webp?v=20260805-alia6 640w, /assets/artists/alia-bleu-card.webp?v=20260805-alia6 1024w",
+    portrait: "/assets/artists/alia-bleu-portrait.webp?v=20260805-alia6",
+    fallback: "/assets/artists/alia-bleu-card-640.webp?v=20260805-alia6",
+    position: "50% 35%"
   },
   "omari-v": {
     src: "/assets/artists/omari-v-card.webp",
@@ -101,6 +101,12 @@ if (Array.isArray(window.NGS_ARTISTS)) {
   if (renz) {
     renz.genre = "UK Rap";
     renz.summary = "Modern London rap with football-coded confidence, sharp personality, summer movement and memorable hooks.";
+  }
+
+  const alia = window.NGS_ARTISTS.find(artist => artist.slug === "alia-bleu");
+  if (alia) {
+    alia.genre = "UK R&B";
+    alia.summary = "Late-night UK R&B shaped by self-worth, emotional clarity, firm boundaries and a distinct blue-toned identity.";
   }
 
   const reeko = window.NGS_ARTISTS.find(artist => artist.slug === "reeko");

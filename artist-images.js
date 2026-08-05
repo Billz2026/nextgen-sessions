@@ -40,10 +40,10 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 36%"
   },
   "deon-creed": {
-    src: "/assets/artists/deon-creed-card.webp?v=20260803-4",
-    srcset: "/assets/artists/deon-creed-card-640.webp?v=20260803-4 640w, /assets/artists/deon-creed-card.webp?v=20260803-4 1024w",
-    portrait: "/assets/artists/deon-creed-portrait.webp?v=20260803-4",
-    fallback: "/assets/artists/deon-creed-card-640.webp?v=20260803-4",
+    src: "/assets/artists/deon-creed-card.webp?v=20260805-deon5",
+    srcset: "/assets/artists/deon-creed-card-640.webp?v=20260805-deon5 640w, /assets/artists/deon-creed-card.webp?v=20260805-deon5 1024w",
+    portrait: "/assets/artists/deon-creed-portrait.webp?v=20260805-deon5",
+    fallback: "/assets/artists/deon-creed-card-640.webp?v=20260805-deon5",
     position: "50% 34%"
   },
   "kemarco": {
@@ -107,5 +107,11 @@ if (Array.isArray(window.NGS_ARTISTS)) {
   if (marlo) {
     marlo.genre = "UK Afro-Swing / R&B";
     marlo.summary = "Late-night Afro-swing with smooth melody, confident boundaries and polished city-night production.";
+  }
+
+  const deon = window.NGS_ARTISTS.find(artist => artist.slug === "deon-creed");
+  if (deon) {
+    deon.genre = "Soul / R&B";
+    deon.summary = "Reflective neighbourhood soul shaped by faith, responsibility, resilience and mature perspective.";
   }
 }

@@ -28,9 +28,9 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 42%"
   },
   "kemar-ranka": {
-    src: "/assets/artists/kemar-ranka-portrait.webp?v=20260801-3",
-    portrait: "/assets/artists/kemar-ranka-portrait.webp?v=20260801-3",
-    fallback: "/assets/artists/kemar-ranka-portrait.webp?v=20260801-3",
+    src: "/assets/artists/kemar-ranka-portrait.webp?v=20260805-kemar4",
+    portrait: "/assets/artists/kemar-ranka-portrait.webp?v=20260805-kemar4",
+    fallback: "/assets/artists/kemar-ranka-portrait.webp?v=20260805-kemar4",
     position: "50% 38%"
   },
   "jay-starks": {
@@ -107,6 +107,12 @@ if (Array.isArray(window.NGS_ARTISTS)) {
   if (marlo) {
     marlo.genre = "UK Afro-Swing / R&B";
     marlo.summary = "Late-night Afro-swing with smooth melody, confident boundaries and polished city-night production.";
+  }
+
+  const kemar = window.NGS_ARTISTS.find(artist => artist.slug === "kemar-ranka");
+  if (kemar) {
+    kemar.genre = "Jamaican Dancehall";
+    kemar.summary = "Cinematic dancehall built around rank, pressure, spiritual authority and controlled leadership.";
   }
 
   const deon = window.NGS_ARTISTS.find(artist => artist.slug === "deon-creed");

@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
           ready=true
-          for part in $(seq -w 1 7); do
+          for part in 01 02 03 04 05 06 07; do
             if [ ! -f ".marlo-upload/part-${part}.txt" ]; then
               ready=false
             fi

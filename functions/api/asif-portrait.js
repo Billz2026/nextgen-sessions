@@ -36,14 +36,17 @@ function isWebP(bytes) {
 
 async function loadPart(context, path) {
   const assetUrl = new URL(path, context.request.url);
-  const response = await context.env.ASSETS.fetch(new Request(assetUrl.toString()));
+  const response = await fetch(assetUrl.toString(), {
+    headers: { Accept: "text/plain" },
+    cf: { cacheTtl: 31536000, cacheEverything: true }
+  });
   if (!response.ok) throw new Error(`Missing portrait source: ${path}`);
   return response.text();
 }
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/asif-portrait?v=2", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/asif-portrait?v=3", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -63,7 +66,7 @@ export async function onRequestGet(context) {
     });
     context.waitUntil(cache.put(cacheKey, output.clone()));
     return output;
-  } catch (_) {
-    return errorResponse(500, "Portrait asset unavailable");
+  } catch (error) {
+    return errorResponse(500, error instanceof Error ? error.message : "Portrait asset unavailable");
   }
 }

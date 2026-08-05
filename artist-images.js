@@ -82,9 +82,9 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 38%"
   },
   "asif-sultaan": {
-    src: "/api/asif-portrait?v=20260805-asif2",
-    portrait: "/api/asif-portrait?v=20260805-asif2",
-    fallback: "/api/asif-portrait?v=20260805-asif2",
+    src: "/api/asif-portrait?v=20260805-asif3",
+    portrait: "/api/asif-portrait?v=20260805-asif3",
+    fallback: "/api/asif-portrait?v=20260805-asif3",
     position: "50% 36%"
   },
   "marlo-saint": {

@@ -80,5 +80,12 @@ window.NGS_ARTIST_IMAGES = {
     portrait: "/assets/artists/alonzo-ray-portrait.webp",
     fallback: "/assets/artists/alonzo-ray-card-640.webp",
     position: "50% 38%"
+  },
+  "marlo-saint": {
+    src: "/assets/artists/marlo-saint-card.webp?v=20260805-marlo2",
+    srcset: "/assets/artists/marlo-saint-card-640.webp?v=20260805-marlo2 640w, /assets/artists/marlo-saint-card.webp?v=20260805-marlo2 720w",
+    portrait: "/assets/artists/marlo-saint-portrait.webp?v=20260805-marlo2",
+    fallback: "/assets/artists/marlo-saint-card-640.webp?v=20260805-marlo2",
+    position: "50% 38%"
   }
 };

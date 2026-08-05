@@ -54,11 +54,11 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 42%"
   },
   "rudii-marka": {
-    src: "/assets/artists/rudii-marka-card.webp",
-    srcset: "/assets/artists/rudii-marka-card-640.webp 640w, /assets/artists/rudii-marka-card.webp 1024w",
-    portrait: "/assets/artists/rudii-marka-portrait.webp",
-    fallback: "/assets/artists/rudii-marka-card-640.webp",
-    position: "50% 42%"
+    src: "/assets/artists/rudii-marka-card.webp?v=20260805-rudii6",
+    srcset: "/assets/artists/rudii-marka-card-640.webp?v=20260805-rudii6 640w, /assets/artists/rudii-marka-card.webp?v=20260805-rudii6 1024w",
+    portrait: "/assets/artists/rudii-marka-portrait.webp?v=20260805-rudii6",
+    fallback: "/assets/artists/rudii-marka-card-640.webp?v=20260805-rudii6",
+    position: "50% 35%"
   },
   "reiss": {
     src: "/assets/artists/reiss-card.webp?v=20260805-reiss4",
@@ -113,6 +113,12 @@ if (Array.isArray(window.NGS_ARTISTS)) {
   if (reeko) {
     reeko.genre = "Jamaican Dancehall";
     reeko.summary = "Melodic gully dancehall shaped by authority, loyalty, nightlife energy and sharp street observation.";
+  }
+
+  const rudii = window.NGS_ARTISTS.find(artist => artist.slug === "rudii-marka");
+  if (rudii) {
+    rudii.genre = "Jamaican Dancehall";
+    rudii.summary = "Cinematic gully dancehall shaped by pressure, survival, loyalty and controlled melodic menace.";
   }
 
   const asif = window.NGS_ARTISTS.find(artist => artist.slug === "asif-sultaan");

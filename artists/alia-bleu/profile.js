@@ -2,12 +2,12 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "alia-bleu": {
     "name": "Alia Bleu",
     "path": "/artists/alia-bleu/",
-    "genre": "UK R&B",
-    "location": "United Kingdom",
+    "genre": "US R&B",
+    "location": "United States",
     "eyebrow": "NextGen Sessions featured artist",
-    "headline": "Late-night UK R&B shaped by self-worth, emotional clarity, firm boundaries and a distinct blue-toned identity.",
+    "headline": "Late-night American R&B shaped by self-worth, emotional clarity, firm boundaries and a distinct blue-toned identity.",
     "bio": [
-      "Alia Bleu represents the contemporary UK R&B lane within NextGen Sessions, pairing a smooth vocal presence with emotionally direct writing and polished late-night production.",
+      "Alia Bleu represents the contemporary American R&B lane within NextGen Sessions, pairing a smooth vocal presence with emotionally direct writing and polished late-night production.",
       "Dreams Don’t Chase You established her resilient, self-driven perspective, while Piggyback moved the catalogue into darker relationship territory centred on emotional labour and unequal support. Both releases retain the restrained blue visual world and clean melodic identity that make her immediately recognisable."
     ],
     "imageKey": "alia-bleu",
@@ -42,7 +42,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Alia+Bleu",
     "related": [
-      { "name": "Zara Veli", "genre": "UK R&B" },
+      { "name": "Zara Veli", "genre": "R&B" },
       { "name": "Nyah Rae", "genre": "R&B" },
       { "name": "Marlo Saint", "genre": "UK Afro-Swing / R&B" }
     ]

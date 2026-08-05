@@ -82,9 +82,9 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 38%"
   },
   "asif-sultaan": {
-    src: "/api/asif-portrait?v=20260805-asif3",
-    portrait: "/api/asif-portrait?v=20260805-asif3",
-    fallback: "/api/asif-portrait?v=20260805-asif3",
+    src: "/assets/artists/asif-sultaan-portrait-final.webp?v=20260805-asif-final1",
+    portrait: "/assets/artists/asif-sultaan-portrait-final.webp?v=20260805-asif-final1",
+    fallback: "/assets/artists/asif-sultaan-portrait-final.webp?v=20260805-asif-final1",
     position: "50% 36%"
   },
   "marlo-saint": {
@@ -95,11 +95,3 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 38%"
   }
 };
-
-if (!document.querySelector('script[data-asif-portrait-loader]')) {
-  const loader = document.createElement("script");
-  loader.src = "/asif-portrait-loader.js?v=20260805-asif3";
-  loader.defer = true;
-  loader.dataset.asifPortraitLoader = "true";
-  document.head.append(loader);
-}

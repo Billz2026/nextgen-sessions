@@ -1,0 +1,4 @@
+Darian Gayle portrait v3 production deployment
+Source: verified 540x675 WebP
+Expected decoded size: 17830 bytes
+Cache version: 20260806-darian3

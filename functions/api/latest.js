@@ -74,7 +74,7 @@ async function fetchFeed(url) {
   const response = await fetch(url, {
     headers: {
       Accept: "application/atom+xml, application/xml, text/xml",
-      "User-Agent": "NextGenSessionsWebsite/7.0"
+      "User-Agent": "NextGenSessionsWebsite/8.0"
     }
   });
   if (!response.ok) throw new Error(`YouTube feed returned ${response.status}`);
@@ -100,7 +100,7 @@ function normaliseCatalogueItem(item) {
 
 async function fetchCatalogue(context) {
   const url = new URL("/releases.json", context.request.url);
-  url.searchParams.set("latest", "v7");
+  url.searchParams.set("latest", "v8");
   const request = new Request(url.toString(), {
     headers: { Accept: "application/json" }
   });
@@ -198,7 +198,7 @@ function jsonResponse(payload, cacheControl) {
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=7", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=8", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -235,24 +235,34 @@ export async function onRequestGet(context) {
         : playlistItems.length
           ? playlistItems
           : catalogueItems;
-    const releases = uniqueReleases([
+
+    // The homepage hero must follow the curated catalogue and verified release
+    // schedule. Raw YouTube feeds can reorder or republish older uploads, so
+    // they supplement the release grid but cannot control the latest hero.
+    const canonicalItems = newestFirst(uniqueReleases([
+      ...FALLBACK_RELEASES,
+      ...catalogueItems
+    ]));
+    const releases = newestFirst(uniqueReleases([
+      ...canonicalItems,
       ...primaryItems,
-      ...catalogueItems,
       ...playlistItems
-    ]).slice(0, 8);
+    ])).slice(0, 8);
     if (!releases.length) throw new Error("All latest-release sources are unavailable");
 
     const override = validOverride(context);
-    const latest = override || primaryItems[0] || releases[0];
+    const latest = override || canonicalItems[0] || primaryItems[0] || releases[0];
     const latestSource = override
       ? "override"
-      : channelItems.length
-        ? "channel"
-        : channelPageItems.length
-          ? "channel-page"
-          : playlistItems.length
-            ? "playlist"
-            : "catalogue";
+      : canonicalItems.length
+        ? "catalogue"
+        : channelItems.length
+          ? "channel"
+          : channelPageItems.length
+            ? "channel-page"
+            : playlistItems.length
+              ? "playlist"
+              : "fallback";
     const releaseSources = [
       channelItems.length ? "channel" : "",
       channelPageItems.length ? "channel-page" : "",

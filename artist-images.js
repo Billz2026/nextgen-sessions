@@ -100,6 +100,13 @@ window.NGS_ARTIST_IMAGES = {
     portrait: "/assets/artists/darian-gayle-portrait.webp?v=20260806-darian6",
     fallback: "/assets/artists/darian-gayle-card-640.webp?v=20260806-darian6",
     position: "50% 32%"
+  },
+  "jahmari-danza": {
+    src: "/assets/artists/jahmari-danza-card.webp?v=20260806-jahmari1",
+    srcset: "/assets/artists/jahmari-danza-card-640.webp?v=20260806-jahmari1 640w, /assets/artists/jahmari-danza-card.webp?v=20260806-jahmari1 1024w",
+    portrait: "/assets/artists/jahmari-danza-portrait.webp?v=20260806-jahmari1",
+    fallback: "/assets/artists/jahmari-danza-card-640.webp?v=20260806-jahmari1",
+    position: "50% 30%"
   }
 };
 

@@ -244,5 +244,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Nyah Rae", "genre": "R&B" },
       { "name": "Mariana Lo", "genre": "Pop / R&B" }
     ]
+  },
+  "jahmari-danza": {
+    "name": "Jahmari Danza",
+    "path": "/artists/jahmari-danza/",
+    "genre": "Jamaican Dancehall",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Melodic Jamaican dancehall built around movement, confident delivery and hook-led energy.",
+    "bio": [
+      "Jahmari Danza represents the melodic dancehall lane within NextGen Sessions, pairing a confident vocal presence with rhythm-first production designed to move.",
+      "Gyal Affi Wine brings that identity into focus with a direct dancehall groove, repeated hook and nightlife energy. The presentation stays centred on movement and personality, giving Jahmari a clear visual and musical lane within the wider roster."
+    ],
+    "imageKey": "jahmari-danza",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "dzjwPvGRc9I",
+      "title": "Gyal Affi Wine",
+      "label": "Jahmari Danza — Gyal Affi Wine",
+      "published": "2026-05-08T15:48:16Z"
+    },
+    "catalogueAliases": ["Jahmari Danza"],
+    "additionalReleases": [
+      {
+        "id": "dzjwPvGRc9I",
+        "artist": "Jahmari Danza",
+        "title": "Gyal Affi Wine",
+        "group": "Dancehall & Reggae",
+        "published": "2026-05-08T15:48:16Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Jahmari Danza",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Jahmari+Danza",
+    "related": [
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Kemarco", "genre": "Jamaican Dancehall" }
+    ]
   }
 });

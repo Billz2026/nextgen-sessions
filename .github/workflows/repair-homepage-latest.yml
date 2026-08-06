@@ -1,0 +1,129 @@
+name: Repair homepage latest release
+
+on:
+  push:
+    paths:
+      - ".github/workflows/repair-homepage-latest.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make curated catalogue authoritative
+        shell: python
+        run: |
+          from pathlib import Path
+
+          api_path = Path("functions/api/latest.js")
+          api = api_path.read_text(encoding="utf-8")
+          api = api.replace('url.searchParams.set("latest", "v7");', 'url.searchParams.set("latest", "v8");')
+          api = api.replace('new URL("/api/latest?v=7", context.request.url)', 'new URL("/api/latest?v=8", context.request.url)')
+
+          old_api = '''    const primaryItems = channelItems.length
+      ? channelItems
+      : channelPageItems.length
+        ? channelPageItems
+        : playlistItems.length
+          ? playlistItems
+          : catalogueItems;
+    const releases = uniqueReleases([
+      ...primaryItems,
+      ...catalogueItems,
+      ...playlistItems
+    ]).slice(0, 8);
+    if (!releases.length) throw new Error("All latest-release sources are unavailable");
+
+    const override = validOverride(context);
+    const latest = override || primaryItems[0] || releases[0];
+    const latestSource = override
+      ? "override"
+      : channelItems.length
+        ? "channel"
+        : channelPageItems.length
+          ? "channel-page"
+          : playlistItems.length
+            ? "playlist"
+            : "catalogue";'''
+
+          new_api = '''    const primaryItems = channelItems.length
+      ? channelItems
+      : channelPageItems.length
+        ? channelPageItems
+        : playlistItems.length
+          ? playlistItems
+          : catalogueItems;
+
+    // Homepage chronology must come from the curated release catalogue and
+    // the manually verified scheduled dates below. Raw channel feeds can
+    // reorder older uploads and therefore must not control the hero release.
+    const canonicalItems = newestFirst(uniqueReleases([
+      ...FALLBACK_RELEASES,
+      ...catalogueItems
+    ]));
+    const releases = newestFirst(uniqueReleases([
+      ...canonicalItems,
+      ...primaryItems,
+      ...playlistItems
+    ])).slice(0, 8);
+    if (!releases.length) throw new Error("All latest-release sources are unavailable");
+
+    const override = validOverride(context);
+    const latest = override || canonicalItems[0] || primaryItems[0] || releases[0];
+    const latestSource = override
+      ? "override"
+      : canonicalItems.length
+        ? "catalogue"
+        : channelItems.length
+          ? "channel"
+          : channelPageItems.length
+            ? "channel-page"
+            : playlistItems.length
+              ? "playlist"
+              : "fallback";'''
+
+          if old_api not in api:
+              raise SystemExit("Expected latest API selection block was not found")
+          api = api.replace(old_api, new_api)
+          api_path.write_text(api, encoding="utf-8")
+
+          site_path = Path("site.js")
+          site = site_path.read_text(encoding="utf-8")
+          site = site.replace('fetchJson("/api/latest?v=7")', 'fetchJson("/api/latest?v=8")')
+
+          old_site = '''    const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
+    const latest = apiLatest || offlineReleases[0] || FALLBACK_LATEST;'''
+          new_site = '''    // Only an explicit Cloudflare override may replace the curated chronology.
+    // A raw channel-feed result is not trusted as the homepage hero because
+    // YouTube can reorder or republish older uploads.
+    const apiLatest = apiPayload?.latestSource === "override"
+      ? normaliseHomepageRelease(apiPayload.latest)
+      : null;
+    const latest = apiLatest || offlineReleases[0] || FALLBACK_LATEST;'''
+
+          if old_site not in site:
+              raise SystemExit("Expected homepage latest selection block was not found")
+          site = site.replace(old_site, new_site)
+          site_path.write_text(site, encoding="utf-8")
+
+          index_path = Path("index.html")
+          index = index_path.read_text(encoding="utf-8")
+          old_asset = '/site.js?v=20260805-latest2'
+          if old_asset not in index:
+              raise SystemExit("Expected homepage site.js cache version was not found")
+          index = index.replace(old_asset, '/site.js?v=20260806-latest3')
+          index_path.write_text(index, encoding="utf-8")
+
+      - name: Remove one-shot workflow and commit repair
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/repair-homepage-latest.yml
+          git add functions/api/latest.js site.js index.html
+          git commit -m "Fix homepage latest release authority"
+          git push

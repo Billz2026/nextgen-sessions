@@ -433,13 +433,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "keisha": {
     "name": "Keisha",
     "path": "/artists/keisha/",
-    "genre": "R&B / Soul",
+    "genre": "Dancehall",
     "location": "Jamaica",
     "eyebrow": "NextGen Sessions artist",
-    "headline": "Soulful R&B vocals shaped by self-worth, melodic presence and warm dancehall rhythm.",
+    "headline": "Jamaican dancehall shaped by self-worth, confident melodic delivery and warm rhythmic energy.",
     "bio": [
-      "Keisha brings a soulful vocal presence to NextGen Sessions, blending R&B feeling with dancehall rhythm and a confident, understated visual identity.",
-      "Mi Know Mi Worth and Hold Mi Down centre that lane on self-respect, loyalty and emotional clarity, while Ride Wid Mi with Reeko extends her catalogue into a collaborative dancehall setting."
+      "Keisha brings a confident Jamaican dancehall presence to NextGen Sessions, pairing melodic vocals with rhythm-led production and an understated visual identity.",
+      "Mi Know Mi Worth, Hold Mi Down and Ride Wid Mi with Reeko keep her catalogue firmly in a dancehall lane, balancing self-respect, loyalty and melodic Jamaican energy."
     ],
     "imageKey": "keisha",
     "imagePosition": "50% 28%",
@@ -480,9 +480,9 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Keisha",
     "related": [
-      { "name": "Alia Bleu", "genre": "UK R&B" },
       { "name": "Reeko", "genre": "Jamaican Dancehall" },
-      { "name": "Nyah Rae", "genre": "R&B" }
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Jahmari Danza", "genre": "Jamaican Dancehall" }
     ]
   }
 });

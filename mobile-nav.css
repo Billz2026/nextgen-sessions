@@ -2,7 +2,7 @@
 @media(max-width:980px){
   .site-header.ngs-nav-ready{z-index:9999}
   .site-header.ngs-nav-ready .header-inner{min-height:72px;padding:10px 0;flex-direction:row;align-items:center;justify-content:space-between;gap:16px}
-  .site-header.ngs-nav-ready .brand img{width:164px}
+  .site-header.ngs-nav-ready .brand img{width:78px}
   .site-header.ngs-nav-ready .nav-toggle{position:relative;z-index:3;min-width:94px;min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;border:1px solid rgba(243,199,79,.35);border-radius:999px;background:rgba(255,255,255,.045);color:var(--text);font:inherit;font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
   .site-header.ngs-nav-ready .nav-toggle:hover,.site-header.ngs-nav-ready .nav-toggle:focus-visible{border-color:var(--gold);color:var(--gold2);outline:none}
   .nav-toggle-lines{width:19px;display:grid;gap:4px}
@@ -20,7 +20,7 @@
   body.ngs-menu-open{overflow:hidden}
 }
 @media(max-width:380px){
-  .site-header.ngs-nav-ready .brand img{width:145px}
+  .site-header.ngs-nav-ready .brand img{width:70px}
   .site-header.ngs-nav-ready .nav-toggle{min-width:84px;padding-inline:12px}
 }
 @media(prefers-reduced-motion:reduce){

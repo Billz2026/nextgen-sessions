@@ -4,6 +4,26 @@ const LEGACY_HOSTS = new Set([
   "www.nextgensessions.com"
 ]);
 
+const MOBILE_NAV_VERSION = "20260806-nav1";
+
+class MobileNavHeadInjector {
+  element(element) {
+    element.append(
+      `<link rel="stylesheet" href="/mobile-nav.css?v=${MOBILE_NAV_VERSION}">`,
+      { html: true }
+    );
+  }
+}
+
+class MobileNavBodyInjector {
+  element(element) {
+    element.append(
+      `<script src="/mobile-nav.js?v=${MOBILE_NAV_VERSION}" defer></script>`,
+      { html: true }
+    );
+  }
+}
+
 export async function onRequest(context) {
   const url = new URL(context.request.url);
   const hostname = url.hostname.toLowerCase();
@@ -18,5 +38,14 @@ export async function onRequest(context) {
     return Response.redirect(url.toString(), 301);
   }
 
-  return context.next();
+  const response = await context.next();
+  const contentType = response.headers.get("content-type") || "";
+  const shouldEnhance = context.request.method === "GET" && contentType.includes("text/html");
+
+  if (!shouldEnhance) return response;
+
+  return new HTMLRewriter()
+    .on("head", new MobileNavHeadInjector())
+    .on("body", new MobileNavBodyInjector())
+    .transform(response);
 }

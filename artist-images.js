@@ -114,6 +114,13 @@ window.NGS_ARTIST_IMAGES = {
     portrait: "/assets/artists/javon-ranks-portrait.webp?v=20260806-javon1",
     fallback: "/assets/artists/javon-ranks-card-640.webp?v=20260806-javon1",
     position: "50% 30%"
+  },
+  "karvell-reign": {
+    src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
+    srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",
+    portrait: "/assets/artists/karvell-reign-portrait.webp?v=20260806-karvell1",
+    fallback: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1",
+    position: "50% 30%"
   }
 };
 

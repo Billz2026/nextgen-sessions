@@ -333,5 +333,60 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Jahmari Danza", "genre": "Jamaican Dancehall" },
       { "name": "Kemarco", "genre": "Jamaican Dancehall" }
     ]
+  },
+  "karvell-reign": {
+    "name": "Karvell Reign",
+    "path": "/artists/karvell-reign/",
+    "genre": "West Coast Hip-Hop / G-Funk",
+    "location": "California",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Warm West Coast hip-hop shaped by G-Funk bounce, California atmosphere and grounded confidence.",
+    "bio": [
+      "Karvell Reign brings a mature West Coast presence to NextGen Sessions, pairing laid-back delivery with sun-soaked production, G-Funk colour and a confident California identity.",
+      "California Gold, Ain’t The Same and Still Walk Alone define that lane: reflective street records with warmth, space and the widescreen feel of a West Coast sunset."
+    ],
+    "imageKey": "karvell-reign",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "BujVqCAUh28",
+      "title": "California Gold",
+      "label": "Karvell Reign — California Gold",
+      "published": "2026-06-17T15:36:12Z"
+    },
+    "catalogueAliases": ["Karvell Reign"],
+    "additionalReleases": [
+      {
+        "id": "BujVqCAUh28",
+        "artist": "Karvell Reign",
+        "title": "California Gold",
+        "group": "Hip-Hop / G-Funk",
+        "published": "2026-06-17T15:36:12Z"
+      },
+      {
+        "id": "uxHGB1ZhEoo",
+        "artist": "Karvell Reign",
+        "title": "Ain’t The Same",
+        "group": "Hip-Hop / G-Funk",
+        "published": "2026-05-03T21:52:43Z"
+      },
+      {
+        "id": "OSPS78aPkS0",
+        "artist": "Karvell Reign",
+        "title": "Still Walk Alone",
+        "group": "Hip-Hop / G-Funk",
+        "published": "2026-04-16T15:47:41Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Karvell Reign",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Karvell+Reign",
+    "related": [
+      { "name": "Voss Carter", "genre": "West Coast Hip-Hop" },
+      { "name": "Jay Starks", "genre": "Hip-Hop" },
+      { "name": "Marlo Saint", "genre": "Hip-Hop / R&B" }
+    ]
   }
 });

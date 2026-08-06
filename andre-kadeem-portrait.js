@@ -117,12 +117,14 @@
 
     const profileMain = document.querySelector('main[data-artist="andre-kadeem"]');
     if (profileMain) {
-      profileMain.querySelectorAll("img").forEach(image => configureImage(image, source));
+      profileMain.querySelectorAll("img.profile-image").forEach(image => {
+        configureImage(image, source);
+      });
     }
 
-    document.querySelectorAll('img[alt*="Andre Kadeem" i]').forEach(image => {
-      configureImage(image, source);
-    });
+    document.querySelectorAll(
+      'img[alt="Andre Kadeem portrait"], img[alt="Andre Kadeem artist portrait"]'
+    ).forEach(image => configureImage(image, source));
   }
 
   updateDataSources(API_SOURCE);

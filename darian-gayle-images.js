@@ -4,7 +4,7 @@
   const path = location.pathname.replace(/\/+$/, "") || "/";
   if (path !== "/artists" && path !== "/artists/darian-gayle") return;
 
-  const SOURCE = "/api/darian-portrait-final?v=20260806-darian3";
+  const SOURCE = "/assets/artists/darian-gayle-portrait-final.svg?v=20260806-darian4";
   const POSITION = "50% 30%";
 
   window.NGS_ARTIST_IMAGES = window.NGS_ARTIST_IMAGES || {};
@@ -15,17 +15,18 @@
     position: POSITION
   };
 
-  const profile = window.NGS_ARTIST_PROFILES?.["darian-gayle"];
-  if (profile) {
+  function updateProfileSource() {
+    const profile = window.NGS_ARTIST_PROFILES?.["darian-gayle"];
+    if (!profile) return;
     profile.imageKey = "darian-gayle";
     profile.image = SOURCE;
     profile.imagePosition = POSITION;
   }
 
   function configureImage(image) {
-    if (!image || image.dataset.darianFinalPortrait === "true") return;
+    if (!image || image.dataset.darianStaticPortrait === "true") return;
 
-    image.dataset.darianFinalPortrait = "true";
+    image.dataset.darianStaticPortrait = "true";
     image.alt = "Darian Gayle portrait";
     image.loading = image.loading || "lazy";
     image.decoding = "async";
@@ -57,6 +58,8 @@
   }
 
   function applyPortrait() {
+    updateProfileSource();
+
     document.querySelectorAll('a[href*="/artists/darian-gayle"]').forEach(card => {
       configureImage(cardPortrait(card));
     });

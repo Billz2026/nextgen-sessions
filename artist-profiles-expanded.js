@@ -388,5 +388,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Jay Starks", "genre": "Hip-Hop" },
       { "name": "Marlo Saint", "genre": "Hip-Hop / R&B" }
     ]
+  },
+  "kastro": {
+    "name": "Kastro",
+    "path": "/artists/kastro/",
+    "genre": "Jamaican Dancehall",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Hard-edged Jamaican dancehall with direct delivery, heavyweight production and a commanding presence.",
+    "bio": [
+      "Kastro brings a focused Jamaican dancehall presence to NextGen Sessions, pairing direct vocals with heavyweight rhythm and a grounded, self-assured identity.",
+      "Urban Reign leads his NextGen catalogue, setting out that lane with a forceful modern dancehall sound and a strong sense of presence."
+    ],
+    "imageKey": "kastro",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "ESEyLheoF9Q",
+      "title": "Urban Reign",
+      "label": "Kastro — Urban Reign",
+      "published": "2026-07-05T15:29:59Z"
+    },
+    "catalogueAliases": ["Kastro"],
+    "additionalReleases": [
+      {
+        "id": "ESEyLheoF9Q",
+        "artist": "Kastro",
+        "title": "Urban Reign",
+        "group": "Dancehall & Reggae",
+        "published": "2026-07-05T15:29:59Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Kastro",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Kastro",
+    "related": [
+      { "name": "Kemarco", "genre": "Jamaican Dancehall" },
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Jahmari Danza", "genre": "Jamaican Dancehall" }
+    ]
   }
 });

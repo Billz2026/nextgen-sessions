@@ -115,6 +115,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/javon-ranks-card-640.webp?v=20260806-javon1",
     position: "50% 30%"
   },
+  "kastro": {
+    src: "/assets/artists/kastro-card.webp?v=20260806-kastro1",
+    srcset: "/assets/artists/kastro-card-640.webp?v=20260806-kastro1 640w, /assets/artists/kastro-card.webp?v=20260806-kastro1 1024w",
+    portrait: "/assets/artists/kastro-portrait.webp?v=20260806-kastro1",
+    fallback: "/assets/artists/kastro-card-640.webp?v=20260806-kastro1",
+    position: "50% 30%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

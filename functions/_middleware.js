@@ -4,7 +4,7 @@ const LEGACY_HOSTS = new Set([
   "www.nextgensessions.com"
 ]);
 
-const MOBILE_NAV_VERSION = "20260806-nav1";
+const MOBILE_NAV_VERSION = "20260806-nav2";
 
 class MobileNavHeadInjector {
   element(element) {

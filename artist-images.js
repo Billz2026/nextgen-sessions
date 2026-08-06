@@ -93,6 +93,13 @@ window.NGS_ARTIST_IMAGES = {
     portrait: "/assets/artists/marlo-saint-portrait.webp?v=20260805-marlo2",
     fallback: "/assets/artists/marlo-saint-card-640.webp?v=20260805-marlo2",
     position: "50% 38%"
+  },
+  "darian-gayle": {
+    src: "/assets/artists/darian-gayle-card.webp?v=20260806-darian5",
+    srcset: "/assets/artists/darian-gayle-card-640.webp?v=20260806-darian5 640w, /assets/artists/darian-gayle-card.webp?v=20260806-darian5 1024w",
+    portrait: "/assets/artists/darian-gayle-portrait.webp?v=20260806-darian5",
+    fallback: "/assets/artists/darian-gayle-card-640.webp?v=20260806-darian5",
+    position: "50% 32%"
   }
 };
 

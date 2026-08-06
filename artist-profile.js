@@ -310,6 +310,9 @@
     ? requestedScale
     : 1;
   const related = Array.isArray(artist.related) ? artist.related : [];
+  const isFeaturedProfile = /featured artist/i.test(String(artist.eyebrow || ""));
+  const profileBackHref = isFeaturedProfile ? "/#featured-artists" : "/artists/";
+  const profileBackLabel = isFeaturedProfile ? "← Back to featured artists" : "← Back to all artists";
   const bio = Array.isArray(artist.bio) ? artist.bio : [];
   const configuredRelease = configuredFeaturedRelease();
   const releaseDate = String(video.releaseDate || "").trim();
@@ -326,7 +329,7 @@
   root.innerHTML = `
     <section class="profile-hero" aria-labelledby="artist-title">
       <div>
-        <a class="profile-back" href="/#featured-artists">← Back to featured artists</a>
+        <a class="profile-back" href="${escapeHtml(profileBackHref)}">${escapeHtml(profileBackLabel)}</a>
         <p class="eyebrow">${escapeHtml(artist.eyebrow)}</p>
         <span class="profile-genre">${escapeHtml(artist.genre)}</span>
         <h1 class="profile-title" id="artist-title">${escapeHtml(artist.name)}</h1>

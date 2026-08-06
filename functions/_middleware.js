@@ -6,7 +6,7 @@ const LEGACY_HOSTS = new Set([
 
 const MOBILE_NAV_VERSION = "20260806-nav2";
 const ANDRE_PORTRAIT_VERSION = "20260806-andre3";
-const DARIAN_PORTRAIT_VERSION = "20260806-darian2";
+const DARIAN_PORTRAIT_VERSION = "20260806-darian3";
 
 class MobileNavHeadInjector {
   element(element) {

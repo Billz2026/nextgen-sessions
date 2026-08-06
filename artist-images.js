@@ -107,6 +107,13 @@ window.NGS_ARTIST_IMAGES = {
     portrait: "/assets/artists/jahmari-danza-portrait.webp?v=20260806-jahmari1",
     fallback: "/assets/artists/jahmari-danza-card-640.webp?v=20260806-jahmari1",
     position: "50% 30%"
+  },
+  "javon-ranks": {
+    src: "/assets/artists/javon-ranks-card.webp?v=20260806-javon1",
+    srcset: "/assets/artists/javon-ranks-card-640.webp?v=20260806-javon1 640w, /assets/artists/javon-ranks-card.webp?v=20260806-javon1 1024w",
+    portrait: "/assets/artists/javon-ranks-portrait.webp?v=20260806-javon1",
+    fallback: "/assets/artists/javon-ranks-card-640.webp?v=20260806-javon1",
+    position: "50% 30%"
   }
 };
 

@@ -285,5 +285,53 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
       { "name": "Kemarco", "genre": "Jamaican Dancehall" }
     ]
+  },
+  "javon-ranks": {
+    "name": "Javon Ranks",
+    "path": "/artists/javon-ranks/",
+    "genre": "Jamaican Dancehall",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Direct Jamaican dancehall built around resilience, presence and confident rhythmic delivery.",
+    "bio": [
+      "Javon Ranks brings a grounded dancehall presence to NextGen Sessions, pairing direct vocals with rhythm-led production and a calm, self-assured visual identity.",
+      "Dem Cyan Move Mi and Still Hold Firm establish that lane clearly: records centred on resolve, confidence and standing firm under pressure, delivered with the energy of modern Jamaican dancehall."
+    ],
+    "imageKey": "javon-ranks",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "4ohHWcjmNYM",
+      "title": "Dem Cyan Move Mi",
+      "label": "Javon Ranks — Dem Cyan Move Mi",
+      "published": "2026-05-11T16:08:36Z"
+    },
+    "catalogueAliases": ["Javon Ranks"],
+    "additionalReleases": [
+      {
+        "id": "4ohHWcjmNYM",
+        "artist": "Javon Ranks",
+        "title": "Dem Cyan Move Mi",
+        "group": "Dancehall & Reggae",
+        "published": "2026-05-11T16:08:36Z"
+      },
+      {
+        "id": "tmeLFCqItcM",
+        "artist": "Javon Ranks",
+        "title": "Still Hold Firm",
+        "group": "Dancehall & Reggae",
+        "published": "2026-04-15T07:10:58Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Javon Ranks",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Javon+Ranks",
+    "related": [
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Jahmari Danza", "genre": "Jamaican Dancehall" },
+      { "name": "Kemarco", "genre": "Jamaican Dancehall" }
+    ]
   }
 });

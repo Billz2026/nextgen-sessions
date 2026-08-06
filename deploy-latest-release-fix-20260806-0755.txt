@@ -1,0 +1,4 @@
+Production deployment trigger for homepage latest-release authority fix.
+Triggered: 2026-08-06 07:55 Europe/London
+Includes fix commit: 21d5e167ad2262dbe06015ff02cd396a23acf5e2
+Expected homepage latest release: Alia Bleu - Piggyback

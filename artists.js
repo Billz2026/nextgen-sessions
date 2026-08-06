@@ -172,8 +172,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Keisha",
     "slug": "keisha",
-    "genre": "R&B / Soul",
-    "summary": "Soulful contemporary R&B centred on emotion and vocal presence.",
+    "genre": "Dancehall",
+    "summary": "Jamaican dancehall centred on confident delivery, melodic hooks and vocal presence.",
     "featured": false
   },
   {

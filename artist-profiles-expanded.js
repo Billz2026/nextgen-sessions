@@ -429,5 +429,60 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Reeko", "genre": "Jamaican Dancehall" },
       { "name": "Jahmari Danza", "genre": "Jamaican Dancehall" }
     ]
+  },
+  "keisha": {
+    "name": "Keisha",
+    "path": "/artists/keisha/",
+    "genre": "R&B / Soul",
+    "location": "Jamaica",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Soulful R&B vocals shaped by self-worth, melodic presence and warm dancehall rhythm.",
+    "bio": [
+      "Keisha brings a soulful vocal presence to NextGen Sessions, blending R&B feeling with dancehall rhythm and a confident, understated visual identity.",
+      "Mi Know Mi Worth and Hold Mi Down centre that lane on self-respect, loyalty and emotional clarity, while Ride Wid Mi with Reeko extends her catalogue into a collaborative dancehall setting."
+    ],
+    "imageKey": "keisha",
+    "imagePosition": "50% 28%",
+    "featuredVideo": {
+      "id": "sJQSOw2Sto4",
+      "title": "Mi Know Mi Worth",
+      "label": "Keisha — Mi Know Mi Worth",
+      "published": "2026-05-04T15:30:00Z"
+    },
+    "catalogueAliases": ["Keisha"],
+    "additionalReleases": [
+      {
+        "id": "sJQSOw2Sto4",
+        "artist": "Keisha",
+        "title": "Mi Know Mi Worth",
+        "group": "Dancehall & Reggae",
+        "published": "2026-05-04T15:30:00Z"
+      },
+      {
+        "id": "OMlS1Rmd2Uc",
+        "artist": "Keisha",
+        "title": "Hold Mi Down",
+        "group": "Dancehall & Reggae",
+        "published": "2026-04-17T07:38:57Z"
+      },
+      {
+        "id": "wvMNh7u0C4E",
+        "artist": "Reeko x Keisha",
+        "title": "Ride Wid Mi",
+        "group": "Dancehall & Reggae",
+        "published": "2026-03-26T08:50:52Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Keisha",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Keisha",
+    "related": [
+      { "name": "Alia Bleu", "genre": "UK R&B" },
+      { "name": "Reeko", "genre": "Jamaican Dancehall" },
+      { "name": "Nyah Rae", "genre": "R&B" }
+    ]
   }
 });

@@ -122,6 +122,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/kastro-card-640.webp?v=20260806-kastro1",
     position: "50% 30%"
   },
+  "keisha": {
+    src: "/assets/artists/keisha-card.webp?v=20260806-keisha1",
+    srcset: "/assets/artists/keisha-card-640.webp?v=20260806-keisha1 640w, /assets/artists/keisha-card.webp?v=20260806-keisha1 1024w",
+    portrait: "/assets/artists/keisha-portrait.webp?v=20260806-keisha1",
+    fallback: "/assets/artists/keisha-card-640.webp?v=20260806-keisha1",
+    position: "50% 28%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

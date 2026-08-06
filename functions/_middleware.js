@@ -6,6 +6,7 @@ const LEGACY_HOSTS = new Set([
 
 const MOBILE_NAV_VERSION = "20260806-nav2";
 const ANDRE_PORTRAIT_VERSION = "20260806-andre3";
+const DARIAN_PORTRAIT_VERSION = "20260806-darian2";
 
 class MobileNavHeadInjector {
   element(element) {
@@ -20,7 +21,8 @@ class SharedBodyInjector {
   element(element) {
     element.append(
       `<script src="/mobile-nav.js?v=${MOBILE_NAV_VERSION}" defer></script>` +
-      `<script src="/andre-kadeem-portrait.js?v=${ANDRE_PORTRAIT_VERSION}" defer></script>`,
+      `<script src="/andre-kadeem-portrait.js?v=${ANDRE_PORTRAIT_VERSION}" defer></script>` +
+      `<script src="/darian-gayle-images.js?v=${DARIAN_PORTRAIT_VERSION}" defer></script>`,
       { html: true }
     );
   }

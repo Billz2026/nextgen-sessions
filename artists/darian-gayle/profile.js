@@ -11,7 +11,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "Talk Di Tings focuses on outside conversation, rumour and the discipline required to stay centred when other people are speaking. The presentation remains understated and cinematic, keeping the writing and mood at the front."
     ],
     "imageKey": "darian-gayle",
-    "image": "/api/darian-portrait?v=20260806-darian1",
+    "image": "/api/darian-portrait-final?v=20260806-darian3",
     "imagePosition": "50% 30%",
     "featuredVideo": {
       "id": "H7FJw00hBt4",

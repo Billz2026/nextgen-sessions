@@ -95,10 +95,10 @@ window.NGS_ARTIST_IMAGES = {
     position: "50% 38%"
   },
   "darian-gayle": {
-    src: "/assets/artists/darian-gayle-card.webp?v=20260806-darian5",
-    srcset: "/assets/artists/darian-gayle-card-640.webp?v=20260806-darian5 640w, /assets/artists/darian-gayle-card.webp?v=20260806-darian5 1024w",
-    portrait: "/assets/artists/darian-gayle-portrait.webp?v=20260806-darian5",
-    fallback: "/assets/artists/darian-gayle-card-640.webp?v=20260806-darian5",
+    src: "/assets/artists/darian-gayle-card.webp?v=20260806-darian6",
+    srcset: "/assets/artists/darian-gayle-card-640.webp?v=20260806-darian6 640w, /assets/artists/darian-gayle-card.webp?v=20260806-darian6 1024w",
+    portrait: "/assets/artists/darian-gayle-portrait.webp?v=20260806-darian6",
+    fallback: "/assets/artists/darian-gayle-card-640.webp?v=20260806-darian6",
     position: "50% 32%"
   }
 };

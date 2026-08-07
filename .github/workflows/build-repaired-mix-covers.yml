@@ -1,0 +1,116 @@
+name: Build Repaired Mix Covers
+
+on:
+  push:
+    branches: [agent/fix-mix-covers-static]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-mix-covers-static
+          fetch-depth: 0
+
+      - name: Fetch verified repair source branch
+        run: git fetch origin agent/fix-mix-covers-final:refs/remotes/origin/agent/fix-mix-covers-final
+
+      - name: Validate payloads and reconstruct covers
+        id: validate
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const cp = require('child_process');
+          const crypto = require('crypto');
+
+          const summerExpected = [
+            [4000,'42ce29e993b6bda70a26d03fb4a9f598865488d8'],
+            [4000,'f1289014d37c64bab5acbb9439111790e898d462'],
+            [4000,'3ea28322cbeb83b1d3c7886db8861844cd69095b'],
+            [4000,'25c84d69ee8e1632d6212d43653fd084de8aad02'],
+            [4000,'bd79917fb9bf916214191500390dcd72d4fc17bc'],
+            [4000,'6205b988233e6e2ec959ea819b81f0daf18e3c91'],
+            [4000,'66a778a58096d820dd137be4822a657f144331c7'],
+            [4000,'6205b988233e6e2ec959ea819b81f0daf18e3c91'],
+            [1900,'2e7eeab6ea82ed51e577d81cdadf7471c9094acb']
+          ];
+
+          function gitBlobSha(text) {
+            const body = Buffer.from(text, 'utf8');
+            return crypto.createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${body.length}\0`), body])).digest('hex');
+          }
+          function sha256(buf) { return crypto.createHash('sha256').update(buf).digest('hex'); }
+          function gitShow(path) {
+            return cp.execFileSync('git',['show',`origin/agent/fix-mix-covers-final:${path}`],{encoding:'utf8',maxBuffer:5*1024*1024});
+          }
+          function exportValue(text) {
+            const m = text.match(/^export default "([A-Za-z0-9+/=]+)";/);
+            if (!m) throw new Error('Could not parse export payload');
+            return m[1];
+          }
+
+          const report = [];
+          let summerOK = true;
+          const summerParts = [];
+          for (let i=1;i<=9;i++) {
+            const path = `repair_payloads/summer/part${String(i).padStart(2,'0')}.b64`;
+            const text = fs.readFileSync(path,'utf8').trim();
+            const [expectedLen,expectedSha] = summerExpected[i-1];
+            const actualSha = gitBlobSha(text);
+            const ok = text.length === expectedLen && actualSha === expectedSha;
+            summerOK = summerOK && ok;
+            report.push(`${ok?'OK':'FAIL'} summer-part-${i} chars=${text.length}/${expectedLen} gitblob=${actualSha}/${expectedSha}`);
+            summerParts.push(text);
+          }
+
+          fs.mkdirSync('validation',{recursive:true});
+          if (!summerOK) {
+            fs.writeFileSync('validation/static-cover-status.txt','SUMMER_PAYLOAD_FAILURE\n'+report.join('\n')+'\n');
+            console.log(report.join('\n'));
+            process.exitCode = 0;
+            return;
+          }
+
+          const danceText = gitShow('functions/mix-cover/dancehall-mashups.js').split('function decodeBase64')[0];
+          const danceB64 = [...danceText.matchAll(/"([A-Za-z0-9+/=]+)"/g)].map(m=>m[1]).join('');
+          const asianB64 = [1,2,3].map(i=>exportValue(gitShow(`functions/_mix_cover_data/asian-collection-${i}.js`))).join('');
+          const albumsB64 = [1,2,3,4].map(i=>exportValue(gitShow(`functions/_mix_cover_data/full-albums-${i}.js`))).join('');
+          const summerB64 = summerParts.join('');
+
+          const specs = [
+            ['dancehall-mashups-v3.webp',danceB64,22488,'c6db7c7dc744745ad5cd605ed03070007f2d529356458bec75d09cb61a296f82'],
+            ['sound-of-summer-v3.webp',summerB64,25424,'277b54b35086f221d0a6e3477e32408fbcc37aa8e44d31ff8bbeb6bc68a9e9ff'],
+            ['asian-collection-v3.webp',asianB64,10992,'fe469602c7fc03dc372d6363acaf392a07b39ad5a1b3922c1552504c67ed0162'],
+            ['full-albums-v3.webp',albumsB64,14970,'97ee7e87bfa98934b01b435aef970750011d80537cc4b2a24e626902eea97e4a']
+          ];
+
+          fs.mkdirSync('assets/mixes',{recursive:true});
+          let allOK = true;
+          for (const [name,b64,expectedBytes,expectedHash] of specs) {
+            const bytes = Buffer.from(b64,'base64');
+            const hash = sha256(bytes);
+            const riff = bytes.subarray(0,4).toString('ascii');
+            const webp = bytes.subarray(8,12).toString('ascii');
+            const ok = bytes.length===expectedBytes && hash===expectedHash && riff==='RIFF' && webp==='WEBP';
+            allOK = allOK && ok;
+            report.push(`${ok?'OK':'FAIL'} ${name} bytes=${bytes.length}/${expectedBytes} sha256=${hash}/${expectedHash} signature=${riff}:${webp}`);
+            if (ok) fs.writeFileSync(`assets/mixes/${name}`,bytes);
+          }
+          fs.writeFileSync('validation/static-cover-status.txt',(allOK?'ALL_OK':'COVER_RECONSTRUCTION_FAILURE')+'\n'+report.join('\n')+'\n');
+          console.log(report.join('\n'));
+          NODE
+
+      - name: Commit status and exact static covers
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add validation/static-cover-status.txt assets/mixes/*-v3.webp 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Build verified static Mixes covers"
+          git push origin HEAD:agent/fix-mix-covers-static

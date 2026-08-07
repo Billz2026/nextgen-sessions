@@ -136,6 +136,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/killa-k-card-640.webp?v=20260807-killak1",
     position: "50% 30%"
   },
+  "leila-nour": {
+    src: "/assets/artists/leila-nour-card.webp?v=20260807-leila1",
+    srcset: "/assets/artists/leila-nour-card-640.webp?v=20260807-leila1 640w, /assets/artists/leila-nour-card.webp?v=20260807-leila1 1024w",
+    portrait: "/assets/artists/leila-nour-portrait.webp?v=20260807-leila1",
+    fallback: "/assets/artists/leila-nour-card-640.webp?v=20260807-leila1",
+    position: "50% 30%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

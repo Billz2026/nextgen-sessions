@@ -525,5 +525,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Andre Kadeem", "genre": "UK Rap" },
       { "name": "Mace K", "genre": "UK Rap / Grime" }
     ]
+  },
+  "leila-nour": {
+    "name": "Leila Nour",
+    "path": "/artists/leila-nour/",
+    "genre": "Arabic Soul / Oud",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Oud-led Arabic soul with elegant melody, warm atmosphere and a refined contemporary presentation.",
+    "bio": [
+      "Leila Nour brings an Arabic soul lane to NextGen Sessions, pairing oud-led musical character with polished contemporary production and an elegant visual identity.",
+      "Noor El Oud establishes her current catalogue sound, balancing Arabic melodic colour with a smooth R&B-influenced presentation."
+    ],
+    "imageKey": "leila-nour",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "o57kRImFP0c",
+      "title": "Noor El Oud",
+      "label": "Leila Nour — Noor El Oud",
+      "published": "2026-06-17T07:52:14Z"
+    },
+    "catalogueAliases": ["Leila Nour"],
+    "additionalReleases": [
+      {
+        "id": "o57kRImFP0c",
+        "artist": "Leila Nour",
+        "title": "Noor El Oud",
+        "group": "Arabic",
+        "published": "2026-06-17T07:52:14Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Leila Nour",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Leila+Nour",
+    "related": [
+      { "name": "Asif Sultaan", "genre": "Punjabi / South Asian Fusion" },
+      { "name": "Manny Virk", "genre": "Punjabi / Bhangra" },
+      { "name": "Zara Veli", "genre": "Pop / R&B" }
+    ]
   }
 });

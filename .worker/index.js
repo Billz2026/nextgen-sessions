@@ -1,6 +1,210 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
+// api/andre-portrait.js
+var CHUNK_PATHS = [
+  "/assets/artists/andre-kadeem-portrait/part-1.txt",
+  "/assets/artists/andre-kadeem-portrait/part-2.txt",
+  "/assets/artists/andre-kadeem-portrait/part-3.txt",
+  "/assets/artists/andre-kadeem-portrait/part-4.txt",
+  "/assets/artists/andre-kadeem-portrait/part-5.txt"
+];
+async function fetchStaticAsset(context, path) {
+  const url = new URL(path, context.request.url);
+  const request = new Request(url.toString(), {
+    headers: { Accept: "text/plain" }
+  });
+  if (context.env?.ASSETS?.fetch) {
+    const assetResponse = await context.env.ASSETS.fetch(request);
+    if (assetResponse.ok) return assetResponse;
+  }
+  const networkResponse = await fetch(request);
+  if (!networkResponse.ok) {
+    throw new Error(`${path} returned ${networkResponse.status}`);
+  }
+  return networkResponse;
+}
+__name(fetchStaticAsset, "fetchStaticAsset");
+function decodeBase64(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return bytes;
+}
+__name(decodeBase64, "decodeBase64");
+async function onRequestGet(context) {
+  try {
+    const responses = await Promise.all(
+      CHUNK_PATHS.map((path) => fetchStaticAsset(context, path))
+    );
+    const chunks = await Promise.all(responses.map((response2) => response2.text()));
+    const base64 = chunks.join("").replace(/\s+/g, "");
+    if (!base64.startsWith("UklGR")) {
+      throw new Error("Andre Kadeem portrait data is not a valid WebP payload");
+    }
+    const bytes = decodeBase64(base64);
+    return new Response(bytes, {
+      headers: {
+        "content-type": "image/webp",
+        "content-length": String(bytes.byteLength),
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-content-type-options": "nosniff"
+      }
+    });
+  } catch (error) {
+    return new Response("Andre Kadeem portrait unavailable", {
+      status: 503,
+      headers: {
+        "content-type": "text/plain; charset=utf-8",
+        "cache-control": "no-store",
+        "x-content-type-options": "nosniff"
+      }
+    });
+  }
+}
+__name(onRequestGet, "onRequestGet");
+
+// api/asif-portrait.js
+function onRequestGet2(context) {
+  const target = new URL(
+    "/assets/artists/asif-sultaan-portrait-final.webp?v=20260805-asif-final1",
+    context.request.url
+  );
+  return new Response(null, {
+    status: 302,
+    headers: {
+      location: target.toString(),
+      "cache-control": "no-store",
+      "x-content-type-options": "nosniff"
+    }
+  });
+}
+__name(onRequestGet2, "onRequestGet");
+
+// api/darian-portrait.js
+var CHUNK_PATHS2 = [
+  "/assets/artists/darian-gayle-portrait/part-1.txt",
+  "/assets/artists/darian-gayle-portrait/part-2.txt",
+  "/assets/artists/darian-gayle-portrait/part-3.txt",
+  "/assets/artists/darian-gayle-portrait/part-4.txt",
+  "/assets/artists/darian-gayle-portrait/part-5.txt"
+];
+async function fetchAsset(context, path) {
+  const request = new Request(new URL(path, context.request.url), {
+    headers: { Accept: "text/plain" }
+  });
+  if (context.env?.ASSETS?.fetch) {
+    const response3 = await context.env.ASSETS.fetch(request);
+    if (response3.ok) return response3;
+  }
+  const response2 = await fetch(request);
+  if (!response2.ok) throw new Error(`${path} returned ${response2.status}`);
+  return response2;
+}
+__name(fetchAsset, "fetchAsset");
+function decodeBase642(value) {
+  const binary = atob(value);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return bytes;
+}
+__name(decodeBase642, "decodeBase64");
+async function onRequestGet3(context) {
+  try {
+    const responses = await Promise.all(CHUNK_PATHS2.map((path) => fetchAsset(context, path)));
+    const chunks = await Promise.all(responses.map((response2) => response2.text()));
+    const base64 = chunks.join("").replace(/\s+/g, "");
+    if (!base64.startsWith("UklGR")) {
+      throw new Error("Darian Gayle portrait payload is invalid");
+    }
+    const bytes = decodeBase642(base64);
+    return new Response(bytes, {
+      headers: {
+        "content-type": "image/webp",
+        "content-length": String(bytes.byteLength),
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-content-type-options": "nosniff"
+      }
+    });
+  } catch (error) {
+    return new Response("Darian Gayle portrait unavailable", {
+      status: 503,
+      headers: {
+        "content-type": "text/plain; charset=utf-8",
+        "cache-control": "no-store",
+        "x-content-type-options": "nosniff"
+      }
+    });
+  }
+}
+__name(onRequestGet3, "onRequestGet");
+
+// api/darian-portrait-final.js
+var CHUNK_PATHS3 = [
+  "/assets/artists/darian-gayle-final/part-1.txt",
+  "/assets/artists/darian-gayle-final/part-2.txt",
+  "/assets/artists/darian-gayle-final/part-3.txt"
+];
+async function fetchAsset2(context, path) {
+  const request = new Request(new URL(path, context.request.url), {
+    headers: { Accept: "text/plain" }
+  });
+  if (context.env?.ASSETS?.fetch) {
+    const response3 = await context.env.ASSETS.fetch(request);
+    if (response3.ok) return response3;
+  }
+  const response2 = await fetch(request);
+  if (!response2.ok) throw new Error(`${path} returned ${response2.status}`);
+  return response2;
+}
+__name(fetchAsset2, "fetchAsset");
+function decodeBase643(value) {
+  const binary = atob(value);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return bytes;
+}
+__name(decodeBase643, "decodeBase64");
+async function onRequestGet4(context) {
+  try {
+    const responses = await Promise.all(CHUNK_PATHS3.map((path) => fetchAsset2(context, path)));
+    const chunks = await Promise.all(responses.map((response2) => response2.text()));
+    const base64 = chunks.join("").replace(/\s+/g, "");
+    if (!base64.startsWith("UklGR") || !base64.endsWith("==")) {
+      throw new Error("Darian Gayle final portrait payload is invalid");
+    }
+    const bytes = decodeBase643(base64);
+    if (bytes.byteLength !== 17830) {
+      throw new Error(`Darian Gayle final portrait has unexpected length ${bytes.byteLength}`);
+    }
+    return new Response(bytes, {
+      headers: {
+        "content-type": "image/webp",
+        "content-length": String(bytes.byteLength),
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-content-type-options": "nosniff"
+      }
+    });
+  } catch (error) {
+    console.error("Darian Gayle final portrait failed", error);
+    return new Response("Darian Gayle portrait unavailable", {
+      status: 503,
+      headers: {
+        "content-type": "text/plain; charset=utf-8",
+        "cache-control": "no-store",
+        "x-content-type-options": "nosniff"
+      }
+    });
+  }
+}
+__name(onRequestGet4, "onRequestGet");
+
 // api/events.js
 var ALLOWED_EVENTS = /* @__PURE__ */ new Set([
   "page_view",
@@ -85,96 +289,19 @@ async function onRequestPost(context) {
   return response(204);
 }
 __name(onRequestPost, "onRequestPost");
-function onRequestGet() {
+function onRequestGet5() {
   return response(405);
 }
-__name(onRequestGet, "onRequestGet");
+__name(onRequestGet5, "onRequestGet");
 
 // api/latest.js
-var PLAYLIST_ID = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
-var PLAYLIST_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
-var FALLBACK_LATEST = {
-  id: "5YgrpFXZ92Q",
-  title: "Rudii Marka \u2013 Marked for War",
-  published: ""
-};
 var FALLBACK_RELEASES = [
-  FALLBACK_LATEST,
-  { id: "w8DSI4HZKnM", title: "Creep With The Wolf" },
-  { id: "8YFWjkhWilc", title: "Man Moves Different Now" },
-  { id: "Qr1gNggtg8k", title: "Ride On My Enemies" },
-  { id: "Zkb80UYO0pY", title: "Money in the Bando" },
-  { id: "ccwwJFDErvg", title: "Bulletproof Mind" }
+  { id: "dV6_GbsHrxI", artist: "Kemarco", title: "Badman Don\u2019t Rush", group: "Dancehall & Reggae", published: "2026-08-05T17:00:07Z", url: "/releases/kemarco-badman-dont-rush/" },
+  { id: "xicnIGw-ei8", artist: "Alia Bleu", title: "Piggyback", group: "R&B & Soul", published: "2026-08-03T17:00:30Z", url: "/releases/alia-bleu-piggyback/" },
+  { id: "Sra1722xEFE", artist: "Renz Cole", title: "Heatwave", group: "UK Rap & Grime", published: "2026-07-31T17:00:33Z", url: "/releases/renz-cole-heatwave/" },
+  { id: "6H6yq_1bEsQ", artist: "Reeko", title: "After Di Party", group: "Dancehall & Reggae", published: "2026-07-29T17:00:35Z", url: "/releases/reeko-after-di-party/" },
+  { id: "ZSjRD_3B5uk", artist: "Deon Creed", title: "Days Like These", group: "R&B & Soul", published: "2026-07-27T17:00:05Z", url: "/releases/deon-creed-days-like-these/" }
 ];
-function decodeXml(value) {
-  return String(value || "").replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code))).replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCodePoint(parseInt(code, 16))).replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
-}
-__name(decodeXml, "decodeXml");
-function matchTag(block, tagPattern) {
-  const match2 = String(block || "").match(
-    new RegExp(`<${tagPattern}[^>]*>([\\s\\S]*?)<\\/${tagPattern}>`, "i")
-  );
-  return match2 ? decodeXml(match2[1].trim()) : "";
-}
-__name(matchTag, "matchTag");
-function parseFeed(xml) {
-  const entries = String(xml || "").match(/<entry>[\s\S]*?<\/entry>/gi) || [];
-  return entries.map((entry) => ({
-    id: matchTag(entry, "(?:yt:)?videoId"),
-    title: matchTag(entry, "title") || "NextGen Sessions release",
-    published: matchTag(entry, "published"),
-    updated: matchTag(entry, "updated")
-  })).filter((item) => /^[A-Za-z0-9_-]{11}$/.test(item.id));
-}
-__name(parseFeed, "parseFeed");
-function extractChannelId(xml) {
-  const match2 = String(xml || "").match(/<yt:channelId[^>]*>(UC[A-Za-z0-9_-]+)<\/yt:channelId>/i);
-  return match2 ? match2[1] : "";
-}
-__name(extractChannelId, "extractChannelId");
-function newestFirst(items) {
-  return [...items].sort(
-    (a, b) => (Date.parse(b.published || b.updated || "") || 0) - (Date.parse(a.published || a.updated || "") || 0)
-  );
-}
-__name(newestFirst, "newestFirst");
-function isOfficialRelease(item) {
-  const title = String(item?.title || "").toLowerCase();
-  if (!title) return false;
-  return ![
-    /\bshorts?\b/,
-    /#shorts/,
-    /\bteaser\b/,
-    /\btrailer\b/,
-    /\bpromo\b/,
-    /\bpreview\b/,
-    /\bcoming soon\b/,
-    /\bout tomorrow\b/,
-    /\bout tonight\b/
-  ].some((pattern) => pattern.test(title));
-}
-__name(isOfficialRelease, "isOfficialRelease");
-async function fetchFeed(url) {
-  const response2 = await fetch(url, {
-    headers: {
-      Accept: "application/atom+xml, application/xml, text/xml",
-      "User-Agent": "NextGenSessionsWebsite/3.0"
-    }
-  });
-  if (!response2.ok) throw new Error(`YouTube feed returned ${response2.status}`);
-  return response2.text();
-}
-__name(fetchFeed, "fetchFeed");
-function validOverride(context) {
-  const id = String(context.env?.LATEST_VIDEO_ID || "").trim();
-  if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return null;
-  return {
-    id,
-    title: String(context.env?.LATEST_VIDEO_TITLE || "Latest NextGen Sessions release").trim(),
-    published: String(context.env?.LATEST_VIDEO_PUBLISHED || "").trim()
-  };
-}
-__name(validOverride, "validOverride");
 function jsonResponse(payload, cacheControl) {
   return new Response(JSON.stringify(payload), {
     headers: {
@@ -185,55 +312,57 @@ function jsonResponse(payload, cacheControl) {
   });
 }
 __name(jsonResponse, "jsonResponse");
-async function onRequestGet2(context) {
+function validRelease(item) {
+  return /^[A-Za-z0-9_-]{11}$/.test(String(item?.id || "")) && String(item?.artist || "").trim() && String(item?.title || "").trim();
+}
+__name(validRelease, "validRelease");
+function publishedTimestamp(item) {
+  return Date.parse(item?.published || "") || 0;
+}
+__name(publishedTimestamp, "publishedTimestamp");
+function releasedNow(item) {
+  const timestamp = publishedTimestamp(item);
+  return !timestamp || timestamp <= Date.now();
+}
+__name(releasedNow, "releasedNow");
+async function fetchCatalogue(context) {
+  const url = new URL("/releases.json?latest=r2", context.request.url);
+  const request = new Request(url.toString(), { headers: { Accept: "application/json" } });
+  const response2 = context.env?.ASSETS?.fetch ? await context.env.ASSETS.fetch(request) : await fetch(request);
+  if (!response2.ok) throw new Error(`Release catalogue returned ${response2.status}`);
+  const payload = await response2.json();
+  const releases = Array.isArray(payload?.releases) ? payload.releases : [];
+  return releases.filter(validRelease).filter(releasedNow).sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
+}
+__name(fetchCatalogue, "fetchCatalogue");
+async function onRequestGet6(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=4", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=r2", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   try {
-    const playlistXml = await fetchFeed(PLAYLIST_FEED_URL);
-    const playlistItems = newestFirst(parseFeed(playlistXml)).filter(isOfficialRelease);
-    const channelId = extractChannelId(playlistXml);
-    let channelItems = [];
-    if (channelId) {
-      try {
-        const channelXml = await fetchFeed(
-          `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`
-        );
-        channelItems = newestFirst(parseFeed(channelXml)).filter(isOfficialRelease);
-      } catch (_) {
-        channelItems = [];
-      }
-    }
-    const override = validOverride(context);
-    const releases = channelItems.length ? channelItems.slice(0, 8) : playlistItems.length ? playlistItems.slice(0, 8) : FALLBACK_RELEASES;
-    const latest = override || releases[0] || FALLBACK_LATEST;
+    const releases = await fetchCatalogue(context);
+    if (!releases.length) throw new Error("Release catalogue is empty");
     const output = jsonResponse({
-      source: "youtube",
-      latestSource: override ? "override" : channelItems.length ? "channel" : "playlist",
-      releasesSource: channelItems.length ? "channel" : "playlist",
-      playlistId: PLAYLIST_ID,
-      channelId,
+      source: "verified-release-catalogue",
       generatedAt: (/* @__PURE__ */ new Date()).toISOString(),
-      latest,
-      releases,
-      items: releases
-    }, "public, max-age=120, s-maxage=300, stale-while-revalidate=3600");
+      latest: releases[0],
+      releases: releases.slice(0, 8),
+      items: releases.slice(0, 8)
+    }, "public, max-age=60, s-maxage=120, stale-while-revalidate=600");
     context.waitUntil(cache.put(cacheKey, output.clone()));
     return output;
   } catch (_) {
     return jsonResponse({
-      source: "fallback",
-      latestSource: "fallback",
-      releasesSource: "fallback",
+      source: "curated-fallback",
       generatedAt: (/* @__PURE__ */ new Date()).toISOString(),
-      latest: FALLBACK_LATEST,
+      latest: FALLBACK_RELEASES[0],
       releases: FALLBACK_RELEASES,
       items: FALLBACK_RELEASES
-    }, "public, max-age=60, s-maxage=120");
+    }, "public, max-age=30, s-maxage=60");
   }
 }
-__name(onRequestGet2, "onRequestGet");
+__name(onRequestGet6, "onRequestGet");
 
 // api/release-image.js
 function errorResponse(status, message) {
@@ -259,7 +388,7 @@ async function fetchThumbnail(videoId, filename) {
   return { response: response2, contentType };
 }
 __name(fetchThumbnail, "fetchThumbnail");
-async function onRequestGet3(context) {
+async function onRequestGet7(context) {
   const requestUrl = new URL(context.request.url);
   const videoId = String(requestUrl.searchParams.get("id") || "").trim();
   if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) {
@@ -287,89 +416,14 @@ async function onRequestGet3(context) {
     return errorResponse(502, "Release image unavailable");
   }
 }
-__name(onRequestGet3, "onRequestGet");
+__name(onRequestGet7, "onRequestGet");
 
 // api/releases.js
-var PLAYLIST_ID2 = "PL7VCdVWElIJFB9WkCQ4tnDztc17VnbrWA";
-var PLAYLIST_FEED_URL2 = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID2}`;
-var CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
-var CHANNEL_FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 var FALLBACK_RELEASES2 = [
-  { id: "5YgrpFXZ92Q", title: "Rudii Marka - Marked for War", published: "" },
-  { id: "zrnWeU7KRS0", title: "Mizzy G - Corner To Crown", published: "" },
-  { id: "U6lh9buVYHg", title: "Reeko - Smile Wid Knife", published: "" },
-  { id: "oc7Cryy5xTM", title: "Reeko - Nuff Man A Watch", published: "" },
-  { id: "JwFCGCLWw0I", title: "Renz Cole - Outside Till Late", published: "" },
-  { id: "s0ZS2HJjw2M", title: "Renz Cole - False Nine", published: "" },
-  { id: "yU4fK6aSqEg", title: "Renz Cole - Playmaker", published: "" },
-  { id: "Xj806cr_eS4", title: "Jay Starks - Queens in My Soul", published: "" },
-  { id: "ESEyLheoF9Q", title: "Kastro - Urban Reign", published: "" },
-  { id: "ZR6vqKxmngw", title: "Kemar Ranka - Top Ranka", published: "" },
-  { id: "VwLzUxVabSQ", title: "Reeko - Mi Call Di Shots", published: "" }
+  { id: "dV6_GbsHrxI", artist: "Kemarco", title: "Badman Don\u2019t Rush", group: "Dancehall & Reggae", published: "2026-08-05T17:00:07Z", url: "/releases/kemarco-badman-dont-rush/" },
+  { id: "xicnIGw-ei8", artist: "Alia Bleu", title: "Piggyback", group: "R&B & Soul", published: "2026-08-03T17:00:30Z", url: "/releases/alia-bleu-piggyback/" },
+  { id: "Sra1722xEFE", artist: "Renz Cole", title: "Heatwave", group: "UK Rap & Grime", published: "2026-07-31T17:00:33Z", url: "/releases/renz-cole-heatwave/" }
 ];
-function decodeXml2(value) {
-  return String(value || "").replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code))).replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCodePoint(parseInt(code, 16))).replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
-}
-__name(decodeXml2, "decodeXml");
-function matchTag2(block, tagPattern) {
-  const match2 = String(block || "").match(
-    new RegExp(`<${tagPattern}[^>]*>([\\s\\S]*?)<\\/${tagPattern}>`, "i")
-  );
-  return match2 ? decodeXml2(match2[1].trim()) : "";
-}
-__name(matchTag2, "matchTag");
-function parseFeed2(xml) {
-  const entries = String(xml || "").match(/<entry>[\s\S]*?<\/entry>/gi) || [];
-  return entries.map((entry) => ({
-    id: matchTag2(entry, "(?:yt:)?videoId"),
-    title: matchTag2(entry, "title") || "NextGen Sessions release",
-    published: matchTag2(entry, "published"),
-    updated: matchTag2(entry, "updated")
-  })).filter((item) => /^[A-Za-z0-9_-]{11}$/.test(item.id));
-}
-__name(parseFeed2, "parseFeed");
-function isFullRelease(item) {
-  const title = String(item?.title || "").toLowerCase();
-  if (!title) return false;
-  return ![
-    /\bshorts?\b/,
-    /#shorts/,
-    /\bteaser\b/,
-    /\btrailer\b/,
-    /\bpromo\b/,
-    /\bpreview\b/,
-    /\bcoming soon\b/,
-    /\bout tomorrow\b/,
-    /\bout tonight\b/
-  ].some((pattern) => pattern.test(title));
-}
-__name(isFullRelease, "isFullRelease");
-function newestFirst2(items) {
-  return [...items].sort(
-    (a, b) => (Date.parse(b.published || b.updated || "") || 0) - (Date.parse(a.published || a.updated || "") || 0)
-  );
-}
-__name(newestFirst2, "newestFirst");
-function uniqueReleases(items) {
-  const seen = /* @__PURE__ */ new Set();
-  return items.filter((item) => {
-    if (seen.has(item.id)) return false;
-    seen.add(item.id);
-    return true;
-  });
-}
-__name(uniqueReleases, "uniqueReleases");
-async function fetchFeed2(url) {
-  const response2 = await fetch(url, {
-    headers: {
-      Accept: "application/atom+xml, application/xml, text/xml",
-      "User-Agent": "NextGenSessionsWebsite/4.0"
-    }
-  });
-  if (!response2.ok) throw new Error(`YouTube feed returned ${response2.status}`);
-  return response2.text();
-}
-__name(fetchFeed2, "fetchFeed");
 function jsonResponse2(payload, cacheControl) {
   return new Response(JSON.stringify(payload), {
     headers: {
@@ -380,54 +434,110 @@ function jsonResponse2(payload, cacheControl) {
   });
 }
 __name(jsonResponse2, "jsonResponse");
-async function onRequestGet4(context) {
-  const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/releases?v=1", context.request.url).toString());
-  const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+async function onRequestGet8(context) {
   try {
-    const [playlistResult, channelResult] = await Promise.allSettled([
-      fetchFeed2(PLAYLIST_FEED_URL2),
-      fetchFeed2(CHANNEL_FEED_URL)
-    ]);
-    const playlistItems = playlistResult.status === "fulfilled" ? parseFeed2(playlistResult.value) : [];
-    const channelItems = channelResult.status === "fulfilled" ? parseFeed2(channelResult.value) : [];
-    const liveItems = [...playlistItems, ...channelItems].filter(isFullRelease);
-    if (!liveItems.length) throw new Error("Official release feeds unavailable");
-    const releases = newestFirst2(uniqueReleases([
-      ...liveItems,
-      ...FALLBACK_RELEASES2
-    ])).filter(isFullRelease).slice(0, 25);
-    const output = jsonResponse2({
-      source: "official-catalogue",
-      playlistId: PLAYLIST_ID2,
-      channelId: CHANNEL_ID,
-      generatedAt: (/* @__PURE__ */ new Date()).toISOString(),
-      total: releases.length,
-      releases
-    }, "public, max-age=300, s-maxage=600, stale-while-revalidate=3600");
-    context.waitUntil(cache.put(cacheKey, output.clone()));
-    return output;
+    const url = new URL("/releases.json?api=r2", context.request.url);
+    const request = new Request(url.toString(), { headers: { Accept: "application/json" } });
+    const response2 = context.env?.ASSETS?.fetch ? await context.env.ASSETS.fetch(request) : await fetch(request);
+    if (!response2.ok) throw new Error(`Release catalogue returned ${response2.status}`);
+    const payload = await response2.json();
+    return jsonResponse2(payload, "public, max-age=300, s-maxage=600, stale-while-revalidate=3600");
   } catch (_) {
     return jsonResponse2({
       source: "curated-fallback",
-      playlistId: PLAYLIST_ID2,
       generatedAt: (/* @__PURE__ */ new Date()).toISOString(),
       total: FALLBACK_RELEASES2.length,
       releases: FALLBACK_RELEASES2
-    }, "public, max-age=120, s-maxage=300");
+    }, "public, max-age=60, s-maxage=120");
   }
 }
-__name(onRequestGet4, "onRequestGet");
+__name(onRequestGet8, "onRequestGet");
 
-// ../.wrangler/tmp/pages-h2x7Pn/functionsRoutes-0.325416197283807.mjs
+// _middleware.js
+var CANONICAL_ORIGIN = "https://nextgensessions.com";
+var LEGACY_HOSTS = /* @__PURE__ */ new Set([
+  "nextgensessions.pages.dev",
+  "www.nextgensessions.com"
+]);
+var MOBILE_NAV_VERSION = "20260806-nav2";
+var ANDRE_PORTRAIT_VERSION = "20260806-andre3";
+var MobileNavHeadInjector = class {
+  static {
+    __name(this, "MobileNavHeadInjector");
+  }
+  element(element) {
+    element.append(
+      `<link rel="stylesheet" href="/mobile-nav.css?v=${MOBILE_NAV_VERSION}">`,
+      { html: true }
+    );
+  }
+};
+var SharedBodyInjector = class {
+  static {
+    __name(this, "SharedBodyInjector");
+  }
+  element(element) {
+    element.append(
+      `<script src="/mobile-nav.js?v=${MOBILE_NAV_VERSION}" defer><\/script><script src="/andre-kadeem-portrait.js?v=${ANDRE_PORTRAIT_VERSION}" defer><\/script>`,
+      { html: true }
+    );
+  }
+};
+async function onRequest(context) {
+  const url = new URL(context.request.url);
+  const hostname = url.hostname.toLowerCase();
+  if (LEGACY_HOSTS.has(hostname)) {
+    const destination = new URL(url.pathname + url.search, CANONICAL_ORIGIN);
+    return Response.redirect(destination.toString(), 301);
+  }
+  if (url.pathname === "/submit.html") {
+    url.pathname = "/submit";
+    return Response.redirect(url.toString(), 301);
+  }
+  const response2 = await context.next();
+  const contentType = response2.headers.get("content-type") || "";
+  const shouldEnhance = context.request.method === "GET" && contentType.includes("text/html");
+  if (!shouldEnhance) return response2;
+  return new HTMLRewriter().on("head", new MobileNavHeadInjector()).on("body", new SharedBodyInjector()).transform(response2);
+}
+__name(onRequest, "onRequest");
+
+// ../.wrangler/tmp/pages-ElSanA/functionsRoutes-0.5036882018324066.mjs
 var routes = [
+  {
+    routePath: "/api/andre-portrait",
+    mountPath: "/api",
+    method: "GET",
+    middlewares: [],
+    modules: [onRequestGet]
+  },
+  {
+    routePath: "/api/asif-portrait",
+    mountPath: "/api",
+    method: "GET",
+    middlewares: [],
+    modules: [onRequestGet2]
+  },
+  {
+    routePath: "/api/darian-portrait",
+    mountPath: "/api",
+    method: "GET",
+    middlewares: [],
+    modules: [onRequestGet3]
+  },
+  {
+    routePath: "/api/darian-portrait-final",
+    mountPath: "/api",
+    method: "GET",
+    middlewares: [],
+    modules: [onRequestGet4]
+  },
   {
     routePath: "/api/events",
     mountPath: "/api",
     method: "GET",
     middlewares: [],
-    modules: [onRequestGet]
+    modules: [onRequestGet5]
   },
   {
     routePath: "/api/events",
@@ -441,25 +551,32 @@ var routes = [
     mountPath: "/api",
     method: "GET",
     middlewares: [],
-    modules: [onRequestGet2]
+    modules: [onRequestGet6]
   },
   {
     routePath: "/api/release-image",
     mountPath: "/api",
     method: "GET",
     middlewares: [],
-    modules: [onRequestGet3]
+    modules: [onRequestGet7]
   },
   {
     routePath: "/api/releases",
     mountPath: "/api",
     method: "GET",
     middlewares: [],
-    modules: [onRequestGet4]
+    modules: [onRequestGet8]
+  },
+  {
+    routePath: "/",
+    mountPath: "/",
+    method: "",
+    middlewares: [onRequest],
+    modules: []
   }
 ];
 
-// ../../../../../tmp/ngs-npm-cache/_npx/a0592654bef13561/node_modules/path-to-regexp/dist.es2015/index.js
+// ../../../../../tmp/ngs-npm-cache/_npx/32026684e21afda6/node_modules/path-to-regexp/dist.es2015/index.js
 function lexer(str) {
   var tokens = [];
   var i = 0;
@@ -785,7 +902,7 @@ function pathToRegexp(path, keys, options) {
 }
 __name(pathToRegexp, "pathToRegexp");
 
-// ../../../../../tmp/ngs-npm-cache/_npx/a0592654bef13561/node_modules/wrangler/templates/pages-template-worker.ts
+// ../../../../../tmp/ngs-npm-cache/_npx/32026684e21afda6/node_modules/wrangler/templates/pages-template-worker.ts
 var escapeRegex = /[.+?^${}()|[\]\\]/g;
 function* executeRequest(request) {
   const requestPath = new URL(request.url).pathname;

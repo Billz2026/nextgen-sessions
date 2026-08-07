@@ -168,8 +168,9 @@ def clean_title(value: str) -> str:
         value,
         flags=re.IGNORECASE,
     ).strip()
+    cleaned = re.sub(r"\s+single$", "", cleaned, flags=re.IGNORECASE).strip()
     return re.sub(
-        r"\s+(single|uk rap|grime|dancehall|reggae|hip-?hop|r&b|rnb|soul|"
+        r"\s+(uk rap|grime|dancehall|reggae|hip-?hop|r&b|rnb|soul|"
         r"afro swing)\s+20\d{2}$",
         "",
         cleaned,

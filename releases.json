@@ -1,6 +1,6 @@
 {
   "source": "curated-youtube-playlists",
-  "generatedAt": "2026-08-07T10:10:28.707105Z",
+  "generatedAt": "2026-08-07T10:22:33.331236Z",
   "total": 85,
   "counts": {
     "Dancehall & Reggae": 28,
@@ -538,12 +538,12 @@
     {
       "id": "hqMBHn0L_DM",
       "artist": "Reiss",
-      "title": "Already Know Single",
+      "title": "Already Know",
       "group": "UK Rap & Grime",
       "published": "2026-05-05T17:00:52Z",
       "rawTitle": "Reiss – Already Know Single | You Knew Already… | UK Rap 2026 | NextGen Sessions",
-      "slug": "reiss-already-know-single",
-      "url": "/releases/reiss-already-know-single/"
+      "slug": "reiss-already-know",
+      "url": "/releases/reiss-already-know/"
     },
     {
       "id": "7T37ikylqho",
@@ -798,12 +798,12 @@
     {
       "id": "ks4bSmghnDI",
       "artist": "Reeko",
-      "title": "Mi Call Di Shots Single",
+      "title": "Mi Call Di Shots",
       "group": "Dancehall & Reggae",
       "published": "2026-04-04T17:00:00Z",
       "rawTitle": "Reeko | Mi Call Di Shots Single | Dancehall 2026 | NextGen Sessions",
-      "slug": "reeko-mi-call-di-shots-single",
-      "url": "/releases/reeko-mi-call-di-shots-single/"
+      "slug": "reeko-mi-call-di-shots",
+      "url": "/releases/reeko-mi-call-di-shots/"
     },
     {
       "id": "uB8nYq1co8c",

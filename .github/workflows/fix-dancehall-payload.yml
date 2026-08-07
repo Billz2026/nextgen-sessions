@@ -1,4 +1,4 @@
-name: Fix Dancehall Payload Quote
+name: Validate and Mark Mix Cover Repair
 
 on:
   push:
@@ -8,14 +8,14 @@ permissions:
   contents: write
 
 jobs:
-  fix:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: agent/fix-mix-covers-final
 
-      - name: Repair quote typo if present
+      - name: Repair Dancehall quote typo if present
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -24,18 +24,62 @@ jobs:
           old = "Cy8MPeYy' +"
           new = 'Cy8MPeYy" +'
           if old in text:
-              text = text.replace(old, new, 1)
-              path.write_text(text)
+              path.write_text(text.replace(old, new, 1))
               print('Repaired Dancehall base64 delimiter.')
           else:
-              print('No repair needed.')
+              print('Dancehall delimiter already correct.')
           PY
 
-      - name: Commit repair if needed
+      - name: Validate exact WebP bytes and hashes
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const assert = require('assert');
+          const crypto = require('crypto');
+
+          function defaultString(path) {
+            const text = fs.readFileSync(path, 'utf8');
+            const match = text.match(/^export default "([A-Za-z0-9+/=]+)";/);
+            assert(match, `Could not parse ${path}`);
+            return match[1];
+          }
+
+          function validate(name, b64, expectedBytes, expectedHash) {
+            const bytes = Buffer.from(b64, 'base64');
+            assert.strictEqual(bytes.length, expectedBytes, `${name}: byte length mismatch`);
+            assert.strictEqual(bytes.subarray(0, 4).toString('ascii'), 'RIFF', `${name}: missing RIFF header`);
+            assert.strictEqual(bytes.subarray(8, 12).toString('ascii'), 'WEBP', `${name}: missing WEBP signature`);
+            const hash = crypto.createHash('sha256').update(bytes).digest('hex');
+            assert.strictEqual(hash, expectedHash, `${name}: SHA-256 mismatch`);
+            console.log(`OK ${name}: ${bytes.length} bytes ${hash}`);
+            return `${name} ${bytes.length} ${hash}`;
+          }
+
+          const dancehallText = fs.readFileSync('functions/mix-cover/dancehall-mashups.js', 'utf8');
+          const dancehallBlock = dancehallText.split('function decodeBase64')[0];
+          const dancehallParts = [...dancehallBlock.matchAll(/"([A-Za-z0-9+/=]+)"/g)].map(m => m[1]);
+
+          const results = [];
+          results.push(validate('dancehall-mashups', dancehallParts.join(''), 22488, 'c6db7c7dc744745ad5cd605ed03070007f2d529356458bec75d09cb61a296f82'));
+          results.push(validate('sound-of-summer', [1,2,3,4,5,6].map(i => defaultString(`functions/_mix_cover_data/sound-of-summer-${i}.js`)).join(''), 25424, '277b54b35086f221d0a6e3477e32408fbcc37aa8e44d31ff8bbeb6bc68a9e9ff'));
+          results.push(validate('asian-collection', [1,2,3].map(i => defaultString(`functions/_mix_cover_data/asian-collection-${i}.js`)).join(''), 10992, 'fe469602c7fc03dc372d6363acaf392a07b39ad5a1b3922c1552504c67ed0162'));
+          results.push(validate('full-albums', [1,2,3,4].map(i => defaultString(`functions/_mix_cover_data/full-albums-${i}.js`)).join(''), 14970, '97ee7e87bfa98934b01b435aef970750011d80537cc4b2a24e626902eea97e4a'));
+
+          fs.mkdirSync('validation', { recursive: true });
+          fs.writeFileSync('validation/mix-covers-ok.txt', `VALIDATED\n${results.join('\n')}\n`);
+          NODE
+
+      - name: Validate JavaScript syntax
+        run: |
+          for file in functions/_middleware.js functions/_mix_cover_data/respond.js functions/mix-cover/dancehall-mashups.js functions/mix-cover/sound-of-summer.js functions/mix-cover/asian-collection.js functions/mix-cover/full-albums.js; do
+            node --input-type=module --check < "$file"
+          done
+
+      - name: Commit validation marker and any repair
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add functions/mix-cover/dancehall-mashups.js
+          git add functions/mix-cover/dancehall-mashups.js validation/mix-covers-ok.txt
           git diff --cached --quiet && exit 0
-          git commit -m "Fix Dancehall cover payload delimiter"
+          git commit -m "Validate repaired Mixes cover payloads"
           git push origin HEAD:agent/fix-mix-covers-final

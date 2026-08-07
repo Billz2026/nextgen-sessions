@@ -150,6 +150,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/mace-k-card-640.webp?v=20260807-mace1",
     position: "50% 30%"
   },
+  "manny-virk": {
+    src: "/assets/artists/manny-virk-card.webp?v=20260807-manny1",
+    srcset: "/assets/artists/manny-virk-card-640.webp?v=20260807-manny1 640w, /assets/artists/manny-virk-card.webp?v=20260807-manny1 1024w",
+    portrait: "/assets/artists/manny-virk-portrait.webp?v=20260807-manny1",
+    fallback: "/assets/artists/manny-virk-card-640.webp?v=20260807-manny1",
+    position: "50% 30%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

@@ -607,5 +607,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Reiss", "genre": "UK Rap" },
       { "name": "Andre Kadeem", "genre": "UK Rap" }
     ]
+  },
+  "manny-virk": {
+    "name": "Manny Virk",
+    "path": "/artists/manny-virk/",
+    "genre": "Punjabi / Bhangra",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Modern Punjabi and bhangra energy shaped by pind-to-city perspective, melodic hooks and contemporary production.",
+    "bio": [
+      "Manny Virk represents the Punjabi and bhangra lane within NextGen Sessions, pairing cultural identity and melodic hooks with a polished contemporary sound.",
+      "Pind Ton Shehar anchors his current NextGen catalogue, carrying a pind-to-city perspective through modern Punjabi hip-hop production while keeping the vocal identity and storytelling at the centre."
+    ],
+    "imageKey": "manny-virk",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "ODkPrTj34cY",
+      "title": "Pind Ton Shehar",
+      "label": "Manny Virk — Pind Ton Shehar",
+      "published": "2026-06-29T16:08:18Z"
+    },
+    "catalogueAliases": ["Manny Virk"],
+    "additionalReleases": [
+      {
+        "id": "ODkPrTj34cY",
+        "artist": "Manny Virk",
+        "title": "Pind Ton Shehar",
+        "group": "Asian",
+        "published": "2026-06-29T16:08:18Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Manny Virk",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Manny+Virk",
+    "related": [
+      { "name": "Asif Sultaan", "genre": "Punjabi / South Asian Fusion" },
+      { "name": "Leila Nour", "genre": "Arabic Soul / Oud" },
+      { "name": "Zara Veli", "genre": "Pop / R&B" }
+    ]
   }
 });

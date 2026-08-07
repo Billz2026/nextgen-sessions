@@ -17,7 +17,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "H7FJw00hBt4",
       "title": "Talk Di Tings",
       "label": "Darian Gayle — Talk Di Tings",
-      "published": "2026-05-10T10:00:29-07:00"
+      "published": "2026-05-10T17:00:29Z"
     },
     "catalogueAliases": ["Darian Gayle"],
     "additionalReleases": [
@@ -26,7 +26,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Darian Gayle",
         "title": "Talk Di Tings",
         "group": "Lovers Rock",
-        "published": "2026-05-10T10:00:29-07:00"
+        "published": "2026-05-10T17:00:29Z"
       }
     ],
     "featuredExperience": {

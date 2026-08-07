@@ -17,7 +17,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "lCRLgfdiqRI",
       "title": "Don’t Watch That",
       "label": "Andre Kadeem — Don’t Watch That",
-      "published": "2026-05-16T10:00:48-07:00"
+      "published": "2026-05-16T17:00:48Z"
     },
     "catalogueAliases": ["Andre Kadeem"],
     "additionalReleases": [
@@ -26,7 +26,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Andre Kadeem",
         "title": "Don’t Watch That",
         "group": "UK Rap & Grime",
-        "published": "2026-05-16T10:00:48-07:00"
+        "published": "2026-05-16T17:00:48Z"
       }
     ],
     "featuredExperience": {

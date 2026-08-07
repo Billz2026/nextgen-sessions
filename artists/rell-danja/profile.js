@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "919KvYLP_OQ",
       "title": "Cross Me, Regret It",
       "label": "Rell Danja — Cross Me, Regret It",
-      "published": "2026-07-10T10:00:25-07:00"
+      "published": "2026-07-10T17:00:25Z"
     },
     "catalogueAliases": ["Rell Danja"],
     "additionalReleases": [
@@ -25,21 +25,21 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Rell Danja",
         "title": "Cross Me, Regret It",
         "group": "Dancehall & Reggae",
-        "published": "2026-07-10T10:00:25-07:00"
+        "published": "2026-07-10T17:00:25Z"
       },
       {
         "id": "4mu5NVxUeII",
         "artist": "Rell Danja",
         "title": "No Sleep Fi Di Wicked",
         "group": "Dancehall & Reggae",
-        "published": "2026-06-10T10:00:28-07:00"
+        "published": "2026-06-10T17:00:28Z"
       },
       {
         "id": "i2xhycshXEg",
         "artist": "Rell Danja",
         "title": "Nuh Friend In The Street (No Friends Left)",
         "group": "Dancehall & Reggae",
-        "published": "2026-04-28T10:00:57-07:00"
+        "published": "2026-04-28T17:00:57Z"
       }
     ],
     "featuredExperience": {

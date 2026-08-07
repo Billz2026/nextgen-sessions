@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "bLbzbDbzLk8",
       "title": "All In My Name",
       "label": "Alonzo Ray — All In My Name",
-      "published": "2026-04-18T10:00:53-07:00"
+      "published": "2026-04-18T17:00:53Z"
     },
     "catalogueAliases": ["Alonzo Ray"],
     "additionalReleases": [
@@ -25,28 +25,28 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Alonzo Ray",
         "title": "All In My Name",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-04-18T10:00:53-07:00"
+        "published": "2026-04-18T17:00:53Z"
       },
       {
         "id": "GlobzSyoDe0",
         "artist": "Alonzo Ray",
         "title": "Pasadena",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-04-16T10:00:31-07:00"
+        "published": "2026-04-16T17:00:31Z"
       },
       {
         "id": "5mhMjzPHZ_Q",
         "artist": "Alonzo Ray",
         "title": "What It Took",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-04-15T10:00:08-07:00"
+        "published": "2026-04-15T17:00:08Z"
       },
       {
         "id": "fLfjnUKfjxU",
         "artist": "Alonzo Ray",
         "title": "Seasoned",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-04-14T10:01:02-07:00"
+        "published": "2026-04-14T17:01:02Z"
       }
     ],
     "featuredExperience": {

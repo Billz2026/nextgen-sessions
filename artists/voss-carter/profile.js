@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "RvRq-zwGfKc",
       "title": "Sunshine On The Way Home",
       "label": "Voss Carter — Sunshine On The Way Home",
-      "published": "2026-07-22T10:00:39-07:00"
+      "published": "2026-07-22T17:00:39Z"
     },
     "catalogueAliases": ["Voss Carter"],
     "additionalReleases": [
@@ -25,28 +25,28 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Voss Carter",
         "title": "Sunshine On The Way Home",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-07-22T10:00:39-07:00"
+        "published": "2026-07-22T17:00:39Z"
       },
       {
         "id": "OoY5iutAac4",
         "artist": "Voss Carter",
         "title": "Came This Far",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-06-12T10:00:31-07:00"
+        "published": "2026-06-12T17:00:31Z"
       },
       {
         "id": "fJhjx56Ars4",
         "artist": "Voss Carter",
         "title": "Undisputed",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-03-28T11:00:33-07:00"
+        "published": "2026-03-28T18:00:33Z"
       },
       {
         "id": "Tr4JQQdaSlY",
         "artist": "Voss Carter",
         "title": "Levels Above",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-03-24T11:00:24-07:00"
+        "published": "2026-03-24T18:00:24Z"
       }
     ],
     "featuredExperience": {

@@ -49,14 +49,14 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Deon Creed",
         "title": "Days Like These",
         "group": "Soul / R&B",
-        "published": "2026-07-27T10:00:05-07:00"
+        "published": "2026-07-27T17:00:05Z"
       },
       {
         "id": "vuW6OZPoApg",
         "artist": "Deon Creed",
         "title": "Soul of the Southside",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-06-08T10:00:19-07:00"
+        "published": "2026-06-08T17:00:19Z"
       }
     ],
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Deon+Creed",
@@ -108,7 +108,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "Dvfg251n0Pk",
       "title": "On Route",
       "label": "Reiss — On Route",
-      "published": "2026-05-07T10:00:30-07:00"
+      "published": "2026-05-07T17:00:30Z"
     },
     "catalogueAliases": ["Reiss"],
     "additionalReleases": [
@@ -117,28 +117,28 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Reiss",
         "title": "On Route",
         "group": "UK Rap & Grime",
-        "published": "2026-05-07T10:00:30-07:00"
+        "published": "2026-05-07T17:00:30Z"
       },
       {
         "id": "FvNsYb5g4pg",
         "artist": "Reiss",
         "title": "On A Regular",
         "group": "UK Rap & Grime",
-        "published": "2026-05-06T10:00:32-07:00"
+        "published": "2026-05-06T17:00:32Z"
       },
       {
         "id": "hqMBHn0L_DM",
         "artist": "Reiss",
         "title": "Already Know",
         "group": "UK Rap & Grime",
-        "published": "2026-05-05T10:00:52-07:00"
+        "published": "2026-05-05T17:00:52Z"
       },
       {
         "id": "vsvn0Qkifv0",
         "artist": "Reiss",
         "title": "No Comment",
         "group": "UK Rap & Grime",
-        "published": "2026-04-20T10:01:15-07:00"
+        "published": "2026-04-20T17:01:15Z"
       }
     ],
     "featuredExperience": {
@@ -167,7 +167,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "919KvYLP_OQ",
       "title": "Cross Me, Regret It",
       "label": "Rell Danja — Cross Me, Regret It",
-      "published": "2026-07-10T10:00:25-07:00"
+      "published": "2026-07-10T17:00:25Z"
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Rell+Danja"
   },
@@ -213,7 +213,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "RG4fABy1bkU",
       "title": "One Night Only",
       "label": "Marlo Saint — One Night Only",
-      "published": "2026-05-13T10:00:36-07:00"
+      "published": "2026-05-13T17:00:36Z"
     },
     "catalogueAliases": ["Marlo Saint"],
     "additionalReleases": [
@@ -222,14 +222,14 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Marlo Saint",
         "title": "One Night Only",
         "group": "Late Night Afro",
-        "published": "2026-05-13T10:00:36-07:00"
+        "published": "2026-05-13T17:00:36Z"
       },
       {
         "id": "zNM_65xgiIc",
         "artist": "Marlo Saint",
         "title": "Play It Right",
         "group": "Late Night Afro",
-        "published": "2026-04-30T10:01:32-07:00"
+        "published": "2026-04-30T17:01:32Z"
       }
     ],
     "featuredExperience": {
@@ -262,7 +262,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "dzjwPvGRc9I",
       "title": "Gyal Affi Wine",
       "label": "Jahmari Danza — Gyal Affi Wine",
-      "published": "2026-05-19T10:00:44-07:00"
+      "published": "2026-05-19T17:00:44Z"
     },
     "catalogueAliases": ["Jahmari Danza"],
     "additionalReleases": [
@@ -271,7 +271,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Jahmari Danza",
         "title": "Gyal Affi Wine",
         "group": "Dancehall & Reggae",
-        "published": "2026-05-19T10:00:44-07:00"
+        "published": "2026-05-19T17:00:44Z"
       }
     ],
     "featuredExperience": {
@@ -303,7 +303,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "4ohHWcjmNYM",
       "title": "Dem Cyan Move Mi",
       "label": "Javon Ranks — Dem Cyan Move Mi",
-      "published": "2026-05-22T10:00:07-07:00"
+      "published": "2026-05-22T17:00:07Z"
     },
     "catalogueAliases": ["Javon Ranks"],
     "additionalReleases": [
@@ -312,14 +312,14 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Javon Ranks",
         "title": "Dem Cyan Move Mi",
         "group": "Dancehall & Reggae",
-        "published": "2026-05-22T10:00:07-07:00"
+        "published": "2026-05-22T17:00:07Z"
       },
       {
         "id": "tmeLFCqItcM",
         "artist": "Javon Ranks",
         "title": "Still Hold Firm",
         "group": "Dancehall & Reggae",
-        "published": "2026-04-19T10:01:09-07:00"
+        "published": "2026-04-19T17:01:09Z"
       }
     ],
     "featuredExperience": {
@@ -351,7 +351,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "BujVqCAUh28",
       "title": "California Gold",
       "label": "Karvell Reign — California Gold",
-      "published": "2026-06-26T10:00:03-07:00"
+      "published": "2026-06-26T17:00:03Z"
     },
     "catalogueAliases": ["Karvell Reign"],
     "additionalReleases": [
@@ -360,21 +360,21 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Karvell Reign",
         "title": "California Gold",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-06-26T10:00:03-07:00"
+        "published": "2026-06-26T17:00:03Z"
       },
       {
         "id": "uxHGB1ZhEoo",
         "artist": "Karvell Reign",
         "title": "Ain’t The Same",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-05-12T10:01:09-07:00"
+        "published": "2026-05-12T17:01:09Z"
       },
       {
         "id": "OSPS78aPkS0",
         "artist": "Karvell Reign",
         "title": "Still Walk Alone",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-04-21T10:00:27-07:00"
+        "published": "2026-04-21T17:00:27Z"
       }
     ],
     "featuredExperience": {
@@ -406,7 +406,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "ESEyLheoF9Q",
       "title": "Urban Reign",
       "label": "Kastro — Urban Reign",
-      "published": "2026-07-17T10:00:28-07:00"
+      "published": "2026-07-17T17:00:28Z"
     },
     "catalogueAliases": ["Kastro"],
     "additionalReleases": [
@@ -415,7 +415,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Kastro",
         "title": "Urban Reign",
         "group": "Dancehall & Reggae",
-        "published": "2026-07-17T10:00:28-07:00"
+        "published": "2026-07-17T17:00:28Z"
       }
     ],
     "featuredExperience": {
@@ -447,7 +447,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "sJQSOw2Sto4",
       "title": "Mi Know Mi Worth",
       "label": "Keisha — Mi Know Mi Worth",
-      "published": "2026-05-15T10:01:09-07:00"
+      "published": "2026-05-15T17:01:09Z"
     },
     "catalogueAliases": ["Keisha"],
     "additionalReleases": [
@@ -456,21 +456,21 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Keisha",
         "title": "Mi Know Mi Worth",
         "group": "Dancehall & Reggae",
-        "published": "2026-05-15T10:01:09-07:00"
+        "published": "2026-05-15T17:01:09Z"
       },
       {
         "id": "OMlS1Rmd2Uc",
         "artist": "Keisha",
         "title": "Hold Mi Down",
         "group": "Dancehall & Reggae",
-        "published": "2026-04-22T10:00:29-07:00"
+        "published": "2026-04-22T17:00:29Z"
       },
       {
         "id": "wvMNh7u0C4E",
         "artist": "Reeko x Keisha",
         "title": "Ride Wid Mi",
         "group": "Dancehall & Reggae",
-        "published": "2026-03-30T11:00:43-07:00"
+        "published": "2026-03-30T18:00:43Z"
       }
     ],
     "featuredExperience": {
@@ -502,7 +502,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "bsaqZDgvb9U",
       "title": "Full Send",
       "label": "Killa K — Full Send",
-      "published": "2026-06-03T10:00:10-07:00"
+      "published": "2026-06-03T17:00:10Z"
     },
     "catalogueAliases": ["Killa K"],
     "additionalReleases": [
@@ -511,7 +511,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Killa K",
         "title": "Full Send",
         "group": "UK Rap & Grime",
-        "published": "2026-06-03T10:00:10-07:00"
+        "published": "2026-06-03T17:00:10Z"
       }
     ],
     "featuredExperience": {
@@ -543,7 +543,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "o57kRImFP0c",
       "title": "Noor El Oud",
       "label": "Leila Nour — Noor El Oud",
-      "published": "2026-06-24T10:00:04-07:00"
+      "published": "2026-06-24T17:00:04Z"
     },
     "catalogueAliases": ["Leila Nour"],
     "additionalReleases": [
@@ -552,7 +552,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Leila Nour",
         "title": "Noor El Oud",
         "group": "Arabic",
-        "published": "2026-06-24T10:00:04-07:00"
+        "published": "2026-06-24T17:00:04Z"
       }
     ],
     "featuredExperience": {
@@ -584,7 +584,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "7e9xY0b-QMQ",
       "title": "Somethin’ In The Endz ft. Leon Reid",
       "label": "Mace K — Somethin’ In The Endz ft. Leon Reid",
-      "published": "2026-07-15T10:00:14-07:00"
+      "published": "2026-07-15T17:00:14Z"
     },
     "catalogueAliases": ["Mace K"],
     "additionalReleases": [
@@ -593,7 +593,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Mace K",
         "title": "Somethin’ In The Endz ft. Leon Reid",
         "group": "UK Rap & Grime",
-        "published": "2026-07-15T10:00:14-07:00"
+        "published": "2026-07-15T17:00:14Z"
       }
     ],
     "featuredExperience": {
@@ -625,7 +625,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "ODkPrTj34cY",
       "title": "Pind Ton Shehar",
       "label": "Manny Virk — Pind Ton Shehar",
-      "published": "2026-07-06T10:00:01-07:00"
+      "published": "2026-07-06T17:00:01Z"
     },
     "catalogueAliases": ["Manny Virk"],
     "additionalReleases": [
@@ -634,7 +634,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Manny Virk",
         "title": "Pind Ton Shehar",
         "group": "Asian",
-        "published": "2026-07-06T10:00:01-07:00"
+        "published": "2026-07-06T17:00:01Z"
       }
     ],
     "featuredExperience": {
@@ -666,7 +666,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "IsS48ruiXuI",
       "title": "Don’t Get Too Close",
       "label": "Mariana Lo — Don’t Get Too Close",
-      "published": "2026-04-29T10:00:32-07:00"
+      "published": "2026-04-29T17:00:32Z"
     },
     "catalogueAliases": ["Mariana Lo"],
     "additionalReleases": [
@@ -675,7 +675,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Mariana Lo",
         "title": "Don’t Get Too Close",
         "group": "Pop / R&B",
-        "published": "2026-04-29T10:00:32-07:00"
+        "published": "2026-04-29T17:00:32Z"
       }
     ],
     "featuredExperience": {
@@ -707,7 +707,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "s4v_aLpMo4Q",
       "title": "I’m Not Surprised",
       "label": "Nyah Rae — I’m Not Surprised",
-      "published": "2026-05-03T10:00:58-07:00"
+      "published": "2026-05-03T17:00:58Z"
     },
     "catalogueAliases": ["Nyah Rae"],
     "additionalReleases": [
@@ -716,21 +716,21 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Nyah Rae",
         "title": "I’m Not Surprised",
         "group": "R&B & Soul",
-        "published": "2026-05-03T10:00:58-07:00"
+        "published": "2026-05-03T17:00:58Z"
       },
       {
         "id": "YovBcIeWV98",
         "artist": "Nyah Rae",
         "title": "You Can’t Afford Me",
         "group": "R&B & Soul",
-        "published": "2026-04-13T10:00:47-07:00"
+        "published": "2026-04-13T17:00:47Z"
       },
       {
         "id": "KskYFpBEudA",
         "artist": "Nyah Rae",
         "title": "No Reply",
         "group": "R&B & Soul",
-        "published": "2026-04-06T10:00:20-07:00"
+        "published": "2026-04-06T17:00:20Z"
       }
     ],
     "featuredExperience": {
@@ -762,7 +762,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "fXF2mQ2A6vw",
       "title": "On Blast",
       "label": "Rafe — On Blast",
-      "published": "2026-04-26T10:00:46-07:00"
+      "published": "2026-04-26T17:00:46Z"
     },
     "catalogueAliases": ["Rafe"],
     "additionalReleases": [
@@ -771,7 +771,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Rafe",
         "title": "On Blast",
         "group": "UK Rap & Grime",
-        "published": "2026-04-26T10:00:46-07:00"
+        "published": "2026-04-26T17:00:46Z"
       }
     ],
     "featuredExperience": {
@@ -803,7 +803,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "2B2qbJnWN7c",
       "title": "Fire Still A Burn",
       "label": "Ragga Blaze — Fire Still A Burn",
-      "published": "2026-05-21T10:00:02-07:00"
+      "published": "2026-05-21T17:00:02Z"
     },
     "catalogueAliases": ["Ragga Blaze"],
     "additionalReleases": [
@@ -812,7 +812,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Ragga Blaze",
         "title": "Fire Still A Burn",
         "group": "Dancehall & Reggae",
-        "published": "2026-05-21T10:00:02-07:00"
+        "published": "2026-05-21T17:00:02Z"
       }
     ],
     "featuredExperience": {
@@ -844,13 +844,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "4g-SeSyohOw",
       "title": "Light Through Di Dark",
       "label": "Yung Tafari — Light Through Di Dark",
-      "published": "2026-06-05T10:00:02-07:00"
+      "published": "2026-06-05T17:00:02Z"
     },
     "catalogueAliases": ["Yung Tafari"],
     "additionalReleases": [
-      { "id": "4g-SeSyohOw", "artist": "Yung Tafari", "title": "Light Through Di Dark", "group": "Dancehall & Reggae", "published": "2026-06-05T10:00:02-07:00" },
-      { "id": "6_JazAd0_n0", "artist": "Yung Tafari", "title": "Gully Testament", "group": "Dancehall & Reggae", "published": "2026-05-25T10:00:10-07:00" },
-      { "id": "BFzlo4I5smA", "artist": "Yung Tafari", "title": "One Man Army", "group": "Dancehall & Reggae", "published": "2026-05-09T10:00:21-07:00" }
+      { "id": "4g-SeSyohOw", "artist": "Yung Tafari", "title": "Light Through Di Dark", "group": "Dancehall & Reggae", "published": "2026-06-05T17:00:02Z" },
+      { "id": "6_JazAd0_n0", "artist": "Yung Tafari", "title": "Gully Testament", "group": "Dancehall & Reggae", "published": "2026-05-25T17:00:10Z" },
+      { "id": "BFzlo4I5smA", "artist": "Yung Tafari", "title": "One Man Army", "group": "Dancehall & Reggae", "published": "2026-05-09T17:00:21Z" }
     ],
     "featuredExperience": {
       "enabled": true,
@@ -881,12 +881,12 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "uSlZrZJompg",
       "title": "Don’t Call Past 2",
       "label": "Zara Veli — Don’t Call Past 2",
-      "published": "2026-05-02T10:01:08-07:00"
+      "published": "2026-05-02T17:01:08Z"
     },
     "catalogueAliases": ["Zara Veli"],
     "additionalReleases": [
-      { "id": "uSlZrZJompg", "artist": "Zara Veli", "title": "Don’t Call Past 2", "group": "R&B & Soul", "published": "2026-05-02T10:01:08-07:00" },
-      { "id": "Jsayjeif8WE", "artist": "Zara Veli", "title": "Too Boujee To Beg", "group": "R&B & Soul", "published": "2026-05-17T10:00:32-07:00" }
+      { "id": "uSlZrZJompg", "artist": "Zara Veli", "title": "Don’t Call Past 2", "group": "R&B & Soul", "published": "2026-05-02T17:01:08Z" },
+      { "id": "Jsayjeif8WE", "artist": "Zara Veli", "title": "Too Boujee To Beg", "group": "R&B & Soul", "published": "2026-05-17T17:00:32Z" }
     ],
     "featuredExperience": {
       "enabled": true,

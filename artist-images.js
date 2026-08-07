@@ -164,6 +164,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/mariana-lo-card-640.webp?v=20260807-mariana1",
     position: "50% 30%"
   },
+  "nyah-rae": {
+    src: "/assets/artists/nyah-rae-card.webp?v=20260807-nyah1",
+    srcset: "/assets/artists/nyah-rae-card-640.webp?v=20260807-nyah1 640w, /assets/artists/nyah-rae-card.webp?v=20260807-nyah1 1024w",
+    portrait: "/assets/artists/nyah-rae-portrait.webp?v=20260807-nyah1",
+    fallback: "/assets/artists/nyah-rae-card-640.webp?v=20260807-nyah1",
+    position: "50% 30%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

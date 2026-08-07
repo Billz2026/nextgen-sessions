@@ -689,5 +689,60 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Nyah Rae", "genre": "R&B" },
       { "name": "Zara Veli", "genre": "Pop / R&B" }
     ]
+  },
+  "nyah-rae": {
+    "name": "Nyah Rae",
+    "path": "/artists/nyah-rae/",
+    "genre": "R&B",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Contemporary R&B shaped by intimate writing, quiet confidence and a polished late-night atmosphere.",
+    "bio": [
+      "Nyah Rae brings a contemporary R&B lane to NextGen Sessions, with a clean, understated presentation that keeps the focus on melody and emotionally direct songwriting.",
+      "I’m Not Surprised leads her current catalogue alongside You Can’t Afford Me and No Reply, forming a concise run of records built around self-possession, boundaries and modern R&B restraint."
+    ],
+    "imageKey": "nyah-rae",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "s4v_aLpMo4Q",
+      "title": "I’m Not Surprised",
+      "label": "Nyah Rae — I’m Not Surprised",
+      "published": "2026-04-23T07:10:00Z"
+    },
+    "catalogueAliases": ["Nyah Rae"],
+    "additionalReleases": [
+      {
+        "id": "s4v_aLpMo4Q",
+        "artist": "Nyah Rae",
+        "title": "I’m Not Surprised",
+        "group": "R&B & Soul",
+        "published": "2026-04-23T07:10:00Z"
+      },
+      {
+        "id": "YovBcIeWV98",
+        "artist": "Nyah Rae",
+        "title": "You Can’t Afford Me",
+        "group": "R&B & Soul",
+        "published": "2026-04-09T12:55:30Z"
+      },
+      {
+        "id": "KskYFpBEudA",
+        "artist": "Nyah Rae",
+        "title": "No Reply",
+        "group": "R&B & Soul",
+        "published": "2026-04-02T12:15:33Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Nyah Rae",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Nyah+Rae",
+    "related": [
+      { "name": "Alia Bleu", "genre": "UK R&B" },
+      { "name": "Mariana Lo", "genre": "Pop / R&B" },
+      { "name": "Zara Veli", "genre": "Pop / R&B" }
+    ]
   }
 });

@@ -1,4 +1,4 @@
-name: Diagnose and Mark Mix Cover Repair
+name: Diagnose Summer Cover Chunks
 
 on:
   push:
@@ -15,42 +15,34 @@ jobs:
         with:
           ref: agent/fix-mix-covers-final
 
-      - name: Record actual reconstructed payloads
+      - name: Record Summer chunk lengths and hashes
         run: |
           node <<'NODE'
           const fs = require('fs');
           const crypto = require('crypto');
-
-          function defaultString(path) {
-            const text = fs.readFileSync(path, 'utf8');
-            const match = text.match(/^export default "([A-Za-z0-9+/=]+)";/);
-            return match ? match[1] : null;
-          }
-
-          const specs = [
-            ['dancehall-mashups', 22488, 'c6db7c7dc744745ad5cd605ed03070007f2d529356458bec75d09cb61a296f82', () => {
-              const text = fs.readFileSync('functions/mix-cover/dancehall-mashups.js', 'utf8').split('function decodeBase64')[0];
-              return [...text.matchAll(/"([A-Za-z0-9+/=]+)"/g)].map(m => m[1]).join('');
-            }],
-            ['sound-of-summer', 25424, '277b54b35086f221d0a6e3477e32408fbcc37aa8e44d31ff8bbeb6bc68a9e9ff', () => [1,2,3,4,5,6].map(i => defaultString(`functions/_mix_cover_data/sound-of-summer-${i}.js`) || '').join('')],
-            ['asian-collection', 10992, 'fe469602c7fc03dc372d6363acaf392a07b39ad5a1b3922c1552504c67ed0162', () => [1,2,3].map(i => defaultString(`functions/_mix_cover_data/asian-collection-${i}.js`) || '').join('')],
-            ['full-albums', 14970, '97ee7e87bfa98934b01b435aef970750011d80537cc4b2a24e626902eea97e4a', () => [1,2,3,4].map(i => defaultString(`functions/_mix_cover_data/full-albums-${i}.js`) || '').join('')]
+          const expected = [
+            [6000,'78509ac88bf5731bc85ec5630e6ca858587145facb2665e3a514d5f311264162'],
+            [6000,'3fb669770114a86df1dab2907c4fc5bfbbe94233a6ff22420b54256484347fc1'],
+            [6000,'fbc4a0a146b587d5df43a9b163ea55e67a927cb7f4f9ca10e9e7c4041d285c15'],
+            [6000,'a07fc72be60de148e3ded0378ba33813edb79cd619cde83fd6f52d0121bc942c'],
+            [6000,'3925f23570db542b31b7b9c5f88cafc1bafd0c27ec2de97e3696e0c5224b5f93'],
+            [3900,'bdf64f334705997c141681ec30447dd6049299ccdf835e10d36baaf601a25aeb']
           ];
-
-          const lines = [];
-          let allOk = true;
-          for (const [name, expectedBytes, expectedHash, getB64] of specs) {
-            const bytes = Buffer.from(getB64(), 'base64');
-            const hash = crypto.createHash('sha256').update(bytes).digest('hex');
-            const riff = bytes.subarray(0,4).toString('ascii');
-            const webp = bytes.subarray(8,12).toString('ascii');
-            const ok = bytes.length === expectedBytes && hash === expectedHash && riff === 'RIFF' && webp === 'WEBP';
-            allOk = allOk && ok;
-            lines.push(`${ok ? 'OK' : 'FAIL'} ${name} bytes=${bytes.length}/${expectedBytes} sha256=${hash}/${expectedHash} signature=${riff}:${webp}`);
+          const lines=[];
+          let allOk=true;
+          for(let i=1;i<=6;i++){
+            const text=fs.readFileSync(`functions/_mix_cover_data/sound-of-summer-${i}.js`,'utf8');
+            const m=text.match(/^export default "([A-Za-z0-9+/=]+)";/);
+            const value=m?m[1]:'';
+            const hash=crypto.createHash('sha256').update(value).digest('hex');
+            const [elen,ehash]=expected[i-1];
+            const ok=value.length===elen && hash===ehash;
+            allOk=allOk&&ok;
+            lines.push(`${ok?'OK':'FAIL'} chunk=${i} chars=${value.length}/${elen} sha256=${hash}/${ehash}`);
           }
-          lines.unshift(allOk ? 'ALL_OK' : 'HAS_FAILURES');
-          fs.mkdirSync('validation', {recursive:true});
-          fs.writeFileSync('validation/mix-covers-status.txt', lines.join('\n') + '\n');
+          lines.unshift(allOk?'ALL_SUMMER_CHUNKS_OK':'SUMMER_CHUNK_FAILURE');
+          fs.mkdirSync('validation',{recursive:true});
+          fs.writeFileSync('validation/summer-chunks-status.txt',lines.join('\n')+'\n');
           console.log(lines.join('\n'));
           NODE
 
@@ -58,7 +50,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add validation/mix-covers-status.txt
+          git add validation/summer-chunks-status.txt
           git diff --cached --quiet && exit 0
-          git commit -m "Record Mixes cover validation status"
+          git commit -m "Record Summer cover chunk status"
           git push origin HEAD:agent/fix-mix-covers-final

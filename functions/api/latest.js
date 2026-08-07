@@ -198,7 +198,7 @@ function jsonResponse(payload, cacheControl) {
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=8", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=9", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -212,11 +212,26 @@ export async function onRequestGet(context) {
     const catalogueItems = catalogueResult.status === "fulfilled"
       ? newestFirst(catalogueResult.value)
       : [];
+    // Only curated catalogue IDs are allowed to become homepage releases.
+    // This prevents scheduled promos/teasers on the channel from being
+    // mistaken for the latest full release.
+    const catalogueIds = new Set(catalogueItems.map(item => item.id));
+    const keepCuratedRelease = item => !catalogueIds.size || catalogueIds.has(item.id);
     const channelItems = channelResult.status === "fulfilled"
-      ? enrichWithCatalogue(newestFirst(parseFeed(channelResult.value)).filter(isOfficialRelease), catalogueItems)
+      ? enrichWithCatalogue(
+          newestFirst(parseFeed(channelResult.value))
+            .filter(isOfficialRelease)
+            .filter(keepCuratedRelease),
+          catalogueItems
+        )
       : [];
     const playlistItems = playlistResult.status === "fulfilled"
-      ? enrichWithCatalogue(newestFirst(parseFeed(playlistResult.value)).filter(isOfficialRelease), catalogueItems)
+      ? enrichWithCatalogue(
+          newestFirst(parseFeed(playlistResult.value))
+            .filter(isOfficialRelease)
+            .filter(keepCuratedRelease),
+          catalogueItems
+        )
       : [];
 
     let channelPageItems = [];
@@ -236,33 +251,31 @@ export async function onRequestGet(context) {
           ? playlistItems
           : catalogueItems;
 
-    // The homepage hero must follow the curated catalogue and verified release
-    // schedule. Raw YouTube feeds can reorder or republish older uploads, so
-    // they supplement the release grid but cannot control the latest hero.
-    const canonicalItems = newestFirst(uniqueReleases([
-      ...FALLBACK_RELEASES,
-      ...catalogueItems
-    ]));
+    // Prefer the live YouTube publication time, but only after the video has
+    // been verified by the curated release catalogue. The catalogue remains
+    // the authority for "is this a real release?" while the channel remains
+    // the authority for "which verified release was published most recently?"
+    const canonicalItems = newestFirst(uniqueReleases(
+      catalogueItems.length ? catalogueItems : FALLBACK_RELEASES
+    ));
     const releases = newestFirst(uniqueReleases([
-      ...canonicalItems,
-      ...primaryItems,
-      ...playlistItems
+      ...channelItems,
+      ...playlistItems,
+      ...canonicalItems
     ])).slice(0, 8);
     if (!releases.length) throw new Error("All latest-release sources are unavailable");
 
     const override = validOverride(context);
-    const latest = override || canonicalItems[0] || primaryItems[0] || releases[0];
+    const latest = override || channelItems[0] || playlistItems[0] || canonicalItems[0] || releases[0];
     const latestSource = override
       ? "override"
-      : canonicalItems.length
-        ? "catalogue"
-        : channelItems.length
-          ? "channel"
-          : channelPageItems.length
-            ? "channel-page"
-            : playlistItems.length
-              ? "playlist"
-              : "fallback";
+      : channelItems.length
+        ? "channel"
+        : playlistItems.length
+          ? "playlist"
+          : catalogueItems.length
+            ? "catalogue"
+            : "fallback";
     const releaseSources = [
       channelItems.length ? "channel" : "",
       channelPageItems.length ? "channel-page" : "",

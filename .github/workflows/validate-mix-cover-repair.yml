@@ -1,0 +1,61 @@
+name: Validate Mix Cover Repair
+
+on:
+  push:
+    branches: [agent/fix-mix-covers-final]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate reconstructed WebP covers
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const assert = require('assert');
+
+          function defaultString(path) {
+            const text = fs.readFileSync(path, 'utf8');
+            const match = text.match(/^export default "([A-Za-z0-9+/=]+)";/);
+            assert(match, `Could not parse ${path}`);
+            return match[1];
+          }
+
+          function validate(name, b64, expectedBytes) {
+            const bytes = Buffer.from(b64, 'base64');
+            assert.strictEqual(bytes.length, expectedBytes, `${name}: byte length mismatch`);
+            assert.strictEqual(bytes.subarray(0, 4).toString('ascii'), 'RIFF', `${name}: missing RIFF header`);
+            assert.strictEqual(bytes.subarray(8, 12).toString('ascii'), 'WEBP', `${name}: missing WEBP signature`);
+            console.log(`OK ${name}: ${bytes.length} bytes, valid RIFF/WEBP`);
+          }
+
+          const dancehallText = fs.readFileSync('functions/mix-cover/dancehall-mashups.js', 'utf8');
+          const dancehallDataBlock = dancehallText.split('function decodeBase64')[0];
+          const dancehallParts = [...dancehallDataBlock.matchAll(/"([A-Za-z0-9+/=]+)"/g)].map(m => m[1]);
+          validate('dancehall-mashups', dancehallParts.join(''), 22488);
+
+          const summer = [1,2,3,4,5,6].map(i => defaultString(`functions/_mix_cover_data/sound-of-summer-${i}.js`)).join('');
+          validate('sound-of-summer', summer, 25424);
+
+          const asian = [1,2,3].map(i => defaultString(`functions/_mix_cover_data/asian-collection-${i}.js`)).join('');
+          validate('asian-collection', asian, 10992);
+
+          const albums = [1,2,3,4].map(i => defaultString(`functions/_mix_cover_data/full-albums-${i}.js`)).join('');
+          validate('full-albums', albums, 14970);
+          NODE
+
+      - name: Validate function syntax and middleware routing
+        run: |
+          for file in functions/_middleware.js functions/_mix_cover_data/respond.js functions/mix-cover/dancehall-mashups.js functions/mix-cover/sound-of-summer.js functions/mix-cover/asian-collection.js functions/mix-cover/full-albums.js; do
+            node --input-type=module --check < "$file"
+          done
+          grep -q '/assets/mixes/dancehall-mashups.webp' functions/_middleware.js
+          grep -q '/assets/mixes/sound-of-summer.webp' functions/_middleware.js
+          grep -q '/assets/mixes/asian-collection.webp' functions/_middleware.js
+          grep -q '/assets/mixes/full-albums.webp' functions/_middleware.js

@@ -143,6 +143,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/leila-nour-card-640.webp?v=20260807-leila1",
     position: "50% 30%"
   },
+  "mace-k": {
+    src: "/assets/artists/mace-k-card.webp?v=20260807-mace1",
+    srcset: "/assets/artists/mace-k-card-640.webp?v=20260807-mace1 640w, /assets/artists/mace-k-card.webp?v=20260807-mace1 1024w",
+    portrait: "/assets/artists/mace-k-portrait.webp?v=20260807-mace1",
+    fallback: "/assets/artists/mace-k-card-640.webp?v=20260807-mace1",
+    position: "50% 30%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

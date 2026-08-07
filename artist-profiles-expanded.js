@@ -566,5 +566,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Manny Virk", "genre": "Punjabi / Bhangra" },
       { "name": "Zara Veli", "genre": "Pop / R&B" }
     ]
+  },
+  "mace-k": {
+    "name": "Mace K",
+    "path": "/artists/mace-k/",
+    "genre": "UK Rap / Grime",
+    "location": "United Kingdom",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Dark, cinematic UK rap and grime shaped by estate storytelling, pressure and direct presence.",
+    "bio": [
+      "Mace K occupies a darker UK rap and grime lane within NextGen Sessions, pairing estate-focused storytelling with tense production and a focused, direct delivery.",
+      "Somethin’ In The Endz ft. Leon Reid establishes that current catalogue lane, balancing cinematic atmosphere with the pressure and detail of contemporary UK rap."
+    ],
+    "imageKey": "mace-k",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "7e9xY0b-QMQ",
+      "title": "Somethin’ In The Endz ft. Leon Reid",
+      "label": "Mace K — Somethin’ In The Endz ft. Leon Reid",
+      "published": "2026-07-04T18:12:45Z"
+    },
+    "catalogueAliases": ["Mace K"],
+    "additionalReleases": [
+      {
+        "id": "7e9xY0b-QMQ",
+        "artist": "Mace K",
+        "title": "Somethin’ In The Endz ft. Leon Reid",
+        "group": "UK Rap & Grime",
+        "published": "2026-07-04T18:12:45Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Mace K",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Mace+K",
+    "related": [
+      { "name": "Killa K", "genre": "UK Rap" },
+      { "name": "Reiss", "genre": "UK Rap" },
+      { "name": "Andre Kadeem", "genre": "UK Rap" }
+    ]
   }
 });

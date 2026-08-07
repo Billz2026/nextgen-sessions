@@ -785,5 +785,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Renz Cole", "genre": "UK Rap" },
       { "name": "Killa K", "genre": "UK Rap" }
     ]
+  },
+  "ragga-blaze": {
+    "name": "Ragga Blaze",
+    "path": "/artists/ragga-blaze/",
+    "genre": "Reggae / Dancehall",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Ragga-driven energy spanning reggae rhythm and dancehall impact.",
+    "bio": [
+      "Ragga Blaze occupies the reggae-and-dancehall lane within NextGen Sessions, with a presentation centred on ragga-driven energy and rhythmic impact.",
+      "Fire Still A Burn anchors his current NextGen catalogue inside the Dancehall & Reggae collection."
+    ],
+    "imageKey": "ragga-blaze",
+    "imagePosition": "50% 32%",
+    "featuredVideo": {
+      "id": "2B2qbJnWN7c",
+      "title": "Fire Still A Burn",
+      "label": "Ragga Blaze — Fire Still A Burn",
+      "published": "2026-05-11T12:24:40Z"
+    },
+    "catalogueAliases": ["Ragga Blaze"],
+    "additionalReleases": [
+      {
+        "id": "2B2qbJnWN7c",
+        "artist": "Ragga Blaze",
+        "title": "Fire Still A Burn",
+        "group": "Dancehall & Reggae",
+        "published": "2026-05-11T12:24:40Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Ragga Blaze",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Ragga+Blaze",
+    "related": [
+      { "name": "Yung Tafari", "genre": "Reggae / Dancehall" },
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Jahmari Danza", "genre": "Dancehall" }
+    ]
   }
 });

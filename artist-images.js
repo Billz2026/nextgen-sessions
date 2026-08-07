@@ -178,6 +178,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/rafe-card-640.webp?v=20260807-rafe1",
     position: "50% 32%"
   },
+  "ragga-blaze": {
+    src: "/assets/artists/ragga-blaze-card.webp?v=20260807-ragga1",
+    srcset: "/assets/artists/ragga-blaze-card-640.webp?v=20260807-ragga1 640w, /assets/artists/ragga-blaze-card.webp?v=20260807-ragga1 1024w",
+    portrait: "/assets/artists/ragga-blaze-portrait.webp?v=20260807-ragga1",
+    fallback: "/assets/artists/ragga-blaze-card-640.webp?v=20260807-ragga1",
+    position: "50% 32%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

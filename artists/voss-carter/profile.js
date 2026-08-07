@@ -10,8 +10,8 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "Voss Carter represents the composed veteran lane within NextGen Sessions, pairing widescreen hip-hop production with controlled delivery, earned confidence and writing that does not need to force its authority.",
       "Undisputed and Levels Above established the competitive foundation of the catalogue before the Heavyweight full-album release. Came This Far and Sunshine On The Way Home then shifted the perspective towards endurance, reflection and what remains after the climb, while keeping the same measured presence."
     ],
-    "image": "/api/release-image?id=tlv_IqPiV1Y",
-    "imagePosition": "50% 38%",
+    "imageKey": "voss-carter",
+    "imagePosition": "50% 28%",
     "featuredVideo": {
       "id": "RvRq-zwGfKc",
       "title": "Sunshine On The Way Home",

@@ -182,8 +182,8 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "Voss Carter represents the composed veteran lane within NextGen Sessions, delivering widescreen hip-hop with a deep voice, controlled confidence and no need to force the performance.",
       "His records focus on endurance, legacy, silence, family and the weight carried after success. The Heavyweight album anchors that identity, while later releases move toward reflection and peace without losing authority."
     ],
-    "image": "/api/release-image?id=tlv_IqPiV1Y",
-    "imagePosition": "50% 38%",
+    "imageKey": "voss-carter",
+    "imagePosition": "50% 28%",
     "featuredVideo": {
       "id": "RvRq-zwGfKc",
       "title": "Sunshine On The Way Home",
@@ -825,6 +825,79 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Yung Tafari", "genre": "Reggae / Dancehall" },
       { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
       { "name": "Jahmari Danza", "genre": "Dancehall" }
+    ]
+  },
+  "yung-tafari": {
+    "name": "Yung Tafari",
+    "path": "/artists/yung-tafari/",
+    "genre": "Reggae / Dancehall",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Youthful reggae and dancehall shaped by melody, roots and street-level energy.",
+    "bio": [
+      "Yung Tafari brings a youthful reggae-and-dancehall lane to NextGen Sessions, balancing melodic instinct with roots influence and direct street energy.",
+      "Light Through Di Dark leads his current catalogue alongside Gully Testament and One Man Army, forming a focused run of records built around resilience, conviction and forward movement."
+    ],
+    "imageKey": "yung-tafari",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "4g-SeSyohOw",
+      "title": "Light Through Di Dark",
+      "label": "Yung Tafari — Light Through Di Dark",
+      "published": "2026-05-22T12:50:11Z"
+    },
+    "catalogueAliases": ["Yung Tafari"],
+    "additionalReleases": [
+      { "id": "4g-SeSyohOw", "artist": "Yung Tafari", "title": "Light Through Di Dark", "group": "Dancehall & Reggae", "published": "2026-05-22T12:50:11Z" },
+      { "id": "6_JazAd0_n0", "artist": "Yung Tafari", "title": "Gully Testament", "group": "Dancehall & Reggae", "published": "2026-05-13T07:32:14Z" },
+      { "id": "BFzlo4I5smA", "artist": "Yung Tafari", "title": "One Man Army", "group": "Dancehall & Reggae", "published": "2026-05-02T16:20:39Z" }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Yung Tafari",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Yung+Tafari",
+    "related": [
+      { "name": "Ragga Blaze", "genre": "Reggae / Dancehall" },
+      { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
+      { "name": "Jahmari Danza", "genre": "Dancehall" }
+    ]
+  },
+  "zara-veli": {
+    "name": "Zara Veli",
+    "path": "/artists/zara-veli/",
+    "genre": "Pop / R&B",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Polished contemporary R&B with global-pop clarity, confidence and late-night poise.",
+    "bio": [
+      "Zara Veli brings a polished contemporary R&B and global-pop lane to NextGen Sessions, pairing clean vocal presentation with confident, self-possessed writing.",
+      "Don’t Call Past 2 leads her current catalogue alongside Too Boujee To Beg, giving her a concise identity built around boundaries, poise and modern R&B attitude."
+    ],
+    "imageKey": "zara-veli",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "uSlZrZJompg",
+      "title": "Don’t Call Past 2",
+      "label": "Zara Veli — Don’t Call Past 2",
+      "published": "2026-07-30T12:25:38Z"
+    },
+    "catalogueAliases": ["Zara Veli"],
+    "additionalReleases": [
+      { "id": "uSlZrZJompg", "artist": "Zara Veli", "title": "Don’t Call Past 2", "group": "R&B & Soul", "published": "2026-07-30T12:25:38Z" },
+      { "id": "Jsayjeif8WE", "artist": "Zara Veli", "title": "Too Boujee To Beg", "group": "R&B & Soul", "published": "2026-07-30T12:25:08Z" }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Zara Veli",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Zara+Veli",
+    "related": [
+      { "name": "Nyah Rae", "genre": "R&B" },
+      { "name": "Mariana Lo", "genre": "Pop / R&B" },
+      { "name": "Alia Bleu", "genre": "US R&B" }
     ]
   }
 });

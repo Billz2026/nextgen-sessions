@@ -185,6 +185,27 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/ragga-blaze-card-640.webp?v=20260807-ragga1",
     position: "50% 32%"
   },
+  "voss-carter": {
+    src: "/assets/artists/voss-carter-card.webp?v=20260807-final3",
+    srcset: "/assets/artists/voss-carter-card-640.webp?v=20260807-final3 640w, /assets/artists/voss-carter-card.webp?v=20260807-final3 1024w",
+    portrait: "/assets/artists/voss-carter-portrait.webp?v=20260807-final3",
+    fallback: "/assets/artists/voss-carter-card-640.webp?v=20260807-final3",
+    position: "50% 28%"
+  },
+  "yung-tafari": {
+    src: "/assets/artists/yung-tafari-card.webp?v=20260807-final3",
+    srcset: "/assets/artists/yung-tafari-card-640.webp?v=20260807-final3 640w, /assets/artists/yung-tafari-card.webp?v=20260807-final3 1024w",
+    portrait: "/assets/artists/yung-tafari-portrait.webp?v=20260807-final3",
+    fallback: "/assets/artists/yung-tafari-card-640.webp?v=20260807-final3",
+    position: "50% 30%"
+  },
+  "zara-veli": {
+    src: "/assets/artists/zara-veli-card.webp?v=20260807-final3",
+    srcset: "/assets/artists/zara-veli-card-640.webp?v=20260807-final3 640w, /assets/artists/zara-veli-card.webp?v=20260807-final3 1024w",
+    portrait: "/assets/artists/zara-veli-portrait.webp?v=20260807-final3",
+    fallback: "/assets/artists/zara-veli-card-640.webp?v=20260807-final3",
+    position: "50% 30%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

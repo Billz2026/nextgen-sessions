@@ -1,7 +1,19 @@
+import { onRequestGet as serveDancehallCover } from "./mix-cover/dancehall-mashups.js";
+import { onRequestGet as serveSummerCover } from "./mix-cover/sound-of-summer.js";
+import { onRequestGet as serveAsianCover } from "./mix-cover/asian-collection.js";
+import { onRequestGet as serveFullAlbumsCover } from "./mix-cover/full-albums.js";
+
 const CANONICAL_ORIGIN = "https://nextgensessions.com";
 const LEGACY_HOSTS = new Set([
   "nextgensessions.pages.dev",
   "www.nextgensessions.com"
+]);
+
+const MIX_COVER_HANDLERS = new Map([
+  ["/assets/mixes/dancehall-mashups.webp", serveDancehallCover],
+  ["/assets/mixes/sound-of-summer.webp", serveSummerCover],
+  ["/assets/mixes/asian-collection.webp", serveAsianCover],
+  ["/assets/mixes/full-albums.webp", serveFullAlbumsCover]
 ]);
 
 const MOBILE_NAV_VERSION = "20260806-nav2";
@@ -38,6 +50,11 @@ export async function onRequest(context) {
   if (url.pathname === "/submit.html") {
     url.pathname = "/submit";
     return Response.redirect(url.toString(), 301);
+  }
+
+  if (context.request.method === "GET") {
+    const mixCoverHandler = MIX_COVER_HANDLERS.get(url.pathname);
+    if (mixCoverHandler) return mixCoverHandler(context);
   }
 
   const response = await context.next();

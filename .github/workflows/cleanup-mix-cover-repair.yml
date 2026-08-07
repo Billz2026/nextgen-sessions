@@ -1,0 +1,29 @@
+name: Cleanup Mix Cover Repair
+
+on:
+  push:
+    branches: [agent/fix-mix-covers-static]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-mix-covers-static
+      - name: Remove temporary repair files
+        run: |
+          rm -rf repair_payloads validation
+          rm -f .github/workflows/build-repaired-mix-covers.yml
+          rm -f .github/workflows/cleanup-mix-cover-repair.yml
+      - name: Commit clean final tree
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Clean temporary Mixes cover repair files"
+          git push origin HEAD:agent/fix-mix-covers-static

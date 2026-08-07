@@ -333,6 +333,9 @@
   function buildHomepagePayload(apiPayload, cataloguePayload) {
     const apiReleases = payloadReleases(apiPayload);
     const catalogueReleases = payloadReleases(cataloguePayload);
+    const catalogueIds = new Set(catalogueReleases.map(release => release.id));
+    const isCuratedRelease = release => !catalogueIds.size || catalogueIds.has(release?.id);
+    const verifiedApiReleases = apiReleases.filter(isCuratedRelease);
     const fallbackReleases = FALLBACK_RELEASES
       .map(normaliseHomepageRelease)
       .filter(Boolean);
@@ -341,12 +344,15 @@
       ...fallbackReleases
     ]);
     const releases = uniqueHomepageReleases([
-      ...apiReleases,
+      ...verifiedApiReleases,
       ...offlineReleases
     ]);
 
     const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
-    const latest = apiLatest || offlineReleases[0] || FALLBACK_LATEST;
+    const verifiedApiLatest = apiLatest && isCuratedRelease(apiLatest)
+      ? apiLatest
+      : (verifiedApiReleases[0] || null);
+    const latest = verifiedApiLatest || offlineReleases[0] || FALLBACK_LATEST;
 
     return { latest, releases };
   }

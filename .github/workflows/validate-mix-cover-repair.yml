@@ -3,6 +3,8 @@ name: Validate Mix Cover Repair
 on:
   push:
     branches: [agent/fix-mix-covers-final]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

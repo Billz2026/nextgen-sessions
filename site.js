@@ -12,10 +12,6 @@
   const artistImages = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
     ? window.NGS_ARTIST_IMAGES
     : {};
-  const artistProfiles = window.NGS_ARTIST_PROFILES && typeof window.NGS_ARTIST_PROFILES === "object"
-    ? window.NGS_ARTIST_PROFILES
-    : {};
-  const featuredGrid = document.getElementById("featuredArtistGrid");
   const rosterGrid = document.getElementById("artistRosterGrid");
   const artistSearch = document.getElementById("artistSearch");
   const rosterCount = document.getElementById("rosterCount");
@@ -29,16 +25,17 @@
   const FALLBACK_LATEST = {
     id: "dV6_GbsHrxI",
     title: "Kemarco – Badman Don’t Rush",
-    published: "2026-08-05T17:00:07+00:00"
+    published: "2026-08-05T17:00:07+00:00",
+    url: "/releases/kemarco-badman-dont-rush/"
   };
 
   const FALLBACK_RELEASES = [
     FALLBACK_LATEST,
-    { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00" },
-    { id: "6H6yq_1bEsQ", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00" },
-    { id: "ZSjRD_3B5uk", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00" },
-    { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-24T17:00:21Z" },
-    { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-22T17:00:39Z" }
+    { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00", url: "/releases/renz-cole-heatwave/" },
+    { id: "6H6yq_1bEsQ", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00", url: "/releases/reeko-after-di-party/" },
+    { id: "ZSjRD_3B5uk", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00", url: "/releases/deon-creed-days-like-these/" },
+    { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-24T17:00:21Z", url: "/releases/omari-v-when-di-breeze-call/" },
+    { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-22T17:00:39Z", url: "/releases/voss-carter-sunshine-on-the-way-home/" }
   ];
 
   function validVideoId(value) {
@@ -114,47 +111,12 @@
     return words.slice(0, 2).map(word => word[0]).join("").toUpperCase();
   }
 
-  function youtubeSearchUrl(name) {
-    return "https://www.youtube.com/results?search_query=" + encodeURIComponent("NextGen Sessions " + name);
-  }
-
   function artistDestination(artist) {
-    const profile = artistProfiles[artist.slug];
-    if (profile?.path) {
-      return {
-        href: profile.path,
-        attributes: "",
-        label: `View ${artist.name} artist profile`
-      };
-    }
     return {
-      href: youtubeSearchUrl(artist.name),
-      attributes: ' target="_blank" rel="noopener"',
-      label: `Explore ${artist.name} on YouTube`
+      href: `/artists/${artist.slug}/`,
+      attributes: "",
+      label: `View ${artist.name} artist profile`
     };
-  }
-
-  function featuredImage(artist) {
-    const image = artistImages[artist.slug];
-    if (!image || !image.src) return "";
-    const fallback = image.fallback ? ` data-fallback="${escapeHtml(image.fallback)}"` : "";
-    const srcset = image.srcset ? ` srcset="${escapeHtml(image.srcset)}" sizes="(max-width: 720px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw"` : "";
-    const position = escapeHtml(image.position || "50% 38%");
-    return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
-  }
-
-  function featuredCard(artist) {
-    const hasImage = Boolean(artistImages[artist.slug]?.src);
-    const destination = artistDestination(artist);
-    return `
-      <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
-        ${featuredImage(artist)}
-        <div class="featured-artist-inner">
-          <span class="artist-genre">${escapeHtml(artist.genre)}</span>
-          <h3>${escapeHtml(artist.name)}</h3>
-          <p>${escapeHtml(artist.summary)}</p>
-        </div>
-      </a>`;
   }
 
   function installImageFallbacks(root) {
@@ -194,13 +156,6 @@
       </a>`;
   }
 
-  function renderFeatured() {
-    if (!featuredGrid) return;
-    const featured = artists.filter(artist => artist.featured).slice(0, 6);
-    featuredGrid.innerHTML = featured.map(featuredCard).join("");
-    installImageFallbacks(featuredGrid);
-  }
-
   function renderRoster(query) {
     if (!rosterGrid) return;
     const term = String(query || "").trim().toLowerCase();
@@ -235,7 +190,7 @@
       : "/releases/";
     return `
       <a class="release-card" href="${escapeHtml(destination)}">
-        <img loading="lazy" decoding="async" src="/api/release-image?id=${encodeURIComponent(release.id)}" alt="${title} release thumbnail">
+        <img loading="lazy" decoding="async" src="/api/release-image?id=${encodeURIComponent(release.id)}&size=card" alt="${title} release thumbnail">
         <div class="release-meta">
           <span class="tag">Official release</span>
           <h3>${title}</h3>
@@ -265,15 +220,19 @@
     }
 
     const watchUrl = `https://www.youtube.com/watch?v=${latest.id}`;
+    const releaseUrl = String(latest?.url || "").startsWith("/releases/") ? latest.url : "/releases/";
     if (latestLink) latestLink.href = watchUrl;
-    if (heroLink) heroLink.href = watchUrl;
+    if (heroLink) {
+      heroLink.href = releaseUrl;
+      heroLink.removeAttribute("target");
+      heroLink.removeAttribute("rel");
+    }
 
     if (latestStatus) latestStatus.textContent = "Now available on YouTube";
 
     if (releaseGrid) releaseGrid.innerHTML = releases.slice(0, 6).map(releaseCard).join("");
   }
 
-  renderFeatured();
   renderRoster("");
 
   if (artistSearch) {
@@ -334,29 +293,18 @@
     return [...byId.values()].sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a));
   }
 
-  function buildHomepagePayload(apiPayload, cataloguePayload) {
+  function buildHomepagePayload(apiPayload) {
     const apiReleases = payloadReleases(apiPayload);
-    const catalogueReleases = payloadReleases(cataloguePayload);
-    const catalogueIds = new Set(catalogueReleases.map(release => release.id));
-    const isCuratedRelease = release => !catalogueIds.size || catalogueIds.has(release?.id);
-    const verifiedApiReleases = apiReleases.filter(isCuratedRelease);
     const fallbackReleases = FALLBACK_RELEASES
       .map(normaliseHomepageRelease)
       .filter(Boolean);
-    const offlineReleases = mergeHomepageReleases([
-      ...catalogueReleases,
+    const releases = uniqueHomepageReleases(mergeHomepageReleases([
+      ...apiReleases,
       ...fallbackReleases
-    ]);
-    const releases = uniqueHomepageReleases([
-      ...verifiedApiReleases,
-      ...offlineReleases
-    ]);
+    ]));
 
     const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
-    const verifiedApiLatest = apiLatest && isCuratedRelease(apiLatest)
-      ? apiLatest
-      : (verifiedApiReleases[0] || null);
-    const latest = verifiedApiLatest || offlineReleases[0] || FALLBACK_LATEST;
+    const latest = apiLatest || releases[0] || FALLBACK_LATEST;
 
     return { latest, releases };
   }
@@ -370,15 +318,12 @@
     return response.json();
   }
 
-  Promise.allSettled([
-    fetchJson("/api/latest?v=r2"),
-    fetchJson("/releases.json?homepage=20260807-r2")
-  ]).then(results => {
-    const apiPayload = results[0].status === "fulfilled" ? results[0].value : null;
-    const cataloguePayload = results[1].status === "fulfilled" ? results[1].value : null;
-    updateLatest(buildHomepagePayload(apiPayload, cataloguePayload));
-  }).catch(() => updateLatest({
-    latest: FALLBACK_LATEST,
-    releases: FALLBACK_RELEASES
-  }));
+  if (latestPlayer || releaseGrid) {
+    fetchJson("/api/latest?v=r2")
+      .then(payload => updateLatest(buildHomepagePayload(payload)))
+      .catch(() => updateLatest({
+        latest: FALLBACK_LATEST,
+        releases: FALLBACK_RELEASES
+      }));
+  }
 })();

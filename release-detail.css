@@ -89,6 +89,7 @@
 }
 
 .release-video-frame {
+  position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--white-line);
@@ -100,6 +101,10 @@
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+.release-video-frame .video-poster {
+  display: block;
 }
 
 .release-related-grid {

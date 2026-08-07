@@ -256,24 +256,11 @@ window.NGS_ARTISTS = [
     return (words.slice(0, 2).map(word => word[0]).join("") || "NG").toUpperCase();
   }
 
-  function youtubeSearchUrl(name) {
-    return "https://www.youtube.com/results?search_query=" +
-      encodeURIComponent("NextGen Sessions " + name);
-  }
-
-  function destinationFor(artist, profiles) {
-    const profile = profiles[artist.slug];
-    if (profile?.path) {
-      return {
-        href: profile.path,
-        attributes: "",
-        label: `View ${artist.name} artist profile`
-      };
-    }
+  function destinationFor(artist) {
     return {
-      href: youtubeSearchUrl(artist.name),
-      attributes: ' target="_blank" rel="noopener"',
-      label: `Explore ${artist.name} on YouTube`
+      href: `/artists/${artist.slug}/`,
+      attributes: "",
+      label: `View ${artist.name} artist profile`
     };
   }
 
@@ -290,8 +277,8 @@ window.NGS_ARTISTS = [
     return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
   }
 
-  function cardFor(artist, images, profiles) {
-    const destination = destinationFor(artist, profiles);
+  function cardFor(artist, images) {
+    const destination = destinationFor(artist);
     const hasImage = Boolean(images[artist.slug]?.src);
     return `
       <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
@@ -328,16 +315,12 @@ window.NGS_ARTISTS = [
     const images = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
       ? window.NGS_ARTIST_IMAGES
       : {};
-    const profiles = window.NGS_ARTIST_PROFILES && typeof window.NGS_ARTIST_PROFILES === "object"
-      ? window.NGS_ARTIST_PROFILES
-      : {};
-
     const featured = artists
       .filter(artist => artist.featured)
       .sort((a, b) => (a.featuredRank || 999) - (b.featuredRank || 999))
       .slice(0, FEATURED_LIMIT);
 
-    grid.innerHTML = featured.map(artist => cardFor(artist, images, profiles)).join("");
+    grid.innerHTML = featured.map(artist => cardFor(artist, images)).join("");
     installImageFallbacks(grid);
 
     const section = document.getElementById("featured-artists");
@@ -347,11 +330,6 @@ window.NGS_ARTISTS = [
         "A curated selection of artists shaping the current sound of NextGen Sessions. Each brings a distinct voice, style and story.";
     }
   }
-
-  const stylesheet = document.createElement("link");
-  stylesheet.rel = "stylesheet";
-  stylesheet.href = "/featured-artists-12.css";
-  document.head.append(stylesheet);
 
   window.addEventListener("DOMContentLoaded", renderTwelveFeaturedArtists, { once: true });
 })();

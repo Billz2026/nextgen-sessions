@@ -94,7 +94,7 @@ def release_card(release: dict) -> str:
     return (
         f'<a class="archive-release-card" href="{url}" aria-label="View {title} by {artist}">'
         f'<div class="archive-release-art" data-monogram="{esc(initials)}">'
-        f'<img loading="lazy" decoding="async" src="/api/release-image?id={video_id}" alt="{title} by {artist}">'
+        f'<img loading="lazy" decoding="async" src="/api/release-image?id={video_id}&amp;size=card" alt="{title} by {artist}">'
         '<span class="archive-release-play" aria-hidden="true"></span></div>'
         '<div class="archive-release-body">'
         f'<span class="archive-release-genre">{group}</span><h3>{title}</h3>'
@@ -187,7 +187,6 @@ def release_page(release: dict, related: list[dict], slugs: dict[str, str]) -> s
   <meta name="theme-color" content="#080808">
   <link rel="icon" type="image/svg+xml" href="/assets/nextgen-favicon.svg">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-  <link rel="preconnect" href="https://www.youtube-nocookie.com">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/releases.css?v=20260807-r2">
   <link rel="stylesheet" href="/release-detail.css?v=20260807-r2">
@@ -195,17 +194,18 @@ def release_page(release: dict, related: list[dict], slugs: dict[str, str]) -> s
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
-<header class="site-header"><div class="header-inner"><a class="brand" href="/" aria-label="NextGen Sessions home"><img src="/assets/nextgen-wordmark.webp" width="600" height="497" alt="NextGen Sessions"></a><nav class="nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/artists/">Artists</a><a href="/releases/" aria-current="page">Releases</a><a href="/mixes/">Mixes</a><a href="/submit.html">Submit</a><a class="nav-cta" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a></nav></div></header>
+<header class="site-header"><div class="header-inner"><a class="brand" href="/" aria-label="NextGen Sessions home"><img src="/assets/nextgen-header.webp" width="256" height="212" alt="NextGen Sessions"></a><nav class="nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/artists/">Artists</a><a href="/releases/" aria-current="page">Releases</a><a href="/mixes/">Mixes</a><a href="/submit.html">Submit</a><a class="nav-cta" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a></nav></div></header>
 <main id="main-content" class="release-detail-page">
   <a class="profile-back" href="/releases/">← Back to all releases</a>
   <section class="release-detail-hero">
     <div class="release-detail-art"><img src="/api/release-image?id={video_id}" alt="{title} by {artist}" width="1280" height="720"></div>
     <div class="release-detail-copy"><p class="eyebrow">Official NextGen Sessions release</p><span class="profile-genre">{group}</span><h1>{title}</h1><p class="release-detail-artist">By {artist_link}</p><p class="release-detail-date">Released {esc(published)}</p><div class="button-row"><a class="button button-primary" href="https://www.youtube.com/watch?v={video_id}" target="_blank" rel="noopener">Watch on YouTube</a>{f'<a class="button button-secondary" href="/artists/{esc(artist_slug)}/">View {artist}</a>' if artist_slug else ''}</div></div>
   </section>
-  <section class="release-video-section" aria-labelledby="watch-title"><div class="section-heading"><p class="eyebrow">Official video</p><h2 id="watch-title">Watch {title}</h2></div><div class="release-video-frame"><iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/{video_id}?rel=0&amp;modestbranding=1" title="{artist} — {title}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe></div></section>
+  <section class="release-video-section" aria-labelledby="watch-title"><div class="section-heading"><p class="eyebrow">Official video</p><h2 id="watch-title">Watch {title}</h2></div><div class="release-video-frame" data-release-player data-video-id="{video_id}" data-video-title="{artist} — {title}"><button class="video-poster" type="button" data-release-play aria-label="Play {artist} — {title}"><img loading="lazy" decoding="async" src="/api/release-image?id={video_id}" alt=""><span class="video-poster-overlay" aria-hidden="true"><span class="video-play-icon"></span><span class="video-play-copy">Play official video</span></span></button><noscript><a class="video-no-script" href="https://www.youtube.com/watch?v={video_id}">Watch {title} on YouTube</a></noscript></div></section>
   <section class="release-related" aria-labelledby="related-title"><div class="section-heading"><p class="eyebrow">Keep listening</p><h2 id="related-title">More from {artist}</h2></div><div class="release-related-grid">{related_markup}</div></section>
 </main>
 <footer class="site-footer"><div class="footer-inner"><div>© 2026 NextGen Sessions. Original music and independent artists.</div><div class="footer-links"><a href="/artists/">Artists</a><a href="/releases/">Releases</a><a href="/mixes/">Mixes</a><a href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a></div></div></footer>
+<script src="/release-player.js?v=20260807-perf1" defer></script>
 </body>
 </html>
 '''

@@ -196,7 +196,7 @@
     const image = document.createElement("img");
     image.loading = "lazy";
     image.decoding = "async";
-    image.src = `/api/release-image?id=${encodeURIComponent(release.id)}`;
+    image.src = `/api/release-image?id=${encodeURIComponent(release.id)}&size=card`;
     image.alt = `${release.title} by ${release.artist}`;
     image.addEventListener("error", () => {
       image.hidden = true;

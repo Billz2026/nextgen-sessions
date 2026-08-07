@@ -9,8 +9,9 @@ function errorResponse(status, message) {
   });
 }
 
-async function fetchThumbnail(videoId, filename) {
-  const response = await fetch(`https://i.ytimg.com/vi/${videoId}/${filename}`, {
+async function fetchThumbnail(videoId, filename, webp = false) {
+  const folder = webp ? "vi_webp" : "vi";
+  const response = await fetch(`https://i.ytimg.com/${folder}/${videoId}/${filename}`, {
     headers: {
       Accept: "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
       "User-Agent": "NextGenSessionsWebsite/4.0"
@@ -24,20 +25,27 @@ async function fetchThumbnail(videoId, filename) {
 export async function onRequestGet(context) {
   const requestUrl = new URL(context.request.url);
   const videoId = String(requestUrl.searchParams.get("id") || "").trim();
+  const size = requestUrl.searchParams.get("size") === "card" ? "card" : "hero";
   if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) {
     return errorResponse(404, "Release image not found");
   }
 
   const cache = caches.default;
   const cacheKey = new Request(
-    new URL(`/api/release-image?id=${encodeURIComponent(videoId)}&v=1`, context.request.url).toString()
+    new URL(`/api/release-image?id=${encodeURIComponent(videoId)}&size=${size}&v=2`, context.request.url).toString()
   );
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   try {
-    const image = await fetchThumbnail(videoId, "maxresdefault.jpg")
-      || await fetchThumbnail(videoId, "hqdefault.jpg");
+    const candidates = size === "card"
+      ? [["mqdefault.webp", true], ["mqdefault.jpg", false]]
+      : [["maxresdefault.webp", true], ["maxresdefault.jpg", false], ["hqdefault.webp", true], ["hqdefault.jpg", false]];
+    let image = null;
+    for (const [filename, webp] of candidates) {
+      image = await fetchThumbnail(videoId, filename, webp);
+      if (image) break;
+    }
     if (!image) return errorResponse(404, "Release image not found");
 
     const output = new Response(image.response.body, {

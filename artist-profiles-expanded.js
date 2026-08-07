@@ -744,5 +744,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Mariana Lo", "genre": "Pop / R&B" },
       { "name": "Zara Veli", "genre": "Pop / R&B" }
     ]
+  },
+  "rafe": {
+    "name": "Rafe",
+    "path": "/artists/rafe/",
+    "genre": "UK Rap",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Direct UK rap shaped by concise writing, controlled presence and a contemporary grime edge.",
+    "bio": [
+      "Rafe occupies a direct UK rap lane within NextGen Sessions, keeping the presentation focused on concise writing, presence and a contemporary grime edge.",
+      "On Blast anchors his current NextGen catalogue, pairing that stripped-back approach with the pressure and momentum of UK rap and grime."
+    ],
+    "imageKey": "rafe",
+    "imagePosition": "50% 32%",
+    "featuredVideo": {
+      "id": "fXF2mQ2A6vw",
+      "title": "On Blast",
+      "label": "Rafe — On Blast",
+      "published": "2026-04-19T13:46:45Z"
+    },
+    "catalogueAliases": ["Rafe"],
+    "additionalReleases": [
+      {
+        "id": "fXF2mQ2A6vw",
+        "artist": "Rafe",
+        "title": "On Blast",
+        "group": "UK Rap & Grime",
+        "published": "2026-04-19T13:46:45Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Rafe",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Rafe",
+    "related": [
+      { "name": "Mace K", "genre": "UK Rap / Grime" },
+      { "name": "Renz Cole", "genre": "UK Rap" },
+      { "name": "Killa K", "genre": "UK Rap" }
+    ]
   }
 });

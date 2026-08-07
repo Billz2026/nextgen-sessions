@@ -27,9 +27,9 @@
   let latestPlayerLoaded = false;
 
   const FALLBACK_LATEST = {
-    id: "xicnIGw-ei8",
-    title: "Alia Bleu – Piggyback",
-    published: "2026-08-03T17:00:30+00:00"
+    id: "dV6_GbsHrxI",
+    title: "Kemarco – Badman Don’t Rush",
+    published: "2026-08-05T17:00:07+00:00"
   };
 
   const FALLBACK_RELEASES = [
@@ -361,7 +361,7 @@
   }
 
   Promise.allSettled([
-    fetchJson("/api/latest?v=7"),
+    fetchJson("/api/latest?v=9"),
     fetchJson("/releases.json?homepage=20260805b")
   ]).then(results => {
     const apiPayload = results[0].status === "fulfilled" ? results[0].value : null;

@@ -484,5 +484,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Rudii Marka", "genre": "Jamaican Dancehall" },
       { "name": "Jahmari Danza", "genre": "Jamaican Dancehall" }
     ]
+  },
+  "killa-k": {
+    "name": "Killa K",
+    "path": "/artists/killa-k/",
+    "genre": "UK Rap",
+    "location": "United Kingdom",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Hard-edged UK rap with direct bars, high-pressure energy and a focused street presence.",
+    "bio": [
+      "Killa K brings a hard-edged UK rap presence to NextGen Sessions, pairing direct delivery with tense production and a stripped-back, no-frills identity.",
+      "Full Send establishes his current catalogue lane, combining UK grime energy with the focused pressure and straight-ahead delivery that define his sound."
+    ],
+    "imageKey": "killa-k",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "bsaqZDgvb9U",
+      "title": "Full Send",
+      "label": "Killa K — Full Send",
+      "published": "2026-05-22T08:39:10Z"
+    },
+    "catalogueAliases": ["Killa K"],
+    "additionalReleases": [
+      {
+        "id": "bsaqZDgvb9U",
+        "artist": "Killa K",
+        "title": "Full Send",
+        "group": "UK Rap & Grime",
+        "published": "2026-05-22T08:39:10Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Killa K",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Killa+K",
+    "related": [
+      { "name": "Reiss", "genre": "UK Rap" },
+      { "name": "Andre Kadeem", "genre": "UK Rap" },
+      { "name": "Mace K", "genre": "UK Rap / Grime" }
+    ]
   }
 });

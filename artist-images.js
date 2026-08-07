@@ -129,6 +129,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/keisha-card-640.webp?v=20260806-keisha1",
     position: "50% 28%"
   },
+  "killa-k": {
+    src: "/assets/artists/killa-k-card.webp?v=20260807-killak1",
+    srcset: "/assets/artists/killa-k-card-640.webp?v=20260807-killak1 640w, /assets/artists/killa-k-card.webp?v=20260807-killak1 1024w",
+    portrait: "/assets/artists/killa-k-portrait.webp?v=20260807-killak1",
+    fallback: "/assets/artists/killa-k-card-640.webp?v=20260807-killak1",
+    position: "50% 30%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

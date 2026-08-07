@@ -648,5 +648,46 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       { "name": "Leila Nour", "genre": "Arabic Soul / Oud" },
       { "name": "Zara Veli", "genre": "Pop / R&B" }
     ]
+  },
+  "mariana-lo": {
+    "name": "Mariana Lo",
+    "path": "/artists/mariana-lo/",
+    "genre": "Pop / R&B",
+    "location": "Location undisclosed",
+    "eyebrow": "NextGen Sessions artist",
+    "headline": "Melodic pop and R&B shaped by warm coastal energy, polished production and an assured visual identity.",
+    "bio": [
+      "Mariana Lo brings a warm, melodic pop and R&B lane to NextGen Sessions, pairing a polished vocal identity with contemporary production and a confident coastal visual style.",
+      "Don’t Get Too Close anchors her current NextGen catalogue, balancing cool self-possession with an intimate melodic edge while keeping the presentation clean, modern and unmistakably hers."
+    ],
+    "imageKey": "mariana-lo",
+    "imagePosition": "50% 30%",
+    "featuredVideo": {
+      "id": "IsS48ruiXuI",
+      "title": "Don’t Get Too Close",
+      "label": "Mariana Lo — Don’t Get Too Close",
+      "published": "2026-04-21T07:26:22Z"
+    },
+    "catalogueAliases": ["Mariana Lo"],
+    "additionalReleases": [
+      {
+        "id": "IsS48ruiXuI",
+        "artist": "Mariana Lo",
+        "title": "Don’t Get Too Close",
+        "group": "Pop / R&B",
+        "published": "2026-04-21T07:26:22Z"
+      }
+    ],
+    "featuredExperience": {
+      "enabled": true,
+      "aboutLabel": "About Mariana Lo",
+      "compactViewThreshold": 6
+    },
+    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Mariana+Lo",
+    "related": [
+      { "name": "Alia Bleu", "genre": "UK R&B" },
+      { "name": "Nyah Rae", "genre": "R&B" },
+      { "name": "Zara Veli", "genre": "Pop / R&B" }
+    ]
   }
 });

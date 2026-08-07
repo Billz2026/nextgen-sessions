@@ -157,6 +157,13 @@ window.NGS_ARTIST_IMAGES = {
     fallback: "/assets/artists/manny-virk-card-640.webp?v=20260807-manny1",
     position: "50% 30%"
   },
+  "mariana-lo": {
+    src: "/assets/artists/mariana-lo-card.webp?v=20260807-mariana1",
+    srcset: "/assets/artists/mariana-lo-card-640.webp?v=20260807-mariana1 640w, /assets/artists/mariana-lo-card.webp?v=20260807-mariana1 1024w",
+    portrait: "/assets/artists/mariana-lo-portrait.webp?v=20260807-mariana1",
+    fallback: "/assets/artists/mariana-lo-card-640.webp?v=20260807-mariana1",
+    position: "50% 30%"
+  },
   "karvell-reign": {
     src: "/assets/artists/karvell-reign-card.webp?v=20260806-karvell1",
     srcset: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1 640w, /assets/artists/karvell-reign-card.webp?v=20260806-karvell1 1024w",

@@ -83,6 +83,18 @@
     }).format(date);
   }
 
+  function releasePath(release) {
+    if (String(release?.url || "").startsWith("/releases/")) return release.url;
+    const releaseSlug = String(release?.slug || `${release?.artist || artist?.name || "release"}-${release?.title || "track"}`)
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[’‘']/g, "")
+      .replace(/[^a-zA-Z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .toLowerCase();
+    return `/releases/${releaseSlug || "release"}/`;
+  }
+
   function safeVideoId(value) {
     const id = String(value || "").trim();
     return /^[A-Za-z0-9_-]{6,20}$/.test(id) ? id : "";
@@ -112,6 +124,8 @@
       group: String(release?.group || artist?.genre || "Official release").trim(),
       published: String(release?.published || "").trim(),
       rawTitle: String(release?.rawTitle || `${releaseArtist} - ${title}`).trim(),
+      slug: String(release?.slug || "").trim(),
+      url: String(release?.url || "").trim(),
       source: String(release?.source || "catalogue")
     };
   }
@@ -219,7 +233,7 @@
           <p>${escapeHtml(release.group)} · ${escapeHtml(formatDate(release.published))}</p>
           <div class="discography-actions">
             <button class="button button-primary" type="button" data-play-release="${escapeHtml(release.id)}">Play latest here</button>
-            <a class="button button-secondary" href="https://www.youtube.com/watch?v=${escapeHtml(release.id)}" target="_blank" rel="noopener">Open on YouTube</a>
+            <a class="button button-secondary" href="${escapeHtml(releasePath(release))}">Release page</a>
           </div>
         </div>
       </article>`;
@@ -235,7 +249,7 @@
           <p>${escapeHtml(formatDate(release.published))}</p>
           <div class="discography-card-actions">
             <button type="button" data-play-release="${escapeHtml(release.id)}">Play here</button>
-            <a href="https://www.youtube.com/watch?v=${escapeHtml(release.id)}" target="_blank" rel="noopener">YouTube ↗</a>
+            <a href="${escapeHtml(releasePath(release))}">Release page →</a>
           </div>
         </div>
       </article>`;

@@ -2,13 +2,14 @@ name: Update Release Catalogue
 
 on:
   schedule:
-    - cron: "20 */6 * * *"
+    - cron: "20 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - ".github/workflows/update-catalogue.yml"
       - "scripts/update-catalogue.py"
+      - "scripts/render-releases.py"
 
 permissions:
   contents: write
@@ -29,6 +30,9 @@ jobs:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python3 scripts/update-catalogue.py releases.json
 
+      - name: Render crawlable release archive and pages
+        run: python3 scripts/render-releases.py releases.json
+
       - name: Validate catalogue
         run: |
           python3 - <<'PY'
@@ -38,6 +42,14 @@ jobs:
           assert data["total"] == len(data["releases"])
           assert len({item["id"] for item in data["releases"]}) == data["total"]
           assert data["total"] >= 80, f"Unexpectedly small catalogue: {data['total']}"
+          assert len({item["url"] for item in data["releases"]}) == data["total"]
+          assert all(item.get("published") for item in data["releases"])
+          assert any(item["id"] == "ZSjRD_3B5uk" for item in data["releases"]), "Days Like These missing"
+          assert any(item["id"] == "6H6yq_1bEsQ" for item in data["releases"]), "After Di Party missing"
+          assert all(__import__("os").path.exists("." + item["url"] + "index.html") for item in data["releases"])
+          archive = open("releases/index.html", encoding="utf-8").read()
+          assert "Loading catalogue…" not in archive
+          assert archive.count('class="archive-release-card"') >= data["total"]
           print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
           PY
 
@@ -45,7 +57,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add releases.json
+          git add releases.json releases/ sitemap.xml artists/ artist-profiles.js artist-profiles-expanded.js
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update release catalogue"
           git push

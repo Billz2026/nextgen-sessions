@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "xLFZKSjvzl0",
       "title": "No Shade In Queens",
       "label": "Jay Starks — No Shade In Queens",
-      "published": "2026-06-25T11:01:58Z"
+      "published": "2026-07-01T10:00:20-07:00"
     },
     "catalogueAliases": ["Jay Starks"],
     "additionalReleases": [
@@ -25,28 +25,28 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Jay Starks",
         "title": "No Shade In Queens",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-06-25T11:01:58Z"
+        "published": "2026-07-01T10:00:20-07:00"
       },
       {
         "id": "n6OLDR0PUkw",
         "artist": "Jay Starks",
         "title": "Jamaica Avenue",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-06-19T15:13:18Z"
+        "published": "2026-06-29T10:00:13-07:00"
       },
       {
         "id": "PI3OXiRlcHU",
         "artist": "Jay Starks",
         "title": "Architect of Havoc",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-05-19T15:01:15Z"
+        "published": "2026-05-31T10:00:31-07:00"
       },
       {
         "id": "bB_APAjvIc8",
         "artist": "Jay Starks",
         "title": "Queens in My Soul",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-05-13T12:21:38Z"
+        "published": "2026-05-26T10:00:14-07:00"
       }
     ],
     "releaseTitleOverrides": {

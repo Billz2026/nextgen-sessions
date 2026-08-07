@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "Sra1722xEFE",
       "title": "Heatwave",
       "label": "Renz Cole — Heatwave",
-      "published": "2026-07-20T15:35:30Z"
+      "published": "2026-07-31T10:00:33-07:00"
     },
     "catalogueAliases": ["Renz Cole"],
     "additionalReleases": [
@@ -25,49 +25,49 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Renz Cole",
         "title": "Heatwave",
         "group": "UK Rap & Grime",
-        "published": "2026-07-20T15:35:30Z"
+        "published": "2026-07-31T10:00:33-07:00"
       },
       {
         "id": "JwFCGCLWw0I",
         "artist": "Renz Cole",
         "title": "Outside Till Late",
         "group": "UK Rap & Grime",
-        "published": "2026-06-12T17:43:08Z"
+        "published": "2026-06-19T10:00:31-07:00"
       },
       {
         "id": "s0ZS2HJjw2M",
         "artist": "Renz Cole",
         "title": "False Nine",
         "group": "UK Rap & Grime",
-        "published": "2026-05-20T12:28:18Z"
+        "published": "2026-06-01T10:00:06-07:00"
       },
       {
         "id": "02d0BdKLyBA",
         "artist": "Renz Cole",
         "title": "Catch My Wave",
         "group": "UK Rap & Grime",
-        "published": "2026-04-15T07:32:45Z"
+        "published": "2026-04-09T10:00:01-07:00"
       },
       {
         "id": "XUXUyj5uHkM",
         "artist": "Renz Cole",
         "title": "They Know Now",
         "group": "UK Rap & Grime",
-        "published": "2026-04-06T12:17:07Z"
+        "published": "2026-04-11T10:00:40-07:00"
       },
       {
         "id": "4TFIW-WTuww",
         "artist": "Renz Cole",
         "title": "No Assist Ting",
         "group": "UK Rap & Grime",
-        "published": "2026-04-04T22:17:05Z"
+        "published": "2026-04-08T10:00:15-07:00"
       },
       {
         "id": "ms-IKCbxjlY",
         "artist": "Renz Cole",
         "title": "Playmaker",
         "group": "UK Rap & Grime",
-        "published": "2026-04-01T16:41:55Z"
+        "published": "2026-04-07T10:01:03-07:00"
       }
     ],
     "featuredExperience": {

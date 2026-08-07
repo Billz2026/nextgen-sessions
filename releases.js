@@ -166,13 +166,23 @@
     }).format(date);
   }
 
+  function releasePath(release) {
+    if (String(release?.url || "").startsWith("/releases/")) return release.url;
+    const slug = String(release?.slug || `${release?.artist || "release"}-${release?.title || "track"}`)
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[’‘']/g, "")
+      .replace(/[^a-zA-Z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .toLowerCase();
+    return `/releases/${slug || "release"}/`;
+  }
+
   function createReleaseCard(release) {
     const link = document.createElement("a");
     link.className = "archive-release-card";
-    link.href = `https://www.youtube.com/watch?v=${release.id}`;
-    link.target = "_blank";
-    link.rel = "noopener";
-    link.setAttribute("aria-label", `Watch ${release.title} by ${release.artist} on YouTube`);
+    link.href = releasePath(release);
+    link.setAttribute("aria-label", `View ${release.title} by ${release.artist}`);
 
     const art = document.createElement("div");
     art.className = "archive-release-art";
@@ -213,7 +223,7 @@
     date.textContent = formatDate(release.published) || "Official release";
     const watch = document.createElement("span");
     watch.className = "archive-release-watch";
-    watch.textContent = "Watch";
+    watch.textContent = "View release";
     footer.append(date, watch);
     body.append(genre, title, artist, footer);
     link.append(art, body);

@@ -37,8 +37,8 @@
     { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00" },
     { id: "6H6yq_1bEsQ", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00" },
     { id: "ZSjRD_3B5uk", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00" },
-    { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-17T15:41:27Z" },
-    { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-12T13:41:07Z" }
+    { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-24T17:00:21Z" },
+    { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-22T17:00:39Z" }
   ];
 
   function validVideoId(value) {
@@ -230,13 +230,16 @@
     const id = escapeHtml(release.id);
     const title = escapeHtml(release.title || "NextGen Sessions release");
     const date = formatDate(release.published);
+    const destination = String(release?.url || "").startsWith("/releases/")
+      ? release.url
+      : "/releases/";
     return `
-      <a class="release-card" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">
+      <a class="release-card" href="${escapeHtml(destination)}">
         <img loading="lazy" decoding="async" src="/api/release-image?id=${encodeURIComponent(release.id)}" alt="${title} release thumbnail">
         <div class="release-meta">
           <span class="tag">Official release</span>
           <h3>${title}</h3>
-          <p>Watch on YouTube</p>
+          <p>View release</p>
           ${date ? `<span class="release-date">${escapeHtml(date)}</span>` : ""}
         </div>
       </a>`;
@@ -294,7 +297,8 @@
     return {
       id,
       title,
-      published: String(release?.published || release?.updated || "").trim()
+      published: String(release?.published || release?.updated || "").trim(),
+      url: String(release?.url || "").trim()
     };
   }
 
@@ -367,8 +371,8 @@
   }
 
   Promise.allSettled([
-    fetchJson("/api/latest?v=9"),
-    fetchJson("/releases.json?homepage=20260805b")
+    fetchJson("/api/latest?v=r2"),
+    fetchJson("/releases.json?homepage=20260807-r2")
   ]).then(results => {
     const apiPayload = results[0].status === "fulfilled" ? results[0].value : null;
     const cataloguePayload = results[1].status === "fulfilled" ? results[1].value : null;

@@ -10,7 +10,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Alia Bleu",
     "slug": "alia-bleu",
-    "genre": "UK R&B",
+    "genre": "US R&B",
     "summary": "Late-night soul, emotional boundaries and smooth UK phrasing.",
     "featured": true,
     "featuredRank": 3
@@ -18,7 +18,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Omari V",
     "slug": "omari-v",
-    "genre": "Jamaican Reggae",
+    "genre": "Jamaican Lovers Rock / Reggae",
     "summary": "Warm reggae shaped by reflection, love, memory and changing seasons.",
     "featured": false
   },
@@ -33,7 +33,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Kemarco",
     "slug": "kemarco",
-    "genre": "Dark Melodic Dancehall",
+    "genre": "Jamaican Dancehall",
     "summary": "Controlled pressure, discipline and cold melodic Jamaican production.",
     "featured": false
   },
@@ -100,7 +100,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Kemar Ranka",
     "slug": "kemar-ranka",
-    "genre": "Dancehall",
+    "genre": "Jamaican Dancehall",
     "summary": "A developing dancehall identity within the NextGen Sessions roster.",
     "featured": true,
     "featuredRank": 4
@@ -129,7 +129,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Asif Sultaan",
     "slug": "asif-sultaan",
-    "genre": "Punjabi / Bhangra",
+    "genre": "Punjabi / South Asian Fusion",
     "summary": "Modern Punjabi records with commanding vocals and crossover production.",
     "featured": true,
     "featuredRank": 11
@@ -137,7 +137,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Javon Ranks",
     "slug": "javon-ranks",
-    "genre": "Dancehall",
+    "genre": "Jamaican Dancehall",
     "summary": "Jamaican dancehall with confident delivery and rhythmic hooks.",
     "featured": false
   },
@@ -151,7 +151,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Jahmari Danza",
     "slug": "jahmari-danza",
-    "genre": "Dancehall",
+    "genre": "Jamaican Dancehall",
     "summary": "Melodic Jamaican dancehall with movement, attitude and hook-led records.",
     "featured": false
   },
@@ -179,7 +179,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Marlo Saint",
     "slug": "marlo-saint",
-    "genre": "Hip-Hop / R&B",
+    "genre": "UK Afro-Swing / R&B",
     "summary": "Late-night melodic hip-hop with a clean, cinematic mood.",
     "featured": true,
     "featuredRank": 12
@@ -187,7 +187,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Karvell Reign",
     "slug": "karvell-reign",
-    "genre": "West Coast Hip-Hop",
+    "genre": "West Coast Hip-Hop / G-Funk",
     "summary": "California rap shaped by warmth, confidence and widescreen production.",
     "featured": false
   },
@@ -230,7 +230,7 @@ window.NGS_ARTISTS = [
   {
     "name": "Alonzo Ray",
     "slug": "alonzo-ray",
-    "genre": "Hip-Hop / Soul",
+    "genre": "West Coast Hip-Hop / Soul",
     "summary": "Soulful hip-hop with mature writing and a cinematic finish.",
     "featured": true,
     "featuredRank": 10

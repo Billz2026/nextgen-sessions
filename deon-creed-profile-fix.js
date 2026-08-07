@@ -12,8 +12,8 @@
       id: "ZSjRD_3B5uk",
       artist: "Deon Creed",
       title: "Days Like These",
-      group: "Soul / R&B",
-      published: "",
+      group: "R&B & Soul",
+      published: "2026-07-27T17:00:05Z",
       priority: 100
     },
     {
@@ -21,7 +21,7 @@
       artist: "Deon Creed",
       title: "Soul of the Southside",
       group: "Hip-Hop / G-Funk",
-      published: "2026-05-26T07:52:56Z",
+      published: "2026-06-08T17:00:19Z",
       priority: 50
     }
   ];
@@ -61,6 +61,18 @@
     }).format(date);
   }
 
+  function releasePath(release) {
+    if (String(release?.url || "").startsWith("/releases/")) return release.url;
+    const slug = `deon-creed-${release?.title || "release"}`
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[’‘']/g, "")
+      .replace(/[^a-zA-Z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .toLowerCase();
+    return `/releases/${slug}/`;
+  }
+
   function fixPortrait() {
     const image = root.querySelector(".profile-image");
     if (!image) return;
@@ -94,6 +106,8 @@
       title,
       group: String(item?.group || known?.group || "Soul / R&B").trim(),
       published: String(item?.published || known?.published || "").trim(),
+      slug: String(item?.slug || "").trim(),
+      url: String(item?.url || "").trim(),
       priority: Number(known?.priority || item?.priority || 0)
     };
   }
@@ -132,7 +146,7 @@
           <p>${escapeHtml(release.group)} · ${escapeHtml(formatDate(release.published))}</p>
           <div class="discography-actions">
             <button class="button button-primary" type="button" data-play-release="${escapeHtml(release.id)}">Play latest here</button>
-            <a class="button button-secondary" href="https://www.youtube.com/watch?v=${escapeHtml(release.id)}" target="_blank" rel="noopener">Open on YouTube</a>
+            <a class="button button-secondary" href="${escapeHtml(releasePath(release))}">Release page</a>
           </div>
         </div>
       </article>`;
@@ -148,7 +162,7 @@
           <p>${escapeHtml(formatDate(release.published))}</p>
           <div class="discography-card-actions">
             <button type="button" data-play-release="${escapeHtml(release.id)}">Play here</button>
-            <a href="https://www.youtube.com/watch?v=${escapeHtml(release.id)}" target="_blank" rel="noopener">YouTube ↗</a>
+            <a href="${escapeHtml(releasePath(release))}">Release page →</a>
           </div>
         </div>
       </article>`;

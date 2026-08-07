@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "TnYNLBDlLx8",
       "title": "When Di Breeze Call",
       "label": "Omari V — When Di Breeze Call",
-      "published": "2026-07-17T15:41:27Z"
+      "published": "2026-07-24T10:00:21-07:00"
     },
     "catalogueAliases": ["Omari V"],
     "additionalReleases": [
@@ -25,28 +25,28 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Omari V",
         "title": "When Di Breeze Call",
         "group": "Lovers Rock",
-        "published": "2026-07-17T15:41:27Z"
+        "published": "2026-07-24T10:00:21-07:00"
       },
       {
         "id": "3KqBiAq2ctA",
         "artist": "Omari V",
         "title": "Whispers in the Wind",
         "group": "Lovers Rock",
-        "published": "2026-05-14T07:00:50Z"
+        "published": "2026-05-27T10:00:01-07:00"
       },
       {
         "id": "j647wv0Duf0",
         "artist": "Omari V",
         "title": "Yuh Gone Already",
         "group": "Lovers Rock",
-        "published": "2026-05-11T07:49:39Z"
+        "published": "2026-05-20T10:01:03-07:00"
       },
       {
         "id": "fm8t-R8RLHY",
         "artist": "Omari V",
         "title": "No Fire In Your Eyes",
         "group": "Lovers Rock",
-        "published": "2026-04-20T07:51:31Z"
+        "published": "2026-04-27T10:01:02-07:00"
       }
     ],
     "featuredExperience": {

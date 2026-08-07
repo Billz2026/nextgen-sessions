@@ -21,11 +21,33 @@ PLAYLISTS = [
     ("PL7VCdVWElIJFUIdoyQtMVSaoAXWXsQnrF", "Lovers Rock"),
     ("PL7VCdVWElIJFSw31x4J4WL7zSPR3jdeGe", "R&B & Soul"),
     ("PL7VCdVWElIJFzJpuLDIUuOnct9uwEQ1Dr", "Late Night Afro"),
+    ("PL7VCdVWElIJH04lRndw-W9eIEmikl2xfZ", "Late Night Vibes"),
     ("PL7VCdVWElIJF7tTj0IPyNXsy7KejDrnjk", "Arabic"),
 ]
 
+# Verified full releases that are not currently present in a genre playlist.
+# Only the identity/group are pinned here; title/status/publication time are
+# still refreshed from the YouTube videos endpoint on every catalogue build.
+VERIFIED_EXTRA_RELEASES = [
+    {
+        "id": "6H6yq_1bEsQ",
+        "artist": "Reeko",
+        "title": "After Di Party",
+        "group": "Dancehall & Reggae",
+    },
+    {
+        "id": "ZSjRD_3B5uk",
+        "artist": "Deon Creed",
+        "title": "Days Like These",
+        "group": "R&B & Soul",
+    },
+]
+
 EXCLUDED = re.compile(
-    r"\b(shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight)\b|#shorts",
+    r"\b(shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|"
+    r"#shorts|"
+    r"\b\d{1,2}(?:st|nd|rd|th)?\s+(?:january|february|march|april|may|june|july|august|"
+    r"september|october|november|december)(?:\s+20\d{2})?\b",
     re.IGNORECASE,
 )
 
@@ -64,6 +86,43 @@ def playlist_items(playlist_id: str) -> list[dict]:
         token = payload.get("nextPageToken", "")
         if not token:
             return items
+
+
+def video_details(video_ids: list[str]) -> dict[str, dict]:
+    details: dict[str, dict] = {}
+    for offset in range(0, len(video_ids), 50):
+        batch = video_ids[offset:offset + 50]
+        if not batch:
+            continue
+        payload = youtube_api(
+            "videos",
+            part="snippet,status,contentDetails",
+            id=",".join(batch),
+            maxResults="50",
+        )
+        for item in payload.get("items", []):
+            video_id = item.get("id", "")
+            if video_id:
+                details[video_id] = item
+    return details
+
+
+def duration_seconds(value: str) -> int:
+    match = re.fullmatch(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", value or "")
+    if not match:
+        return 0
+    hours, minutes, seconds = (int(part or 0) for part in match.groups())
+    return hours * 3600 + minutes * 60 + seconds
+
+
+def is_published(value: str) -> bool:
+    if not value:
+        return True
+    try:
+        published = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return True
+    return published <= datetime.now(timezone.utc)
 
 
 def split_artist_title(raw_title: str) -> tuple[str, str]:
@@ -111,7 +170,7 @@ def clean_title(value: str) -> str:
     ).strip()
     return re.sub(
         r"\s+(single|uk rap|grime|dancehall|reggae|hip-?hop|r&b|rnb|soul|"
-        r"afro swing)(?:\s+20\d{2})?$",
+        r"afro swing)\s+20\d{2}$",
         "",
         cleaned,
         flags=re.IGNORECASE,
@@ -119,12 +178,10 @@ def clean_title(value: str) -> str:
 
 
 def build_catalogue() -> dict:
-    releases: list[dict] = []
+    candidates: list[dict] = []
     seen: set[str] = set()
-    playlist_counts: dict[str, int] = {}
 
     for playlist_id, group in PLAYLISTS:
-        count = 0
         for item in playlist_items(playlist_id):
             snippet = item.get("snippet", {})
             video_id = item.get("contentDetails", {}).get("videoId", "")
@@ -139,27 +196,72 @@ def build_catalogue() -> dict:
             ):
                 continue
 
-            artist, title = split_artist_title(raw_title)
-            releases.append(
+            candidates.append(
                 {
                     "id": video_id,
-                    "artist": artist,
-                    "title": title,
                     "group": group,
-                    "published": snippet.get("publishedAt", ""),
                     "rawTitle": raw_title,
                 }
             )
             seen.add(video_id)
-            count += 1
-        playlist_counts[group] = count
+
+    for extra in VERIFIED_EXTRA_RELEASES:
+        video_id = extra["id"]
+        if video_id in seen:
+            continue
+        candidates.append({**extra, "rawTitle": ""})
+        seen.add(video_id)
+
+    videos = video_details([candidate["id"] for candidate in candidates])
+    releases: list[dict] = []
+    for candidate in candidates:
+        video_id = candidate["id"]
+        video = videos.get(video_id)
+        if not video:
+            continue
+        status = video.get("status", {})
+        if status.get("privacyStatus", "") not in ("public", "unlisted"):
+            continue
+
+        snippet = video.get("snippet", {})
+        raw_title = snippet.get("title", "").strip() or candidate.get("rawTitle", "")
+        published = snippet.get("publishedAt", "")
+        duration = duration_seconds(video.get("contentDetails", {}).get("duration", ""))
+        if (
+            not raw_title
+            or EXCLUDED.search(raw_title)
+            or not is_published(published)
+            or duration < 75
+        ):
+            continue
+
+        if candidate.get("artist") and candidate.get("title"):
+            artist = candidate["artist"]
+            title = candidate["title"]
+        else:
+            artist, title = split_artist_title(raw_title)
+
+        releases.append(
+            {
+                "id": video_id,
+                "artist": artist,
+                "title": title,
+                "group": candidate["group"],
+                "published": published,
+                "rawTitle": raw_title,
+            }
+        )
 
     releases.sort(key=lambda item: item.get("published", ""), reverse=True)
+    catalogue_counts = {group: 0 for _, group in PLAYLISTS}
+    for release in releases:
+        catalogue_counts[release["group"]] = catalogue_counts.get(release["group"], 0) + 1
     return {
         "source": "curated-youtube-playlists",
         "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "total": len(releases),
-        "counts": playlist_counts,
+        "counts": catalogue_counts,
+        "verifiedExtras": len(VERIFIED_EXTRA_RELEASES),
         "releases": releases,
     }
 

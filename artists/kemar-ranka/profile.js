@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "AMdc_Z9bh30",
       "title": "Crown Heavy",
       "label": "Kemar Ranka — Crown Heavy",
-      "published": "2026-05-19T07:17:21Z"
+      "published": "2026-05-29T10:00:16-07:00"
     },
     "catalogueAliases": ["Kemar Ranka"],
     "additionalReleases": [
@@ -25,14 +25,14 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Kemar Ranka",
         "title": "Crown Heavy",
         "group": "Dancehall & Reggae",
-        "published": "2026-05-19T07:17:21Z"
+        "published": "2026-05-29T10:00:16-07:00"
       },
       {
         "id": "ZR6vqKxmngw",
         "artist": "Kemar Ranka",
         "title": "Top Ranka",
         "group": "Dancehall & Reggae",
-        "published": "2026-05-14T12:08:30Z"
+        "published": "2026-05-29T10:00:07-07:00"
       }
     ],
     "featuredExperience": {

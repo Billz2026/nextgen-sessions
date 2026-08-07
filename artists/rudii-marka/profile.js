@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "ZON1AsWLrIE",
       "title": "Marked Rudeboi",
       "label": "Rudii Marka — Marked Rudeboi",
-      "published": "2026-07-12T10:37:19Z"
+      "published": "2026-07-20T10:00:16-07:00"
     },
     "catalogueAliases": ["Rudii Marka"],
     "additionalReleases": [
@@ -25,7 +25,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Rudii Marka",
         "title": "Marked Rudeboi",
         "group": "Dancehall & Reggae",
-        "published": "2026-07-12T10:37:19Z"
+        "published": "2026-07-20T10:00:16-07:00"
       }
     ],
     "featuredExperience": {

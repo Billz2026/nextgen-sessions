@@ -24,14 +24,14 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Deon Creed",
         "title": "Days Like These",
         "group": "Soul / R&B",
-        "published": ""
+        "published": "2026-07-27T10:00:05-07:00"
       },
       {
         "id": "vuW6OZPoApg",
         "artist": "Deon Creed",
         "title": "Soul of the Southside",
         "group": "Hip-Hop / G-Funk",
-        "published": "2026-05-26T07:52:56Z"
+        "published": "2026-06-08T10:00:19-07:00"
       }
     ],
     "featuredExperience": {

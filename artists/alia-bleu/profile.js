@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "xicnIGw-ei8",
       "title": "Piggyback",
       "label": "Alia Bleu — Piggyback",
-      "published": "2026-07-21T12:29:20Z"
+      "published": "2026-08-03T10:00:30-07:00"
     },
     "catalogueAliases": ["Alia Bleu"],
     "additionalReleases": [
@@ -25,14 +25,14 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Alia Bleu",
         "title": "Piggyback",
         "group": "R&B & Soul",
-        "published": "2026-07-21T12:29:20Z"
+        "published": "2026-08-03T10:00:30-07:00"
       },
       {
         "id": "kK_M5TobLk0",
         "artist": "Alia Bleu",
         "title": "Dreams Don’t Chase You",
         "group": "R&B & Soul",
-        "published": "2026-06-15T13:32:10Z"
+        "published": "2026-06-22T10:00:20-07:00"
       }
     ],
     "featuredExperience": {

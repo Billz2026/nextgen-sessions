@@ -5,6 +5,4 @@
 .cloudflare-deploy-trigger
 functions
 README.md
-update-latest-video.yml
-update-stats.yml
 wrangler.jsonc

@@ -6,20 +6,25 @@ Public website for [NextGen Sessions](https://nextgensessions.com/), an independ
 
 - `index.html` — homepage and featured artists
 - `artists/` — full searchable artist roster and profile pages
-- `releases/` — searchable, genre-filtered official release catalogue
+- `releases/` — crawlable release archive plus generated dedicated release pages
 - `submit.html` — artist submission form
-- `functions/api/latest.js` — Cloudflare Pages Function that reads the latest eligible YouTube channel uploads
-- `functions/api/releases.js` — Cloudflare Pages Function that reads the official releases playlist
+- `releases.json` — verified release source of truth generated from curated YouTube playlists
+- `functions/api/latest.js` — Cloudflare Pages Function that selects the newest published item from the verified catalogue
+- `functions/api/releases.js` — Cloudflare Pages Function that serves the verified catalogue
 - `site.js` — shared roster and release rendering
-- `releases.js` — release catalogue parsing, search and filtering
+- `releases.js` — client-side release search and filtering enhancement
+- `scripts/update-catalogue.py` — fetches curated playlist membership plus real YouTube video publication metadata
+- `scripts/render-releases.py` — renders static archive cards, dedicated release pages, artist schema dates and sitemap entries
 - `styles.css` — shared visual system
 - `404.html` — branded not-found response
 
-## Release feed
+## Releases 2.0
 
-The homepage requests `/api/latest`. Full channel uploads are sorted newest first while Shorts, teasers, trailers and promos are excluded. A curated playlist and static list provide fallbacks if YouTube is temporarily unavailable.
+The release catalogue is refreshed hourly by `.github/workflows/update-catalogue.yml`. Curated playlists decide which videos are official releases. The builder then uses the YouTube `videos` endpoint for the canonical title, status and `snippet.publishedAt`, so playlist-added dates never determine release order.
 
-The release archive requests `/api/releases`. It combines the official releases playlist, full channel releases and a curated local list, removes duplicates and presents up to 25 newest-first entries.
+The generated `releases.json` is the single release authority for the archive, artist discographies and homepage Latest Release. Future-dated/scheduled videos are excluded until they are actually published, and promo/teaser titles remain excluded.
+
+Every catalogue item gets a stable `/releases/{artist}-{track}/` page with canonical metadata, structured data, artist links, YouTube embed and related releases. `scripts/render-releases.py` also writes the same releases directly into `/releases/index.html`, so search crawlers and visitors without JavaScript can read the catalogue.
 
 ## Deployment
 

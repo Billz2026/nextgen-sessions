@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "U6lh9buVYHg",
       "title": "Smile Wid Knife",
       "label": "Reeko — Smile Wid Knife",
-      "published": "2026-06-30T10:53:00Z"
+      "published": "2026-07-08T10:00:07-07:00"
     },
     "catalogueAliases": ["Reeko", "Reeko x Keisha"],
     "additionalReleases": [
@@ -25,56 +25,56 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Reeko",
         "title": "Smile Wid Knife",
         "group": "Dancehall & Reggae",
-        "published": "2026-06-30T10:53:00Z"
+        "published": "2026-07-08T10:00:07-07:00"
       },
       {
         "id": "EbmBjdo8jOI",
         "artist": "Reeko",
         "title": "After Di Shots",
         "group": "Dancehall & Reggae",
-        "published": "2026-06-02T13:45:45Z"
+        "published": "2026-06-15T10:00:11-07:00"
       },
       {
         "id": "oc7Cryy5xTM",
         "artist": "Reeko",
         "title": "Nuff Man A Watch",
         "group": "Dancehall & Reggae",
-        "published": "2026-05-03T11:03:12Z"
+        "published": "2026-05-11T10:01:07-07:00"
       },
       {
         "id": "ks4bSmghnDI",
         "artist": "Reeko",
         "title": "Mi Call Di Shots",
         "group": "Dancehall & Reggae",
-        "published": "2026-04-01T07:02:40Z"
+        "published": "2026-04-04T10:00:00-07:00"
       },
       {
         "id": "uB8nYq1co8c",
         "artist": "Reeko",
         "title": "Nuh Love Round Ya",
         "group": "Dancehall & Reggae",
-        "published": "2026-03-29T14:52:49Z"
+        "published": "2026-04-02T10:00:00-07:00"
       },
       {
         "id": "7gXvSVq-T_c",
         "artist": "Reeko",
         "title": "Gully Boss",
         "group": "Dancehall & Reggae",
-        "published": "2026-03-29T12:32:02Z"
+        "published": "2026-04-01T10:00:00-07:00"
       },
       {
         "id": "C6eDlpA08pg",
         "artist": "Reeko",
         "title": "Ready Fi War",
         "group": "Dancehall & Reggae",
-        "published": "2026-03-27T12:59:11Z"
+        "published": "2026-03-31T10:00:00-07:00"
       },
       {
         "id": "wvMNh7u0C4E",
         "artist": "Reeko x Keisha",
         "title": "Ride Wid Mi",
         "group": "Dancehall & Reggae",
-        "published": "2026-03-26T08:50:52Z"
+        "published": "2026-03-30T11:00:43-07:00"
       }
     ],
     "releaseTitleOverrides": {

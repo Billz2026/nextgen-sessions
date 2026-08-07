@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "Dvfg251n0Pk",
       "title": "On Route",
       "label": "Reiss — On Route",
-      "published": "2026-04-26T17:08:28Z"
+      "published": "2026-05-07T10:00:30-07:00"
     },
     "catalogueAliases": ["Reiss"],
     "additionalReleases": [
@@ -25,28 +25,28 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "artist": "Reiss",
         "title": "On Route",
         "group": "UK Rap & Grime",
-        "published": "2026-04-26T17:08:28Z"
+        "published": "2026-05-07T10:00:30-07:00"
       },
       {
         "id": "FvNsYb5g4pg",
         "artist": "Reiss",
         "title": "On A Regular",
         "group": "UK Rap & Grime",
-        "published": "2026-04-26T16:13:21Z"
+        "published": "2026-05-06T10:00:32-07:00"
       },
       {
         "id": "hqMBHn0L_DM",
         "artist": "Reiss",
         "title": "Already Know",
         "group": "UK Rap & Grime",
-        "published": "2026-04-24T12:30:10Z"
+        "published": "2026-05-05T10:00:52-07:00"
       },
       {
         "id": "vsvn0Qkifv0",
         "artist": "Reiss",
         "title": "No Comment",
         "group": "UK Rap & Grime",
-        "published": "2026-04-15T16:06:39Z"
+        "published": "2026-04-20T10:01:15-07:00"
       }
     ],
     "featuredExperience": {

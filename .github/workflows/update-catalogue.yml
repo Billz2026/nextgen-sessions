@@ -10,6 +10,8 @@ on:
       - ".github/workflows/update-catalogue.yml"
       - "scripts/update-catalogue.py"
       - "scripts/render-releases.py"
+      - "scripts/test-latest-policy.mjs"
+      - "scripts/test-catalogue-resilience.py"
 
 permissions:
   contents: write

@@ -48,4 +48,14 @@ assert.throws(
   /Unverified release catalogue source/
 );
 
+const productionWorker = await readFile(new URL("../.worker/index.js", import.meta.url), "utf8");
+for (const marker of [
+  'policy: "full-release-catalogue-only"',
+  'item?.contentType === "full-release"',
+  'payload?.source !== "curated-youtube-playlists"',
+  'new URL("/api/latest?v=r3"',
+]) {
+  assert.ok(productionWorker.includes(marker), `Production Worker is missing: ${marker}`);
+}
+
 console.log("Latest Release accepts verified full releases and rejects Shorts/unverified sources.");

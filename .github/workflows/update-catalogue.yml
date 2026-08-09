@@ -12,6 +12,9 @@ on:
       - "scripts/render-releases.py"
       - "scripts/test-latest-policy.mjs"
       - "scripts/test-catalogue-resilience.py"
+      - "functions/api/latest.js"
+      - ".worker/index.js"
+      - "wrangler.jsonc"
 
 permissions:
   contents: write

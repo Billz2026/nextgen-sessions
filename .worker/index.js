@@ -296,12 +296,14 @@ __name(onRequestGet5, "onRequestGet");
 
 // api/latest.js
 var FALLBACK_RELEASES = [
-  { id: "dV6_GbsHrxI", artist: "Kemarco", title: "Badman Don\u2019t Rush", group: "Dancehall & Reggae", published: "2026-08-05T17:00:07Z", url: "/releases/kemarco-badman-dont-rush/" },
-  { id: "xicnIGw-ei8", artist: "Alia Bleu", title: "Piggyback", group: "R&B & Soul", published: "2026-08-03T17:00:30Z", url: "/releases/alia-bleu-piggyback/" },
-  { id: "Sra1722xEFE", artist: "Renz Cole", title: "Heatwave", group: "UK Rap & Grime", published: "2026-07-31T17:00:33Z", url: "/releases/renz-cole-heatwave/" },
-  { id: "6H6yq_1bEsQ", artist: "Reeko", title: "After Di Party", group: "Dancehall & Reggae", published: "2026-07-29T17:00:35Z", url: "/releases/reeko-after-di-party/" },
-  { id: "ZSjRD_3B5uk", artist: "Deon Creed", title: "Days Like These", group: "R&B & Soul", published: "2026-07-27T17:00:05Z", url: "/releases/deon-creed-days-like-these/" }
+  { id: "dV6_GbsHrxI", contentType: "full-release", artist: "Kemarco", title: "Badman Don\u2019t Rush", group: "Dancehall & Reggae", published: "2026-08-05T17:00:07Z", url: "/releases/kemarco-badman-dont-rush/" },
+  { id: "xicnIGw-ei8", contentType: "full-release", artist: "Alia Bleu", title: "Piggyback", group: "R&B & Soul", published: "2026-08-03T17:00:30Z", url: "/releases/alia-bleu-piggyback/" },
+  { id: "Sra1722xEFE", contentType: "full-release", artist: "Renz Cole", title: "Heatwave", group: "UK Rap & Grime", published: "2026-07-31T17:00:33Z", url: "/releases/renz-cole-heatwave/" },
+  { id: "6H6yq_1bEsQ", contentType: "full-release", artist: "Reeko", title: "After Di Party", group: "Dancehall & Reggae", published: "2026-07-29T17:00:35Z", url: "/releases/reeko-after-di-party/" },
+  { id: "ZSjRD_3B5uk", contentType: "full-release", artist: "Deon Creed", title: "Days Like These", group: "R&B & Soul", published: "2026-07-27T17:00:05Z", url: "/releases/deon-creed-days-like-these/" }
 ];
+var BLOCKED_LATEST_TITLE = /\b(?:shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i;
+var RELEASE_PAGE = /^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/;
 function jsonResponse(payload, cacheControl) {
   return new Response(JSON.stringify(payload), {
     headers: {
@@ -312,10 +314,11 @@ function jsonResponse(payload, cacheControl) {
   });
 }
 __name(jsonResponse, "jsonResponse");
-function validRelease(item) {
-  return /^[A-Za-z0-9_-]{11}$/.test(String(item?.id || "")) && String(item?.artist || "").trim() && String(item?.title || "").trim();
+function validFullRelease(item) {
+  const searchableTitle = `${String(item?.title || "")} ${String(item?.rawTitle || "")}`;
+  return /^[A-Za-z0-9_-]{11}$/.test(String(item?.id || "")) && item?.contentType === "full-release" && String(item?.artist || "").trim() && String(item?.title || "").trim() && RELEASE_PAGE.test(String(item?.url || "")) && !BLOCKED_LATEST_TITLE.test(searchableTitle);
 }
-__name(validRelease, "validRelease");
+__name(validFullRelease, "validFullRelease");
 function publishedTimestamp(item) {
   return Date.parse(item?.published || "") || 0;
 }
@@ -326,18 +329,25 @@ function releasedNow(item) {
 }
 __name(releasedNow, "releasedNow");
 async function fetchCatalogue(context) {
-  const url = new URL("/releases.json?latest=r2", context.request.url);
+  const url = new URL("/releases.json?latest=r3", context.request.url);
   const request = new Request(url.toString(), { headers: { Accept: "application/json" } });
   const response2 = context.env?.ASSETS?.fetch ? await context.env.ASSETS.fetch(request) : await fetch(request);
   if (!response2.ok) throw new Error(`Release catalogue returned ${response2.status}`);
   const payload = await response2.json();
-  const releases = Array.isArray(payload?.releases) ? payload.releases : [];
-  return releases.filter(validRelease).filter(releasedNow).sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
+  return selectFullReleases(payload);
 }
 __name(fetchCatalogue, "fetchCatalogue");
+function selectFullReleases(payload) {
+  if (payload?.source !== "curated-youtube-playlists") {
+    throw new Error("Unverified release catalogue source");
+  }
+  const releases = Array.isArray(payload?.releases) ? payload.releases : [];
+  return releases.filter(validFullRelease).filter(releasedNow).sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
+}
+__name(selectFullReleases, "selectFullReleases");
 async function onRequestGet6(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=r2", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=r3", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   try {
@@ -345,6 +355,7 @@ async function onRequestGet6(context) {
     if (!releases.length) throw new Error("Release catalogue is empty");
     const output = jsonResponse({
       source: "verified-release-catalogue",
+      policy: "full-release-catalogue-only",
       generatedAt: (/* @__PURE__ */ new Date()).toISOString(),
       latest: releases[0],
       releases: releases.slice(0, 8),
@@ -466,8 +477,19 @@ var LEGACY_HOSTS = /* @__PURE__ */ new Set([
   "nextgensessions.pages.dev",
   "www.nextgensessions.com"
 ]);
-var MOBILE_NAV_VERSION = "20260806-nav2";
+var MOBILE_NAV_VERSION = "20260809-nav3";
 var ANDRE_PORTRAIT_VERSION = "20260806-andre3";
+var HEADER_LOGO_SRC = "/assets/nextgen-header-wordmark-2026.webp";
+var HeaderLogoRewriter = class {
+  static {
+    __name(this, "HeaderLogoRewriter");
+  }
+  element(element) {
+    element.setAttribute("src", HEADER_LOGO_SRC);
+    element.setAttribute("width", "1600");
+    element.setAttribute("height", "663");
+  }
+};
 var MobileNavHeadInjector = class {
   static {
     __name(this, "MobileNavHeadInjector");
@@ -505,11 +527,11 @@ async function onRequest(context) {
   const contentType = response2.headers.get("content-type") || "";
   const shouldEnhance = context.request.method === "GET" && contentType.includes("text/html");
   if (!shouldEnhance) return response2;
-  return new HTMLRewriter().on("head", new MobileNavHeadInjector()).on("body", new SharedBodyInjector()).transform(response2);
+  return new HTMLRewriter().on("a.brand img", new HeaderLogoRewriter()).on("head", new MobileNavHeadInjector()).on("body", new SharedBodyInjector()).transform(response2);
 }
 __name(onRequest, "onRequest");
 
-// ../.wrangler/tmp/pages-mB2mp7/functionsRoutes-0.9398717715728057.mjs
+// ../.wrangler/tmp/pages-n2abK7/functionsRoutes-0.05646934119734892.mjs
 var routes = [
   {
     routePath: "/api/andre-portrait",
@@ -583,7 +605,7 @@ var routes = [
   }
 ];
 
-// ../../../../../tmp/ngs-npm-cache/_npx/32026684e21afda6/node_modules/path-to-regexp/dist.es2015/index.js
+// ../../../../../tmp/ngs-wrangler/node_modules/path-to-regexp/dist.es2015/index.js
 function lexer(str) {
   var tokens = [];
   var i = 0;
@@ -909,7 +931,7 @@ function pathToRegexp(path, keys, options) {
 }
 __name(pathToRegexp, "pathToRegexp");
 
-// ../../../../../tmp/ngs-npm-cache/_npx/32026684e21afda6/node_modules/wrangler/templates/pages-template-worker.ts
+// ../../../../../tmp/ngs-wrangler/node_modules/wrangler/templates/pages-template-worker.ts
 var escapeRegex = /[.+?^${}()|[\]\\]/g;
 function* executeRequest(request) {
   const requestPath = new URL(request.url).pathname;

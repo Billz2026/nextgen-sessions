@@ -35,7 +35,13 @@ const currentCatalogue = JSON.parse(
 );
 const currentFullReleases = api.selectFullReleases(currentCatalogue);
 assert.equal(currentFullReleases.length, currentCatalogue.total);
-assert.equal(currentFullReleases[0].id, "dV6_GbsHrxI");
+assert.equal(currentFullReleases[0].contentType, "full-release");
+assert.ok(
+  currentFullReleases.every((release, index) =>
+    index === 0 || Date.parse(currentFullReleases[index - 1].published) >= Date.parse(release.published)
+  ),
+  "Verified full releases must be ordered newest first"
+);
 
 assert.throws(
   () => api.selectFullReleases({ source: "youtube-videos-tab", releases: [fullRelease] }),

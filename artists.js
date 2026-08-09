@@ -251,11 +251,6 @@ window.NGS_ARTISTS = [
       .replaceAll("'", "&#039;");
   }
 
-  function monogram(name) {
-    const words = String(name || "").trim().split(/\s+/).filter(Boolean);
-    return (words.slice(0, 2).map(word => word[0]).join("") || "NG").toUpperCase();
-  }
-
   function destinationFor(artist) {
     return {
       href: `/artists/${artist.slug}/`,
@@ -281,7 +276,7 @@ window.NGS_ARTISTS = [
     const destination = destinationFor(artist);
     const hasImage = Boolean(images[artist.slug]?.src);
     return `
-      <a class="featured-artist-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
+      <a class="featured-artist-card${hasImage ? " has-image" : ""}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
         ${portraitFor(artist, images)}
         <div class="featured-artist-inner">
           <span class="artist-genre">${escapeHtml(artist.genre)}</span>

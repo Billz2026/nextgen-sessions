@@ -105,12 +105,6 @@
       .replaceAll("'", "&#039;");
   }
 
-  function monogram(name) {
-    const words = String(name || "").trim().split(/\s+/).filter(Boolean);
-    if (!words.length) return "NG";
-    return words.slice(0, 2).map(word => word[0]).join("").toUpperCase();
-  }
-
   function artistDestination(artist) {
     return {
       href: `/artists/${artist.slug}/`,
@@ -146,7 +140,7 @@
       ? `<img class="artist-roster-image featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`
       : "";
     return `
-      <a class="artist-roster-card${hasImage ? " has-image" : ""}" data-monogram="${escapeHtml(monogram(artist.name))}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
+      <a class="artist-roster-card${hasImage ? " has-image" : ""}" href="${escapeHtml(destination.href)}"${destination.attributes} aria-label="${escapeHtml(destination.label)}">
         ${portrait}
         <div class="artist-roster-copy">
           <span class="artist-genre">${escapeHtml(artist.genre)}</span>

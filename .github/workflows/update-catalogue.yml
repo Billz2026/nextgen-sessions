@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: release-catalogue
+  group: nextgen-main-writers
   cancel-in-progress: false
 
 jobs:
@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Check out website
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Build catalogue from public playlists
         env:
@@ -60,4 +62,12 @@ jobs:
           git add releases.json releases/ sitemap.xml artists/ artist-profiles.js artist-profiles-expanded.js
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update release catalogue"
-          git push
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+          echo "Could not update main after 3 attempts."
+          exit 1

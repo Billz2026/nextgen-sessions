@@ -5,6 +5,7 @@ on:
   schedule:
     - cron: "35 6 * * *"
   push:
+    branches: [main]
     paths:
       - ".github/workflows/update-albums.yml"
 
@@ -12,8 +13,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-album-catalogue-${{ github.ref }}
-  cancel-in-progress: true
+  group: nextgen-main-writers
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -26,7 +27,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: main
 
       - name: Build album catalogue
         run: |
@@ -155,4 +156,12 @@ jobs:
           git add albums.json
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update album catalogue"
-          git push
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+          echo "Could not update main after 3 attempts."
+          exit 1

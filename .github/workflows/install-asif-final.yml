@@ -2,6 +2,7 @@ name: Install final Asif portrait
 
 on:
   push:
+    branches: [main]
     paths:
       - '.asif-final/**'
       - '.github/workflows/install-asif-final.yml'
@@ -9,11 +10,17 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: nextgen-main-writers
+  cancel-in-progress: false
+
 jobs:
   install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Check all portrait parts exist
         id: ready
@@ -46,4 +53,12 @@ jobs:
             exit 0
           fi
           git commit -m "Install verified Asif Sultaan portrait"
-          git push
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+          echo "Could not update main after 3 attempts."
+          exit 1

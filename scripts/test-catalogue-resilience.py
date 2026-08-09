@@ -70,4 +70,8 @@ assert built["releases"][0]["id"] == "AAAAAAAAAAA"
 assert built["releases"][0]["contentType"] == "full-release"
 assert built["releases"][0]["durationSeconds"] == 200
 
+catalogue_module.video_details = lambda _ids: {}
+empty_built = catalogue_module.build_catalogue({"releases": []})
+assert empty_built["total"] == 0
+
 print("Unavailable playlists retain their verified catalogue entries.")

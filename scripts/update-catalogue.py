@@ -210,13 +210,13 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
                 raise
             items = []
             fallback_candidates = existing_playlist_candidates(existing_catalogue, group)
-            if not fallback_candidates:
-                raise RuntimeError(
-                    f"Playlist {playlist_id} for {group} is unavailable and has no verified fallback"
-                ) from error
             print(
                 f"Warning: playlist {playlist_id} for {group} returned 404; "
-                f"retaining {len(fallback_candidates)} verified catalogue entries.",
+                + (
+                    f"retaining {len(fallback_candidates)} verified catalogue entries."
+                    if fallback_candidates
+                    else "no verified catalogue entries require retention."
+                ),
                 file=sys.stderr,
             )
             for candidate in fallback_candidates:

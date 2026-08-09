@@ -22,4 +22,7 @@
 .playlist-card .mix-card-media{display:block;padding:0;background:#050505}
 .playlist-card .mix-card-media::before{content:none}
 .playlist-card .mix-card-media::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.24),transparent 42%)}
+#mashups .mix-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:980px){#mashups .mix-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){#mashups .mix-grid{grid-template-columns:1fr}}
 .playlist-card .mix-play{z-index:1;width:42px;height:42px;opacity:.92}

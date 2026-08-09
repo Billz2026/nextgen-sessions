@@ -24,6 +24,7 @@
 
   const FALLBACK_LATEST = {
     id: "dV6_GbsHrxI",
+    contentType: "full-release",
     title: "Kemarco – Badman Don’t Rush",
     published: "2026-08-05T17:00:07+00:00",
     url: "/releases/kemarco-badman-dont-rush/"
@@ -31,11 +32,11 @@
 
   const FALLBACK_RELEASES = [
     FALLBACK_LATEST,
-    { id: "Sra1722xEFE", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00", url: "/releases/renz-cole-heatwave/" },
-    { id: "6H6yq_1bEsQ", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00", url: "/releases/reeko-after-di-party/" },
-    { id: "ZSjRD_3B5uk", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00", url: "/releases/deon-creed-days-like-these/" },
-    { id: "TnYNLBDlLx8", title: "Omari V – When Di Breeze Call", published: "2026-07-24T17:00:21Z", url: "/releases/omari-v-when-di-breeze-call/" },
-    { id: "RvRq-zwGfKc", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-22T17:00:39Z", url: "/releases/voss-carter-sunshine-on-the-way-home/" }
+    { id: "Sra1722xEFE", contentType: "full-release", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00", url: "/releases/renz-cole-heatwave/" },
+    { id: "6H6yq_1bEsQ", contentType: "full-release", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00", url: "/releases/reeko-after-di-party/" },
+    { id: "ZSjRD_3B5uk", contentType: "full-release", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00", url: "/releases/deon-creed-days-like-these/" },
+    { id: "TnYNLBDlLx8", contentType: "full-release", title: "Omari V – When Di Breeze Call", published: "2026-07-24T17:00:21Z", url: "/releases/omari-v-when-di-breeze-call/" },
+    { id: "RvRq-zwGfKc", contentType: "full-release", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-22T17:00:39Z", url: "/releases/voss-carter-sunshine-on-the-way-home/" }
   ];
 
   function validVideoId(value) {
@@ -240,7 +241,14 @@
 
   function normaliseHomepageRelease(release) {
     const id = safeVideoId(release?.id);
-    if (!id) return null;
+    const releaseUrl = String(release?.url || "").trim();
+    const searchableTitle = `${String(release?.title || "")} ${String(release?.rawTitle || "")}`;
+    if (
+      !id ||
+      release?.contentType !== "full-release" ||
+      !/^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(releaseUrl) ||
+      /\b(?:shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i.test(searchableTitle)
+    ) return null;
     const artist = String(release?.artist || "").trim();
     const releaseTitle = String(release?.title || "").trim();
     const hasArtistPrefix = artist && releaseTitle.toLowerCase().startsWith(artist.toLowerCase());
@@ -251,7 +259,7 @@
       id,
       title,
       published: String(release?.published || release?.updated || "").trim(),
-      url: String(release?.url || "").trim()
+      url: releaseUrl
     };
   }
 
@@ -313,7 +321,7 @@
   }
 
   if (latestPlayer || releaseGrid) {
-    fetchJson("/api/latest?v=r2")
+    fetchJson("/api/latest?v=r3")
       .then(payload => updateLatest(buildHomepagePayload(payload)))
       .catch(() => updateLatest({
         latest: FALLBACK_LATEST,

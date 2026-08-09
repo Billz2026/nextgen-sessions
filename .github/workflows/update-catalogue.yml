@@ -45,6 +45,9 @@ jobs:
           assert len({item["id"] for item in data["releases"]}) == data["total"]
           assert data["total"] >= 80, f"Unexpectedly small catalogue: {data['total']}"
           assert len({item["url"] for item in data["releases"]}) == data["total"]
+          assert all(item.get("contentType") == "full-release" for item in data["releases"])
+          assert all(item.get("durationSeconds", 0) >= 75 for item in data["releases"])
+          assert data.get("contentPolicy", {}).get("shortsAllowed") is False
           assert all(item.get("published") for item in data["releases"])
           assert any(item["id"] == "ZSjRD_3B5uk" for item in data["releases"]), "Days Like These missing"
           assert any(item["id"] == "6H6yq_1bEsQ" for item in data["releases"]), "After Di Party missing"
@@ -54,6 +57,9 @@ jobs:
           assert archive.count('class="archive-release-card"') >= data["total"]
           print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
           PY
+
+      - name: Test latest-release full-track lock
+        run: node scripts/test-latest-policy.mjs
 
       - name: Publish changed catalogue
         run: |

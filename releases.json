@@ -1,5 +1,10 @@
 {
   "source": "curated-youtube-playlists",
+  "contentPolicy": {
+    "latest": "full-release",
+    "minimumDurationSeconds": 75,
+    "shortsAllowed": false
+  },
   "generatedAt": "2026-08-07T12:23:53.591175Z",
   "total": 85,
   "counts": {
@@ -17,6 +22,7 @@
   "releases": [
     {
       "id": "dV6_GbsHrxI",
+      "contentType": "full-release",
       "artist": "Kemarco",
       "title": "Badman Don’t Rush",
       "group": "Dancehall & Reggae",
@@ -27,6 +33,7 @@
     },
     {
       "id": "xicnIGw-ei8",
+      "contentType": "full-release",
       "artist": "Alia Bleu",
       "title": "Piggyback",
       "group": "R&B & Soul",
@@ -37,6 +44,7 @@
     },
     {
       "id": "Sra1722xEFE",
+      "contentType": "full-release",
       "artist": "Renz Cole",
       "title": "Heatwave",
       "group": "UK Rap & Grime",
@@ -47,6 +55,7 @@
     },
     {
       "id": "6H6yq_1bEsQ",
+      "contentType": "full-release",
       "artist": "Reeko",
       "title": "After Di Party",
       "group": "Dancehall & Reggae",
@@ -57,6 +66,7 @@
     },
     {
       "id": "ZSjRD_3B5uk",
+      "contentType": "full-release",
       "artist": "Deon Creed",
       "title": "Days Like These",
       "group": "R&B & Soul",
@@ -67,6 +77,7 @@
     },
     {
       "id": "TnYNLBDlLx8",
+      "contentType": "full-release",
       "artist": "Omari V",
       "title": "When Di Breeze Call",
       "group": "Lovers Rock",
@@ -77,6 +88,7 @@
     },
     {
       "id": "RvRq-zwGfKc",
+      "contentType": "full-release",
       "artist": "Voss Carter",
       "title": "Sunshine On The Way Home",
       "group": "Hip-Hop / G-Funk",
@@ -87,6 +99,7 @@
     },
     {
       "id": "ZON1AsWLrIE",
+      "contentType": "full-release",
       "artist": "Rudii Marka",
       "title": "Marked Rudeboi",
       "group": "Dancehall & Reggae",
@@ -97,6 +110,7 @@
     },
     {
       "id": "ESEyLheoF9Q",
+      "contentType": "full-release",
       "artist": "Kastro",
       "title": "Urban Reign",
       "group": "Dancehall & Reggae",
@@ -107,6 +121,7 @@
     },
     {
       "id": "7e9xY0b-QMQ",
+      "contentType": "full-release",
       "artist": "Mace K",
       "title": "Somethin’ In The Endz ft. Leon Reid",
       "group": "UK Rap & Grime",
@@ -117,6 +132,7 @@
     },
     {
       "id": "zrnWeU7KRS0",
+      "contentType": "full-release",
       "artist": "Mizzy G",
       "title": "Corner To Crown",
       "group": "UK Rap & Grime",
@@ -127,6 +143,7 @@
     },
     {
       "id": "919KvYLP_OQ",
+      "contentType": "full-release",
       "artist": "Rell Danja",
       "title": "Cross Me, Regret It",
       "group": "Dancehall & Reggae",
@@ -137,6 +154,7 @@
     },
     {
       "id": "U6lh9buVYHg",
+      "contentType": "full-release",
       "artist": "Reeko",
       "title": "Smile Wid Knife",
       "group": "Dancehall & Reggae",
@@ -147,6 +165,7 @@
     },
     {
       "id": "ODkPrTj34cY",
+      "contentType": "full-release",
       "artist": "Manny Virk",
       "title": "Pind Ton Shehar",
       "group": "Asian",
@@ -157,6 +176,7 @@
     },
     {
       "id": "xLFZKSjvzl0",
+      "contentType": "full-release",
       "artist": "Jay Starks",
       "title": "No Shade In Queens",
       "group": "Hip-Hop / G-Funk",
@@ -167,6 +187,7 @@
     },
     {
       "id": "n6OLDR0PUkw",
+      "contentType": "full-release",
       "artist": "Jay Starks",
       "title": "Jamaica Avenue",
       "group": "Hip-Hop / G-Funk",
@@ -177,6 +198,7 @@
     },
     {
       "id": "BujVqCAUh28",
+      "contentType": "full-release",
       "artist": "Karvell Reign",
       "title": "California Gold",
       "group": "Hip-Hop / G-Funk",
@@ -187,6 +209,7 @@
     },
     {
       "id": "o57kRImFP0c",
+      "contentType": "full-release",
       "artist": "Leila Nour",
       "title": "Noor El Oud",
       "group": "Arabic",
@@ -197,6 +220,7 @@
     },
     {
       "id": "kK_M5TobLk0",
+      "contentType": "full-release",
       "artist": "Alia Bleu",
       "title": "Dreams Don’t Chase You",
       "group": "R&B & Soul",
@@ -207,6 +231,7 @@
     },
     {
       "id": "JwFCGCLWw0I",
+      "contentType": "full-release",
       "artist": "Renz Cole",
       "title": "Outside Till Late",
       "group": "UK Rap & Grime",
@@ -217,6 +242,7 @@
     },
     {
       "id": "N5Dc3MkrGEo",
+      "contentType": "full-release",
       "artist": "Tayo Wray",
       "title": "Gold Ain’t Quiet",
       "group": "Late Night Afro",
@@ -227,6 +253,7 @@
     },
     {
       "id": "EbmBjdo8jOI",
+      "contentType": "full-release",
       "artist": "Reeko",
       "title": "After Di Shots",
       "group": "Dancehall & Reggae",
@@ -237,6 +264,7 @@
     },
     {
       "id": "OoY5iutAac4",
+      "contentType": "full-release",
       "artist": "Voss Carter",
       "title": "Came This Far",
       "group": "Hip-Hop / G-Funk",
@@ -247,6 +275,7 @@
     },
     {
       "id": "4mu5NVxUeII",
+      "contentType": "full-release",
       "artist": "Rell Danja",
       "title": "No Sleep Fi Di Wicked",
       "group": "Dancehall & Reggae",
@@ -257,6 +286,7 @@
     },
     {
       "id": "vuW6OZPoApg",
+      "contentType": "full-release",
       "artist": "Deon Creed",
       "title": "Soul of the Southside",
       "group": "Hip-Hop / G-Funk",
@@ -267,6 +297,7 @@
     },
     {
       "id": "4g-SeSyohOw",
+      "contentType": "full-release",
       "artist": "Yung Tafari",
       "title": "Light Through Di Dark",
       "group": "Dancehall & Reggae",
@@ -277,6 +308,7 @@
     },
     {
       "id": "bsaqZDgvb9U",
+      "contentType": "full-release",
       "artist": "Killa K",
       "title": "Full Send",
       "group": "UK Rap & Grime",
@@ -287,6 +319,7 @@
     },
     {
       "id": "s0ZS2HJjw2M",
+      "contentType": "full-release",
       "artist": "Renz Cole",
       "title": "False Nine",
       "group": "UK Rap & Grime",
@@ -297,6 +330,7 @@
     },
     {
       "id": "PI3OXiRlcHU",
+      "contentType": "full-release",
       "artist": "Jay Starks",
       "title": "Architect of Havoc",
       "group": "Hip-Hop / G-Funk",
@@ -307,6 +341,7 @@
     },
     {
       "id": "AMdc_Z9bh30",
+      "contentType": "full-release",
       "artist": "Kemar Ranka",
       "title": "Crown Heavy",
       "group": "Dancehall & Reggae",
@@ -317,6 +352,7 @@
     },
     {
       "id": "ZR6vqKxmngw",
+      "contentType": "full-release",
       "artist": "Kemar Ranka",
       "title": "Top Ranka",
       "group": "Dancehall & Reggae",
@@ -327,6 +363,7 @@
     },
     {
       "id": "3KqBiAq2ctA",
+      "contentType": "full-release",
       "artist": "Omari V",
       "title": "Whispers in the Wind",
       "group": "Lovers Rock",
@@ -337,6 +374,7 @@
     },
     {
       "id": "bB_APAjvIc8",
+      "contentType": "full-release",
       "artist": "Jay Starks",
       "title": "Queens in My Soul",
       "group": "Hip-Hop / G-Funk",
@@ -347,6 +385,7 @@
     },
     {
       "id": "6_JazAd0_n0",
+      "contentType": "full-release",
       "artist": "Yung Tafari",
       "title": "Gully Testament",
       "group": "Dancehall & Reggae",
@@ -357,6 +396,7 @@
     },
     {
       "id": "GThzJQUIl7c",
+      "contentType": "full-release",
       "artist": "Rookz",
       "title": "Name Still Rings",
       "group": "UK Rap & Grime",
@@ -367,6 +407,7 @@
     },
     {
       "id": "3nEDJw-gvGI",
+      "contentType": "full-release",
       "artist": "Asif Sultaan",
       "title": "Nazar",
       "group": "Asian",
@@ -377,6 +418,7 @@
     },
     {
       "id": "4ohHWcjmNYM",
+      "contentType": "full-release",
       "artist": "Javon Ranks",
       "title": "Dem Cyan Move Mi",
       "group": "Dancehall & Reggae",
@@ -387,6 +429,7 @@
     },
     {
       "id": "2B2qbJnWN7c",
+      "contentType": "full-release",
       "artist": "Ragga Blaze",
       "title": "Fire Still A Burn",
       "group": "Dancehall & Reggae",
@@ -397,6 +440,7 @@
     },
     {
       "id": "j647wv0Duf0",
+      "contentType": "full-release",
       "artist": "Omari V",
       "title": "Yuh Gone Already",
       "group": "Lovers Rock",
@@ -407,6 +451,7 @@
     },
     {
       "id": "dzjwPvGRc9I",
+      "contentType": "full-release",
       "artist": "Jahmari Danza",
       "title": "Gyal Affi Wine",
       "group": "Dancehall & Reggae",
@@ -417,6 +462,7 @@
     },
     {
       "id": "PDXfsJv9jKA",
+      "contentType": "full-release",
       "artist": "Jay Starks",
       "title": "It’s A Cold Summer",
       "group": "Hip-Hop / G-Funk",
@@ -427,6 +473,7 @@
     },
     {
       "id": "Jsayjeif8WE",
+      "contentType": "full-release",
       "artist": "Zara Veli",
       "title": "Too Boujee To Beg",
       "group": "R&B & Soul",
@@ -437,6 +484,7 @@
     },
     {
       "id": "lCRLgfdiqRI",
+      "contentType": "full-release",
       "artist": "Andre Kadeem",
       "title": "Don’t Watch That",
       "group": "UK Rap & Grime",
@@ -447,6 +495,7 @@
     },
     {
       "id": "sJQSOw2Sto4",
+      "contentType": "full-release",
       "artist": "Keisha",
       "title": "Mi Know Mi Worth",
       "group": "Dancehall & Reggae",
@@ -457,6 +506,7 @@
     },
     {
       "id": "J6Gkeg1eiIc",
+      "contentType": "full-release",
       "artist": "Rell Danger",
       "title": "Nuh Fi Chat",
       "group": "Dancehall & Reggae",
@@ -467,6 +517,7 @@
     },
     {
       "id": "RG4fABy1bkU",
+      "contentType": "full-release",
       "artist": "Marlo Saint",
       "title": "One Night Only",
       "group": "Late Night Afro",
@@ -477,6 +528,7 @@
     },
     {
       "id": "uxHGB1ZhEoo",
+      "contentType": "full-release",
       "artist": "Karvell Reign",
       "title": "Ain’t The Same",
       "group": "Hip-Hop / G-Funk",
@@ -487,6 +539,7 @@
     },
     {
       "id": "oc7Cryy5xTM",
+      "contentType": "full-release",
       "artist": "Reeko",
       "title": "Nuff Man A Watch",
       "group": "Dancehall & Reggae",
@@ -497,6 +550,7 @@
     },
     {
       "id": "H7FJw00hBt4",
+      "contentType": "full-release",
       "artist": "Darian Gayle",
       "title": "Talk Di Tings",
       "group": "Lovers Rock",
@@ -507,6 +561,7 @@
     },
     {
       "id": "BFzlo4I5smA",
+      "contentType": "full-release",
       "artist": "Yung Tafari",
       "title": "One Man Army",
       "group": "Dancehall & Reggae",
@@ -517,6 +572,7 @@
     },
     {
       "id": "Dvfg251n0Pk",
+      "contentType": "full-release",
       "artist": "Reiss",
       "title": "On Route",
       "group": "UK Rap & Grime",
@@ -527,6 +583,7 @@
     },
     {
       "id": "FvNsYb5g4pg",
+      "contentType": "full-release",
       "artist": "Reiss",
       "title": "On A Regular",
       "group": "UK Rap & Grime",
@@ -537,6 +594,7 @@
     },
     {
       "id": "hqMBHn0L_DM",
+      "contentType": "full-release",
       "artist": "Reiss",
       "title": "Already Know",
       "group": "UK Rap & Grime",
@@ -547,6 +605,7 @@
     },
     {
       "id": "7T37ikylqho",
+      "contentType": "full-release",
       "artist": "Isaac Grey",
       "title": "After the Rain",
       "group": "Lovers Rock",
@@ -557,6 +616,7 @@
     },
     {
       "id": "s4v_aLpMo4Q",
+      "contentType": "full-release",
       "artist": "Nyah Rae",
       "title": "I’m Not Surprised",
       "group": "R&B & Soul",
@@ -567,6 +627,7 @@
     },
     {
       "id": "uSlZrZJompg",
+      "contentType": "full-release",
       "artist": "Zara Veli",
       "title": "Don’t Call Past 2",
       "group": "R&B & Soul",
@@ -577,6 +638,7 @@
     },
     {
       "id": "zNM_65xgiIc",
+      "contentType": "full-release",
       "artist": "Marlo Saint",
       "title": "Play It Right",
       "group": "Late Night Afro",
@@ -587,6 +649,7 @@
     },
     {
       "id": "IsS48ruiXuI",
+      "contentType": "full-release",
       "artist": "Mariana Lo",
       "title": "Don’t Get Too Close",
       "group": "UK Rap & Grime",
@@ -597,6 +660,7 @@
     },
     {
       "id": "i2xhycshXEg",
+      "contentType": "full-release",
       "artist": "Rell Danja",
       "title": "Nuh Friend In The Street (No Friends Left)",
       "group": "Dancehall & Reggae",
@@ -607,6 +671,7 @@
     },
     {
       "id": "fm8t-R8RLHY",
+      "contentType": "full-release",
       "artist": "Omari V",
       "title": "No Fire In Your Eyes",
       "group": "Lovers Rock",
@@ -617,6 +682,7 @@
     },
     {
       "id": "fXF2mQ2A6vw",
+      "contentType": "full-release",
       "artist": "Rafe",
       "title": "On Blast",
       "group": "UK Rap & Grime",
@@ -627,6 +693,7 @@
     },
     {
       "id": "-3EnE4VgAzA",
+      "contentType": "full-release",
       "artist": "Isaac Grey",
       "title": "Street Whispers",
       "group": "Lovers Rock",
@@ -637,6 +704,7 @@
     },
     {
       "id": "rhsufV3JeKQ",
+      "contentType": "full-release",
       "artist": "Ragga Blaze",
       "title": "Fire Don",
       "group": "Dancehall & Reggae",
@@ -647,6 +715,7 @@
     },
     {
       "id": "7EXt64hyMfA",
+      "contentType": "full-release",
       "artist": "Asif Sultaan",
       "title": "WAZAN",
       "group": "Asian",
@@ -657,6 +726,7 @@
     },
     {
       "id": "OMlS1Rmd2Uc",
+      "contentType": "full-release",
       "artist": "Keisha",
       "title": "Hold Mi Down",
       "group": "Dancehall & Reggae",
@@ -667,6 +737,7 @@
     },
     {
       "id": "OSPS78aPkS0",
+      "contentType": "full-release",
       "artist": "Karvell Reign",
       "title": "Still Walk Alone",
       "group": "Hip-Hop / G-Funk",
@@ -677,6 +748,7 @@
     },
     {
       "id": "vsvn0Qkifv0",
+      "contentType": "full-release",
       "artist": "Reiss",
       "title": "No Comment",
       "group": "UK Rap & Grime",
@@ -687,6 +759,7 @@
     },
     {
       "id": "tmeLFCqItcM",
+      "contentType": "full-release",
       "artist": "Javon Ranks",
       "title": "Still Hold Firm",
       "group": "Dancehall & Reggae",
@@ -697,6 +770,7 @@
     },
     {
       "id": "bLbzbDbzLk8",
+      "contentType": "full-release",
       "artist": "Alonzo Ray",
       "title": "All In My Name",
       "group": "Hip-Hop / G-Funk",
@@ -707,6 +781,7 @@
     },
     {
       "id": "GlobzSyoDe0",
+      "contentType": "full-release",
       "artist": "Alonzo Ray",
       "title": "Pasadena",
       "group": "Hip-Hop / G-Funk",
@@ -717,6 +792,7 @@
     },
     {
       "id": "5mhMjzPHZ_Q",
+      "contentType": "full-release",
       "artist": "Alonzo Ray",
       "title": "What It Took",
       "group": "Hip-Hop / G-Funk",
@@ -727,6 +803,7 @@
     },
     {
       "id": "fLfjnUKfjxU",
+      "contentType": "full-release",
       "artist": "Alonzo Ray",
       "title": "Seasoned",
       "group": "Hip-Hop / G-Funk",
@@ -737,6 +814,7 @@
     },
     {
       "id": "YovBcIeWV98",
+      "contentType": "full-release",
       "artist": "Nyah Rae",
       "title": "You Can’t Afford Me",
       "group": "R&B & Soul",
@@ -747,6 +825,7 @@
     },
     {
       "id": "XUXUyj5uHkM",
+      "contentType": "full-release",
       "artist": "Renz Cole",
       "title": "They Know Now",
       "group": "UK Rap & Grime",
@@ -757,6 +836,7 @@
     },
     {
       "id": "02d0BdKLyBA",
+      "contentType": "full-release",
       "artist": "Renz Cole",
       "title": "Catch My Wave",
       "group": "UK Rap & Grime",
@@ -767,6 +847,7 @@
     },
     {
       "id": "4TFIW-WTuww",
+      "contentType": "full-release",
       "artist": "Renz Cole",
       "title": "No Assist Ting",
       "group": "UK Rap & Grime",
@@ -777,6 +858,7 @@
     },
     {
       "id": "ms-IKCbxjlY",
+      "contentType": "full-release",
       "artist": "Renz Cole",
       "title": "Playmaker",
       "group": "UK Rap & Grime",
@@ -787,6 +869,7 @@
     },
     {
       "id": "KskYFpBEudA",
+      "contentType": "full-release",
       "artist": "Nyah Rae",
       "title": "No Reply",
       "group": "R&B & Soul",
@@ -797,6 +880,7 @@
     },
     {
       "id": "ks4bSmghnDI",
+      "contentType": "full-release",
       "artist": "Reeko",
       "title": "Mi Call Di Shots",
       "group": "Dancehall & Reggae",
@@ -807,6 +891,7 @@
     },
     {
       "id": "uB8nYq1co8c",
+      "contentType": "full-release",
       "artist": "Reeko",
       "title": "Nuh Love Round Ya",
       "group": "Dancehall & Reggae",
@@ -817,6 +902,7 @@
     },
     {
       "id": "7gXvSVq-T_c",
+      "contentType": "full-release",
       "artist": "Reeko",
       "title": "Gully Boss From Mi Call Di Shots Album",
       "group": "Dancehall & Reggae",
@@ -827,6 +913,7 @@
     },
     {
       "id": "C6eDlpA08pg",
+      "contentType": "full-release",
       "artist": "Reeko",
       "title": "Ready Fi War From Mi Call Di Shots Album",
       "group": "Dancehall & Reggae",
@@ -837,6 +924,7 @@
     },
     {
       "id": "wvMNh7u0C4E",
+      "contentType": "full-release",
       "artist": "Reeko x Keisha",
       "title": "Ride Wid Mi",
       "group": "Dancehall & Reggae",
@@ -847,6 +935,7 @@
     },
     {
       "id": "fJhjx56Ars4",
+      "contentType": "full-release",
       "artist": "Voss Carter",
       "title": "Undisputed",
       "group": "Hip-Hop / G-Funk",
@@ -857,6 +946,7 @@
     },
     {
       "id": "Tr4JQQdaSlY",
+      "contentType": "full-release",
       "artist": "Voss Carter",
       "title": "Levels Above",
       "group": "Hip-Hop / G-Funk",

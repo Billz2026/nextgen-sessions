@@ -25,6 +25,9 @@ PLAYLISTS = [
     ("PL7VCdVWElIJF7tTj0IPyNXsy7KejDrnjk", "Arabic"),
 ]
 
+FULL_RELEASE_CONTENT_TYPE = "full-release"
+MINIMUM_FULL_RELEASE_SECONDS = 75
+
 # Verified full releases that are not currently present in a genre playlist.
 # Only the identity/group are pinned here; title/status/publication time are
 # still refreshed from the YouTube videos endpoint on every catalogue build.
@@ -232,7 +235,7 @@ def build_catalogue() -> dict:
             not raw_title
             or EXCLUDED.search(raw_title)
             or not is_published(published)
-            or duration < 75
+            or duration < MINIMUM_FULL_RELEASE_SECONDS
         ):
             continue
 
@@ -245,10 +248,12 @@ def build_catalogue() -> dict:
         releases.append(
             {
                 "id": video_id,
+                "contentType": FULL_RELEASE_CONTENT_TYPE,
                 "artist": artist,
                 "title": title,
                 "group": candidate["group"],
                 "published": published,
+                "durationSeconds": duration,
                 "rawTitle": raw_title,
             }
         )
@@ -259,6 +264,11 @@ def build_catalogue() -> dict:
         catalogue_counts[release["group"]] = catalogue_counts.get(release["group"], 0) + 1
     return {
         "source": "curated-youtube-playlists",
+        "contentPolicy": {
+            "latest": FULL_RELEASE_CONTENT_TYPE,
+            "minimumDurationSeconds": MINIMUM_FULL_RELEASE_SECONDS,
+            "shortsAllowed": False,
+        },
         "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "total": len(releases),
         "counts": catalogue_counts,

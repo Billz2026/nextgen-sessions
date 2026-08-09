@@ -4,8 +4,17 @@ const LEGACY_HOSTS = new Set([
   "www.nextgensessions.com"
 ]);
 
-const MOBILE_NAV_VERSION = "20260806-nav2";
+const MOBILE_NAV_VERSION = "20260809-nav3";
 const ANDRE_PORTRAIT_VERSION = "20260806-andre3";
+const HEADER_LOGO_SRC = "/assets/nextgen-header-wordmark-2026.webp";
+
+class HeaderLogoRewriter {
+  element(element) {
+    element.setAttribute("src", HEADER_LOGO_SRC);
+    element.setAttribute("width", "1600");
+    element.setAttribute("height", "663");
+  }
+}
 
 class MobileNavHeadInjector {
   element(element) {
@@ -47,6 +56,7 @@ export async function onRequest(context) {
   if (!shouldEnhance) return response;
 
   return new HTMLRewriter()
+    .on("a.brand img", new HeaderLogoRewriter())
     .on("head", new MobileNavHeadInjector())
     .on("body", new SharedBodyInjector())
     .transform(response);

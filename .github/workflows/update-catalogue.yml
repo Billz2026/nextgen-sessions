@@ -61,6 +61,9 @@ jobs:
       - name: Test latest-release full-track lock
         run: node scripts/test-latest-policy.mjs
 
+      - name: Test unavailable-playlist fallback
+        run: python3 scripts/test-catalogue-resilience.py
+
       - name: Publish changed catalogue
         run: |
           git config user.name "github-actions"

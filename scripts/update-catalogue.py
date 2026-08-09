@@ -8,6 +8,7 @@ import os
 import re
 import sys
 import urllib.parse
+import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -181,12 +182,49 @@ def clean_title(value: str) -> str:
     ).strip()
 
 
-def build_catalogue() -> dict:
+def existing_playlist_candidates(existing_catalogue: dict, group: str) -> list[dict]:
+    releases = existing_catalogue.get("releases", []) if isinstance(existing_catalogue, dict) else []
+    return [
+        {
+            "id": release.get("id", ""),
+            "group": group,
+            "rawTitle": release.get("rawTitle", ""),
+            "artist": release.get("artist", ""),
+            "title": release.get("title", ""),
+        }
+        for release in releases
+        if release.get("group") == group and re.fullmatch(r"[\w-]{11}", release.get("id", ""))
+    ]
+
+
+def build_catalogue(existing_catalogue: dict | None = None) -> dict:
     candidates: list[dict] = []
     seen: set[str] = set()
+    existing_catalogue = existing_catalogue or {}
 
     for playlist_id, group in PLAYLISTS:
-        for item in playlist_items(playlist_id):
+        try:
+            items = playlist_items(playlist_id)
+        except urllib.error.HTTPError as error:
+            if error.code != 404:
+                raise
+            items = []
+            fallback_candidates = existing_playlist_candidates(existing_catalogue, group)
+            if not fallback_candidates:
+                raise RuntimeError(
+                    f"Playlist {playlist_id} for {group} is unavailable and has no verified fallback"
+                ) from error
+            print(
+                f"Warning: playlist {playlist_id} for {group} returned 404; "
+                f"retaining {len(fallback_candidates)} verified catalogue entries.",
+                file=sys.stderr,
+            )
+            for candidate in fallback_candidates:
+                if candidate["id"] not in seen:
+                    candidates.append(candidate)
+                    seen.add(candidate["id"])
+
+        for item in items:
             snippet = item.get("snippet", {})
             video_id = item.get("contentDetails", {}).get("videoId", "")
             raw_title = snippet.get("title", "").strip()
@@ -281,7 +319,14 @@ def main() -> None:
     if not os.environ.get("YT_KEY"):
         raise SystemExit("YT_KEY is required")
     output = Path(sys.argv[1] if len(sys.argv) > 1 else "releases.json")
-    output.write_text(json.dumps(build_catalogue(), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    try:
+        existing_catalogue = json.loads(output.read_text(encoding="utf-8")) if output.exists() else {}
+    except (OSError, json.JSONDecodeError):
+        existing_catalogue = {}
+    output.write_text(
+        json.dumps(build_catalogue(existing_catalogue), ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 if __name__ == "__main__":

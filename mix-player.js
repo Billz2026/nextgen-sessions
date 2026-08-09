@@ -63,6 +63,63 @@
     return frame;
   }
 
+  function collectionItems(payload, sourceType, group) {
+    if (sourceType === "albums") {
+      return (Array.isArray(payload.albums) ? payload.albums : []).map((item) => ({
+        kind: "video",
+        id: String(item.id || "").trim(),
+        title: `${String(item.artist || "NextGen Sessions").trim()} — ${String(item.albumTitle || item.rawTitle || "Full Album").trim()}`,
+        label: String(item.artist || "Full album").trim(),
+        name: String(item.albumTitle || item.rawTitle || "Full Album").trim(),
+        poster: String(item.thumbnail || "").trim(),
+      }));
+    }
+
+    return (Array.isArray(payload.releases) ? payload.releases : [])
+      .filter((item) => String(item.group || "").trim() === group)
+      .map((item) => ({
+        kind: "video",
+        id: String(item.id || "").trim(),
+        title: `${String(item.artist || "NextGen Sessions").trim()} — ${String(item.title || "Release").trim()}`,
+        label: String(item.artist || "NextGen Sessions").trim(),
+        name: String(item.title || "Release").trim(),
+        poster: `https://i.ytimg.com/vi/${String(item.id || "").trim()}/hqdefault.jpg`,
+      }));
+  }
+
+  function buildOption(item, actionLabel, active) {
+    const option = document.createElement("button");
+    option.className = `mix-option${active ? " is-active" : ""}`;
+    option.type = "button";
+    option.dataset.mixOption = "";
+    option.dataset.kind = item.kind;
+    option.dataset.id = item.id;
+    option.dataset.title = item.title;
+    option.dataset.poster = item.poster;
+    option.setAttribute("aria-pressed", String(active));
+
+    const image = document.createElement("img");
+    image.src = item.poster;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    const copy = document.createElement("span");
+    copy.className = "mix-option-copy";
+    const label = document.createElement("span");
+    label.className = "mix-option-number";
+    label.textContent = item.label;
+    const name = document.createElement("strong");
+    name.textContent = item.name;
+    const status = document.createElement("span");
+    status.className = "mix-option-status";
+    status.dataset.optionStatus = "";
+    status.textContent = active ? "Selected" : actionLabel;
+    copy.append(label, name, status);
+    option.append(image, copy);
+    return option;
+  }
+
   document.querySelectorAll("[data-mix-player]").forEach((player) => {
     const originalPoster = player.querySelector("[data-mix-play] img");
     const state = {
@@ -73,6 +130,43 @@
     };
 
     if (!isValid(state.kind, state.id) || !state.poster) return;
+
+    let experience = player.closest("[data-mix-collection], .mix-player-experience");
+    if (!experience) {
+      experience = document.createElement("div");
+      experience.className = "mix-player-experience";
+      experience.dataset.mixCollection = "";
+      experience.dataset.actionLabel = "Play mix";
+
+      const selector = document.createElement("div");
+      selector.className = "mix-selector";
+      const heading = document.createElement("div");
+      heading.className = "mix-selector-heading";
+      const eyebrow = document.createElement("p");
+      eyebrow.className = "eyebrow";
+      eyebrow.textContent = "All instalments";
+      const selectorTitle = document.createElement("h3");
+      selectorTitle.textContent = "Choose your mix";
+      heading.append(eyebrow, selectorTitle);
+
+      const grid = document.createElement("div");
+      grid.className = "mix-option-grid";
+      grid.dataset.mixOptions = "";
+      grid.append(
+        buildOption(
+          { ...state, label: "Full-length mix", name: state.title },
+          "Play mix",
+          true,
+        ),
+      );
+      selector.append(heading, grid);
+      player.before(experience);
+      experience.append(player, selector);
+    }
+
+    const optionsRoot = experience.querySelector("[data-mix-options]") || document;
+    const actionLabel = String(experience.dataset.actionLabel || "Play mix").trim();
+    let hasInteracted = false;
 
     const shell = document.createElement("div");
     shell.className = "mix-player-shell";
@@ -109,8 +203,9 @@
 
     function loadCurrent() {
       if (!isValid(state.kind, state.id)) return;
+      hasInteracted = true;
       syncToolbar("Now playing");
-      document.querySelectorAll("[data-mix-option]").forEach((item) => {
+      optionsRoot.querySelectorAll("[data-mix-option]").forEach((item) => {
         const status = item.querySelector("[data-option-status]");
         if (status && item.classList.contains("is-active")) {
           status.textContent = "Now playing";
@@ -131,12 +226,12 @@
       if (!isValid(next.kind, next.id) || !next.title || !next.poster) return;
 
       Object.assign(state, next);
-      document.querySelectorAll("[data-mix-option]").forEach((item) => {
+      optionsRoot.querySelectorAll("[data-mix-option]").forEach((item) => {
         const active = item === option;
         item.classList.toggle("is-active", active);
         item.setAttribute("aria-pressed", String(active));
         const status = item.querySelector("[data-option-status]");
-        if (status) status.textContent = active ? "Selected" : "Play mix";
+        if (status) status.textContent = active ? "Selected" : actionLabel;
       });
       buildPoster(player, state.title, state.poster);
       loadCurrent();
@@ -146,10 +241,50 @@
       if (event.target.closest("[data-mix-play]")) loadCurrent();
     });
 
-    document.querySelectorAll("[data-mix-option]").forEach((option) => {
-      option.addEventListener("click", () => selectOption(option));
+    optionsRoot.addEventListener("click", (event) => {
+      const option = event.target.closest("[data-mix-option]");
+      if (option && optionsRoot.contains(option)) selectOption(option);
     });
 
     syncToolbar("Ready to play");
+
+    async function hydrateCollection() {
+      const source = String(experience?.dataset.source || "").trim();
+      const sourceType = String(experience?.dataset.sourceType || "").trim();
+      const group = String(experience?.dataset.group || "").trim();
+      if (!experience || !source || !sourceType || !optionsRoot.matches("[data-mix-options]")) return;
+
+      try {
+        const response = await fetch(source, { cache: "no-cache" });
+        if (!response.ok) return;
+        const items = collectionItems(await response.json(), sourceType, group).filter(
+          (item) => isValid(item.kind, item.id) && item.title && item.label && item.name && item.poster,
+        );
+        if (!items.length) return;
+
+        const selectedId = hasInteracted ? state.id : items[0].id;
+        const selected = items.find((item) => item.id === selectedId) || items[0];
+        optionsRoot.replaceChildren(
+          ...items.map((item) => buildOption(item, actionLabel, item.id === selected.id)),
+        );
+
+        const count = document.querySelector("[data-collection-count]");
+        if (count) {
+          const singular = String(experience.dataset.singular || "item").trim();
+          const plural = String(experience.dataset.plural || `${singular}s`).trim();
+          count.textContent = `${items.length} ${items.length === 1 ? singular : plural}`;
+        }
+
+        if (!hasInteracted) {
+          Object.assign(state, selected);
+          buildPoster(player, state.title, state.poster);
+          syncToolbar("Ready to play");
+        }
+      } catch (_error) {
+        // Keep the server-rendered choices usable if catalogue loading fails.
+      }
+    }
+
+    hydrateCollection();
   });
 })();

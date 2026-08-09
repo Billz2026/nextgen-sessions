@@ -9,6 +9,7 @@
 .mix-youtube-link:hover,.mix-youtube-link:focus-visible{border-color:var(--gold);color:var(--gold2);transform:translateY(-1px)}
 .mix-player-experience{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.75fr);gap:20px;align-items:start}
 .mix-selector{padding:18px;border:1px solid var(--white-line);border-radius:22px;background:rgba(255,255,255,.025)}
+.mix-selector.is-scrollable .mix-option-grid{max-height:590px;overflow:auto;padding-right:5px;scrollbar-color:rgba(243,199,79,.55) rgba(255,255,255,.05);scrollbar-width:thin}
 .mix-selector-heading{margin-bottom:14px}
 .mix-selector-heading .eyebrow{margin-bottom:5px}
 .mix-selector-heading h3{margin:0;font-size:1.28rem;text-transform:uppercase}
@@ -19,8 +20,8 @@
 .mix-option img{display:block;width:112px;aspect-ratio:16/9;object-fit:cover;border-radius:10px;background:#050505}
 .mix-option-copy{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
 .mix-option-number{color:var(--gold);font-size:.68rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
-.mix-option strong{margin:2px 0 5px;font-size:.9rem;line-height:1.2}
+.mix-option strong{margin:2px 0 5px;font-size:.9rem;line-height:1.2;overflow-wrap:anywhere}
 .mix-option-status{color:var(--muted);font-size:.7rem;font-weight:800}
 .mix-option.is-active .mix-option-status{color:var(--gold2)}
 @media(max-width:980px){.mix-player-experience{grid-template-columns:1fr}.mix-option-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.mix-option{grid-template-columns:1fr}.mix-option img{width:100%}}
-@media(max-width:640px){.mix-now-playing{align-items:flex-start;flex-direction:column}.mix-youtube-link{width:100%}.mix-option-grid{grid-template-columns:1fr}.mix-option{grid-template-columns:118px minmax(0,1fr)}.mix-option img{width:118px}.mix-selector{padding:14px}.mix-player-shell{border-radius:18px}}
+@media(max-width:640px){.mix-now-playing{align-items:flex-start;flex-direction:column}.mix-youtube-link{width:100%}.mix-option-grid{grid-template-columns:1fr}.mix-selector.is-scrollable .mix-option-grid{max-height:none;overflow:visible;padding-right:0}.mix-option{grid-template-columns:118px minmax(0,1fr)}.mix-option img{width:118px}.mix-selector{padding:14px}.mix-player-shell{border-radius:18px}}

@@ -65,7 +65,7 @@
         </div>
         <div class="mix-detail-copy">
           <p class="eyebrow">NextGen Sessions listening page</p>
-          <span class="mix-type">Curated collection</span>
+          <span class="mix-type" data-collection-count>3 songs</span>
           <h1>Asian Collection</h1>
           <p class="mix-description">
             A cross-cultural selection from the wider NextGen catalogue,
@@ -80,31 +80,34 @@
       <section class="mix-player-section" id="listen">
         <div class="section-heading">
           <p class="eyebrow">Play inside NextGen Sessions</p>
-          <h2>Press play and stay in the session.</h2>
-          <p>The playlist loads here only when you press play.</p>
+          <h2>Choose your song.</h2>
+          <p>Pick the exact artist and track you want to hear. New Asian releases will join this list automatically.</p>
         </div>
-        <div
-          class="mix-player-frame"
-          data-mix-player
-          data-kind="playlist"
-          data-id="PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS"
-          data-title="Asian Collection"
-        >
-          <button
-            class="video-poster"
-            data-mix-play
-            type="button"
-            aria-label="Play Asian Collection"
+        <div class="mix-player-experience" data-mix-collection data-source="/releases.json" data-source-type="releases" data-group="Asian" data-action-label="Play song" data-singular="song" data-plural="songs">
+          <div
+            class="mix-player-frame"
+            data-mix-player
+            data-kind="video"
+            data-id="ODkPrTj34cY"
+            data-title="Manny Virk — Pind Ton Shehar"
+            data-poster="https://i.ytimg.com/vi/ODkPrTj34cY/hqdefault.jpg"
           >
-            <img src="/assets/mixes/asian-collection-2026.webp" alt="" /><span
-              class="video-poster-overlay"
-              aria-hidden="true"
-              ><span class="video-play-icon"></span
-              ><span class="video-play-copy"
-                >Play on NextGen Sessions</span
-              ></span
-            >
-          </button>
+            <button class="video-poster" data-mix-play type="button" aria-label="Play Manny Virk — Pind Ton Shehar">
+              <img src="https://i.ytimg.com/vi/ODkPrTj34cY/hqdefault.jpg" alt="" />
+              <span class="video-poster-overlay" aria-hidden="true"><span class="video-play-icon"></span><span class="video-play-copy">Play on NextGen Sessions</span></span>
+            </button>
+          </div>
+          <div class="mix-selector" aria-labelledby="choose-asian-song-title">
+            <div class="mix-selector-heading">
+              <p class="eyebrow">All songs</p>
+              <h3 id="choose-asian-song-title">Choose your song</h3>
+            </div>
+            <div class="mix-option-grid" data-mix-options>
+              <button class="mix-option is-active" type="button" data-mix-option data-kind="video" data-id="ODkPrTj34cY" data-title="Manny Virk — Pind Ton Shehar" data-poster="https://i.ytimg.com/vi/ODkPrTj34cY/hqdefault.jpg" aria-pressed="true"><img src="https://i.ytimg.com/vi/ODkPrTj34cY/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Manny Virk</span><strong>Pind Ton Shehar</strong><span class="mix-option-status" data-option-status>Selected</span></span></button>
+              <button class="mix-option" type="button" data-mix-option data-kind="video" data-id="3nEDJw-gvGI" data-title="Asif Sultaan — Nazar" data-poster="https://i.ytimg.com/vi/3nEDJw-gvGI/hqdefault.jpg" aria-pressed="false"><img src="https://i.ytimg.com/vi/3nEDJw-gvGI/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Asif Sultaan</span><strong>Nazar</strong><span class="mix-option-status" data-option-status>Play song</span></span></button>
+              <button class="mix-option" type="button" data-mix-option data-kind="video" data-id="7EXt64hyMfA" data-title="Asif Sultaan — WAZAN" data-poster="https://i.ytimg.com/vi/7EXt64hyMfA/hqdefault.jpg" aria-pressed="false"><img src="https://i.ytimg.com/vi/7EXt64hyMfA/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Asif Sultaan</span><strong>WAZAN</strong><span class="mix-option-status" data-option-status>Play song</span></span></button>
+            </div>
+          </div>
         </div>
         <p class="mix-listen-note">
           Playback uses YouTube's privacy-enhanced embedded player, while you
@@ -121,6 +124,6 @@
         </div>
       </div>
     </footer>
-    <script src="/mix-player.js?v=20260809-mix2" defer></script>
+    <script src="/mix-player.js?v=20260809-mix3" defer></script>
   </body>
 </html>

@@ -65,7 +65,7 @@
         </div>
         <div class="mix-detail-copy">
           <p class="eyebrow">NextGen Sessions listening page</p>
-          <span class="mix-type">Album collection</span>
+          <span class="mix-type" data-collection-count>7 full albums</span>
           <h1>NextGen Sessions Full Albums</h1>
           <p class="mix-description">
             Complete artist projects collected for front-to-back listening
@@ -80,31 +80,38 @@
       <section class="mix-player-section" id="listen">
         <div class="section-heading">
           <p class="eyebrow">Play inside NextGen Sessions</p>
-          <h2>Press play and stay in the session.</h2>
-          <p>The album playlist loads here only when you press play.</p>
+          <h2>Choose your album.</h2>
+          <p>See every project before you press play, then listen from the beginning without leaving the website.</p>
         </div>
-        <div
-          class="mix-player-frame"
-          data-mix-player
-          data-kind="playlist"
-          data-id="PL7VCdVWElIJG6xBdzB-142fxazeXgB5XR"
-          data-title="NextGen Sessions Full Albums"
-        >
-          <button
-            class="video-poster"
-            data-mix-play
-            type="button"
-            aria-label="Play NextGen Sessions Full Albums"
+        <div class="mix-player-experience" data-mix-collection data-source="/albums.json" data-source-type="albums" data-action-label="Play album" data-singular="full album" data-plural="full albums">
+          <div
+            class="mix-player-frame"
+            data-mix-player
+            data-kind="video"
+            data-id="Xj806cr_eS4"
+            data-title="Jay Starks — Queens in My Soul"
+            data-poster="https://i.ytimg.com/vi/Xj806cr_eS4/maxresdefault.jpg"
           >
-            <img src="/assets/mixes/full-albums-2026.webp" alt="" /><span
-              class="video-poster-overlay"
-              aria-hidden="true"
-              ><span class="video-play-icon"></span
-              ><span class="video-play-copy"
-                >Play on NextGen Sessions</span
-              ></span
-            >
-          </button>
+            <button class="video-poster" data-mix-play type="button" aria-label="Play Jay Starks — Queens in My Soul">
+              <img src="https://i.ytimg.com/vi/Xj806cr_eS4/maxresdefault.jpg" alt="" />
+              <span class="video-poster-overlay" aria-hidden="true"><span class="video-play-icon"></span><span class="video-play-copy">Play on NextGen Sessions</span></span>
+            </button>
+          </div>
+          <div class="mix-selector is-scrollable" aria-labelledby="choose-album-title">
+            <div class="mix-selector-heading">
+              <p class="eyebrow">All full projects</p>
+              <h3 id="choose-album-title">Choose your album</h3>
+            </div>
+            <div class="mix-option-grid" data-mix-options>
+              <button class="mix-option is-active" type="button" data-mix-option data-kind="video" data-id="Xj806cr_eS4" data-title="Jay Starks — Queens in My Soul" data-poster="https://i.ytimg.com/vi/Xj806cr_eS4/maxresdefault.jpg" aria-pressed="true"><img src="https://i.ytimg.com/vi/Xj806cr_eS4/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Jay Starks</span><strong>Queens in My Soul</strong><span class="mix-option-status" data-option-status>Selected</span></span></button>
+              <button class="mix-option" type="button" data-mix-option data-kind="video" data-id="RBtL3sJQTTw" data-title="Kemar Ranka — Top Ranka" data-poster="https://i.ytimg.com/vi/RBtL3sJQTTw/maxresdefault.jpg" aria-pressed="false"><img src="https://i.ytimg.com/vi/RBtL3sJQTTw/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Kemar Ranka</span><strong>Top Ranka</strong><span class="mix-option-status" data-option-status>Play album</span></span></button>
+              <button class="mix-option" type="button" data-mix-option data-kind="video" data-id="ULjYMdDHySM" data-title="Reiss — Nothing Given" data-poster="https://i.ytimg.com/vi/ULjYMdDHySM/maxresdefault.jpg" aria-pressed="false"><img src="https://i.ytimg.com/vi/ULjYMdDHySM/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Reiss</span><strong>Nothing Given</strong><span class="mix-option-status" data-option-status>Play album</span></span></button>
+              <button class="mix-option" type="button" data-mix-option data-kind="video" data-id="PZtq68Vo7OU" data-title="Alonzo Ray — Seasoned" data-poster="https://i.ytimg.com/vi/PZtq68Vo7OU/maxresdefault.jpg" aria-pressed="false"><img src="https://i.ytimg.com/vi/PZtq68Vo7OU/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Alonzo Ray</span><strong>Seasoned</strong><span class="mix-option-status" data-option-status>Play album</span></span></button>
+              <button class="mix-option" type="button" data-mix-option data-kind="video" data-id="yU4fK6aSqEg" data-title="Renz Cole — Playmaker" data-poster="https://i.ytimg.com/vi/yU4fK6aSqEg/maxresdefault.jpg" aria-pressed="false"><img src="https://i.ytimg.com/vi/yU4fK6aSqEg/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Renz Cole</span><strong>Playmaker</strong><span class="mix-option-status" data-option-status>Play album</span></span></button>
+              <button class="mix-option" type="button" data-mix-option data-kind="video" data-id="VwLzUxVabSQ" data-title="Reeko — Mi Call Di Shots" data-poster="https://i.ytimg.com/vi/VwLzUxVabSQ/maxresdefault.jpg" aria-pressed="false"><img src="https://i.ytimg.com/vi/VwLzUxVabSQ/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Reeko</span><strong>Mi Call Di Shots</strong><span class="mix-option-status" data-option-status>Play album</span></span></button>
+              <button class="mix-option" type="button" data-mix-option data-kind="video" data-id="tlv_IqPiV1Y" data-title="Voss Carter — Heavyweight" data-poster="https://i.ytimg.com/vi/tlv_IqPiV1Y/maxresdefault.jpg" aria-pressed="false"><img src="https://i.ytimg.com/vi/tlv_IqPiV1Y/hqdefault.jpg" alt="" loading="lazy"><span class="mix-option-copy"><span class="mix-option-number">Voss Carter</span><strong>Heavyweight</strong><span class="mix-option-status" data-option-status>Play album</span></span></button>
+            </div>
+          </div>
         </div>
         <p class="mix-listen-note">
           Playback uses YouTube's privacy-enhanced embedded player, while you
@@ -121,6 +128,6 @@
         </div>
       </div>
     </footer>
-    <script src="/mix-player.js?v=20260809-mix2" defer></script>
+    <script src="/mix-player.js?v=20260809-mix3" defer></script>
   </body>
 </html>

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Submit Your Music | NextGen Sessions</title>
-  <meta name="description" content="Submit one original track to NextGen Sessions for consideration across our independent music platform.">
+  <title>Submit Music by DM | NextGen Sessions</title>
+  <meta name="description" content="Send one finished track to NextGen Sessions by Instagram DM for consideration.">
   <link rel="canonical" href="https://nextgensessions.com/submit">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Submit Your Music | NextGen Sessions">
-  <meta property="og:description" content="Send one strong track, a private listening link and a concise artist introduction.">
+  <meta property="og:title" content="Submit Music by DM | NextGen Sessions">
+  <meta property="og:description" content="Send one finished track and a short artist introduction by Instagram DM.">
   <meta property="og:url" content="https://nextgensessions.com/submit">
   <meta property="og:image" content="https://nextgensessions.com/assets/nextgen-social-card.webp">
   <meta name="twitter:card" content="summary_large_image">
@@ -18,80 +18,97 @@
   <meta name="theme-color" content="#080808">
   <link rel="stylesheet" href="/styles.css?v=20260809-header1">
   <style>
-    .submit-page{max-width:980px;padding:68px 0 80px}
-    .submit-intro{margin-bottom:28px}.submit-intro h1{font-size:clamp(2.8rem,7vw,5.8rem)}
-    .submit-intro p{max-width:720px;color:var(--muted);font-size:1.08rem;line-height:1.7}
-    .submit-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.75fr);gap:20px;align-items:start}
-    .submit-card{padding:26px;border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
-    .submit-card h2{margin-bottom:10px;font-size:1.65rem}.submit-card h3{margin-bottom:8px}
-    .submit-card p,.submit-card li{color:var(--muted);line-height:1.65}.submit-card ul{padding-left:20px}
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin-bottom:16px}
-    label{display:block;margin-bottom:7px;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-    input,select,textarea{width:100%;padding:13px 14px;border:1px solid var(--white-line);border-radius:12px;background:#090909;color:var(--text);font:inherit}
-    textarea{min-height:120px;resize:vertical}input:focus,select:focus,textarea:focus{outline:3px solid rgba(243,199,79,.18);border-color:var(--gold)}
-    .help{margin:6px 0 0!important;font-size:.84rem}.form-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-    .checkbox-field{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;margin:2px 0 18px}.checkbox-field input{width:19px;height:19px;margin:2px 0 0;accent-color:var(--gold)}.checkbox-field label{margin:0;color:var(--muted);font-size:.9rem;font-weight:600;letter-spacing:0;line-height:1.55;text-transform:none}
-    .form-status{min-height:24px;margin:12px 0 0!important;color:var(--muted);font-size:.88rem}.form-status-ready{color:#91e1a6!important}.form-status-error{color:#ffaaa3!important}
-    .turnstile-wrap{min-height:70px;margin:4px 0 14px}.button[disabled]{cursor:not-allowed;opacity:.55;transform:none}
-    .honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
-    .privacy-note{margin-top:18px;padding:16px;border-left:3px solid var(--gold);background:rgba(243,199,79,.06);font-size:.88rem}
-    .success{margin-bottom:20px;padding:20px;border:1px solid #3fae62;border-radius:16px;background:rgba(40,150,76,.13);box-shadow:0 18px 45px rgba(0,0,0,.24)}.success h2{margin-bottom:7px;color:#91e1a6}.success p{margin:0;color:#dceee0;line-height:1.6}.success[hidden]{display:none}
-    .sidebar-stack{display:grid;gap:20px}.sidebar-stack .submit-card{box-shadow:none}
-    @media(max-width:800px){.submit-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.submit-page{padding-top:44px}.submit-card{padding:20px}}
+    .submit-page{max-width:1040px;padding:68px 0 80px}
+    .submit-intro{max-width:820px;margin-bottom:30px}
+    .submit-intro h1{max-width:900px;font-size:clamp(2.8rem,7vw,5.8rem)}
+    .submit-intro>p:last-child{max-width:720px;color:var(--muted);font-size:1.08rem;line-height:1.7}
+    .submit-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    .dm-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.75fr);gap:20px;align-items:start}
+    .dm-card{padding:28px;border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
+    .dm-card h2{margin-bottom:10px;font-size:1.8rem}
+    .dm-card h3{margin-bottom:8px}
+    .dm-card p,.dm-card li{color:var(--muted);line-height:1.65}
+    .dm-card ul{padding-left:20px}
+    .dm-handle{display:inline-block;margin:4px 0 18px;color:var(--gold);font-size:1.05rem;font-weight:900;letter-spacing:.03em}
+    .dm-template{margin:20px 0 0;padding:20px;border:1px solid var(--white-line);border-radius:16px;background:#080808}
+    .dm-template p{margin:0 0 14px;color:var(--text);font-weight:800}
+    .dm-template ol{display:grid;gap:10px;margin:0;padding-left:22px}
+    .dm-template li{padding-left:5px;color:var(--text)}
+    .dm-template strong{color:var(--gold)}
+    .sidebar-stack{display:grid;gap:20px}
+    .sidebar-stack .dm-card{box-shadow:none}
+    .notice{margin-top:20px;padding:17px 18px;border-left:3px solid var(--gold);background:rgba(243,199,79,.06);color:var(--muted);font-size:.92rem;line-height:1.6}
+    .email-link{overflow-wrap:anywhere}
+    @media(max-width:800px){
+      .dm-grid{grid-template-columns:1fr}
+      .submit-page{padding-top:44px}
+      .dm-card{padding:21px}
+      .submit-actions .button{width:100%;text-align:center}
+    }
   </style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header"><div class="header-inner"><a class="brand" href="/" aria-label="NextGen Sessions home"><img src="/assets/nextgen-header-wordmark-2026.webp" width="1600" height="663" alt="NextGen Sessions"></a><nav class="nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/artists/">Artists</a><a href="/releases/">Releases</a><a href="/mixes/">Mixes</a><a href="/#about">About</a><a aria-current="page" href="/submit.html">Submit</a><a class="nav-cta" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a></nav></div></header>
+
 <main id="main-content" class="submit-page">
   <section class="submit-intro" aria-labelledby="submit-heading">
     <p class="eyebrow">Artist submissions</p>
-    <h1 id="submit-heading">Send one track that represents you.</h1>
-    <p>We review original music with a clear identity, strong audio and genuine visual potential. One focused submission tells us more than ten unfinished links.</p>
+    <h1 id="submit-heading">Send your best track by DM.</h1>
+    <p>No account, upload form or security check. Send one finished track and the essential details directly to NextGen Sessions on Instagram.</p>
+    <div class="submit-actions">
+      <a class="button button-primary" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener" data-track="submit_open_instagram">Open Instagram &amp; DM</a>
+      <a class="button button-secondary" href="mailto:submissions@nextgensessions.com?subject=NextGen%20Sessions%20Music%20Submission&amp;body=Artist%20name%3A%0D%0ATrack%20title%3A%0D%0AGenre%3A%0D%0ACity%20%2F%20country%3A%0D%0ASocial%20handle%3A%0D%0AListening%20link%3A%0D%0AWhy%20this%20track%3A%0D%0A" data-track="submit_email_backup">Email instead</a>
+    </div>
   </section>
 
-  <div id="successBox" class="success" role="status" aria-live="polite" tabindex="-1" hidden>
-    <h2>Submission submitted</h2>
-    <p id="successCopy">Please allow 3–5 working days for feedback. A confirmation email has been sent to you.</p>
-  </div>
+  <div class="dm-grid">
+    <section class="dm-card" aria-labelledby="dm-heading">
+      <p class="eyebrow">Instagram submission</p>
+      <h2 id="dm-heading">DM @next.gensessions</h2>
+      <a class="dm-handle" href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">@next.gensessions</a>
+      <p>Keep it focused. One strong, finished track is more useful than a folder of unfinished music.</p>
 
-  <div class="submit-grid">
-    <section class="submit-card" aria-labelledby="form-heading">
-      <h2 id="form-heading">Submission form</h2>
-      <p>Submit one finished track using a private YouTube or SoundCloud link. Please do not send attachments.</p>
-      <form id="musicSubmissionForm" action="/api/submit" method="POST" novalidate>
-        <div class="honeypot" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-        <div class="form-grid">
-          <div class="field"><label for="artist">Artist name</label><input id="artist" name="artistName" autocomplete="organization" maxlength="100" required></div>
-          <div class="field"><label for="trackTitle">Track title</label><input id="trackTitle" name="trackTitle" maxlength="140" required></div>
-        </div>
-        <div class="form-grid">
-          <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
-          <div class="field"><label for="social">Main social handle</label><input id="social" name="social" maxlength="100" placeholder="@yourhandle"></div>
-        </div>
-        <div class="form-grid">
-          <div class="field"><label for="genre">Genre</label><select id="genre" name="genre" required><option value="">Select one</option><option>Hip-Hop</option><option>UK Rap / Grime</option><option>Dancehall / Reggae</option><option>R&amp;B / Soul</option><option>Punjabi</option><option>Global Sounds</option><option>Other</option></select></div>
-          <div class="field"><label for="status">Release status</label><select id="status" name="releaseStatus"><option value="">Select one</option><option>Unreleased</option><option>Coming soon</option><option>Already released</option></select></div>
-        </div>
-        <div class="field"><label for="link">Private listening link</label><input id="link" name="listeningLink" type="url" inputmode="url" maxlength="2048" placeholder="https://…" required><p class="help">Check that anyone with the link can listen without requesting access.</p></div>
-        <div class="field"><label for="location">City / country</label><input id="location" name="location" maxlength="120" autocomplete="address-level2"></div>
-        <div class="field"><label for="summary">Artist and track summary</label><textarea id="summary" name="summary" maxlength="700" placeholder="Tell us what makes the track distinctive, who you are and what you want to build." required></textarea><p class="help">Maximum 700 characters.</p></div>
-        <div class="checkbox-field"><input id="consent" name="consent" type="checkbox" value="yes" required><label for="consent">I confirm that I am authorised to submit this music and agree that NextGen Sessions may use these details to review the track and contact me about it.</label></div>
-        <div id="turnstileMount" class="turnstile-wrap" aria-label="Secure submission check"></div>
-        <div class="form-actions"><button id="submitButton" class="button button-primary" type="submit" disabled>Submit music</button><a class="button button-secondary" href="/">Back to home</a></div>
-        <p id="formStatus" class="form-status" role="status" aria-live="polite">Loading secure submission form…</p>
-        <div class="privacy-note"><strong>Privacy:</strong> Your details are used only to review this submission and contact you about it. Do not include sensitive personal information. To request deletion, email <a href="mailto:submissions@nextgensessions.com">submissions@nextgensessions.com</a>. Read our <a href="/privacy/">privacy notice</a>.</div>
-      </form>
+      <div class="dm-template">
+        <p>Include these seven details:</p>
+        <ol>
+          <li><strong>Artist name</strong></li>
+          <li><strong>Track title</strong></li>
+          <li><strong>Genre</strong></li>
+          <li><strong>City / country</strong></li>
+          <li><strong>Your main social handle</strong></li>
+          <li><strong>Listening link</strong> — YouTube, SoundCloud or another accessible link</li>
+          <li><strong>One sentence</strong> explaining why this track represents you</li>
+        </ol>
+      </div>
+
+      <div class="notice"><strong>Important:</strong> Send a link, not a large audio attachment. Check that the link opens without requesting access.</div>
     </section>
 
     <aside class="sidebar-stack" aria-label="Submission guidance">
-      <section class="submit-card"><p class="eyebrow">Before sending</p><h3>What we look for</h3><ul><li>Original music and a clear artist identity</li><li>Clean, finished audio</li><li>A track suited to our music lanes</li><li>Strong visual or campaign potential</li></ul></section>
-      <section class="submit-card"><p class="eyebrow">What happens next</p><h3>Three clear steps</h3><ul><li>Immediate email confirmation</li><li>Status marked as awaiting review</li><li>Feedback target of 3–5 working days</li></ul><p>Submission does not guarantee placement or release.</p></section>
+      <section class="dm-card">
+        <p class="eyebrow">Before sending</p>
+        <h3>What we consider</h3>
+        <ul>
+          <li>Original music you are authorised to submit</li>
+          <li>Finished, clean audio</li>
+          <li>A clear artist identity</li>
+          <li>Music suited to the NextGen catalogue</li>
+          <li>Strong visual or campaign potential</li>
+        </ul>
+      </section>
+
+      <section class="dm-card">
+        <p class="eyebrow">What happens next</p>
+        <h3>Simple and honest</h3>
+        <p>NextGen Sessions reviews suitable submissions and replies where there is a genuine fit. Sending a track does not guarantee feedback, placement or release.</p>
+        <p>Instagram not available? Email <a class="email-link" href="mailto:submissions@nextgensessions.com">submissions@nextgensessions.com</a>.</p>
+      </section>
     </aside>
   </div>
 </main>
-<footer class="site-footer"><div class="footer-inner"><div>© 2026 NextGen Sessions. Original music and independent artists.</div><div class="footer-links"><a href="/">Home</a><a href="/artists/">Artists</a><a href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a></div></div></footer>
-<script src="/submit.js?v=20260810-submit3" defer></script>
+
+<footer class="site-footer"><div class="footer-inner"><div>© 2026 NextGen Sessions. Original music and independent artists.</div><div class="footer-links"><a href="/">Home</a><a href="/artists/">Artists</a><a href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a><a href="https://www.tiktok.com/@nextgensessions" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/next.gensessions/" target="_blank" rel="noopener">Instagram</a></div></div></footer>
 <script src="/site-metrics.js" defer></script>
 </body>
 </html>

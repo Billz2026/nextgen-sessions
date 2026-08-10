@@ -143,7 +143,11 @@ def roman_to_int(value: str) -> int:
 
 
 def series_number(title: str) -> int:
-    match = re.search(r"\b(?:series|season|s)\s*[-:#]?\s*(\d+|[ivxlcdm]+)\b", title or "", re.I)
+    match = re.search(
+        r"\b(?:series|season|s|mash(?:\s*up)?)\s*[-:#]?\s*(\d+|[ivxlcdm]+)\b",
+        title or "",
+        re.I,
+    )
     if not match:
         return 0
     value = match.group(1)

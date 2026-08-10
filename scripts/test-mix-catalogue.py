@@ -26,7 +26,7 @@ def playlist_item(video_id: str, title: str) -> dict:
 
 sources = {
     "dancehall-source": [
-        playlist_item("dancehall04", "Dancehall Mashup Series IV | NextGen Sessions"),
+        playlist_item("dancehall04", "Dancehall Mashup IV (Full Dancehall Mix) | NextGen Sessions"),
         playlist_item("dancehall01", "Dancehall Mashup Series I | NextGen Sessions"),
     ],
     "hiphop-source": [playlist_item("hiphopmix01", "Hip-Hop Mash Up Series 1 | NextGen Sessions")],

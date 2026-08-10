@@ -137,15 +137,19 @@
 
   document.addEventListener("focusin", event => {
     const form = event.target instanceof Element
-      ? event.target.closest('form[action*="formsubmit"]')
+      ? event.target.closest("#musicSubmissionForm")
       : null;
     if (form) once("submission-start", "submission_start", "form");
   });
 
   document.addEventListener("submit", event => {
     const form = event.target;
-    if (form instanceof HTMLFormElement && /formsubmit/i.test(form.action)) {
+    if (form instanceof HTMLFormElement && form.id === "musicSubmissionForm") {
       send("submission_submit", "form");
     }
+  });
+
+  document.addEventListener("ngs:submission-complete", () => {
+    send("submission_complete", "form");
   });
 })();

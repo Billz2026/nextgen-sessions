@@ -7,7 +7,9 @@ Public website for [NextGen Sessions](https://nextgensessions.com/), an independ
 - `index.html` — homepage and featured artists
 - `artists/` — full searchable artist roster and profile pages
 - `releases/` — crawlable release archive plus generated dedicated release pages
-- `submit.html` — artist submission form
+- `submit.html` and `submit.js` — secure on-site artist submission form
+- `functions/api/submit.js` — validates submissions and sends linked review/confirmation emails
+- `functions/api/submission-config.js` — enables the form only when its production secrets are present
 - `releases.json` — verified release source of truth generated from curated YouTube playlists
 - `functions/api/latest.js` — Cloudflare Pages Function that selects the newest published item from the verified catalogue
 - `functions/api/releases.js` — Cloudflare Pages Function that serves the verified catalogue
@@ -33,3 +35,15 @@ The site is deployed through Cloudflare Pages from the repository's default bran
 ## Local preview
 
 Serve the repository root with any static web server. Cloudflare Pages Functions require the Wrangler development server for full API testing.
+
+## Submission configuration
+
+The submission flow expects these Cloudflare runtime values:
+
+- `TURNSTILE_SITE_KEY` — public site key for the production hostname
+- `TURNSTILE_SECRET_KEY` — secret used for mandatory server-side validation
+- `RESEND_API_KEY` — transactional email key for the verified sending domain
+- `SUBMISSION_RECIPIENT` — private inbox that receives review copies
+- `SUBMISSION_FROM_EMAIL` — optional sender address; defaults to `submissions@nextgensessions.com`
+
+Do not commit secret values. Add them as encrypted production variables in Cloudflare.

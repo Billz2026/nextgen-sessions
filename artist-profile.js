@@ -255,14 +255,14 @@
       </article>`;
   }
 
-  function setFeaturedPlayer(release, sourceLabel) {
+  function setFeaturedPlayer(release, sourceLabel, autoplay = false) {
     if (!release?.id) return;
     const frame = root.querySelector("[data-featured-frame]");
     const title = root.querySelector("[data-featured-title]");
     const tag = root.querySelector("[data-featured-tag]");
     const copy = root.querySelector("[data-featured-copy]");
     const link = root.querySelector("[data-featured-link]");
-    if (frame) frame.innerHTML = featuredFrame(release, false, "", true);
+    if (frame) frame.innerHTML = featuredFrame(release, false, "", autoplay);
     if (title) title.textContent = release.title;
     if (tag) tag.textContent = sourceLabel || "Now playing";
     if (copy) copy.textContent = `${release.group} · ${formatDate(release.published)}`;
@@ -466,7 +466,11 @@
     if (!button) return;
     const release = artistReleases.find(item => item.id === button.dataset.playRelease);
     if (!release) return;
-    setFeaturedPlayer(release, release.id === artistReleases[0]?.id ? "Latest release" : "Now playing");
+    setFeaturedPlayer(
+      release,
+      release.id === artistReleases[0]?.id ? "Latest release" : "Now playing",
+      true
+    );
     document.getElementById("featured-release")?.scrollIntoView({
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
       block: "start"

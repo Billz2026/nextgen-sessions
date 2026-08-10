@@ -11,7 +11,8 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "Seasoned, What It Took, Pasadena and All In My Name form a compact catalogue built around experience rather than empty bravado. Warm instrumentation, subtle G-funk colour and a calm vocal presence keep the focus on perspective, legacy and personal growth."
     ],
     "imageKey": "alonzo-ray",
-    "imagePosition": "50% 38%",
+    "image": "/assets/artists/alonzo-ray-card.webp?v=20260810-alonzo7",
+    "imagePosition": "50% 24%",
     "featuredVideo": {
       "id": "bLbzbDbzLk8",
       "title": "All In My Name",

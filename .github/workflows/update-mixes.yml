@@ -1,0 +1,89 @@
+name: Update Mix Catalogue
+
+on:
+  schedule:
+    - cron: "35 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-mixes.yml"
+      - "scripts/update-mixes.py"
+      - "scripts/test-mix-catalogue.py"
+      - "mix-player.js"
+      - "mix-catalogue.js"
+      - "mixes/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nextgen-main-writers
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Build long-mix catalogue from YouTube
+        env:
+          YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python3 scripts/update-mixes.py mixes.json
+
+      - name: Test mix catalogue rules
+        run: python3 scripts/test-mix-catalogue.py
+
+      - name: Validate catalogue and page bindings
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path("mixes.json").read_text(encoding="utf-8"))
+          required = {"grime", "hip-hop", "uk-rap", "dancehall", "summer"}
+          ids = {item["id"] for item in data["mixes"]}
+          assert data["total"] == len(data["mixes"])
+          assert len(ids) == data["total"]
+          assert required == set(data["counts"])
+          assert all(data["counts"][key] >= 1 for key in required)
+          assert data["counts"]["dancehall"] >= 3
+          assert all(item["contentType"] == "long-mix" for item in data["mixes"])
+          assert all(item["durationSeconds"] >= 600 for item in data["mixes"])
+
+          pages = {
+              "grime": "mixes/grime-mashup-series-1/index.html",
+              "hip-hop": "mixes/hip-hop-mashup-series-1/index.html",
+              "uk-rap": "mixes/uk-rap-mashup-series-1/index.html",
+              "dancehall": "mixes/dancehall-mashups/index.html",
+              "summer": "mixes/sound-of-summer/index.html",
+          }
+          for collection, path in pages.items():
+              html = Path(path).read_text(encoding="utf-8")
+              assert 'data-source="/mixes.json"' in html, path
+              assert 'data-source-type="mixes"' in html, path
+              assert f'data-group="{collection}"' in html, path
+              assert "data-collection-count" in html, path
+          print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
+          PY
+
+      - name: Publish changed mix catalogue
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add mixes.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-update mix catalogue"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+          echo "Could not update main after 3 attempts."
+          exit 1

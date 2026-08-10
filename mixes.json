@@ -1,0 +1,26 @@
+{
+  "source": "verified-seed",
+  "contentPolicy": {
+    "contentType": "long-mix",
+    "minimumDurationSeconds": 600,
+    "shortsAllowed": false
+  },
+  "generatedAt": "2026-08-10T08:00:00Z",
+  "total": 7,
+  "counts": {
+    "grime": 1,
+    "hip-hop": 1,
+    "uk-rap": 1,
+    "dancehall": 3,
+    "summer": 1
+  },
+  "mixes": [
+    {"id":"1viGIRxy6fo","contentType":"long-mix","collection":"grime","title":"Grime Mashup — Series I","label":"Series I","name":"Grime Mashup","sequence":1,"thumbnail":"https://i.ytimg.com/vi/1viGIRxy6fo/hqdefault.jpg"},
+    {"id":"n8Yji4n8cU8","contentType":"long-mix","collection":"hip-hop","title":"Hip-Hop Mashup — Series I","label":"Series I","name":"Hip-Hop Mashup","sequence":1,"thumbnail":"https://i.ytimg.com/vi/n8Yji4n8cU8/hqdefault.jpg"},
+    {"id":"0nnoKsnkQok","contentType":"long-mix","collection":"uk-rap","title":"UK Rap Mashup — Series I","label":"Series I","name":"UK Rap Mashup","sequence":1,"thumbnail":"https://i.ytimg.com/vi/0nnoKsnkQok/hqdefault.jpg"},
+    {"id":"_SJRKzTWNX8","contentType":"long-mix","collection":"dancehall","title":"Dancehall Mashup — Series I","label":"Series I","name":"Dancehall Mashup","sequence":1,"thumbnail":"https://i.ytimg.com/vi/_SJRKzTWNX8/hqdefault.jpg"},
+    {"id":"mtBAuajzT0s","contentType":"long-mix","collection":"dancehall","title":"Dancehall Mashup — Series II","label":"Series II","name":"Dancehall Mashup","sequence":2,"thumbnail":"https://i.ytimg.com/vi/mtBAuajzT0s/hqdefault.jpg"},
+    {"id":"2dcF-n0UJts","contentType":"long-mix","collection":"dancehall","title":"Dancehall Mashup — Series III","label":"Series III","name":"Dancehall Mashup","sequence":3,"thumbnail":"https://i.ytimg.com/vi/2dcF-n0UJts/hqdefault.jpg"},
+    {"id":"1F1mMsRWdsw","contentType":"long-mix","collection":"summer","title":"The Sound of Summer 2026","label":"Summer Mix 2026","name":"The Sound of Summer","sequence":2026,"thumbnail":"https://i.ytimg.com/vi/1F1mMsRWdsw/hqdefault.jpg"}
+  ]
+}

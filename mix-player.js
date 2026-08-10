@@ -65,14 +65,34 @@
 
   function collectionItems(payload, sourceType, group) {
     if (sourceType === "albums") {
-      return (Array.isArray(payload.albums) ? payload.albums : []).map((item) => ({
-        kind: "video",
-        id: String(item.id || "").trim(),
-        title: `${String(item.artist || "NextGen Sessions").trim()} — ${String(item.albumTitle || item.rawTitle || "Full Album").trim()}`,
-        label: String(item.artist || "Full album").trim(),
-        name: String(item.albumTitle || item.rawTitle || "Full Album").trim(),
-        poster: String(item.thumbnail || "").trim(),
-      }));
+      return (Array.isArray(payload.albums) ? payload.albums : []).map(
+        (item) => ({
+          kind: "video",
+          id: String(item.id || "").trim(),
+          title: `${String(item.artist || "NextGen Sessions").trim()} — ${String(item.albumTitle || item.rawTitle || "Full Album").trim()}`,
+          label: String(item.artist || "Full album").trim(),
+          name: String(item.albumTitle || item.rawTitle || "Full Album").trim(),
+          poster: String(item.thumbnail || "").trim(),
+        }),
+      );
+    }
+
+    if (sourceType === "mixes") {
+      return (Array.isArray(payload.mixes) ? payload.mixes : [])
+        .filter((item) => String(item.collection || "").trim() === group)
+        .map((item) => ({
+          kind: "video",
+          id: String(item.id || "").trim(),
+          title: String(
+            item.title || item.rawTitle || "NextGen Sessions mix",
+          ).trim(),
+          label: String(item.label || "Full-length mix").trim(),
+          name: String(item.name || "NextGen Sessions mix").trim(),
+          poster: String(
+            item.thumbnail ||
+              `https://i.ytimg.com/vi/${String(item.id || "").trim()}/hqdefault.jpg`,
+          ).trim(),
+        }));
     }
 
     return (Array.isArray(payload.releases) ? payload.releases : [])
@@ -126,17 +146,34 @@
       kind: String(player.dataset.kind || "").trim(),
       id: String(player.dataset.id || "").trim(),
       title: String(player.dataset.title || "NextGen Sessions mix").trim(),
-      poster: String(player.dataset.poster || originalPoster?.getAttribute("src") || "").trim(),
+      poster: String(
+        player.dataset.poster || originalPoster?.getAttribute("src") || "",
+      ).trim(),
     };
 
     if (!isValid(state.kind, state.id) || !state.poster) return;
 
-    let experience = player.closest("[data-mix-collection], .mix-player-experience");
+    let experience = player.closest(
+      "[data-mix-collection], .mix-player-experience",
+    );
     if (!experience) {
       experience = document.createElement("div");
       experience.className = "mix-player-experience";
       experience.dataset.mixCollection = "";
-      experience.dataset.actionLabel = "Play mix";
+      experience.dataset.source = String(player.dataset.source || "").trim();
+      experience.dataset.sourceType = String(
+        player.dataset.sourceType || "",
+      ).trim();
+      experience.dataset.group = String(player.dataset.group || "").trim();
+      experience.dataset.actionLabel = String(
+        player.dataset.actionLabel || "Play mix",
+      ).trim();
+      experience.dataset.singular = String(
+        player.dataset.singular || "mix",
+      ).trim();
+      experience.dataset.plural = String(
+        player.dataset.plural || "mixes",
+      ).trim();
 
       const selector = document.createElement("div");
       selector.className = "mix-selector";
@@ -164,8 +201,11 @@
       experience.append(player, selector);
     }
 
-    const optionsRoot = experience.querySelector("[data-mix-options]") || document;
-    const actionLabel = String(experience.dataset.actionLabel || "Play mix").trim();
+    const optionsRoot =
+      experience.querySelector("[data-mix-options]") || document;
+    const actionLabel = String(
+      experience.dataset.actionLabel || "Play mix",
+    ).trim();
     let hasInteracted = false;
 
     const shell = document.createElement("div");
@@ -252,26 +292,46 @@
       const source = String(experience?.dataset.source || "").trim();
       const sourceType = String(experience?.dataset.sourceType || "").trim();
       const group = String(experience?.dataset.group || "").trim();
-      if (!experience || !source || !sourceType || !optionsRoot.matches("[data-mix-options]")) return;
+      if (
+        !experience ||
+        !source ||
+        !sourceType ||
+        !optionsRoot.matches("[data-mix-options]")
+      )
+        return;
 
       try {
         const response = await fetch(source, { cache: "no-cache" });
         if (!response.ok) return;
-        const items = collectionItems(await response.json(), sourceType, group).filter(
-          (item) => isValid(item.kind, item.id) && item.title && item.label && item.name && item.poster,
+        const items = collectionItems(
+          await response.json(),
+          sourceType,
+          group,
+        ).filter(
+          (item) =>
+            isValid(item.kind, item.id) &&
+            item.title &&
+            item.label &&
+            item.name &&
+            item.poster,
         );
         if (!items.length) return;
 
         const selectedId = hasInteracted ? state.id : items[0].id;
-        const selected = items.find((item) => item.id === selectedId) || items[0];
+        const selected =
+          items.find((item) => item.id === selectedId) || items[0];
         optionsRoot.replaceChildren(
-          ...items.map((item) => buildOption(item, actionLabel, item.id === selected.id)),
+          ...items.map((item) =>
+            buildOption(item, actionLabel, item.id === selected.id),
+          ),
         );
 
         const count = document.querySelector("[data-collection-count]");
         if (count) {
           const singular = String(experience.dataset.singular || "item").trim();
-          const plural = String(experience.dataset.plural || `${singular}s`).trim();
+          const plural = String(
+            experience.dataset.plural || `${singular}s`,
+          ).trim();
           count.textContent = `${items.length} ${items.length === 1 ? singular : plural}`;
         }
 

@@ -321,6 +321,15 @@ def build_mix_catalogue(existing_catalogue: dict | None = None) -> dict:
     }
 
 
+def preserve_generation_time_if_unchanged(catalogue: dict, existing: dict) -> dict:
+    stable_fields = ("source", "contentPolicy", "total", "counts", "mixes")
+    if existing.get("generatedAt") and all(
+        catalogue.get(field) == existing.get(field) for field in stable_fields
+    ):
+        catalogue["generatedAt"] = existing["generatedAt"]
+    return catalogue
+
+
 def main() -> None:
     if not os.environ.get("YT_KEY"):
         raise SystemExit("YT_KEY is required")
@@ -329,10 +338,8 @@ def main() -> None:
         existing = json.loads(output.read_text(encoding="utf-8")) if output.exists() else {}
     except (OSError, json.JSONDecodeError):
         existing = {}
-    output.write_text(
-        json.dumps(build_mix_catalogue(existing), ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    catalogue = preserve_generation_time_if_unchanged(build_mix_catalogue(existing), existing)
+    output.write_text(json.dumps(catalogue, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

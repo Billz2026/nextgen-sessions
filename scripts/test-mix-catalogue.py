@@ -124,4 +124,11 @@ module.video_details = fallback_details
 fallback = module.build_mix_catalogue(existing)
 assert fallback["counts"]["dancehall"] == 3
 assert [item["sequence"] for item in fallback["mixes"]] == [1, 2, 3]
+
+unchanged = {**catalogue, "generatedAt": "2026-08-10T00:00:00Z"}
+rebuilt = {**catalogue, "generatedAt": "2026-08-10T01:00:00Z"}
+assert module.preserve_generation_time_if_unchanged(rebuilt, unchanged)["generatedAt"] == unchanged["generatedAt"]
+
+changed = {**catalogue, "total": catalogue["total"] + 1, "generatedAt": "2026-08-10T02:00:00Z"}
+assert module.preserve_generation_time_if_unchanged(changed, unchanged)["generatedAt"] == "2026-08-10T02:00:00Z"
 print("Mix catalogue automation tests passed.")

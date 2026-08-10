@@ -498,6 +498,58 @@ function onRequestPost2() {
 }
 __name(onRequestPost2, "onRequestPost");
 
+// api/submission-health.js
+function json2(body, status = 200) {
+  return Response.json(body, {
+    status,
+    headers: {
+      "cache-control": "no-store",
+      "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+      "x-content-type-options": "nosniff"
+    }
+  });
+}
+__name(json2, "json");
+function errorCodes(result) {
+  if (!Array.isArray(result?.["error-codes"])) return [];
+  return result["error-codes"].map((code) => String(code)).filter((code) => /^[a-z0-9_-]{1,80}$/i.test(code)).slice(0, 6);
+}
+__name(errorCodes, "errorCodes");
+async function onRequestGet10(context) {
+  const secret = String(context.env?.TURNSTILE_SECRET_KEY || "");
+  if (!secret) {
+    return json2({ ok: false, turnstile: "missing_secret" }, 503);
+  }
+  const formData = new FormData();
+  formData.set("secret", secret);
+  formData.set("response", "nextgen-secret-health-check");
+  try {
+    const response2 = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body: formData
+    });
+    if (!response2.ok) {
+      return json2({ ok: false, turnstile: "siteverify_unavailable", status: response2.status }, 503);
+    }
+    const result = await response2.json();
+    const codes = errorCodes(result);
+    if (codes.includes("invalid-input-secret") || codes.includes("missing-input-secret")) {
+      return json2({ ok: false, turnstile: "invalid_secret" }, 503);
+    }
+    if (codes.includes("invalid-input-response")) {
+      return json2({ ok: true, turnstile: "secret_valid" });
+    }
+    return json2({ ok: false, turnstile: "inconclusive", errorCodes: codes }, 503);
+  } catch (_) {
+    return json2({ ok: false, turnstile: "siteverify_unavailable" }, 503);
+  }
+}
+__name(onRequestGet10, "onRequestGet");
+function onRequestPost3() {
+  return json2({ ok: false, error: "method_not_allowed" }, 405);
+}
+__name(onRequestPost3, "onRequestPost");
+
 // api/submit.js
 var MAX_BODY_BYTES = 48 * 1024;
 var MAX_TEXT = {
@@ -525,7 +577,7 @@ var RELEASE_STATUSES = /* @__PURE__ */ new Set([
   "Coming soon",
   "Already released"
 ]);
-function json2(body, status = 200) {
+function json3(body, status = 200) {
   return Response.json(body, {
     status,
     headers: {
@@ -535,7 +587,7 @@ function json2(body, status = 200) {
     }
   });
 }
-__name(json2, "json");
+__name(json3, "json");
 function clean(value, limit) {
   return String(value || "").trim().replace(/\r\n?/g, "\n").slice(0, limit);
 }
@@ -626,23 +678,45 @@ async function submissionReference(clientRequestId) {
   return `NGS-${shortHash.toUpperCase()}`;
 }
 __name(submissionReference, "submissionReference");
-async function verifyTurnstile(context, token, clientRequestId) {
+function turnstileErrorCodes(result) {
+  if (!Array.isArray(result?.["error-codes"])) return [];
+  return result["error-codes"].map((code) => String(code)).filter((code) => /^[a-z0-9_-]{1,80}$/i.test(code)).slice(0, 6);
+}
+__name(turnstileErrorCodes, "turnstileErrorCodes");
+async function verifyTurnstile(context, token) {
   const secret = String(context.env?.TURNSTILE_SECRET_KEY || "");
-  if (!secret) return false;
+  if (!secret) {
+    return { valid: false, reason: "missing_secret", errorCodes: [] };
+  }
   const formData = new FormData();
   formData.set("secret", secret);
   formData.set("response", token);
-  formData.set("idempotency_key", clientRequestId);
   const ip = context.request.headers.get("CF-Connecting-IP");
   if (ip) formData.set("remoteip", ip);
   const response2 = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
     body: formData
   });
-  if (!response2.ok) return false;
+  if (!response2.ok) {
+    return {
+      valid: false,
+      reason: "siteverify_http_error",
+      status: response2.status,
+      errorCodes: []
+    };
+  }
   const result = await response2.json();
   const requestHostname = new URL(context.request.url).hostname;
-  return result?.success === true && result?.action === "music_submission" && result?.hostname === requestHostname;
+  const success = result?.success === true;
+  const actionMatches = result?.action === "music_submission";
+  const hostnameMatches = result?.hostname === requestHostname;
+  return {
+    valid: success && actionMatches && hostnameMatches,
+    reason: !success ? "siteverify_rejected" : !actionMatches ? "action_mismatch" : !hostnameMatches ? "hostname_mismatch" : "verified",
+    errorCodes: turnstileErrorCodes(result),
+    action: typeof result?.action === "string" ? result.action.slice(0, 80) : "",
+    hostname: typeof result?.hostname === "string" ? result.hostname.slice(0, 253) : ""
+  };
 }
 __name(verifyTurnstile, "verifyTurnstile");
 function emailShell(content) {
@@ -739,52 +813,66 @@ async function sendEmails(context, data, reference) {
   }
 }
 __name(sendEmails, "sendEmails");
-async function onRequestPost3(context) {
+async function onRequestPost4(context) {
   const requestUrl = new URL(context.request.url);
   const origin = context.request.headers.get("origin");
   const fetchSite = context.request.headers.get("sec-fetch-site");
   const contentType = context.request.headers.get("content-type") || "";
   if (!origin || origin !== requestUrl.origin || fetchSite === "cross-site") {
-    return json2({ ok: false, error: "forbidden" }, 403);
+    return json3({ ok: false, error: "forbidden" }, 403);
   }
   if (!contentType.toLowerCase().startsWith("application/json")) {
-    return json2({ ok: false, error: "unsupported_media_type" }, 415);
+    return json3({ ok: false, error: "unsupported_media_type" }, 415);
   }
   let body;
   try {
     body = await readJson(context.request);
   } catch (error) {
     const code = error instanceof Error ? error.message : "invalid_body";
-    return json2({ ok: false, error: code }, code === "body_too_large" ? 413 : 400);
+    return json3({ ok: false, error: code }, code === "body_too_large" ? 413 : 400);
   }
   const data = normalise(body);
   const reference = await submissionReference(data.clientRequestId || crypto.randomUUID());
   if (data.website) {
-    return json2({ ok: true, reference });
+    return json3({ ok: true, reference });
   }
   const validationError = validate(data);
-  if (validationError) return json2({ ok: false, error: validationError }, 400);
-  let human = false;
+  if (validationError) return json3({ ok: false, error: validationError }, 400);
+  let turnstileResult = { valid: false, reason: "verification_error", errorCodes: [] };
   try {
-    human = await verifyTurnstile(context, data.turnstileToken, data.clientRequestId);
+    turnstileResult = await verifyTurnstile(context, data.turnstileToken);
   } catch (error) {
-    console.error(JSON.stringify({ message: "turnstile verification failed", reference }));
+    console.error(JSON.stringify({
+      message: "turnstile verification request failed",
+      reference
+    }));
   }
-  if (!human) return json2({ ok: false, error: "spam_check_failed" }, 400);
+  if (!turnstileResult.valid) {
+    console.warn(JSON.stringify({
+      message: "turnstile token rejected",
+      reference,
+      reason: turnstileResult.reason,
+      errorCodes: turnstileResult.errorCodes,
+      action: turnstileResult.action || "",
+      hostname: turnstileResult.hostname || "",
+      status: turnstileResult.status || 0
+    }));
+    return json3({ ok: false, error: "spam_check_failed" }, 400);
+  }
   try {
     await sendEmails(context, data, reference);
   } catch (error) {
     console.error(JSON.stringify({ message: "submission delivery failed", reference }));
-    return json2({ ok: false, error: "delivery_failed" }, 503);
+    return json3({ ok: false, error: "delivery_failed" }, 503);
   }
   console.log(JSON.stringify({ message: "submission accepted", reference }));
-  return json2({ ok: true, reference }, 201);
+  return json3({ ok: true, reference }, 201);
 }
-__name(onRequestPost3, "onRequestPost");
-function onRequestGet10() {
-  return json2({ ok: false, error: "method_not_allowed" }, 405);
+__name(onRequestPost4, "onRequestPost");
+function onRequestGet11() {
+  return json3({ ok: false, error: "method_not_allowed" }, 405);
 }
-__name(onRequestGet10, "onRequestGet");
+__name(onRequestGet11, "onRequestGet");
 
 // _middleware.js
 var CANONICAL_ORIGIN = "https://nextgensessions.com";
@@ -846,7 +934,7 @@ async function onRequest(context) {
 }
 __name(onRequest, "onRequest");
 
-// ../.wrangler/tmp/pages-zY3s1Q/functionsRoutes-0.5857688337931326.mjs
+// ../.wrangler/tmp/pages-RdcPYN/functionsRoutes-0.09059863610859753.mjs
 var routes = [
   {
     routePath: "/api/andre-portrait",
@@ -926,18 +1014,32 @@ var routes = [
     modules: [onRequestPost2]
   },
   {
-    routePath: "/api/submit",
+    routePath: "/api/submission-health",
     mountPath: "/api",
     method: "GET",
     middlewares: [],
     modules: [onRequestGet10]
   },
   {
-    routePath: "/api/submit",
+    routePath: "/api/submission-health",
     mountPath: "/api",
     method: "POST",
     middlewares: [],
     modules: [onRequestPost3]
+  },
+  {
+    routePath: "/api/submit",
+    mountPath: "/api",
+    method: "GET",
+    middlewares: [],
+    modules: [onRequestGet11]
+  },
+  {
+    routePath: "/api/submit",
+    mountPath: "/api",
+    method: "POST",
+    middlewares: [],
+    modules: [onRequestPost4]
   },
   {
     routePath: "/",
@@ -948,7 +1050,7 @@ var routes = [
   }
 ];
 
-// ../../../../../tmp/ngs-npm-cache-20260810/_npx/d77349f55c2be1c0/node_modules/path-to-regexp/dist.es2015/index.js
+// ../../../../../tmp/nextgen-npm-cache/_npx/d77349f55c2be1c0/node_modules/path-to-regexp/dist.es2015/index.js
 function lexer(str) {
   var tokens = [];
   var i = 0;
@@ -1274,7 +1376,7 @@ function pathToRegexp(path, keys, options) {
 }
 __name(pathToRegexp, "pathToRegexp");
 
-// ../../../../../tmp/ngs-npm-cache-20260810/_npx/d77349f55c2be1c0/node_modules/wrangler/templates/pages-template-worker.ts
+// ../../../../../tmp/nextgen-npm-cache/_npx/d77349f55c2be1c0/node_modules/wrangler/templates/pages-template-worker.ts
 var escapeRegex = /[.+?^${}()|[\]\\]/g;
 function* executeRequest(request) {
   const requestPath = new URL(request.url).pathname;
@@ -1296,103 +1398,3 @@ function* executeRequest(request) {
           handler,
           params: matchResult.params,
           path: mountMatchResult.path
-        };
-      }
-    }
-  }
-  for (const route of routes) {
-    if (route.method && route.method !== request.method) {
-      continue;
-    }
-    const routeMatcher = match(route.routePath.replace(escapeRegex, "\\$&"), {
-      end: true
-    });
-    const mountMatcher = match(route.mountPath.replace(escapeRegex, "\\$&"), {
-      end: false
-    });
-    const matchResult = routeMatcher(requestPath);
-    const mountMatchResult = mountMatcher(requestPath);
-    if (matchResult && mountMatchResult && route.modules.length) {
-      for (const handler of route.modules.flat()) {
-        yield {
-          handler,
-          params: matchResult.params,
-          path: matchResult.path
-        };
-      }
-      break;
-    }
-  }
-}
-__name(executeRequest, "executeRequest");
-var pages_template_worker_default = {
-  async fetch(originalRequest, env, workerContext) {
-    let request = originalRequest;
-    const handlerIterator = executeRequest(request);
-    let data = {};
-    let isFailOpen = false;
-    const next = /* @__PURE__ */ __name(async (input, init) => {
-      if (input !== void 0) {
-        let url = input;
-        if (typeof input === "string") {
-          url = new URL(input, request.url).toString();
-        }
-        request = new Request(url, init);
-      }
-      const result = handlerIterator.next();
-      if (result.done === false) {
-        const { handler, params, path } = result.value;
-        const context = {
-          request: new Request(request.clone()),
-          functionPath: path,
-          next,
-          params,
-          get data() {
-            return data;
-          },
-          set data(value) {
-            if (typeof value !== "object" || value === null) {
-              throw new Error("context.data must be an object");
-            }
-            data = value;
-          },
-          env,
-          waitUntil: workerContext.waitUntil.bind(workerContext),
-          passThroughOnException: /* @__PURE__ */ __name(() => {
-            isFailOpen = true;
-          }, "passThroughOnException")
-        };
-        const response2 = await handler(context);
-        if (!(response2 instanceof Response)) {
-          throw new Error("Your Pages function should return a Response");
-        }
-        return cloneResponse(response2);
-      } else if ("ASSETS") {
-        const response2 = await env["ASSETS"].fetch(request);
-        return cloneResponse(response2);
-      } else {
-        const response2 = await fetch(request);
-        return cloneResponse(response2);
-      }
-    }, "next");
-    try {
-      return await next();
-    } catch (error) {
-      if (isFailOpen) {
-        const response2 = await env["ASSETS"].fetch(request);
-        return cloneResponse(response2);
-      }
-      throw error;
-    }
-  }
-};
-var cloneResponse = /* @__PURE__ */ __name((response2) => (
-  // https://fetch.spec.whatwg.org/#null-body-status
-  new Response(
-    [101, 204, 205, 304].includes(response2.status) ? null : response2.body,
-    response2
-  )
-), "cloneResponse");
-export {
-  pages_template_worker_default as default
-};

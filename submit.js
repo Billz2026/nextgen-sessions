@@ -170,6 +170,11 @@
         ? "The security check did not complete. It has been refreshed—press Submit music to try again."
         : "We could not send your submission. Your details are still here—please try again.";
       setStatus(message, "error");
+      if (code === "spam_check_failed") {
+        // A fresh challenge must not reuse the previous verification attempt.
+        clientRequestId = crypto.randomUUID();
+        lastPayloadSignature = "";
+      }
       resetTurnstile();
     } finally {
       requestInFlight = false;

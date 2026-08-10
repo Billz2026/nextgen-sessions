@@ -82,7 +82,7 @@ async function run() {
     assert.equal(calls.length, 2);
 
     const turnstileCall = calls[0];
-    assert.equal(turnstileCall.options.body.get("idempotency_key"), basePayload.clientRequestId);
+    assert.equal(turnstileCall.options.body.has("idempotency_key"), false);
 
     const resendCall = calls[1];
     assert.equal(resendCall.options.headers["idempotency-key"], `ngs-submission/${basePayload.clientRequestId}`);
@@ -114,6 +114,22 @@ async function run() {
     const failedChallenge = await onRequestPost(context());
     assert.equal(failedChallenge.status, 400);
     assert.equal((await body(failedChallenge)).error, "spam_check_failed");
+    assert.equal(calls.length, 1);
+
+    calls.length = 0;
+    globalThis.fetch = async (url, options = {}) => {
+      calls.push({ url: String(url), options });
+      if (String(url).includes("turnstile")) {
+        return Response.json({
+          success: false,
+          "error-codes": ["invalid-input-secret"]
+        });
+      }
+      throw new Error(`Unexpected fetch: ${url}`);
+    };
+    const invalidSecret = await onRequestPost(context());
+    assert.equal(invalidSecret.status, 400);
+    assert.equal((await body(invalidSecret)).error, "spam_check_failed");
     assert.equal(calls.length, 1);
 
     calls.length = 0;

@@ -137,14 +137,23 @@ async function submissionReference(clientRequestId) {
   return `NGS-${shortHash.toUpperCase()}`;
 }
 
-async function verifyTurnstile(context, token, clientRequestId) {
+function turnstileErrorCodes(result) {
+  if (!Array.isArray(result?.["error-codes"])) return [];
+  return result["error-codes"]
+    .map(code => String(code))
+    .filter(code => /^[a-z0-9_-]{1,80}$/i.test(code))
+    .slice(0, 6);
+}
+
+async function verifyTurnstile(context, token) {
   const secret = String(context.env?.TURNSTILE_SECRET_KEY || "");
-  if (!secret) return false;
+  if (!secret) {
+    return { valid: false, reason: "missing_secret", errorCodes: [] };
+  }
 
   const formData = new FormData();
   formData.set("secret", secret);
   formData.set("response", token);
-  formData.set("idempotency_key", clientRequestId);
   const ip = context.request.headers.get("CF-Connecting-IP");
   if (ip) formData.set("remoteip", ip);
 
@@ -152,13 +161,34 @@ async function verifyTurnstile(context, token, clientRequestId) {
     method: "POST",
     body: formData
   });
-  if (!response.ok) return false;
+  if (!response.ok) {
+    return {
+      valid: false,
+      reason: "siteverify_http_error",
+      status: response.status,
+      errorCodes: []
+    };
+  }
 
   const result = await response.json();
   const requestHostname = new URL(context.request.url).hostname;
-  return result?.success === true &&
-    result?.action === "music_submission" &&
-    result?.hostname === requestHostname;
+  const success = result?.success === true;
+  const actionMatches = result?.action === "music_submission";
+  const hostnameMatches = result?.hostname === requestHostname;
+
+  return {
+    valid: success && actionMatches && hostnameMatches,
+    reason: !success
+      ? "siteverify_rejected"
+      : !actionMatches
+        ? "action_mismatch"
+        : !hostnameMatches
+          ? "hostname_mismatch"
+          : "verified",
+    errorCodes: turnstileErrorCodes(result),
+    action: typeof result?.action === "string" ? result.action.slice(0, 80) : "",
+    hostname: typeof result?.hostname === "string" ? result.hostname.slice(0, 253) : ""
+  };
 }
 
 function emailShell(content) {
@@ -267,13 +297,27 @@ export async function onRequestPost(context) {
   const validationError = validate(data);
   if (validationError) return json({ ok: false, error: validationError }, 400);
 
-  let human = false;
+  let turnstileResult = { valid: false, reason: "verification_error", errorCodes: [] };
   try {
-    human = await verifyTurnstile(context, data.turnstileToken, data.clientRequestId);
+    turnstileResult = await verifyTurnstile(context, data.turnstileToken);
   } catch (error) {
-    console.error(JSON.stringify({ message: "turnstile verification failed", reference }));
+    console.error(JSON.stringify({
+      message: "turnstile verification request failed",
+      reference
+    }));
   }
-  if (!human) return json({ ok: false, error: "spam_check_failed" }, 400);
+  if (!turnstileResult.valid) {
+    console.warn(JSON.stringify({
+      message: "turnstile token rejected",
+      reference,
+      reason: turnstileResult.reason,
+      errorCodes: turnstileResult.errorCodes,
+      action: turnstileResult.action || "",
+      hostname: turnstileResult.hostname || "",
+      status: turnstileResult.status || 0
+    }));
+    return json({ ok: false, error: "spam_check_failed" }, 400);
+  }
 
   try {
     await sendEmails(context, data, reference);

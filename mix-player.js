@@ -141,6 +141,14 @@
   }
 
   document.querySelectorAll("[data-mix-player]").forEach((player) => {
+    // Listening pages are player-first: the collection artwork and description
+    // support the experience, but must never push playback below the fold.
+    const section = player.closest(".mix-player-section");
+    const page = section?.closest(".mix-detail-page");
+    if (section && page && page.firstElementChild !== section) {
+      page.prepend(section);
+    }
+
     const originalPoster = player.querySelector("[data-mix-play] img");
     const state = {
       kind: String(player.dataset.kind || "").trim(),

@@ -1,11 +1,11 @@
 {
-  "source": "verified-seed",
+  "source": "youtube-mix-archives-and-channel-uploads",
   "contentPolicy": {
     "contentType": "long-mix",
     "minimumDurationSeconds": 600,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-08-10T08:00:00Z",
+  "generatedAt": "2026-08-10T07:32:31.621564Z",
   "total": 7,
   "counts": {
     "grime": 1,
@@ -15,12 +15,96 @@
     "summer": 1
   },
   "mixes": [
-    {"id":"1viGIRxy6fo","contentType":"long-mix","collection":"grime","title":"Grime Mashup — Series I","label":"Series I","name":"Grime Mashup","sequence":1,"thumbnail":"https://i.ytimg.com/vi/1viGIRxy6fo/hqdefault.jpg"},
-    {"id":"n8Yji4n8cU8","contentType":"long-mix","collection":"hip-hop","title":"Hip-Hop Mashup — Series I","label":"Series I","name":"Hip-Hop Mashup","sequence":1,"thumbnail":"https://i.ytimg.com/vi/n8Yji4n8cU8/hqdefault.jpg"},
-    {"id":"0nnoKsnkQok","contentType":"long-mix","collection":"uk-rap","title":"UK Rap Mashup — Series I","label":"Series I","name":"UK Rap Mashup","sequence":1,"thumbnail":"https://i.ytimg.com/vi/0nnoKsnkQok/hqdefault.jpg"},
-    {"id":"_SJRKzTWNX8","contentType":"long-mix","collection":"dancehall","title":"Dancehall Mashup — Series I","label":"Series I","name":"Dancehall Mashup","sequence":1,"thumbnail":"https://i.ytimg.com/vi/_SJRKzTWNX8/hqdefault.jpg"},
-    {"id":"mtBAuajzT0s","contentType":"long-mix","collection":"dancehall","title":"Dancehall Mashup — Series II","label":"Series II","name":"Dancehall Mashup","sequence":2,"thumbnail":"https://i.ytimg.com/vi/mtBAuajzT0s/hqdefault.jpg"},
-    {"id":"2dcF-n0UJts","contentType":"long-mix","collection":"dancehall","title":"Dancehall Mashup — Series III","label":"Series III","name":"Dancehall Mashup","sequence":3,"thumbnail":"https://i.ytimg.com/vi/2dcF-n0UJts/hqdefault.jpg"},
-    {"id":"1F1mMsRWdsw","contentType":"long-mix","collection":"summer","title":"The Sound of Summer 2026","label":"Summer Mix 2026","name":"The Sound of Summer","sequence":2026,"thumbnail":"https://i.ytimg.com/vi/1F1mMsRWdsw/hqdefault.jpg"}
+    {
+      "id": "1viGIRxy6fo",
+      "contentType": "long-mix",
+      "collection": "grime",
+      "title": "Grime Mashup — Series I",
+      "label": "Series I",
+      "name": "Grime Mashup",
+      "sequence": 1,
+      "published": "2026-02-27T19:00:02Z",
+      "durationSeconds": 1994,
+      "rawTitle": "Grime Mash Up Series 1 | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/1viGIRxy6fo/hqdefault.jpg"
+    },
+    {
+      "id": "n8Yji4n8cU8",
+      "contentType": "long-mix",
+      "collection": "hip-hop",
+      "title": "Hip-Hop Mashup — Series I",
+      "label": "Series I",
+      "name": "Hip-Hop Mashup",
+      "sequence": 1,
+      "published": "2026-03-06T19:00:51Z",
+      "durationSeconds": 2447,
+      "rawTitle": "HipHop Mash Up Series 1 | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/n8Yji4n8cU8/hqdefault.jpg"
+    },
+    {
+      "id": "0nnoKsnkQok",
+      "contentType": "long-mix",
+      "collection": "uk-rap",
+      "title": "UK Rap Mashup — Series I",
+      "label": "Series I",
+      "name": "UK Rap Mashup",
+      "sequence": 1,
+      "published": "2026-03-20T19:00:02Z",
+      "durationSeconds": 3921,
+      "rawTitle": "UK Rap Mashup Series 1 | Melodic UK Rap Mix 2026 | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/0nnoKsnkQok/hqdefault.jpg"
+    },
+    {
+      "id": "_SJRKzTWNX8",
+      "contentType": "long-mix",
+      "collection": "dancehall",
+      "title": "Dancehall Mashup — Series I",
+      "label": "Series I",
+      "name": "Dancehall Mashup",
+      "sequence": 1,
+      "published": "2026-02-20T19:00:39Z",
+      "durationSeconds": 1247,
+      "rawTitle": "Dancehall Mash-Up Series 1 | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/_SJRKzTWNX8/hqdefault.jpg"
+    },
+    {
+      "id": "mtBAuajzT0s",
+      "contentType": "long-mix",
+      "collection": "dancehall",
+      "title": "Dancehall Mashup — Series II",
+      "label": "Series II",
+      "name": "Dancehall Mashup",
+      "sequence": 2,
+      "published": "2026-03-13T19:01:00Z",
+      "durationSeconds": 1409,
+      "rawTitle": "Dancehall Mashup II (Full Dancehall Mix) | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/mtBAuajzT0s/hqdefault.jpg"
+    },
+    {
+      "id": "2dcF-n0UJts",
+      "contentType": "long-mix",
+      "collection": "dancehall",
+      "title": "Dancehall Mashup — Series III",
+      "label": "Series III",
+      "name": "Dancehall Mashup",
+      "sequence": 3,
+      "published": "2026-05-01T18:00:04Z",
+      "durationSeconds": 3679,
+      "rawTitle": "Gullyside Takeover | Dancehall Mashup Series 3 | 1 Hour Party Mix 2026 | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/2dcF-n0UJts/hqdefault.jpg"
+    },
+    {
+      "id": "1F1mMsRWdsw",
+      "contentType": "long-mix",
+      "collection": "summer",
+      "title": "The Sound of Summer 2026",
+      "label": "Summer Mix 2026",
+      "name": "The Sound of Summer",
+      "sequence": 2026,
+      "published": "2026-06-20T17:00:02Z",
+      "durationSeconds": 3928,
+      "rawTitle": "THE SOUND OF SUMMER 2026 | Summer Mix 2026 | Dancehall, UK Rap, R&B & Hip-Hop | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/1F1mMsRWdsw/hqdefault.jpg"
+    }
   ]
 }

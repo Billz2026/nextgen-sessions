@@ -8,7 +8,10 @@
   if (!form || !submitButton || !formStatus || !successBox || !successCopy || !turnstileMount) return;
 
   let turnstileWidget = null;
+  let turnstileReady = false;
   let turnstileToken = "";
+  let challengePending = false;
+  let requestInFlight = false;
   let clientRequestId = crypto.randomUUID();
   let lastPayloadSignature = "";
 
@@ -19,13 +22,13 @@
 
   function setSubmitting(submitting) {
     form.setAttribute("aria-busy", String(submitting));
-    submitButton.disabled = submitting || !turnstileToken;
+    submitButton.disabled = submitting || !turnstileReady;
     submitButton.textContent = submitting ? "Submitting…" : "Submit music";
   }
 
   function resetTurnstile() {
     turnstileToken = "";
-    submitButton.disabled = true;
+    challengePending = false;
     if (turnstileWidget !== null && window.turnstile) {
       window.turnstile.reset(turnstileWidget);
     }
@@ -42,22 +45,38 @@
           sitekey: siteKey,
           theme: "dark",
           action: "music_submission",
+          execution: "execute",
+          appearance: "interaction-only",
+          "refresh-expired": "auto",
+          "refresh-timeout": "auto",
           callback(token) {
             turnstileToken = token;
-            submitButton.disabled = false;
-            setStatus("Secure submission check complete.", "ready");
+            if (challengePending && !requestInFlight) {
+              challengePending = false;
+              void sendSubmission();
+            }
           },
           "expired-callback"() {
             turnstileToken = "";
-            submitButton.disabled = true;
-            setStatus("The security check expired. Please complete it again.", "error");
+            challengePending = false;
+            setSubmitting(false);
+            setStatus("The security check refreshed. Press Submit music again.", "error");
           },
           "error-callback"() {
             turnstileToken = "";
-            submitButton.disabled = true;
-            setStatus("The security check could not load. Please refresh and try again.", "error");
+            challengePending = false;
+            setSubmitting(false);
+            setStatus("The security check could not complete. Please press Submit music to try again.", "error");
+            return false;
+          },
+          "timeout-callback"() {
+            turnstileToken = "";
+            challengePending = false;
+            setSubmitting(false);
+            setStatus("The security check timed out. Please press Submit music to try again.", "error");
           }
         });
+        turnstileReady = true;
         resolve();
       };
       script.onerror = reject;
@@ -76,7 +95,8 @@
       const config = await response.json();
       if (!response.ok || !config.enabled || !config.siteKey) throw new Error("not_ready");
       await loadTurnstile(config.siteKey);
-      setStatus("Complete the security check, then submit your track.");
+      setSubmitting(false);
+      setStatus("Ready to submit securely.", "ready");
     } catch (_) {
       setStatus("Submissions are temporarily unavailable. Please try again later.", "error");
       turnstileMount.hidden = true;
@@ -107,15 +127,8 @@
     return JSON.stringify(fields);
   }
 
-  form.addEventListener("submit", async event => {
-    event.preventDefault();
-    successBox.hidden = true;
-    if (!form.reportValidity()) return;
-    if (!turnstileToken) {
-      setStatus("Please complete the security check before submitting.", "error");
-      return;
-    }
-
+  async function sendSubmission() {
+    if (!turnstileToken || requestInFlight) return;
     let payload = payloadFromForm();
     const signature = payloadSignature(payload);
     if (lastPayloadSignature && signature !== lastPayloadSignature) {
@@ -123,9 +136,11 @@
       payload = payloadFromForm();
     }
     lastPayloadSignature = signature;
+    requestInFlight = true;
     setSubmitting(true);
     setStatus("Securely sending your submission…");
 
+    let completed = false;
     try {
       const response = await fetch("/api/submit", {
         method: "POST",
@@ -146,17 +161,45 @@
       lastPayloadSignature = "";
       resetTurnstile();
       setStatus("Submission complete.", "ready");
+      completed = true;
       successBox.scrollIntoView({ behavior: "smooth", block: "center" });
       document.dispatchEvent(new CustomEvent("ngs:submission-complete"));
     } catch (error) {
       const code = error instanceof Error ? error.message : "submission_failed";
       const message = code === "spam_check_failed"
-        ? "The security check expired. Please complete it again and resubmit."
+        ? "The security check did not complete. It has been refreshed—press Submit music to try again."
         : "We could not send your submission. Your details are still here—please try again.";
       setStatus(message, "error");
       resetTurnstile();
     } finally {
+      requestInFlight = false;
       setSubmitting(false);
+      if (!completed && !turnstileToken) {
+        submitButton.focus({ preventScroll: true });
+      }
+    }
+  }
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    successBox.hidden = true;
+    if (!form.reportValidity() || challengePending || requestInFlight) return;
+    if (!turnstileReady || turnstileWidget === null || !window.turnstile) {
+      setStatus("The secure submission check is still loading. Please try again in a moment.", "error");
+      return;
+    }
+
+    turnstileToken = "";
+    challengePending = true;
+    setSubmitting(true);
+    setStatus("Completing the security check…");
+    try {
+      window.turnstile.execute(turnstileWidget);
+    } catch (_) {
+      challengePending = false;
+      resetTurnstile();
+      setSubmitting(false);
+      setStatus("The security check could not start. Please press Submit music to try again.", "error");
     }
   });
 

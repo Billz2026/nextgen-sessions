@@ -84,6 +84,13 @@
       return;
     }
 
+    const archivePlayer = target.closest("[data-archive-play]");
+    if (archivePlayer) {
+      const id = archivePlayer.closest("[data-video-id]")?.dataset.videoId || "archive";
+      send("release_play", id);
+      return;
+    }
+
     const filter = target.closest(".release-filter");
     if (filter) {
       send("archive_filter", safeSlug(filter.dataset.filter, "all"));
@@ -93,8 +100,9 @@
     const link = target.closest("a[href]");
     if (!link) return;
 
-    if (link.matches(".release-card, .archive-release-card")) {
-      send("release_click", youtubeLabel(link.href));
+    if (link.matches(".release-card, .archive-release-detail-link")) {
+      const id = link.closest("[data-video-id]")?.dataset.videoId || youtubeLabel(link.href);
+      send("release_click", id);
       return;
     }
 

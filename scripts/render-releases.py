@@ -92,15 +92,18 @@ def release_card(release: dict) -> str:
     video_id = esc(release["id"])
     initials = "".join(part[:1] for part in release["artist"].split()[:2]).upper() or "NG"
     return (
-        f'<a class="archive-release-card" href="{url}" aria-label="View {title} by {artist}">'
+        f'<article class="archive-release-card" data-release-card data-video-id="{video_id}" '
+        f'data-video-title="{artist} — {title}" data-release-url="{url}" '
+        f'data-image-src="/api/release-image?id={video_id}&amp;size=card" data-image-alt="{title} by {artist}">'
         f'<div class="archive-release-art" data-monogram="{esc(initials)}">'
-        f'<img loading="lazy" decoding="async" src="/api/release-image?id={video_id}&amp;size=card" alt="{title} by {artist}">'
-        '<span class="archive-release-play" aria-hidden="true"></span></div>'
+        f'<a class="archive-release-art-link archive-release-detail-link" href="{url}" aria-label="View details for {title} by {artist}">'
+        f'<img loading="lazy" decoding="async" src="/api/release-image?id={video_id}&amp;size=card" alt="{title} by {artist}"></a>'
+        f'<button class="archive-release-play" type="button" data-archive-play aria-label="Play {title} by {artist}"></button></div>'
         '<div class="archive-release-body">'
-        f'<span class="archive-release-genre">{group}</span><h3>{title}</h3>'
+        f'<span class="archive-release-genre">{group}</span><a class="archive-release-title archive-release-detail-link" href="{url}"><h3>{title}</h3></a>'
         f'<p class="archive-release-artist">{artist}</p>'
-        f'<div class="archive-release-footer"><span>{published}</span><span class="archive-release-watch">View release</span></div>'
-        '</div></a>'
+        f'<div class="archive-release-footer"><span>{published}</span><a class="archive-release-watch archive-release-detail-link" href="{url}">View details</a></div>'
+        '</div></article>'
     )
 
 

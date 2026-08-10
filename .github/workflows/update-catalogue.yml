@@ -10,6 +10,9 @@ on:
       - ".github/workflows/update-catalogue.yml"
       - "scripts/update-catalogue.py"
       - "scripts/render-releases.py"
+      - "scripts/test-release-archive-player.py"
+      - "releases.js"
+      - "releases.css"
       - "scripts/test-latest-policy.mjs"
       - "scripts/test-catalogue-resilience.py"
       - "functions/api/latest.js"
@@ -60,8 +63,12 @@ jobs:
           archive = open("releases/index.html", encoding="utf-8").read()
           assert "Loading catalogue…" not in archive
           assert archive.count('class="archive-release-card"') >= data["total"]
+          assert archive.count('data-archive-play') >= data["total"]
           print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
           PY
+
+      - name: Test release archive inline player
+        run: python3 scripts/test-release-archive-player.py
 
       - name: Test latest-release full-track lock
         run: node scripts/test-latest-policy.mjs

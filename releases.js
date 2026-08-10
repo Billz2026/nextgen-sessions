@@ -65,6 +65,7 @@
 
   let catalogue = [];
   let activeFilter = "All";
+  let activeCard = null;
 
   function normaliseText(value) {
     return String(value || "").toLowerCase().replace(/[’‘]/g, "'").trim();
@@ -178,11 +179,81 @@
     return `/releases/${slug || "release"}/`;
   }
 
+  function imageForCard(card) {
+    const image = document.createElement("img");
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.src = card.dataset.imageSrc || "";
+    image.alt = card.dataset.imageAlt || "";
+    image.addEventListener("error", () => {
+      image.hidden = true;
+      image.closest(".archive-release-art")?.classList.add("image-unavailable");
+    });
+    return image;
+  }
+
+  function restoreCard(card) {
+    const art = card?.querySelector(".archive-release-art");
+    if (!art) return;
+
+    const details = document.createElement("a");
+    details.className = "archive-release-art-link archive-release-detail-link";
+    details.href = card.dataset.releaseUrl || "/releases/";
+    details.setAttribute("aria-label", `View details for ${card.dataset.videoTitle || "this release"}`);
+    details.append(imageForCard(card));
+
+    const play = document.createElement("button");
+    play.className = "archive-release-play";
+    play.type = "button";
+    play.dataset.archivePlay = "";
+    play.setAttribute("aria-label", `Play ${card.dataset.videoTitle || "this release"}`);
+
+    art.classList.remove("image-unavailable");
+    art.replaceChildren(details, play);
+    card.classList.remove("is-playing");
+    if (activeCard === card) activeCard = null;
+  }
+
+  function stopActiveCard() {
+    if (activeCard) restoreCard(activeCard);
+  }
+
+  function playCard(card) {
+    const videoId = String(card?.dataset.videoId || "").trim();
+    const art = card?.querySelector(".archive-release-art");
+    if (!art || !/^[A-Za-z0-9_-]{11}$/.test(videoId)) return;
+
+    if (activeCard && activeCard !== card) restoreCard(activeCard);
+
+    const frame = document.createElement("iframe");
+    frame.className = "archive-release-player";
+    frame.title = card.dataset.videoTitle || "NextGen Sessions release";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    frame.allowFullscreen = true;
+    frame.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1&playsinline=1`;
+
+    const close = document.createElement("button");
+    close.className = "archive-release-close";
+    close.type = "button";
+    close.dataset.archiveClose = "";
+    close.textContent = "Close";
+    close.setAttribute("aria-label", `Stop ${card.dataset.videoTitle || "this release"} and close player`);
+
+    art.replaceChildren(frame, close);
+    card.classList.add("is-playing");
+    activeCard = card;
+  }
+
   function createReleaseCard(release) {
-    const link = document.createElement("a");
-    link.className = "archive-release-card";
-    link.href = releasePath(release);
-    link.setAttribute("aria-label", `View ${release.title} by ${release.artist}`);
+    const card = document.createElement("article");
+    card.className = "archive-release-card";
+    card.dataset.releaseCard = "";
+    card.dataset.videoId = release.id;
+    card.dataset.videoTitle = `${release.artist} — ${release.title}`;
+    card.dataset.releaseUrl = releasePath(release);
+    card.dataset.imageSrc = `/api/release-image?id=${encodeURIComponent(release.id)}&size=card`;
+    card.dataset.imageAlt = `${release.title} by ${release.artist}`;
 
     const art = document.createElement("div");
     art.className = "archive-release-art";
@@ -193,27 +264,20 @@
       .map(part => part[0])
       .join("")
       .toUpperCase() || "NG";
-    const image = document.createElement("img");
-    image.loading = "lazy";
-    image.decoding = "async";
-    image.src = `/api/release-image?id=${encodeURIComponent(release.id)}&size=card`;
-    image.alt = `${release.title} by ${release.artist}`;
-    image.addEventListener("error", () => {
-      image.hidden = true;
-      art.classList.add("image-unavailable");
-    });
-    const play = document.createElement("span");
-    play.className = "archive-release-play";
-    play.setAttribute("aria-hidden", "true");
-    art.append(image, play);
+    card.append(art);
+    restoreCard(card);
 
     const body = document.createElement("div");
     body.className = "archive-release-body";
     const genre = document.createElement("span");
     genre.className = "archive-release-genre";
     genre.textContent = release.group;
+    const titleLink = document.createElement("a");
+    titleLink.className = "archive-release-title archive-release-detail-link";
+    titleLink.href = releasePath(release);
     const title = document.createElement("h3");
     title.textContent = release.title;
+    titleLink.append(title);
     const artist = document.createElement("p");
     artist.className = "archive-release-artist";
     artist.textContent = release.artist;
@@ -221,16 +285,18 @@
     footer.className = "archive-release-footer";
     const date = document.createElement("span");
     date.textContent = formatDate(release.published) || "Official release";
-    const watch = document.createElement("span");
-    watch.className = "archive-release-watch";
-    watch.textContent = "View release";
+    const watch = document.createElement("a");
+    watch.className = "archive-release-watch archive-release-detail-link";
+    watch.href = releasePath(release);
+    watch.textContent = "View details";
     footer.append(date, watch);
-    body.append(genre, title, artist, footer);
-    link.append(art, body);
-    return link;
+    body.append(genre, titleLink, artist, footer);
+    card.append(body);
+    return card;
   }
 
   function render() {
+    stopActiveCard();
     const term = normaliseText(search?.value);
     const visible = catalogue.filter(release => {
       const matchesFilter = activeFilter === "All" || release.group === activeFilter;
@@ -260,6 +326,20 @@
 
   filterButtons.forEach(button => {
     button.addEventListener("click", () => setFilter(button.dataset.filter || "All"));
+  });
+  grid.addEventListener("click", event => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+    const card = target.closest("[data-release-card]");
+    if (!card) return;
+
+    if (target.closest("[data-archive-play]")) {
+      event.preventDefault();
+      playCard(card);
+    } else if (target.closest("[data-archive-close]")) {
+      event.preventDefault();
+      restoreCard(card);
+    }
   });
   controls?.addEventListener("submit", event => event.preventDefault());
   search?.addEventListener("input", render);

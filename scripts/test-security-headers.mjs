@@ -63,4 +63,17 @@ for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
   );
 }
 
+const compiledWorker = await readFile(new URL("../.worker/index.js", import.meta.url), "utf8");
+for (const marker of [
+  '"Content-Security-Policy"',
+  '"Strict-Transport-Security": "max-age=31536000"',
+  "function withSecurityHeaders(",
+  "return withSecurityHeaders("
+]) {
+  assert.ok(
+    compiledWorker.includes(marker),
+    `Compiled Worker is stale or missing security marker: ${marker}`
+  );
+}
+
 console.log("Security header policy passed for HTML, API and redirect responses.");

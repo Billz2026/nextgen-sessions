@@ -883,6 +883,42 @@ var LEGACY_HOSTS = /* @__PURE__ */ new Set([
 var MOBILE_NAV_VERSION = "20260809-nav3";
 var ANDRE_PORTRAIT_VERSION = "20260806-andre3";
 var HEADER_LOGO_SRC = "/assets/nextgen-header-wordmark-2026.webp";
+var SECURITY_HEADERS = Object.freeze({
+  "Content-Security-Policy": [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "frame-ancestors 'self'",
+    "form-action 'self'",
+    "script-src 'self' 'unsafe-inline'",
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: https://i.ytimg.com",
+    "font-src 'self' data:",
+    "connect-src 'self'",
+    "frame-src https://www.youtube-nocookie.com",
+    "media-src 'none'",
+    "worker-src 'self'",
+    "manifest-src 'self'",
+    "upgrade-insecure-requests"
+  ].join("; "),
+  "Strict-Transport-Security": "max-age=31536000",
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+  "X-Frame-Options": "SAMEORIGIN"
+});
+function withSecurityHeaders(response2) {
+  const headers = new Headers(response2.headers);
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    headers.set(name, value);
+  }
+  return new Response(response2.body, {
+    status: response2.status,
+    statusText: response2.statusText,
+    headers
+  });
+}
+__name(withSecurityHeaders, "withSecurityHeaders");
 var HeaderLogoRewriter = class {
   static {
     __name(this, "HeaderLogoRewriter");
@@ -920,21 +956,22 @@ async function onRequest(context) {
   const hostname = url.hostname.toLowerCase();
   if (LEGACY_HOSTS.has(hostname)) {
     const destination = new URL(url.pathname + url.search, CANONICAL_ORIGIN);
-    return Response.redirect(destination.toString(), 301);
+    return withSecurityHeaders(Response.redirect(destination.toString(), 301));
   }
   if (url.pathname === "/submit.html") {
     url.pathname = "/submit";
-    return Response.redirect(url.toString(), 301);
+    return withSecurityHeaders(Response.redirect(url.toString(), 301));
   }
   const response2 = await context.next();
   const contentType = response2.headers.get("content-type") || "";
   const shouldEnhance = context.request.method === "GET" && contentType.includes("text/html");
-  if (!shouldEnhance) return response2;
-  return new HTMLRewriter().on("a.brand img", new HeaderLogoRewriter()).on("head", new MobileNavHeadInjector()).on("body", new SharedBodyInjector()).transform(response2);
+  if (!shouldEnhance) return withSecurityHeaders(response2);
+  const enhancedResponse = new HTMLRewriter().on("a.brand img", new HeaderLogoRewriter()).on("head", new MobileNavHeadInjector()).on("body", new SharedBodyInjector()).transform(response2);
+  return withSecurityHeaders(enhancedResponse);
 }
 __name(onRequest, "onRequest");
 
-// ../.wrangler/tmp/pages-RdcPYN/functionsRoutes-0.09059863610859753.mjs
+// ../.wrangler/tmp/pages-xBxdvw/functionsRoutes-0.4490975765210342.mjs
 var routes = [
   {
     routePath: "/api/andre-portrait",
@@ -1050,7 +1087,7 @@ var routes = [
   }
 ];
 
-// ../../../../../tmp/nextgen-npm-cache/_npx/d77349f55c2be1c0/node_modules/path-to-regexp/dist.es2015/index.js
+// ../../../../../tmp/nextgen-npm-cache/_npx/32026684e21afda6/node_modules/path-to-regexp/dist.es2015/index.js
 function lexer(str) {
   var tokens = [];
   var i = 0;
@@ -1376,7 +1413,7 @@ function pathToRegexp(path, keys, options) {
 }
 __name(pathToRegexp, "pathToRegexp");
 
-// ../../../../../tmp/nextgen-npm-cache/_npx/d77349f55c2be1c0/node_modules/wrangler/templates/pages-template-worker.ts
+// ../../../../../tmp/nextgen-npm-cache/_npx/32026684e21afda6/node_modules/wrangler/templates/pages-template-worker.ts
 var escapeRegex = /[.+?^${}()|[\]\\]/g;
 function* executeRequest(request) {
   const requestPath = new URL(request.url).pathname;

@@ -165,10 +165,9 @@ window.NGS_ARTIST_PROFILES = {
     "imageKey": "kemarco",
     "imagePosition": "50% 32%",
     "featuredVideo": {
-      "id": "",
-      "title": "Badman Don't Rush",
-      "label": "Kemarco — Badman Don't Rush",
-      "releaseDate": "5 August 2026"
+      "id": "dV6_GbsHrxI",
+      "title": "Badman Don’t Rush",
+      "label": "Kemarco — Badman Don’t Rush"
     },
     "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Kemarco",
     "related": [

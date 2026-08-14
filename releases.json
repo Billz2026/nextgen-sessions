@@ -5,11 +5,11 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-08-14T16:08:49.108395Z",
-  "total": 88,
+  "generatedAt": "2026-08-14T17:14:54.521331Z",
+  "total": 89,
   "counts": {
     "Dancehall & Reggae": 29,
-    "UK Rap & Grime": 19,
+    "UK Rap & Grime": 20,
     "Hip-Hop / G-Funk": 17,
     "Asian": 3,
     "Lovers Rock": 8,
@@ -20,6 +20,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "t4rrj5Ij4cU",
+      "contentType": "full-release",
+      "artist": "Mizzy G",
+      "title": "Money Bought Silence",
+      "group": "UK Rap & Grime",
+      "published": "2026-08-14T17:00:33Z",
+      "durationSeconds": 274,
+      "rawTitle": "WHEN MONEY CHANGES PEOPLE | Mizzy G - Money Bought Silence | UK Rap 2026 | NextGen Sessions",
+      "slug": "mizzy-g-money-bought-silence",
+      "url": "/releases/mizzy-g-money-bought-silence/"
+    },
     {
       "id": "SkQ3tJZmEn8",
       "contentType": "full-release",

@@ -5,13 +5,13 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-08-21T16:55:41.676078Z",
-  "total": 91,
+  "generatedAt": "2026-08-21T17:49:52.511455Z",
+  "total": 92,
   "counts": {
     "Dancehall & Reggae": 30,
     "UK Rap & Grime": 20,
     "Hip-Hop / G-Funk": 18,
-    "Asian": 3,
+    "Asian": 4,
     "Lovers Rock": 8,
     "R&B & Soul": 8,
     "Late Night Afro": 3,
@@ -20,6 +20,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "s7W3lr2h3vI",
+      "contentType": "full-release",
+      "artist": "Asif Sultaan",
+      "title": "Tor Wakhri",
+      "group": "Asian",
+      "published": "2026-08-21T17:00:00Z",
+      "durationSeconds": 345,
+      "rawTitle": "Asif Sultaan - Tor Wakhri | Desi Hip-Hop 2026 | NextGen Sessions",
+      "slug": "asif-sultaan-tor-wakhri",
+      "url": "/releases/asif-sultaan-tor-wakhri/"
+    },
     {
       "id": "lz71Xa1D65k",
       "contentType": "full-release",

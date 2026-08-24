@@ -89,6 +89,9 @@ assert not uncovered_artists, f"Artists missing genre-hub coverage: {uncovered_a
 landing = (ROOT / "genres" / "index.html").read_text(encoding="utf-8")
 for slug in LANES:
     assert f'href="/genres/{slug}/"' in landing, f"Landing page missing {slug}"
+    assert f'data-lane-image="{slug}"' in landing, f"Landing artwork missing {slug}"
+assert landing.count('class="genre-hub-card-media"') == len(LANES), "Every genre landing card must have its own artwork frame"
+assert 'genre-hubs.css?v=20260824-genres2' in landing, "Genre landing page has a stale CSS cache key"
 
 runtime = (ROOT / "genre-hubs.js").read_text(encoding="utf-8")
 for slug in LANES:
@@ -96,6 +99,18 @@ for slug in LANES:
 assert 'fetch("/releases.json"' in runtime, "Genre hubs no longer load the live release catalogue"
 
 styles = (ROOT / "genre-hubs.css").read_text(encoding="utf-8")
+landing_media_start = styles.find(".genre-hub-card-media{")
+assert landing_media_start >= 0, "Genre landing artwork frame rule is missing"
+landing_media_end = styles.find("}", landing_media_start)
+landing_media_rule = styles[landing_media_start:landing_media_end]
+assert "aspect-ratio:16/9" in landing_media_rule, "Genre landing cards must use a consistent 16:9 artwork frame"
+landing_image_start = styles.find(".genre-hub-card-media img{")
+assert landing_image_start >= 0, "Genre landing artwork rule is missing"
+landing_image_end = styles.find("}", landing_image_start)
+landing_image_rule = styles[landing_image_start:landing_image_end]
+assert "object-fit:contain" in landing_image_rule, "Genre landing artwork must remain fully visible"
+assert "object-fit:cover" not in landing_image_rule, "Genre landing artwork has regressed to crop mode"
+
 media_rule_start = styles.find(".genre-hero-media{")
 assert media_rule_start >= 0, "Genre hero media rule is missing"
 media_rule_end = styles.find("}", media_rule_start)

@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Validate that every rendered NextGen site footer exposes the Privacy page.
-
-A footer may carry the link directly in HTML or through one of the shared
-site runtimes that loads site-metrics.js, whose first responsibility is to
-insert the Privacy link idempotently when it is missing.
-"""
+"""Validate Privacy coverage and the canonical NextGen footer runtime."""
 
 from __future__ import annotations
 
@@ -22,6 +17,7 @@ RUNTIME_MARKERS = (
     '/artist-profile.js',
     '/release-player.js',
     '/mix-player.js',
+    '/genre-hubs.js',
 )
 
 checked: list[Path] = []
@@ -51,8 +47,22 @@ if missing:
     )
 
 metrics = (ROOT / "site-metrics.js").read_text(encoding="utf-8")
-assert 'privacyLink.href = "/privacy/"' in metrics, "site-metrics.js no longer inserts Privacy"
+assert "standardizeFooter" in metrics, "site-metrics.js no longer standardizes the global footer"
+for href in (
+    "/artists/",
+    "/releases/",
+    "/genres/",
+    "/mixes/",
+    "/submit.html",
+    "/privacy/",
+    "https://www.youtube.com/@NextGenSessions",
+    "https://www.tiktok.com/@nextgensessions",
+    "https://www.instagram.com/next.gensessions/",
+    "mailto:contact@nextgensessions.com",
+):
+    assert href in metrics, f"Canonical footer runtime missing {href}"
+
 assert 'metrics.src = "/site-metrics.js"' in (ROOT / "release-player.js").read_text(encoding="utf-8"), "release pages lost footer runtime"
 assert 'metrics.src = "/site-metrics.js"' in (ROOT / "mix-player.js").read_text(encoding="utf-8"), "mix pages lost footer runtime"
 
-print(f"Validated Privacy coverage across {len(checked)} site footer page(s)")
+print(f"Validated Privacy/canonical footer coverage across {len(checked)} site footer page(s)")

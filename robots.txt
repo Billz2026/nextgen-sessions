@@ -3,3 +3,4 @@ Allow: /
 
 Sitemap: https://nextgensessions.com/sitemap.xml
 Sitemap: https://nextgensessions.com/sitemap-mixes.xml
+Sitemap: https://nextgensessions.com/sitemap-genres.xml

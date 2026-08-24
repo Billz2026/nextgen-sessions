@@ -40,7 +40,25 @@
     send(event, label);
   }
 
+  const primaryNav = document.querySelector(".nav");
+  if (primaryNav && !primaryNav.querySelector('a[href="/genres/"]')) {
+    const genresLink = document.createElement("a");
+    genresLink.href = "/genres/";
+    genresLink.textContent = "Genres";
+    const releasesLink = primaryNav.querySelector('a[href="/releases/"]');
+    if (releasesLink) releasesLink.after(genresLink);
+    else primaryNav.prepend(genresLink);
+  }
+
   const footerLinks = document.querySelector(".footer-links");
+  if (footerLinks && !footerLinks.querySelector('a[href="/genres/"]')) {
+    const genresLink = document.createElement("a");
+    genresLink.href = "/genres/";
+    genresLink.textContent = "Genres";
+    const releasesLink = footerLinks.querySelector('a[href="/releases/"]');
+    if (releasesLink) releasesLink.after(genresLink);
+    else footerLinks.prepend(genresLink);
+  }
   if (footerLinks && !footerLinks.querySelector('a[href="/privacy/"]')) {
     const privacyLink = document.createElement("a");
     privacyLink.href = "/privacy/";
@@ -65,6 +83,11 @@
     if (internal) return internal[1].toLowerCase();
     const heading = link.querySelector("h3, strong");
     return safeSlug(heading?.textContent || link.getAttribute("aria-label"), "artist");
+  }
+
+  function genreLabel(link) {
+    const internal = link.getAttribute("href")?.match(/^\/genres\/([a-z0-9-]+)\/?$/i);
+    return internal ? internal[1].toLowerCase() : "genres";
   }
 
   send("page_view", "");
@@ -100,14 +123,19 @@
     const link = target.closest("a[href]");
     if (!link) return;
 
-    if (link.matches(".release-card, .archive-release-detail-link")) {
+    if (link.matches(".release-card, .archive-release-detail-link, .genre-release-card")) {
       const id = link.closest("[data-video-id]")?.dataset.videoId || youtubeLabel(link.href);
       send("release_click", id);
       return;
     }
 
-    if (link.matches(".featured-artist-card, .artist-roster-card, .related-card")) {
+    if (link.matches(".featured-artist-card, .artist-roster-card, .related-card, .genre-artist-card")) {
       send("artist_click", artistLabel(link));
+      return;
+    }
+
+    if (link.matches(".genre-hub-card, .genre-related-card") || /^\/genres\//.test(link.getAttribute("href") || "")) {
+      send("genre_click", genreLabel(link));
       return;
     }
 

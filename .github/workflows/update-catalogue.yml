@@ -12,9 +12,13 @@ on:
       - "scripts/update-catalogue.py"
       - "scripts/render-releases.py"
       - "scripts/sync-homepage-fallback.py"
+      - "scripts/test-global-footer.py"
       - "scripts/test-release-archive-player.py"
       - "releases.js"
       - "releases.css"
+      - "release-player.js"
+      - "mix-player.js"
+      - "site-metrics.js"
       - "scripts/test-latest-policy.mjs"
       - "scripts/test-catalogue-resilience.py"
       - "functions/api/latest.js"
@@ -92,6 +96,9 @@ jobs:
           assert "Kemarco – Badman Don’t Rush" not in homepage.split('id="latestVideoTitle">', 1)[-1].split('</h2>', 1)[0]
           print(f'Homepage fallback validated: {latest["artist"]} — {latest["title"]}')
           PY
+
+      - name: Test global Privacy footer
+        run: python3 scripts/test-global-footer.py
 
       - name: Test release archive inline player
         run: python3 scripts/test-release-archive-player.py

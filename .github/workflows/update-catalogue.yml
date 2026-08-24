@@ -26,6 +26,7 @@ on:
       - "mobile-nav.js"
       - "privacy/**"
       - "404.html"
+      - "submit.html"
       - "releases.js"
       - "releases.css"
       - "release-player.js"

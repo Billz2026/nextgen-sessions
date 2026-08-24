@@ -11,6 +11,7 @@ metrics = (ROOT / "site-metrics.js").read_text(encoding="utf-8")
 privacy = (ROOT / "privacy" / "index.html").read_text(encoding="utf-8")
 error_page = (ROOT / "404.html").read_text(encoding="utf-8")
 artists = (ROOT / "artists" / "index.html").read_text(encoding="utf-8")
+submit = (ROOT / "submit.html").read_text(encoding="utf-8")
 
 # Mobile navigation must remain a real menu rather than the old horizontal-scroll fallback.
 for label in ("Home", "Artists", "Releases", "Genres", "Mixes", "About", "Submit", "YouTube"):
@@ -60,4 +61,12 @@ assert "Open any artist profile" in artists, "Artist landing still describes the
 assert "Published profile pages open directly" not in artists, "Old artist-profile wording remains"
 assert 'href="/genres/"' in artists, "Artists static navigation is missing Genres"
 
-print("Responsive shell QA passed: mobile navigation, canonical footer, 404, Privacy and artist roster copy")
+# Submit should be usable and complete even before shared JavaScript enhancement runs.
+assert '<meta name="viewport"' in submit, "Submit page lost its mobile viewport"
+assert 'href="/genres/"' in submit, "Submit static navigation is missing Genres"
+assert 'aria-current="page" href="/submit.html"' in submit, "Submit active navigation state is missing"
+for href in ("/artists/", "/releases/", "/genres/", "/mixes/", "/privacy/", "mailto:contact@nextgensessions.com"):
+    assert href in submit, f"Submit static footer missing {href}"
+assert '/site-metrics.js' in submit, "Submit page lost shared responsive runtime"
+
+print("Responsive shell QA passed: navigation, footer, 404, Privacy, Artists and Submit")

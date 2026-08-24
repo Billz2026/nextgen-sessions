@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "scripts/apply-genre-playlist-fix.py"
+      - "scripts/apply-genre-playlist-fix.trigger"
 
 permissions:
   contents: write
@@ -29,7 +30,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add artists.js artist-profiles.js artist-profiles-expanded.js artists/ scripts/update-catalogue.py functions/api/latest.js
+          git add artists.js artist-profiles.js artist-profiles-expanded.js artists/ scripts/update-catalogue.py functions/api/latest.js deon-creed-profile-fix.js
           git diff --cached --quiet && exit 0
           git commit -m "Split dancehall and reggae classifications"
           for attempt in 1 2 3; do

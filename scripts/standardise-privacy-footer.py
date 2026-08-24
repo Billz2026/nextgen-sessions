@@ -12,6 +12,7 @@ FOOTER_RE = re.compile(r'<footer\s+class="site-footer"[\s\S]*?</footer>', re.I)
 LINKS_RE = re.compile(r'(<div\s+class="footer-links">)([\s\S]*?)(</div>)', re.I)
 CONTACT_RE = re.compile(r'<a\s+href="mailto:contact@nextgensessions\.com">Contact</a>', re.I)
 
+# One-time migration entrypoint; safe to re-run because Privacy insertion is idempotent.
 
 def patch_footer(footer: str) -> str:
     if re.search(r'href=["\']/privacy/["\']', footer, re.I):

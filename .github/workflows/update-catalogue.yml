@@ -14,12 +14,18 @@ on:
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-global-footer.py"
       - "scripts/test-genre-hubs.py"
+      - "scripts/test-responsive-shell.py"
       - "scripts/test-release-archive-player.py"
       - "genre-hubs.js"
       - "genre-hubs.css"
       - "genres/**"
       - "artists.js"
+      - "artists/index.html"
       - "artist-images.js"
+      - "mobile-nav.css"
+      - "mobile-nav.js"
+      - "privacy/**"
+      - "404.html"
       - "releases.js"
       - "releases.css"
       - "release-player.js"
@@ -105,6 +111,9 @@ jobs:
 
       - name: Test global Privacy footer
         run: python3 scripts/test-global-footer.py
+
+      - name: Test responsive shell
+        run: python3 scripts/test-responsive-shell.py
 
       - name: Test genre hubs
         run: python3 scripts/test-genre-hubs.py

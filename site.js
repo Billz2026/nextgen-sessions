@@ -22,22 +22,18 @@
   let activeLatest = null;
   let latestPlayerLoaded = false;
 
-  const FALLBACK_LATEST = {
-    id: "dV6_GbsHrxI",
-    contentType: "full-release",
-    title: "Kemarco – Badman Don’t Rush",
-    published: "2026-08-05T17:00:07+00:00",
-    url: "/releases/kemarco-badman-dont-rush/"
-  };
+  // HOMEPAGE:AUTO-FALLBACK:START
+  const FALLBACK_LATEST = {"id":"s7W3lr2h3vI","contentType":"full-release","title":"Asif Sultaan – Tor Wakhri","published":"2026-08-21T17:00:00Z","url":"/releases/asif-sultaan-tor-wakhri/"};
 
   const FALLBACK_RELEASES = [
     FALLBACK_LATEST,
-    { id: "Sra1722xEFE", contentType: "full-release", title: "Renz Cole – Heatwave", published: "2026-07-31T17:00:33+00:00", url: "/releases/renz-cole-heatwave/" },
-    { id: "6H6yq_1bEsQ", contentType: "full-release", title: "Reeko – After Di Party", published: "2026-07-29T17:00:35+00:00", url: "/releases/reeko-after-di-party/" },
-    { id: "ZSjRD_3B5uk", contentType: "full-release", title: "Deon Creed – Days Like These", published: "2026-07-27T17:00:05+00:00", url: "/releases/deon-creed-days-like-these/" },
-    { id: "TnYNLBDlLx8", contentType: "full-release", title: "Omari V – When Di Breeze Call", published: "2026-07-24T17:00:21Z", url: "/releases/omari-v-when-di-breeze-call/" },
-    { id: "RvRq-zwGfKc", contentType: "full-release", title: "Voss Carter – Sunshine On The Way Home", published: "2026-07-22T17:00:39Z", url: "/releases/voss-carter-sunshine-on-the-way-home/" }
+    {"id":"lz71Xa1D65k","contentType":"full-release","title":"Jay Starks – Who Owns the Corner Now?","published":"2026-08-19T17:00:19Z","url":"/releases/jay-starks-who-owns-the-corner-now/"},
+    {"id":"JI_O7wnEtCc","contentType":"full-release","title":"Kemarco – Ghetto Blessings","published":"2026-08-17T17:00:11Z","url":"/releases/kemarco-ghetto-blessings/"},
+    {"id":"t4rrj5Ij4cU","contentType":"full-release","title":"Mizzy G – Money Bought Silence","published":"2026-08-14T17:00:33Z","url":"/releases/mizzy-g-money-bought-silence/"},
+    {"id":"SkQ3tJZmEn8","contentType":"full-release","title":"Mariana Lo – Malibu Mood","published":"2026-08-12T17:00:12Z","url":"/releases/mariana-lo-malibu-mood/"},
+    {"id":"X4gADZZidrg","contentType":"full-release","title":"Rudii Marka – Marked for War","published":"2026-08-10T17:00:29Z","url":"/releases/rudii-marka-marked-for-war/"}
   ];
+  // HOMEPAGE:AUTO-FALLBACK:END
 
   function validVideoId(value) {
     const id = String(value || "").trim();

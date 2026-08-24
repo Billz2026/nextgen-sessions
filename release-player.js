@@ -1,6 +1,13 @@
 (function () {
   "use strict";
 
+  if (!document.querySelector('script[src="/site-metrics.js"]')) {
+    const metrics = document.createElement("script");
+    metrics.src = "/site-metrics.js";
+    metrics.async = true;
+    document.head.append(metrics);
+  }
+
   document.querySelectorAll("[data-release-player]").forEach(player => {
     const button = player.querySelector("[data-release-play]");
     if (!button) return;

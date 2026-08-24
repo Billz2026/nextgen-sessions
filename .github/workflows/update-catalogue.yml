@@ -1,5 +1,6 @@
 name: Update Release Catalogue
 
+# Catalogue source sync: Dancehall and Reggae split
 on:
   schedule:
     - cron: "20 * * * *"

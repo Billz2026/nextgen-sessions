@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "scripts/install-homepage-fallback-sync.py"
+      - "homepage-fallback-sync.trigger"
 
 permissions:
   contents: write

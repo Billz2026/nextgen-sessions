@@ -13,7 +13,13 @@ on:
       - "scripts/render-releases.py"
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-global-footer.py"
+      - "scripts/test-genre-hubs.py"
       - "scripts/test-release-archive-player.py"
+      - "genre-hubs.js"
+      - "genre-hubs.css"
+      - "genres/**"
+      - "artists.js"
+      - "artist-images.js"
       - "releases.js"
       - "releases.css"
       - "release-player.js"
@@ -99,6 +105,9 @@ jobs:
 
       - name: Test global Privacy footer
         run: python3 scripts/test-global-footer.py
+
+      - name: Test genre hubs
+        run: python3 scripts/test-genre-hubs.py
 
       - name: Test release archive inline player
         run: python3 scripts/test-release-archive-player.py

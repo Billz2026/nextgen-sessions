@@ -5,6 +5,26 @@
   const tracked = new Set();
   let searchTimer = 0;
 
+  function ensureMobileNavigation() {
+    const version = "20260824-qa1";
+    if (!document.querySelector('link[href^="/mobile-nav.css"]')) {
+      const stylesheet = document.createElement("link");
+      stylesheet.rel = "stylesheet";
+      stylesheet.href = `/mobile-nav.css?v=${version}`;
+      stylesheet.dataset.ngsMobileNav = "true";
+      document.head.append(stylesheet);
+    }
+    if (!document.querySelector('script[src^="/mobile-nav.js"]')) {
+      const script = document.createElement("script");
+      script.src = `/mobile-nav.js?v=${version}`;
+      script.async = false;
+      script.dataset.ngsMobileNav = "true";
+      document.head.append(script);
+    }
+  }
+
+  ensureMobileNavigation();
+
   function safeSlug(value, fallback) {
     const slug = String(value || "")
       .normalize("NFKD")

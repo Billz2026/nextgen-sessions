@@ -95,6 +95,15 @@ for slug in LANES:
     assert f'"{slug}"' in runtime, f"Runtime taxonomy missing {slug}"
 assert 'fetch("/releases.json"' in runtime, "Genre hubs no longer load the live release catalogue"
 
+styles = (ROOT / "genre-hubs.css").read_text(encoding="utf-8")
+hero_rule_start = styles.find(".genre-hero-media img{")
+assert hero_rule_start >= 0, "Genre hero artwork rule is missing"
+hero_rule_end = styles.find("}", hero_rule_start)
+hero_rule = styles[hero_rule_start:hero_rule_end]
+assert "object-fit:contain" in hero_rule, "Genre hero artwork must remain fully visible with object-fit: contain"
+assert "object-fit:cover" not in hero_rule, "Genre hero artwork has regressed to cropped cover mode"
+assert "max-height:500px" in hero_rule, "Genre hero artwork lost its desktop fit constraint"
+
 metrics = (ROOT / "site-metrics.js").read_text(encoding="utf-8")
 assert 'genresLink.href = "/genres/"' in metrics, "Shared site navigation no longer exposes Genres"
 assert 'send("genre_click"' in metrics, "Genre discovery analytics missing"

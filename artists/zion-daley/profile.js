@@ -16,10 +16,11 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     "featuredVideo": {
       "title": "Where We Live",
       "label": "Zion Daley — Where We Live",
-      "releaseDate": "4 September 2026"
+      "releaseDate": "4 September 2026",
+      "scheduledVideoId": "b0tJlFOe0p4"
     },
     "catalogueAliases": ["Zion Daley"],
-    "youtubeUrl": "https://www.youtube.com/results?search_query=NextGen+Sessions+Zion+Daley",
+    "youtubeUrl": "https://www.youtube.com/watch?v=b0tJlFOe0p4",
     "related": [
       { "name": "Darian Gayle", "genre": "Reggae" },
       { "name": "Omari V", "genre": "Jamaican Lovers Rock / Reggae" }

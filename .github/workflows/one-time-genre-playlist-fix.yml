@@ -1,0 +1,42 @@
+name: Apply Genre and Playlist Split
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/apply-genre-playlist-fix.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nextgen-main-writers
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Apply classification fixes
+        run: python3 scripts/apply-genre-playlist-fix.py
+
+      - name: Publish fixes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add artists.js artist-profiles.js artist-profiles-expanded.js artists/ scripts/update-catalogue.py functions/api/latest.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Split dancehall and reggae classifications"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+          exit 1

@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"s7W3lr2h3vI","contentType":"full-release","title":"Asif Sultaan – Tor Wakhri","published":"2026-08-21T17:00:00Z","url":"/releases/asif-sultaan-tor-wakhri/"};
+  const FALLBACK_LATEST = {"id":"n3fv4DXruas","contentType":"full-release","title":"Rudii Marka – Top Shotta","published":"2026-08-24T17:00:35Z","url":"/releases/rudii-marka-top-shotta/"};
 
   const FALLBACK_RELEASES = [
     FALLBACK_LATEST,
+    {"id":"s7W3lr2h3vI","contentType":"full-release","title":"Asif Sultaan – Tor Wakhri","published":"2026-08-21T17:00:00Z","url":"/releases/asif-sultaan-tor-wakhri/"},
     {"id":"lz71Xa1D65k","contentType":"full-release","title":"Jay Starks – Who Owns the Corner Now?","published":"2026-08-19T17:00:19Z","url":"/releases/jay-starks-who-owns-the-corner-now/"},
     {"id":"JI_O7wnEtCc","contentType":"full-release","title":"Kemarco – Ghetto Blessings","published":"2026-08-17T17:00:11Z","url":"/releases/kemarco-ghetto-blessings/"},
     {"id":"t4rrj5Ij4cU","contentType":"full-release","title":"Mizzy G – Money Bought Silence","published":"2026-08-14T17:00:33Z","url":"/releases/mizzy-g-money-bought-silence/"},
-    {"id":"SkQ3tJZmEn8","contentType":"full-release","title":"Mariana Lo – Malibu Mood","published":"2026-08-12T17:00:12Z","url":"/releases/mariana-lo-malibu-mood/"},
-    {"id":"X4gADZZidrg","contentType":"full-release","title":"Rudii Marka – Marked for War","published":"2026-08-10T17:00:29Z","url":"/releases/rudii-marka-marked-for-war/"}
+    {"id":"SkQ3tJZmEn8","contentType":"full-release","title":"Mariana Lo – Malibu Mood","published":"2026-08-12T17:00:12Z","url":"/releases/mariana-lo-malibu-mood/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

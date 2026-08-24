@@ -1,6 +1,13 @@
 (function () {
   "use strict";
 
+  if (!document.querySelector('script[src="/site-metrics.js"]')) {
+    const metrics = document.createElement("script");
+    metrics.src = "/site-metrics.js";
+    metrics.async = true;
+    document.head.append(metrics);
+  }
+
   const VIDEO_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
   const PLAYLIST_ID_PATTERN = /^[A-Za-z0-9_-]{10,64}$/;
 

@@ -64,6 +64,7 @@ KNOWN_ARTISTS = [
     "Deon Creed", "Manny Virk", "Asif Sultaan", "Alia Bleu", "Zara Veli",
     "Nyah Rae", "Keisha", "Marlo Saint", "Mariana Lo", "Tayo Wray", "Omari V",
     "Darian Gayle", "Isaac Grey", "Leila Nour",
+    "Zion Daley",
 ]
 
 

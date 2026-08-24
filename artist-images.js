@@ -212,6 +212,12 @@ window.NGS_ARTIST_IMAGES = {
     portrait: "/assets/artists/karvell-reign-portrait.webp?v=20260806-karvell1",
     fallback: "/assets/artists/karvell-reign-card-640.webp?v=20260806-karvell1",
     position: "50% 30%"
+  },
+  "zion-daley": {
+    src: "/assets/artists/zion-daley-portrait.webp?v=20260824-zion1",
+    portrait: "/assets/artists/zion-daley-portrait.webp?v=20260824-zion1",
+    fallback: "/assets/artists/zion-daley-portrait.webp?v=20260824-zion1",
+    position: "50% 32%"
   }
 };
 

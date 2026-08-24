@@ -234,6 +234,13 @@ window.NGS_ARTISTS = [
     "summary": "Soulful hip-hop with mature writing and a cinematic finish.",
     "featured": true,
     "featuredRank": 10
+  },
+  {
+    "name": "Zion Daley",
+    "slug": "zion-daley",
+    "genre": "Reggae",
+    "summary": "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy.",
+    "featured": false
   }
 ];
 

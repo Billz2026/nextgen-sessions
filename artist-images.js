@@ -266,8 +266,8 @@ if (Array.isArray(window.NGS_ARTISTS)) {
 
   const deon = window.NGS_ARTISTS.find(artist => artist.slug === "deon-creed");
   if (deon) {
-    deon.genre = "Soul / R&B";
-    deon.summary = "Reflective neighbourhood soul shaped by faith, responsibility, resilience and mature perspective.";
+    deon.genre = "Hip-Hop";
+    deon.summary = "Grounded hip-hop with mature neighbourhood storytelling, resilience and reflective perspective.";
   }
 
   const alonzo = window.NGS_ARTISTS.find(artist => artist.slug === "alonzo-ray");

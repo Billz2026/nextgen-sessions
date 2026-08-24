@@ -1,8 +1,8 @@
 const FALLBACK_RELEASES = [
-  { id: "dV6_GbsHrxI", contentType: "full-release", artist: "Kemarco", title: "Badman Don’t Rush", group: "Dancehall & Reggae", published: "2026-08-05T17:00:07Z", url: "/releases/kemarco-badman-dont-rush/" },
+  { id: "dV6_GbsHrxI", contentType: "full-release", artist: "Kemarco", title: "Badman Don’t Rush", group: "Dancehall", published: "2026-08-05T17:00:07Z", url: "/releases/kemarco-badman-dont-rush/" },
   { id: "xicnIGw-ei8", contentType: "full-release", artist: "Alia Bleu", title: "Piggyback", group: "R&B & Soul", published: "2026-08-03T17:00:30Z", url: "/releases/alia-bleu-piggyback/" },
   { id: "Sra1722xEFE", contentType: "full-release", artist: "Renz Cole", title: "Heatwave", group: "UK Rap & Grime", published: "2026-07-31T17:00:33Z", url: "/releases/renz-cole-heatwave/" },
-  { id: "6H6yq_1bEsQ", contentType: "full-release", artist: "Reeko", title: "After Di Party", group: "Dancehall & Reggae", published: "2026-07-29T17:00:35Z", url: "/releases/reeko-after-di-party/" },
+  { id: "6H6yq_1bEsQ", contentType: "full-release", artist: "Reeko", title: "After Di Party", group: "Dancehall", published: "2026-07-29T17:00:35Z", url: "/releases/reeko-after-di-party/" },
   { id: "ZSjRD_3B5uk", contentType: "full-release", artist: "Deon Creed", title: "Days Like These", group: "R&B & Soul", published: "2026-07-27T17:00:05Z", url: "/releases/deon-creed-days-like-these/" }
 ];
 

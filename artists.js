@@ -71,8 +71,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Deon Creed",
     "slug": "deon-creed",
-    "genre": "Soul / R&B",
-    "summary": "Reflective neighbourhood soul with grounded, mature writing.",
+    "genre": "Hip-Hop",
+    "summary": "Grounded hip-hop with mature neighbourhood storytelling, resilience and reflective perspective.",
     "featured": true,
     "featuredRank": 6
   },
@@ -115,8 +115,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Yung Tafari",
     "slug": "yung-tafari",
-    "genre": "Reggae / Dancehall",
-    "summary": "Youthful Jamaican sound shaped by melody, roots and street energy.",
+    "genre": "Dancehall",
+    "summary": "Youthful Jamaican dancehall shaped by melody, street energy and resilient songwriting.",
     "featured": false
   },
   {
@@ -144,8 +144,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Ragga Blaze",
     "slug": "ragga-blaze",
-    "genre": "Reggae / Dancehall",
-    "summary": "Ragga-driven energy spanning reggae rhythm and dancehall impact.",
+    "genre": "Dancehall",
+    "summary": "Ragga-driven Jamaican dancehall with fiery energy, rhythmic impact and commanding delivery.",
     "featured": false
   },
   {
@@ -158,8 +158,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Zara Veli",
     "slug": "zara-veli",
-    "genre": "Pop / R&B",
-    "summary": "Contemporary vocal records with polished global-pop and R&B styling.",
+    "genre": "R&B",
+    "summary": "Contemporary R&B with polished vocals, confident boundaries and late-night poise.",
     "featured": false
   },
   {
@@ -194,8 +194,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Darian Gayle",
     "slug": "darian-gayle",
-    "genre": "Reggae / Soul",
-    "summary": "Jamaican-rooted soul and reggae with reflective songwriting.",
+    "genre": "Reggae",
+    "summary": "Jamaican reggae with reflective songwriting, warm roots influence and a calm, grounded presence.",
     "featured": false
   },
   {
@@ -216,8 +216,8 @@ window.NGS_ARTISTS = [
   {
     "name": "Mariana Lo",
     "slug": "mariana-lo",
-    "genre": "Pop / R&B",
-    "summary": "Melodic pop and R&B shaped by warm coastal energy and a polished visual identity.",
+    "genre": "UK Rap",
+    "summary": "Melodic UK rap with confident delivery, warm coastal energy and a polished visual identity.",
     "featured": false
   },
   {

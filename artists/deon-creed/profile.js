@@ -2,13 +2,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "deon-creed": {
     "name": "Deon Creed",
     "path": "/artists/deon-creed/",
-    "genre": "Soul / R&B",
+    "genre": "Hip-Hop",
     "location": "United States",
     "eyebrow": "NextGen Sessions featured artist",
-    "headline": "Reflective neighbourhood soul shaped by faith, responsibility, resilience and the pressure of carrying others.",
+    "headline": "Grounded hip-hop shaped by neighbourhood perspective, responsibility, resilience and mature storytelling.",
     "bio": [
-      "Deon Creed represents the grounded soul and R&B lane within NextGen Sessions, combining mature writing, warm production and a calm vocal presence with themes drawn from neighbourhood life, faith and personal responsibility.",
-      "Days Like These focuses on endurance and the weight of difficult seasons, while Soul of the Southside brings a stronger hip-hop edge to the same world of community memory, resilience and spiritual perspective. Together, the two records establish a measured identity that keeps the story ahead of empty performance."
+      "Deon Creed represents a grounded hip-hop lane within NextGen Sessions, combining mature writing, warm production and calm, direct delivery.",
+      "His records focus on neighbourhood memory, responsibility, resilience and lived perspective, keeping storytelling and character ahead of empty performance."
     ],
     "imageKey": "deon-creed",
     "imagePosition": "50% 34%",
@@ -23,7 +23,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "id": "ZSjRD_3B5uk",
         "artist": "Deon Creed",
         "title": "Days Like These",
-        "group": "Soul / R&B",
+        "group": "Hip-Hop / G-Funk",
         "published": "2026-07-27T17:00:05Z"
       },
       {

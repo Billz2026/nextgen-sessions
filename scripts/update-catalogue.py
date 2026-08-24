@@ -15,7 +15,8 @@ from pathlib import Path
 
 
 PLAYLISTS = [
-    ("PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC", "Dancehall & Reggae"),
+    ("PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC", "Dancehall"),
+    ("PLDcaKFpn_7V8", "Reggae"),
     ("PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN", "UK Rap & Grime"),
     ("PL7VCdVWElIJEjRtwnQnL4OO3pwV9GZ9bM", "Hip-Hop / G-Funk"),
     ("PL7VCdVWElIJH_WnZxMJPpIp9LCJr3qxpS", "Asian"),
@@ -37,13 +38,13 @@ VERIFIED_EXTRA_RELEASES = [
         "id": "6H6yq_1bEsQ",
         "artist": "Reeko",
         "title": "After Di Party",
-        "group": "Dancehall & Reggae",
+        "group": "Dancehall",
     },
     {
         "id": "ZSjRD_3B5uk",
         "artist": "Deon Creed",
         "title": "Days Like These",
-        "group": "R&B & Soul",
+        "group": "Hip-Hop / G-Funk",
     },
 ]
 

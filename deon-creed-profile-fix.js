@@ -12,7 +12,7 @@
       id: "ZSjRD_3B5uk",
       artist: "Deon Creed",
       title: "Days Like These",
-      group: "R&B & Soul",
+      group: "Hip-Hop / G-Funk",
       published: "2026-07-27T17:00:05Z",
       priority: 100
     },
@@ -104,7 +104,7 @@
       id,
       artist: "Deon Creed",
       title,
-      group: String(item?.group || known?.group || "Soul / R&B").trim(),
+      group: String(item?.group || known?.group || "Hip-Hop / G-Funk").trim(),
       published: String(item?.published || known?.published || "").trim(),
       slug: String(item?.slug || "").trim(),
       url: String(item?.url || "").trim(),
@@ -211,7 +211,7 @@
     return {
       id,
       title: card?.dataset.releaseTitle || card?.querySelector("h3")?.textContent?.trim() || "Deon Creed release",
-      group: card?.dataset.releaseGroup || card?.querySelector(".discography-genre")?.textContent?.trim() || "Soul / R&B",
+      group: card?.dataset.releaseGroup || card?.querySelector(".discography-genre")?.textContent?.trim() || "Hip-Hop / G-Funk",
       published: card?.dataset.releasePublished || ""
     };
   }

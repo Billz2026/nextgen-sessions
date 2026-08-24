@@ -2,13 +2,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "darian-gayle": {
     "name": "Darian Gayle",
     "path": "/artists/darian-gayle/",
-    "genre": "Reggae / Soul",
+    "genre": "Reggae",
     "location": "Location undisclosed",
     "eyebrow": "NextGen Sessions artist",
-    "headline": "Jamaican-rooted reggae and soul shaped by restraint, reflection and emotionally direct songwriting.",
+    "headline": "Jamaican reggae shaped by warm roots influence, restraint, reflection and emotionally direct songwriting.",
     "bio": [
-      "Darian Gayle represents the reflective reggae and soul lane within NextGen Sessions, combining warm island influence with a calm vocal presence and mature emotional perspective.",
-      "Talk Di Tings focuses on outside conversation, rumour and the discipline required to stay centred when other people are speaking. The presentation remains understated and cinematic, keeping the writing and mood at the front."
+      "Darian Gayle represents the reflective reggae lane within NextGen Sessions, combining warm Jamaican influence with a calm vocal presence and mature emotional perspective.",
+      "His writing favours restraint, reflection and clear storytelling, giving the music a grounded reggae identity without drifting into a separate soul category."
     ],
     "imageKey": "darian-gayle",
     "image": "/assets/artists/darian-gayle-portrait.webp?v=20260806-darian6",
@@ -25,7 +25,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "id": "H7FJw00hBt4",
         "artist": "Darian Gayle",
         "title": "Talk Di Tings",
-        "group": "Lovers Rock",
+        "group": "Reggae",
         "published": "2026-05-10T17:00:29Z"
       }
     ],

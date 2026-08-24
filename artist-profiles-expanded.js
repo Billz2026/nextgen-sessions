@@ -27,13 +27,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "deon-creed": {
     "name": "Deon Creed",
     "path": "/artists/deon-creed/",
-    "genre": "Soul / R&B",
+    "genre": "Hip-Hop",
     "location": "United States",
     "eyebrow": "NextGen Sessions featured artist",
-    "headline": "Reflective neighbourhood soul shaped by faith, responsibility, resilience and grounded adult perspective.",
+    "headline": "Grounded hip-hop shaped by neighbourhood perspective, responsibility, resilience and mature storytelling.",
     "bio": [
-      "Deon Creed represents the grounded soul and R&B lane within NextGen Sessions, combining mature writing with warm production and a calm, direct vocal presence.",
-      "His music focuses on neighbourhood memory, responsibility, faith and the pressure of carrying people through difficult seasons. The presentation stays human and understated, keeping the story ahead of empty performance."
+      "Deon Creed represents a grounded hip-hop lane within NextGen Sessions, combining mature writing, warm production and calm, direct delivery.",
+      "His records focus on neighbourhood memory, responsibility, resilience and lived perspective, keeping storytelling and character ahead of empty performance."
     ],
     "imageKey": "deon-creed",
     "imagePosition": "50% 34%",
@@ -48,7 +48,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "id": "ZSjRD_3B5uk",
         "artist": "Deon Creed",
         "title": "Days Like These",
-        "group": "Soul / R&B",
+        "group": "Hip-Hop / G-Funk",
         "published": "2026-07-27T17:00:05Z"
       },
       {
@@ -652,13 +652,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "mariana-lo": {
     "name": "Mariana Lo",
     "path": "/artists/mariana-lo/",
-    "genre": "Pop / R&B",
+    "genre": "UK Rap",
     "location": "Location undisclosed",
     "eyebrow": "NextGen Sessions artist",
-    "headline": "Melodic pop and R&B shaped by warm coastal energy, polished production and an assured visual identity.",
+    "headline": "Melodic UK rap shaped by confident delivery, warm coastal energy and polished contemporary production.",
     "bio": [
-      "Mariana Lo brings a warm, melodic pop and R&B lane to NextGen Sessions, pairing a polished vocal identity with contemporary production and a confident coastal visual style.",
-      "Don’t Get Too Close anchors her current NextGen catalogue, balancing cool self-possession with an intimate melodic edge while keeping the presentation clean, modern and unmistakably hers."
+      "Mariana Lo represents a melodic UK rap lane within NextGen Sessions, pairing confident delivery with contemporary production and a polished visual identity.",
+      "Her records balance personality, melody and modern UK rap writing while keeping the presentation clean, assured and recognisably hers."
     ],
     "imageKey": "mariana-lo",
     "imagePosition": "50% 30%",
@@ -674,7 +674,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "id": "IsS48ruiXuI",
         "artist": "Mariana Lo",
         "title": "Don’t Get Too Close",
-        "group": "Pop / R&B",
+        "group": "UK Rap & Grime",
         "published": "2026-04-29T17:00:32Z"
       }
     ],
@@ -789,13 +789,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "ragga-blaze": {
     "name": "Ragga Blaze",
     "path": "/artists/ragga-blaze/",
-    "genre": "Reggae / Dancehall",
+    "genre": "Dancehall",
     "location": "Location undisclosed",
     "eyebrow": "NextGen Sessions artist",
-    "headline": "Ragga-driven energy spanning reggae rhythm and dancehall impact.",
+    "headline": "Ragga-driven Jamaican dancehall shaped by fiery energy, rhythmic impact and commanding delivery.",
     "bio": [
-      "Ragga Blaze occupies the reggae-and-dancehall lane within NextGen Sessions, with a presentation centred on ragga-driven energy and rhythmic impact.",
-      "Fire Still A Burn anchors his current NextGen catalogue inside the Dancehall & Reggae collection."
+      "Ragga Blaze represents a fiery dancehall lane within NextGen Sessions, combining ragga-driven delivery with heavyweight rhythm and direct Jamaican energy.",
+      "His records are built for impact and movement, keeping the identity firmly inside dancehall rather than splitting the artist across reggae and dancehall categories."
     ],
     "imageKey": "ragga-blaze",
     "imagePosition": "50% 32%",
@@ -811,7 +811,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
         "id": "2B2qbJnWN7c",
         "artist": "Ragga Blaze",
         "title": "Fire Still A Burn",
-        "group": "Dancehall & Reggae",
+        "group": "Dancehall",
         "published": "2026-05-21T17:00:02Z"
       }
     ],
@@ -830,13 +830,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "yung-tafari": {
     "name": "Yung Tafari",
     "path": "/artists/yung-tafari/",
-    "genre": "Reggae / Dancehall",
+    "genre": "Dancehall",
     "location": "Location undisclosed",
     "eyebrow": "NextGen Sessions artist",
-    "headline": "Youthful reggae and dancehall shaped by melody, roots and street-level energy.",
+    "headline": "Youthful Jamaican dancehall shaped by melody, street energy and resilient songwriting.",
     "bio": [
-      "Yung Tafari brings a youthful reggae-and-dancehall lane to NextGen Sessions, balancing melodic instinct with roots influence and direct street energy.",
-      "Light Through Di Dark leads his current catalogue alongside Gully Testament and One Man Army, forming a focused run of records built around resilience, conviction and forward movement."
+      "Yung Tafari represents a youthful dancehall lane within NextGen Sessions, balancing melodic instinct with direct Jamaican street energy.",
+      "His catalogue centres on resilience, conviction and forward movement, keeping the artist firmly classified as dancehall across the roster and release archive."
     ],
     "imageKey": "yung-tafari",
     "imagePosition": "50% 30%",
@@ -848,9 +848,9 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     },
     "catalogueAliases": ["Yung Tafari"],
     "additionalReleases": [
-      { "id": "4g-SeSyohOw", "artist": "Yung Tafari", "title": "Light Through Di Dark", "group": "Dancehall & Reggae", "published": "2026-06-05T17:00:02Z" },
-      { "id": "6_JazAd0_n0", "artist": "Yung Tafari", "title": "Gully Testament", "group": "Dancehall & Reggae", "published": "2026-05-25T17:00:10Z" },
-      { "id": "BFzlo4I5smA", "artist": "Yung Tafari", "title": "One Man Army", "group": "Dancehall & Reggae", "published": "2026-05-09T17:00:21Z" }
+      { "id": "4g-SeSyohOw", "artist": "Yung Tafari", "title": "Light Through Di Dark", "group": "Dancehall", "published": "2026-06-05T17:00:02Z" },
+      { "id": "6_JazAd0_n0", "artist": "Yung Tafari", "title": "Gully Testament", "group": "Dancehall", "published": "2026-05-25T17:00:10Z" },
+      { "id": "BFzlo4I5smA", "artist": "Yung Tafari", "title": "One Man Army", "group": "Dancehall", "published": "2026-05-09T17:00:21Z" }
     ],
     "featuredExperience": {
       "enabled": true,
@@ -867,13 +867,13 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   "zara-veli": {
     "name": "Zara Veli",
     "path": "/artists/zara-veli/",
-    "genre": "Pop / R&B",
+    "genre": "R&B",
     "location": "Location undisclosed",
     "eyebrow": "NextGen Sessions artist",
-    "headline": "Polished contemporary R&B with global-pop clarity, confidence and late-night poise.",
+    "headline": "Polished contemporary R&B shaped by confident boundaries, clean vocal presentation and late-night poise.",
     "bio": [
-      "Zara Veli brings a polished contemporary R&B and global-pop lane to NextGen Sessions, pairing clean vocal presentation with confident, self-possessed writing.",
-      "Don’t Call Past 2 leads her current catalogue alongside Too Boujee To Beg, giving her a concise identity built around boundaries, poise and modern R&B attitude."
+      "Zara Veli represents a polished contemporary R&B lane within NextGen Sessions, pairing clean vocal presentation with confident, self-possessed writing.",
+      "Her catalogue focuses on boundaries, poise and modern R&B attitude, keeping the artist identity firmly inside R&B rather than a broader pop category."
     ],
     "imageKey": "zara-veli",
     "imagePosition": "50% 30%",

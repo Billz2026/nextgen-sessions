@@ -11,6 +11,7 @@ on:
       - ".github/workflows/update-catalogue.yml"
       - "scripts/update-catalogue.py"
       - "scripts/render-releases.py"
+      - "scripts/sync-homepage-fallback.py"
       - "scripts/test-release-archive-player.py"
       - "releases.js"
       - "releases.css"
@@ -44,6 +45,9 @@ jobs:
       - name: Render crawlable release archive and pages
         run: python3 scripts/render-releases.py releases.json
 
+      - name: Sync homepage static fallback
+        run: python3 scripts/sync-homepage-fallback.py releases.json
+
       - name: Validate catalogue
         run: |
           python3 - <<'PY'
@@ -68,6 +72,27 @@ jobs:
           print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
           PY
 
+      - name: Validate homepage static fallback
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("releases.json").read_text(encoding="utf-8"))
+          releases = data.get("releases", [])
+          assert releases, "Release catalogue is empty"
+          latest = releases[0]
+          homepage = Path("index.html").read_text(encoding="utf-8")
+          site = Path("site.js").read_text(encoding="utf-8")
+          assert f'data-video-id="{latest["id"]}"' in homepage, "Homepage video fallback is stale"
+          assert f'href="{latest["url"]}"' in homepage, "Homepage latest-release link is stale"
+          assert f'/api/release-image?id={latest["id"]}' in homepage, "Homepage thumbnail fallback is stale"
+          assert latest["id"] in site, "JavaScript latest fallback is stale"
+          assert "// HOMEPAGE:AUTO-FALLBACK:START" in site
+          assert "// HOMEPAGE:AUTO-FALLBACK:END" in site
+          assert "Kemarco – Badman Don’t Rush" not in homepage.split('id="latestVideoTitle">', 1)[-1].split('</h2>', 1)[0]
+          print(f'Homepage fallback validated: {latest["artist"]} — {latest["title"]}')
+          PY
+
       - name: Test release archive inline player
         run: python3 scripts/test-release-archive-player.py
 
@@ -81,7 +106,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add releases.json releases/ sitemap.xml artists/ artist-profiles.js artist-profiles-expanded.js
+          git add releases.json releases/ sitemap.xml artists/ artist-profiles.js artist-profiles-expanded.js index.html site.js
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update release catalogue"
           for attempt in 1 2 3; do

@@ -20,19 +20,22 @@
   const artists = Array.isArray(window.NGS_ARTISTS) ? window.NGS_ARTISTS : [];
 
   const artistGroups = {
-    "dancehall & reggae": "Dancehall & Reggae",
-    "jamaican dancehall": "Dancehall & Reggae",
-    "dark melodic dancehall": "Dancehall & Reggae",
-    "jamaican reggae": "Dancehall & Reggae",
-    "reggae / dancehall": "Dancehall & Reggae",
-    "reggae / soul": "Dancehall & Reggae",
-    "dancehall": "Dancehall & Reggae",
+    "dancehall & reggae": "Dancehall",
+    "jamaican dancehall": "Dancehall",
+    "dark melodic dancehall": "Dancehall",
+    "dancehall": "Dancehall",
+    "reggae / dancehall": "Dancehall",
+    "jamaican reggae": "Reggae",
+    "straight reggae": "Reggae",
+    "reggae / soul": "Reggae",
+    "reggae": "Reggae",
     "uk rap": "UK Rap & Grime",
     "uk rap / grime": "UK Rap & Grime",
-    "west coast hip-hop": "Hip-Hop",
-    "new york hip-hop": "Hip-Hop",
-    "hip-hop / soul": "Hip-Hop",
-    "hip-hop / r&b": "Hip-Hop",
+    "west coast hip-hop": "Hip-Hop / G-Funk",
+    "new york hip-hop": "Hip-Hop / G-Funk",
+    "hip-hop": "Hip-Hop / G-Funk",
+    "hip-hop / soul": "Hip-Hop / G-Funk",
+    "hip-hop / r&b": "Hip-Hop / G-Funk",
     "uk r&b": "R&B & Soul",
     "r&b / soul": "R&B & Soul",
     "soul / r&b": "R&B & Soul",
@@ -44,17 +47,17 @@
   };
 
   const releaseOverrides = {
-    "5YgrpFXZ92Q": { artist: "Rudii Marka", title: "Marked for War", group: "Dancehall & Reggae" },
+    "5YgrpFXZ92Q": { artist: "Rudii Marka", title: "Marked for War", group: "Dancehall" },
     "zrnWeU7KRS0": { artist: "Mizzy G", title: "Corner To Crown", group: "UK Rap & Grime" },
-    "U6lh9buVYHg": { artist: "Reeko", title: "Smile Wid Knife", group: "Dancehall & Reggae" },
-    "oc7Cryy5xTM": { artist: "Reeko", title: "Nuff Man A Watch", group: "Dancehall & Reggae" },
+    "U6lh9buVYHg": { artist: "Reeko", title: "Smile Wid Knife", group: "Dancehall" },
+    "oc7Cryy5xTM": { artist: "Reeko", title: "Nuff Man A Watch", group: "Dancehall" },
     "JwFCGCLWw0I": { artist: "Renz Cole", title: "Outside Till Late", group: "UK Rap & Grime" },
     "s0ZS2HJjw2M": { artist: "Renz Cole", title: "False Nine", group: "UK Rap & Grime" },
     "yU4fK6aSqEg": { artist: "Renz Cole", title: "Playmaker", group: "UK Rap & Grime" },
-    "Xj806cr_eS4": { artist: "Jay Starks", title: "Queens in My Soul", group: "Hip-Hop" },
+    "Xj806cr_eS4": { artist: "Jay Starks", title: "Queens in My Soul", group: "Hip-Hop / G-Funk" },
     "ESEyLheoF9Q": { artist: "Kastro", title: "Urban Reign", group: "UK Rap & Grime" },
-    "ZR6vqKxmngw": { artist: "Kemar Ranka", title: "Top Ranka", group: "Dancehall & Reggae" },
-    "VwLzUxVabSQ": { artist: "Reeko", title: "Mi Call Di Shots", group: "Dancehall & Reggae" }
+    "ZR6vqKxmngw": { artist: "Kemar Ranka", title: "Top Ranka", group: "Dancehall" },
+    "VwLzUxVabSQ": { artist: "Reeko", title: "Mi Call Di Shots", group: "Dancehall" }
   };
 
   const fallbackReleases = Object.entries(releaseOverrides).map(([id, release]) => ({
@@ -80,13 +83,14 @@
 
   function inferGroup(rawTitle, artist) {
     const title = normaliseText(rawTitle);
-    if (/dancehall|reggae|gully|jamaican/.test(title)) return "Dancehall & Reggae";
+    const mapped = artistGroups[normaliseText(artist?.genre)];
+    if (mapped) return mapped;
+    if (/dancehall|gully/.test(title)) return "Dancehall";
+    if (/reggae/.test(title)) return "Reggae";
     if (/uk rap|grime|london rap/.test(title)) return "UK Rap & Grime";
     if (/r&b|rnb|soul/.test(title)) return "R&B & Soul";
     if (/punjabi|bhangra|arabic|oud|global|afro|latin/.test(title)) return "Global Sounds";
-    const mapped = artistGroups[normaliseText(artist?.genre)];
-    if (mapped) return mapped;
-    return "Hip-Hop";
+    return "Hip-Hop / G-Funk";
   }
 
   function cleanReleaseTitle(rawTitle, artistName) {

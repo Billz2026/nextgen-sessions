@@ -6,7 +6,7 @@
   let searchTimer = 0;
 
   function ensureMobileNavigation() {
-    const version = "20260824-qa1";
+    const version = "20260824-qa2";
     if (!document.querySelector('link[href^="/mobile-nav.css"]')) {
       const stylesheet = document.createElement("link");
       stylesheet.rel = "stylesheet";
@@ -35,6 +35,55 @@
       .slice(0, 64);
     return slug || fallback;
   }
+
+  function currentPath() {
+    return location.pathname.replace(/\/+$/, "") || "/";
+  }
+
+  function isCurrentInternal(href) {
+    const path = currentPath();
+    if (href === "/artists/") return path === "/artists" || path.startsWith("/artists/");
+    if (href === "/releases/") return path === "/releases" || path.startsWith("/releases/");
+    if (href === "/genres/") return path === "/genres" || path.startsWith("/genres/");
+    if (href === "/mixes/") return path === "/mixes" || path.startsWith("/mixes/");
+    if (href === "/submit.html") return path === "/submit" || path === "/submit.html";
+    if (href === "/privacy/") return path === "/privacy" || path.startsWith("/privacy/");
+    return false;
+  }
+
+  function standardizeFooter() {
+    const footerLinks = document.querySelector(".footer-links");
+    if (!footerLinks) return;
+
+    const links = [
+      { label: "Artists", href: "/artists/" },
+      { label: "Releases", href: "/releases/" },
+      { label: "Genres", href: "/genres/" },
+      { label: "Mixes", href: "/mixes/" },
+      { label: "Submit", href: "/submit.html" },
+      { label: "Privacy", href: "/privacy/" },
+      { label: "YouTube", href: "https://www.youtube.com/@NextGenSessions", external: true },
+      { label: "TikTok", href: "https://www.tiktok.com/@nextgensessions", external: true },
+      { label: "Instagram", href: "https://www.instagram.com/next.gensessions/", external: true },
+      { label: "Contact", href: "mailto:contact@nextgensessions.com" }
+    ];
+
+    footerLinks.replaceChildren(...links.map(item => {
+      const anchor = document.createElement("a");
+      anchor.textContent = item.label;
+      anchor.href = item.href;
+      if (item.external) {
+        anchor.target = "_blank";
+        anchor.rel = "noopener";
+      }
+      if (!item.external && isCurrentInternal(item.href)) {
+        anchor.setAttribute("aria-current", "page");
+      }
+      return anchor;
+    }));
+  }
+
+  standardizeFooter();
 
   function send(event, label) {
     const payload = JSON.stringify({
@@ -68,22 +117,6 @@
     const releasesLink = primaryNav.querySelector('a[href="/releases/"]');
     if (releasesLink) releasesLink.after(genresLink);
     else primaryNav.prepend(genresLink);
-  }
-
-  const footerLinks = document.querySelector(".footer-links");
-  if (footerLinks && !footerLinks.querySelector('a[href="/genres/"]')) {
-    const genresLink = document.createElement("a");
-    genresLink.href = "/genres/";
-    genresLink.textContent = "Genres";
-    const releasesLink = footerLinks.querySelector('a[href="/releases/"]');
-    if (releasesLink) releasesLink.after(genresLink);
-    else footerLinks.prepend(genresLink);
-  }
-  if (footerLinks && !footerLinks.querySelector('a[href="/privacy/"]')) {
-    const privacyLink = document.createElement("a");
-    privacyLink.href = "/privacy/";
-    privacyLink.textContent = "Privacy";
-    footerLinks.append(privacyLink);
   }
 
   function youtubeLabel(href) {

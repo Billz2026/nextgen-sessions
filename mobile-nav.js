@@ -11,9 +11,10 @@
 
   const currentPath = location.pathname.replace(/\/+$/, '') || '/';
   const links = [
-    { label: 'Featured', href: '/#featured-artists', key: 'featured' },
+    { label: 'Home', href: '/', key: 'home' },
     { label: 'Artists', href: '/artists/', key: 'artists' },
     { label: 'Releases', href: '/releases/', key: 'releases' },
+    { label: 'Genres', href: '/genres/', key: 'genres' },
     { label: 'Mixes', href: '/mixes/', key: 'mixes' },
     { label: 'About', href: '/#about', key: 'about' },
     { label: 'Submit', href: '/submit', key: 'submit' },
@@ -27,8 +28,10 @@
   ];
 
   function isCurrent(item) {
+    if (item.key === 'home') return currentPath === '/';
     if (item.key === 'artists') return currentPath === '/artists' || currentPath.startsWith('/artists/');
     if (item.key === 'releases') return currentPath === '/releases' || currentPath.startsWith('/releases/');
+    if (item.key === 'genres') return currentPath === '/genres' || currentPath.startsWith('/genres/');
     if (item.key === 'mixes') return currentPath === '/mixes' || currentPath.startsWith('/mixes/');
     if (item.key === 'submit') return currentPath === '/submit' || currentPath === '/submit.html';
     return false;
@@ -84,7 +87,7 @@
 
     if (shouldOpen) {
       previousFocus = document.activeElement;
-      requestAnimationFrame(() => nav.querySelector('a')?.focus({ preventScroll: true }));
+      requestAnimationFrame(() => nav.querySelector('a[aria-current="page"], a')?.focus({ preventScroll: true }));
     } else if (returnFocus && previousFocus && typeof previousFocus.focus === 'function') {
       previousFocus.focus({ preventScroll: true });
       previousFocus = null;

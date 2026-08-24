@@ -1,0 +1,63 @@
+name: Fix Release Genre Filters
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/fix-release-genre-filters.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nextgen-main-writers
+  cancel-in-progress: false
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Apply release filter split
+        run: python3 scripts/fix-release-genre-filters.py
+
+      - name: Validate JavaScript
+        run: node --check releases.js
+
+      - name: Validate release filters
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('releases/index.html').read_text(encoding='utf-8')
+          js = Path('releases.js').read_text(encoding='utf-8')
+          assert 'data-filter="Dancehall"' in html
+          assert 'data-filter="Reggae"' in html
+          assert 'data-filter="Dancehall &amp; Reggae"' not in html
+          assert '"jamaican dancehall": "Dancehall"' in js
+          assert '"jamaican reggae": "Reggae"' in js
+          assert '"reggae": "Reggae"' in js
+          assert 'return "Dancehall & Reggae"' not in js
+          assert 'group: "Dancehall & Reggae"' not in js
+          assert 'src="/releases.js?v=20260824-genre-split1"' in html
+          print('Release genre filters validated')
+          PY
+
+      - name: Publish fixes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add releases/index.html releases.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Split Dancehall and Reggae release filters"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+          exit 1

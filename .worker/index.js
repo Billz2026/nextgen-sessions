@@ -275,7 +275,7 @@ async function onRequestPost(context) {
   const analytics = context.env?.ANALYTICS;
   if (!analytics || typeof analytics.writeDataPoint !== "function") return response(503);
   const hostname = requestUrl.hostname.slice(0, 120);
-  const environment = hostname.includes("nextgen-sessions-staging") ? "staging" : hostname === "nextgensessions.pages.dev" ? "production" : hostname.endsWith(".nextgensessions.pages.dev") ? "preview" : "custom-domain";
+  const environment = hostname === "nextgensessions.com" || hostname === "www.nextgensessions.com" ? "production" : hostname.includes("nextgen-sessions-staging") ? "staging" : hostname.endsWith(".workers.dev") ? "preview" : "custom-domain";
   analytics.writeDataPoint({
     indexes: [environment],
     blobs: [

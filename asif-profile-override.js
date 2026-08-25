@@ -7,30 +7,37 @@
   profile.imageKey = "asif-sultaan";
   profile.imagePosition = "50% 36%";
   profile.genre = "Punjabi / South Asian Fusion";
-  profile.location = "Location undisclosed";
+  profile.location = "South Asian diaspora";
   profile.eyebrow = "NextGen Sessions featured artist";
   profile.headline = "Modern Punjabi crossover shaped by commanding vocals, South Asian trap texture and polished global production.";
   profile.catalogueAliases = ["Asif Sultaan"];
   profile.featuredVideo = {
-    id: "3nEDJw-gvGI",
-    title: "Nazar",
-    label: "Asif Sultaan — Nazar",
-    published: "2026-05-12T08:12:46Z"
+    id: "s7W3lr2h3vI",
+    title: "Tor Wakhri",
+    label: "Asif Sultaan — Tor Wakhri",
+    published: "2026-08-21T17:00:00Z"
   };
   profile.additionalReleases = [
+    {
+      id: "s7W3lr2h3vI",
+      artist: "Asif Sultaan",
+      title: "Tor Wakhri",
+      group: "Punjabi / South Asian Fusion",
+      published: "2026-08-21T17:00:00Z"
+    },
     {
       id: "3nEDJw-gvGI",
       artist: "Asif Sultaan",
       title: "Nazar",
       group: "Punjabi / South Asian Fusion",
-      published: "2026-05-12T08:12:46Z"
+      published: "2026-05-23T17:00:00Z"
     },
     {
       id: "7EXt64hyMfA",
       artist: "Asif Sultaan",
-      title: "Wazan",
+      title: "WAZAN",
       group: "Punjabi / South Asian Fusion",
-      published: ""
+      published: "2026-04-23T17:00:00Z"
     }
   ];
   profile.featuredExperience = {

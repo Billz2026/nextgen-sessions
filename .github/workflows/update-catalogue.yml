@@ -11,6 +11,8 @@ on:
       - ".github/workflows/update-catalogue.yml"
       - "scripts/update-catalogue.py"
       - "scripts/render-releases.py"
+      - "scripts/render-artists.mjs"
+      - "scripts/test-artist-static-render.mjs"
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-global-footer.py"
       - "scripts/test-genre-hubs.py"
@@ -21,6 +23,9 @@ on:
       - "genres/**"
       - "artists.js"
       - "artists/index.html"
+      - "artists/*/profile.js"
+      - "artist-profiles.js"
+      - "artist-profiles-expanded.js"
       - "artist-images.js"
       - "mobile-nav.css"
       - "mobile-nav.js"
@@ -62,6 +67,9 @@ jobs:
       - name: Render crawlable release archive and pages
         run: python3 scripts/render-releases.py releases.json
 
+      - name: Render crawlable artist profile pages
+        run: node scripts/render-artists.mjs
+
       - name: Sync homepage static fallback
         run: python3 scripts/sync-homepage-fallback.py releases.json
 
@@ -88,6 +96,9 @@ jobs:
           assert archive.count('data-archive-play') >= data["total"]
           print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
           PY
+
+      - name: Validate crawlable artist profiles
+        run: node scripts/test-artist-static-render.mjs
 
       - name: Validate homepage static fallback
         run: |

@@ -12,7 +12,9 @@ on:
       - "scripts/update-catalogue.py"
       - "scripts/render-releases.py"
       - "scripts/render-artists.mjs"
+      - "scripts/render-genres.mjs"
       - "scripts/test-artist-static-render.mjs"
+      - "scripts/test-genre-static-render.py"
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-global-footer.py"
       - "scripts/test-genre-hubs.py"
@@ -70,6 +72,9 @@ jobs:
       - name: Render crawlable artist profile pages
         run: node scripts/render-artists.mjs
 
+      - name: Render crawlable genre discovery pages
+        run: node scripts/render-genres.mjs
+
       - name: Sync homepage static fallback
         run: python3 scripts/sync-homepage-fallback.py releases.json
 
@@ -99,6 +104,9 @@ jobs:
 
       - name: Validate crawlable artist profiles
         run: node scripts/test-artist-static-render.mjs
+
+      - name: Validate crawlable genre discovery pages
+        run: python3 scripts/test-genre-static-render.py
 
       - name: Validate homepage static fallback
         run: |
@@ -143,7 +151,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add releases.json releases/ sitemap.xml artists/ artist-profiles.js artist-profiles-expanded.js index.html site.js
+          git add releases.json releases/ sitemap.xml artists/ genres/ artist-profiles.js artist-profiles-expanded.js index.html site.js
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update release catalogue"
           for attempt in 1 2 3; do

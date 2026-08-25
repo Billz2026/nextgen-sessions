@@ -21,17 +21,36 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CLOUDFLARE_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+          CLOUDFLARE_PAGES_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+          CF_PAGES_DEPLOY_HOOK: ${{ secrets.CF_PAGES_DEPLOY_HOOK }}
+          DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
+          VAR_CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          VAR_CLOUDFLARE_PROJECT_NAME: ${{ vars.CLOUDFLARE_PROJECT_NAME }}
+          VAR_CF_PAGES_PROJECT: ${{ vars.CF_PAGES_PROJECT }}
         run: |
           set -eu
-          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then echo "CLOUDFLARE_API_TOKEN=present"; else echo "CLOUDFLARE_API_TOKEN=missing"; fi
-          if [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then echo "CLOUDFLARE_ACCOUNT_ID=present"; else echo "CLOUDFLARE_ACCOUNT_ID=missing"; fi
-          if [ -n "${CF_API_TOKEN:-}" ]; then echo "CF_API_TOKEN=present"; else echo "CF_API_TOKEN=missing"; fi
-          if [ -n "${CF_ACCOUNT_ID:-}" ]; then echo "CF_ACCOUNT_ID=present"; else echo "CF_ACCOUNT_ID=missing"; fi
+          check() { if [ -n "${2:-}" ]; then echo "$1=present"; else echo "$1=missing"; fi; }
+          check CLOUDFLARE_API_TOKEN "${CLOUDFLARE_API_TOKEN:-}"
+          check CLOUDFLARE_ACCOUNT_ID "${CLOUDFLARE_ACCOUNT_ID:-}"
+          check CF_API_TOKEN "${CF_API_TOKEN:-}"
+          check CF_ACCOUNT_ID "${CF_ACCOUNT_ID:-}"
+          check CLOUDFLARE_DEPLOY_HOOK "${CLOUDFLARE_DEPLOY_HOOK:-}"
+          check CLOUDFLARE_PAGES_DEPLOY_HOOK "${CLOUDFLARE_PAGES_DEPLOY_HOOK:-}"
+          check CF_PAGES_DEPLOY_HOOK "${CF_PAGES_DEPLOY_HOOK:-}"
+          check DEPLOY_HOOK_URL "${DEPLOY_HOOK_URL:-}"
+          check VAR_CLOUDFLARE_ACCOUNT_ID "${VAR_CLOUDFLARE_ACCOUNT_ID:-}"
+          check VAR_CLOUDFLARE_PROJECT_NAME "${VAR_CLOUDFLARE_PROJECT_NAME:-}"
+          check VAR_CF_PAGES_PROJECT "${VAR_CF_PAGES_PROJECT:-}"
 
-          if { [ -n "${CLOUDFLARE_API_TOKEN:-}" ] && [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]; } || \
-             { [ -n "${CF_API_TOKEN:-}" ] && [ -n "${CF_ACCOUNT_ID:-}" ]; }; then
-            echo "Cloudflare deployment credentials are available to GitHub Actions."
+          if { [ -n "${CLOUDFLARE_API_TOKEN:-}" ] && { [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ] || [ -n "${VAR_CLOUDFLARE_ACCOUNT_ID:-}" ]; }; } || \
+             { [ -n "${CF_API_TOKEN:-}" ] && [ -n "${CF_ACCOUNT_ID:-}" ]; } || \
+             [ -n "${CLOUDFLARE_DEPLOY_HOOK:-}" ] || \
+             [ -n "${CLOUDFLARE_PAGES_DEPLOY_HOOK:-}" ] || \
+             [ -n "${CF_PAGES_DEPLOY_HOOK:-}" ] || \
+             [ -n "${DEPLOY_HOOK_URL:-}" ]; then
+            echo "A usable Cloudflare deployment credential or deploy hook is available."
           else
-            echo "No complete standard Cloudflare deployment credential pair is configured."
+            echo "No usable Cloudflare deployment credential or deploy hook is configured."
             exit 1
           fi

@@ -1,9 +1,13 @@
 const ALLOWED_EVENTS = new Set([
   "page_view",
   "youtube_click",
+  "youtube_subscribe_click",
+  "social_follow_click",
+  "funnel_listen",
   "release_play",
   "release_click",
   "artist_click",
+  "genre_click",
   "archive_search",
   "archive_filter",
   "artist_search",

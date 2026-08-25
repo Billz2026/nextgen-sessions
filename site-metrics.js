@@ -1,9 +1,18 @@
 (function () {
   "use strict";
 
+  if (window.__NGS_SITE_METRICS__) return;
+  window.__NGS_SITE_METRICS__ = true;
+
   const endpoint = "/api/events";
   const tracked = new Set();
   let searchTimer = 0;
+
+  const SOCIAL = Object.freeze({
+    youtube: "https://www.youtube.com/@NextGenSessions?sub_confirmation=1",
+    tiktok: "https://www.tiktok.com/@nextgensessions",
+    instagram: "https://www.instagram.com/next.gensessions/"
+  });
 
   function ensureMobileNavigation() {
     const version = "20260824-qa2";
@@ -63,8 +72,8 @@
       { label: "Submit", href: "/submit.html" },
       { label: "Privacy", href: "/privacy/" },
       { label: "YouTube", href: "https://www.youtube.com/@NextGenSessions", external: true },
-      { label: "TikTok", href: "https://www.tiktok.com/@nextgensessions", external: true },
-      { label: "Instagram", href: "https://www.instagram.com/next.gensessions/", external: true },
+      { label: "TikTok", href: SOCIAL.tiktok, external: true },
+      { label: "Instagram", href: SOCIAL.instagram, external: true },
       { label: "Contact", href: "mailto:contact@nextgensessions.com" }
     ];
 
@@ -84,6 +93,150 @@
   }
 
   standardizeFooter();
+
+  function ensureConversionStyles() {
+    if (document.querySelector('link[href^="/conversion-funnel.css"]')) return;
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = "/conversion-funnel.css?v=20260825-funnel1";
+    stylesheet.dataset.ngsConversion = "true";
+    document.head.append(stylesheet);
+  }
+
+  function conversionContext() {
+    const path = currentPath();
+    if (path === "/") {
+      return {
+        key: "home",
+        title: "Play it. Follow it. Stay with NextGen.",
+        copy: "Hear the latest release without leaving the site, then subscribe on YouTube and follow NextGen Sessions for new artists, full tracks and launch clips.",
+        listenLabel: "Latest release",
+        listenText: "Play it here",
+        listenHref: "#latestVideoFrame",
+        home: true
+      };
+    }
+    if (/^\/releases\/[a-z0-9-]+$/i.test(path)) {
+      return {
+        key: "release",
+        title: "Like this release? Stay with NextGen.",
+        copy: "Play the full release here, then subscribe and follow NextGen Sessions so the next track does not disappear into your feed.",
+        listenLabel: "This release",
+        listenText: "Play it here",
+        listenHref: "#watch-title"
+      };
+    }
+    if (/^\/artists\/[a-z0-9-]+$/i.test(path)) {
+      return {
+        key: "artist",
+        title: "Hear more from this artist. Stay with NextGen.",
+        copy: "Go deeper into the artist catalogue, then follow NextGen Sessions across YouTube, TikTok and Instagram for the next release.",
+        listenLabel: "Artist catalogue",
+        listenText: "Hear the releases",
+        listenHref: "#artist-discography"
+      };
+    }
+    if (/^\/mixes\/[a-z0-9-]+$/i.test(path)) {
+      return {
+        key: "mix",
+        title: "Keep the session running.",
+        copy: "Play the mix on NextGen Sessions, then subscribe and follow for new long-form sessions, artists and releases.",
+        listenLabel: "This mix",
+        listenText: "Play the mix",
+        listenHref: "#listen"
+      };
+    }
+    return {
+      key: "catalogue",
+      title: "Find your sound. Stay with NextGen.",
+      copy: "Move from discovery into the music, then subscribe and follow NextGen Sessions for new original releases across the roster.",
+      listenLabel: "Music catalogue",
+      listenText: "Browse releases",
+      listenHref: "/releases/"
+    };
+  }
+
+  function conversionAction({ platform, text, href, primary = false, external = false, action }) {
+    const anchor = document.createElement("a");
+    anchor.className = `ngs-conversion-action${primary ? " is-primary" : ""}`;
+    anchor.href = href;
+    anchor.dataset.ngsFunnel = action;
+    if (external) {
+      anchor.target = "_blank";
+      anchor.rel = "noopener";
+    }
+
+    const platformLabel = document.createElement("span");
+    platformLabel.className = "ngs-conversion-platform";
+    platformLabel.textContent = platform;
+
+    const strong = document.createElement("strong");
+    strong.textContent = text;
+
+    const arrow = document.createElement("span");
+    arrow.className = "ngs-conversion-arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
+
+    anchor.append(platformLabel, strong, arrow);
+    return anchor;
+  }
+
+  function installConversionFunnel() {
+    if (document.querySelector("[data-ngs-conversion]")) return;
+    const path = currentPath();
+    if (path === "/privacy" || path === "/submit" || path === "/submit.html" || path === "/404.html") return;
+
+    const footer = document.querySelector("footer.site-footer");
+    const main = document.querySelector("main");
+    if (!footer || !main) return;
+
+    ensureConversionStyles();
+    const context = conversionContext();
+    const section = document.createElement("section");
+    section.className = `ngs-conversion${context.home ? " is-home" : ""}`;
+    section.dataset.ngsConversion = context.key;
+    section.setAttribute("aria-labelledby", `ngs-conversion-title-${context.key}`);
+
+    const shell = document.createElement("div");
+    shell.className = "ngs-conversion-shell";
+
+    const head = document.createElement("div");
+    head.className = "ngs-conversion-head";
+    head.innerHTML = `<p class="eyebrow">Stay with NextGen</p><h2 class="ngs-conversion-title" id="ngs-conversion-title-${context.key}"></h2><p class="ngs-conversion-copy"></p>`;
+    head.querySelector("h2").textContent = context.title;
+    head.querySelector(".ngs-conversion-copy").textContent = context.copy;
+
+    const actions = document.createElement("div");
+    actions.className = "ngs-conversion-actions";
+    actions.append(
+      conversionAction({ platform: context.listenLabel, text: context.listenText, href: context.listenHref, primary: true, action: "listen" }),
+      conversionAction({ platform: "YouTube", text: "Subscribe", href: SOCIAL.youtube, external: true, action: "youtube-subscribe" }),
+      conversionAction({ platform: "TikTok", text: "Follow", href: SOCIAL.tiktok, external: true, action: "tiktok-follow" }),
+      conversionAction({ platform: "Instagram", text: "Follow", href: SOCIAL.instagram, external: true, action: "instagram-follow" })
+    );
+
+    const proof = document.createElement("p");
+    proof.className = "ngs-conversion-proof";
+    ["Original releases", "Full tracks & mixes", "New artists across multiple genres"].forEach(text => {
+      const item = document.createElement("span");
+      item.textContent = text;
+      proof.append(item);
+    });
+
+    shell.append(head, actions, proof);
+    section.append(shell);
+
+    if (context.home) {
+      const releases = document.getElementById("releases");
+      if (releases) releases.after(section);
+      else footer.before(section);
+    } else {
+      footer.before(section);
+    }
+  }
+
+  installConversionFunnel();
 
   function send(event, label) {
     const payload = JSON.stringify({
@@ -175,6 +328,16 @@
 
     const link = target.closest("a[href]");
     if (!link) return;
+
+    const funnelAction = link.dataset.ngsFunnel;
+    if (funnelAction) {
+      const context = document.querySelector("[data-ngs-conversion]")?.dataset.ngsConversion || "catalogue";
+      if (funnelAction === "listen") send("funnel_listen", safeSlug(context, "catalogue"));
+      else if (funnelAction === "youtube-subscribe") send("youtube_subscribe_click", "youtube");
+      else if (funnelAction === "tiktok-follow") send("social_follow_click", "tiktok");
+      else if (funnelAction === "instagram-follow") send("social_follow_click", "instagram");
+      return;
+    }
 
     if (link.matches(".release-card, .archive-release-detail-link, .genre-release-card")) {
       const id = link.closest("[data-video-id]")?.dataset.videoId || youtubeLabel(link.href);

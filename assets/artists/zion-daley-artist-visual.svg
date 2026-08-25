@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+  <title id="title">Zion Daley artist visual</title>
+  <desc id="desc">Dark cinematic reggae artist identity artwork with a Jamaican street silhouette, warm street lights and muted green, gold and red accents.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#050505"/><stop offset=".56" stop-color="#10140f"/><stop offset="1" stop-color="#020202"/></linearGradient>
+    <radialGradient id="glow" cx="72%" cy="34%" r="52%"><stop offset="0" stop-color="#d4a62b" stop-opacity=".38"/><stop offset=".45" stop-color="#8b6a18" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1b17"/><stop offset="1" stop-color="#050505"/></linearGradient>
+    <linearGradient id="flag" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#176b36"/><stop offset=".48" stop-color="#c9a72d"/><stop offset=".52" stop-color="#c9a72d"/><stop offset="1" stop-color="#7f1d1d"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#bg)"/><rect width="1200" height="1500" fill="url(#glow)"/>
+  <g opacity=".35" filter="url(#blur)"><circle cx="895" cy="385" r="82" fill="#dcae34"/><circle cx="310" cy="610" r="44" fill="#ba8c26"/><circle cx="1040" cy="740" r="36" fill="#d9a830"/></g>
+  <g fill="#090a08" stroke="#24251f" stroke-width="3"><path d="M0 520 L200 445 L370 480 L520 405 L700 470 L860 390 L1200 455 L1200 1010 L0 1010 Z"/><path d="M0 745 L170 690 L360 730 L520 670 L700 735 L910 660 L1200 720 L1200 1060 L0 1060 Z" fill="#0d0e0c"/></g>
+  <g fill="#cda33a" opacity=".56"><rect x="103" y="590" width="31" height="20" rx="3"/><rect x="154" y="574" width="27" height="18" rx="3"/><rect x="430" y="555" width="32" height="21" rx="3"/><rect x="485" y="540" width="29" height="19" rx="3"/><rect x="790" y="530" width="34" height="22" rx="3"/><rect x="855" y="512" width="28" height="18" rx="3"/></g>
+  <path d="M300 1500 L448 940 L752 940 L915 1500 Z" fill="url(#road)"/><path d="M598 970 L590 1500" stroke="#c9a72d" stroke-width="5" stroke-dasharray="38 32" opacity=".42"/>
+  <g transform="translate(600 850)"><ellipse cx="0" cy="78" rx="185" ry="238" fill="#020202"/><circle cx="0" cy="-95" r="122" fill="#050505"/><path d="M-112 -132 C-80 -225,80 -225,112 -132 C83 -165,48 -176,0 -177 C-50 -176,-85 -162,-112 -132Z" fill="#121510"/><path d="M-150 190 C-122 64,-80 24,0 24 C84 24,129 71,152 190 L190 430 L-190 430 Z" fill="#070806"/><path d="M-120 72 L0 138 L122 72" fill="none" stroke="#c9a72d" stroke-width="9" opacity=".72"/></g>
+  <rect x="72" y="72" width="420" height="12" rx="6" fill="url(#flag)"/><text x="72" y="128" fill="#d6af42" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" letter-spacing="8">NEXTGEN SESSIONS</text>
+  <text x="72" y="1230" fill="#f4efe5" font-family="Arial,Helvetica,sans-serif" font-size="106" font-weight="900" letter-spacing="2">ZION</text><text x="72" y="1330" fill="#f4efe5" font-family="Arial,Helvetica,sans-serif" font-size="106" font-weight="900" letter-spacing="2">DALEY</text><text x="78" y="1388" fill="#d6af42" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" letter-spacing="7">REGGAE • JAMAICA</text><rect x="72" y="1428" width="1056" height="2" fill="#d6af42" opacity=".32"/>
+</svg>

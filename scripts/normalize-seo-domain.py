@@ -53,12 +53,17 @@ def insert_after_description(source: str, tag: str) -> str:
 def normalize_html(path: Path) -> bool:
     relative = path.relative_to(ROOT)
     source = path.read_text(encoding="utf-8")
-    if 'class="site-header"' not in source or relative.as_posix() == "404.html":
+    if 'class="site-header"' not in source:
         return False
 
-    expected = canonical_url(relative)
     next_source = normalize_absolute_origin(source)
+    if relative.as_posix() == "404.html":
+        if next_source == source:
+            return False
+        path.write_text(next_source, encoding="utf-8")
+        return True
 
+    expected = canonical_url(relative)
     canonical_tag = f'<link rel="canonical" href="{expected}">'
     if CANONICAL_RE.search(next_source):
         next_source = CANONICAL_RE.sub(canonical_tag, next_source, count=1)
@@ -119,9 +124,11 @@ def main() -> None:
         if normalize_html(path):
             changed += 1
 
-    for relative in ("sitemap.xml", "robots.txt"):
-        if normalize_text_file(ROOT / relative):
+    for path in sorted(ROOT.glob("sitemap*.xml")):
+        if normalize_text_file(path):
             changed += 1
+    if normalize_text_file(ROOT / "robots.txt"):
+        changed += 1
 
     if normalize_worker_bundle():
         changed += 1

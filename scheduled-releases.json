@@ -1,0 +1,13 @@
+{
+  "policy": "metadata-only-no-media-identifiers",
+  "releases": [
+    {
+      "artist": "Zion Daley",
+      "title": "Where We Live",
+      "releaseAt": "2026-09-04T17:00:00Z",
+      "artistPath": "/artists/zion-daley/",
+      "releaseSlug": "zion-daley-where-we-live",
+      "scheduleSource": "artists/zion-daley/coming-soon.js"
+    }
+  ]
+}

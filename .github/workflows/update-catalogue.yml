@@ -18,7 +18,9 @@ on:
       - "scripts/normalize-primary-nav.py"
       - "scripts/normalize-seo-domain.py"
       - "scripts/normalize-schema-graph.mjs"
+      - "scripts/refine-schema-graph.mjs"
       - "scripts/test-schema-graph.mjs"
+      - "scripts/test-schema-quality.mjs"
       - "scripts/test-primary-nav.py"
       - "scripts/test-seo-domain.py"
       - "scripts/test-artist-static-render.mjs"
@@ -150,8 +152,14 @@ jobs:
       - name: Normalize structured data graph
         run: node scripts/normalize-schema-graph.mjs
 
+      - name: Refine structured data quality
+        run: node scripts/refine-schema-graph.mjs
+
       - name: Validate structured data graph
         run: node scripts/test-schema-graph.mjs
+
+      - name: Validate structured data quality
+        run: node scripts/test-schema-quality.mjs
 
       - name: Validate homepage static fallback
         run: |

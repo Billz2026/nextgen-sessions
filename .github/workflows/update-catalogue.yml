@@ -17,6 +17,8 @@ on:
       - "scripts/render-genres.mjs"
       - "scripts/normalize-primary-nav.py"
       - "scripts/normalize-seo-domain.py"
+      - "scripts/normalize-schema-graph.mjs"
+      - "scripts/test-schema-graph.mjs"
       - "scripts/test-primary-nav.py"
       - "scripts/test-seo-domain.py"
       - "scripts/test-artist-static-render.mjs"
@@ -38,6 +40,9 @@ on:
       - "artist-profiles.js"
       - "artist-profiles-expanded.js"
       - "artist-images.js"
+      - "index.html"
+      - "mixes/**"
+      - "mixes.json"
       - "mobile-nav.css"
       - "mobile-nav.js"
       - "privacy/**"
@@ -100,6 +105,9 @@ jobs:
       - name: Normalize canonical production domain
         run: python3 scripts/normalize-seo-domain.py
 
+      - name: Normalize structured data graph
+        run: node scripts/normalize-schema-graph.mjs
+
       - name: Validate catalogue
         run: |
           python3 - <<'PY'
@@ -141,6 +149,9 @@ jobs:
 
       - name: Validate canonical production domain
         run: python3 scripts/test-seo-domain.py
+
+      - name: Validate structured data graph
+        run: node scripts/test-schema-graph.mjs
 
       - name: Validate homepage static fallback
         run: |

@@ -7,6 +7,7 @@
   const RELEASE_TITLE = "Where We Live";
   const RELEASE_DATE = "4 September 2026 at 6PM UK time";
   const RELEASE_AT = Date.parse("2026-09-04T17:00:00Z"); // 18:00 BST
+  const ARTIST_VISUAL = "/assets/artists/zion-daley-artist-visual.svg?v=20260825-zionfix1";
 
   function escapeHtml(value) {
     return String(value || "")
@@ -67,6 +68,17 @@
     link.textContent = "Available 4 September at 6PM";
   }
 
+  function comingSoonVisual() {
+    return `<div class="profile-coming-soon-visual" style="position:absolute;inset:0;overflow:hidden;background:#050505;display:grid;place-items:center">
+      <img src="${ARTIST_VISUAL}" alt="Zion Daley reggae artist visual" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;opacity:.72">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.20),rgba(0,0,0,.30) 44%,rgba(0,0,0,.82));"></div>
+      <div style="position:relative;z-index:2;max-width:82%;padding:24px;text-align:center;text-shadow:0 2px 18px #000">
+        <strong style="display:block;color:#f3c74f;font-size:clamp(1.05rem,2.2vw,1.45rem);letter-spacing:.12em;text-transform:uppercase">Coming soon</strong>
+        <span style="display:block;margin-top:14px;color:#f6f1e3;font-weight:900;line-height:1.5">Where We Live releases 4 September 2026 at 6PM UK time.</span>
+      </div>
+    </div>`;
+  }
+
   function applyComingSoon() {
     const frame = root.querySelector("[data-featured-frame]");
     const tag = root.querySelector("[data-featured-tag]");
@@ -78,9 +90,7 @@
     const count = root.querySelector("[data-discography-count]");
     const link = root.querySelector("[data-featured-link]");
 
-    if (frame) {
-      frame.innerHTML = '<div class="profile-video-unavailable"><strong>Coming soon</strong><br>Where We Live releases 4 September 2026 at 6PM UK time.</div>';
-    }
+    if (frame) frame.innerHTML = comingSoonVisual();
     if (tag) tag.textContent = "Coming soon";
     if (title) title.textContent = RELEASE_TITLE;
     if (copy) copy.textContent = "Reggae · 4 September 2026 · 6PM UK time";

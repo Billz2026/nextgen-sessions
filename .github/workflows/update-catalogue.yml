@@ -30,6 +30,7 @@ on:
       - "scheduled-releases.json"
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-global-footer.py"
+      - "scripts/test-conversion-funnel.py"
       - "scripts/test-genre-hubs.py"
       - "scripts/test-responsive-shell.py"
       - "scripts/test-release-archive-player.py"
@@ -47,6 +48,7 @@ on:
       - "mixes.json"
       - "mobile-nav.css"
       - "mobile-nav.js"
+      - "conversion-funnel.css"
       - "privacy/**"
       - "404.html"
       - "submit.html"
@@ -187,6 +189,9 @@ jobs:
 
       - name: Test global Privacy footer
         run: python3 scripts/test-global-footer.py
+
+      - name: Test Listen Subscribe Follow funnel
+        run: python3 scripts/test-conversion-funnel.py
 
       - name: Test responsive shell
         run: python3 scripts/test-responsive-shell.py

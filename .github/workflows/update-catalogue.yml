@@ -17,6 +17,8 @@ on:
       - "scripts/test-primary-nav.py"
       - "scripts/test-artist-static-render.mjs"
       - "scripts/test-genre-static-render.py"
+      - "scripts/test-scheduled-release-embargo.py"
+      - "scheduled-releases.json"
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-global-footer.py"
       - "scripts/test-genre-hubs.py"
@@ -112,6 +114,9 @@ jobs:
 
       - name: Validate crawlable genre discovery pages
         run: python3 scripts/test-genre-static-render.py
+
+      - name: Validate scheduled-release embargoes
+        run: python3 scripts/test-scheduled-release-embargo.py
 
       - name: Validate homepage static fallback
         run: |

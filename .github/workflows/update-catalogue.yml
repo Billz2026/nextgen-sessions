@@ -105,9 +105,6 @@ jobs:
       - name: Normalize canonical production domain
         run: python3 scripts/normalize-seo-domain.py
 
-      - name: Normalize structured data graph
-        run: node scripts/normalize-schema-graph.mjs
-
       - name: Validate catalogue
         run: |
           python3 - <<'PY'
@@ -149,6 +146,9 @@ jobs:
 
       - name: Validate canonical production domain
         run: python3 scripts/test-seo-domain.py
+
+      - name: Normalize structured data graph
+        run: node scripts/normalize-schema-graph.mjs
 
       - name: Validate structured data graph
         run: node scripts/test-schema-graph.mjs

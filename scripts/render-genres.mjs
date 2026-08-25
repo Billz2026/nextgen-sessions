@@ -1,0 +1,204 @@
+import fs from "node:fs";
+import path from "node:path";
+import vm from "node:vm";
+import { fileURLToPath } from "node:url";
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+const LANES = {
+  "uk-rap-grime": { name: "UK Rap & Grime", groups: ["UK Rap & Grime"], artistTerms: ["uk rap", "grime"] },
+  "hip-hop-g-funk": { name: "Hip-Hop & G-Funk", groups: ["Hip-Hop / G-Funk"], artistTerms: ["hip-hop", "g-funk"] },
+  dancehall: { name: "Dancehall", groups: ["Dancehall"], artistTerms: ["dancehall"] },
+  "reggae-lovers-rock": { name: "Reggae & Lovers Rock", groups: ["Reggae", "Lovers Rock"], artistTerms: ["reggae", "lovers rock"] },
+  "rnb-soul": { name: "R&B & Soul", groups: ["R&B & Soul"], artistTerms: ["r&b"] },
+  "global-sounds": { name: "Global Sounds", groups: ["Asian", "Arabic", "Late Night Afro", "Late Night Vibes"], artistTerms: ["punjabi", "south asian", "arabic", "afro"] },
+};
+
+function read(relativePath) {
+  return fs.readFileSync(path.join(root, relativePath), "utf8");
+}
+
+function esc(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function loadArtists() {
+  const source = read("artists.js");
+  const match = source.match(/window\.NGS_ARTISTS\s*=\s*(\[[\s\S]*?\]);/);
+  if (!match) throw new Error("artists.js must expose window.NGS_ARTISTS");
+  return JSON.parse(match[1]);
+}
+
+function loadImages() {
+  const context = vm.createContext({ window: {} });
+  vm.runInContext(read("artist-images.js"), context, { filename: "artist-images.js" });
+  return context.window.NGS_ARTIST_IMAGES || {};
+}
+
+function laneReleases(releases, lane) {
+  return releases.filter((item) => lane.groups.includes(String(item.group || "").trim()));
+}
+
+function laneArtists(artists, lane) {
+  return artists.filter((artist) => {
+    const genre = String(artist.genre || "").toLowerCase();
+    return lane.artistTerms.some((term) => genre.includes(term));
+  });
+}
+
+function formatDate(value) {
+  if (!value) return "Official release";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Official release";
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
+function releaseCard(item) {
+  const artist = esc(item.artist);
+  const title = esc(item.title);
+  const group = esc(item.group);
+  const id = encodeURIComponent(String(item.id || ""));
+  const url = esc(item.url || "/releases/");
+  return `<a class="genre-release-card" href="${url}" data-video-id="${esc(item.id)}"><div class="genre-release-art"><img loading="lazy" decoding="async" src="/api/release-image?id=${id}&amp;size=card" alt="${title} by ${artist}"></div><div class="genre-release-body"><span class="tag">${group}</span><h3>${title}</h3><p>${artist}</p><span class="genre-release-date">${esc(formatDate(item.published))}</span></div></a>`;
+}
+
+function artistCard(artist, images) {
+  const image = images[artist.slug];
+  const hasImage = Boolean(image?.src);
+  const imageMarkup = hasImage
+    ? `<img loading="lazy" decoding="async" src="${esc(image.src)}"${image.srcset ? ` srcset="${esc(image.srcset)}" sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1000px) 50vw, 25vw"` : ""} alt="${esc(artist.name)} portrait" style="--artist-position:${esc(image.position || "50% 38%")}">`
+    : "";
+  return `<a class="genre-artist-card${hasImage ? "" : " no-image"}" href="/artists/${esc(artist.slug)}/">${imageMarkup}<div class="genre-artist-copy"><span>${esc(artist.genre)}</span><h3>${esc(artist.name)}</h3><p>${esc(artist.summary)}</p></div></a>`;
+}
+
+function relatedCards(currentSlug) {
+  return Object.entries(LANES)
+    .filter(([slug]) => slug !== currentSlug)
+    .slice(0, 3)
+    .map(([slug, lane]) => `<a class="genre-related-card" href="/genres/${slug}/"><span>Genre hub</span><strong>${esc(lane.name)}</strong></a>`)
+    .join("");
+}
+
+function replaceElementContents(html, marker, replacement) {
+  const markerIndex = html.indexOf(marker);
+  if (markerIndex < 0) throw new Error(`Missing marker ${marker}`);
+  const openStart = html.lastIndexOf("<div", markerIndex);
+  if (openStart < 0) throw new Error(`Could not find containing div for ${marker}`);
+  const openEnd = html.indexOf(">", markerIndex);
+  if (openEnd < 0) throw new Error(`Could not find opening tag end for ${marker}`);
+
+  const tokenPattern = /<\/?div\b[^>]*>/gi;
+  tokenPattern.lastIndex = openStart;
+  let depth = 0;
+  let match;
+  while ((match = tokenPattern.exec(html))) {
+    if (/^<\/div/i.test(match[0])) depth -= 1;
+    else depth += 1;
+    if (depth === 0) {
+      const closeStart = match.index;
+      return html.slice(0, openEnd + 1) + replacement + html.slice(closeStart);
+    }
+  }
+  throw new Error(`Could not find closing div for ${marker}`);
+}
+
+function replaceCount(html, attribute, value) {
+  const pattern = new RegExp(`(<strong\\b[^>]*\\b${attribute}\\b[^>]*>)[\\s\\S]*?(<\\/strong>)`, "i");
+  if (!pattern.test(html)) throw new Error(`Missing ${attribute}`);
+  return html.replace(pattern, `$1${esc(value)}$2`);
+}
+
+function renderHub(slug, lane, releases, artists, images) {
+  const pagePath = path.join(root, "genres", slug, "index.html");
+  if (!fs.existsSync(pagePath)) throw new Error(`Missing genre hub page: ${slug}`);
+  let html = fs.readFileSync(pagePath, "utf8");
+  const laneItems = laneReleases(releases, lane);
+  const lanePeople = laneArtists(artists, lane);
+  if (!laneItems.length) throw new Error(`Genre hub ${slug} has no releases`);
+  if (!lanePeople.length) throw new Error(`Genre hub ${slug} has no artists`);
+
+  html = html.replace(
+    new RegExp(`(<main\\b[^>]*\\bdata-genre-slug=["']${slug}["'][^>]*)(>)`, "i"),
+    (match, start, end) => start.includes("data-static-genre=") ? match : `${start} data-static-genre="true"${end}`,
+  );
+  html = replaceCount(html, "data-hub-release-count", laneItems.length);
+  html = replaceCount(html, "data-hub-artist-count", lanePeople.length);
+
+  const latest = laneItems[0];
+  const latestLinkPattern = /<a\b[^>]*\bdata-genre-latest-link\b[^>]*>[\s\S]*?<\/a>/i;
+  if (!latestLinkPattern.test(html)) throw new Error(`Missing latest-release link on ${slug}`);
+  html = html.replace(
+    latestLinkPattern,
+    `<a class="button button-primary" data-genre-latest-link href="${esc(latest.url || "/releases/")}">Latest: ${esc(latest.title)}</a>`,
+  );
+
+  const heroImagePattern = /<img\b[^>]*\bdata-genre-hero-image\b[^>]*>/i;
+  if (!heroImagePattern.test(html)) throw new Error(`Missing hero image on ${slug}`);
+  html = html.replace(
+    heroImagePattern,
+    `<img data-genre-hero-image src="/api/release-image?id=${encodeURIComponent(latest.id)}" alt="${esc(latest.title)} by ${esc(latest.artist)}">`,
+  );
+
+  const releaseMarkup = laneItems.slice(0, 8).map(releaseCard).join("");
+  const artistMarkup = lanePeople.map((artist) => artistCard(artist, images)).join("");
+  html = replaceElementContents(html, "data-genre-release-grid", releaseMarkup);
+  html = replaceElementContents(html, "data-genre-artist-grid", artistMarkup);
+  html = replaceElementContents(html, "data-related-genres", relatedCards(slug));
+
+  fs.writeFileSync(pagePath, html);
+  return { releases: laneItems.length, artists: lanePeople.length, latest };
+}
+
+function replaceLaneImage(html, slug, latest, eager) {
+  const pattern = new RegExp(`<img\\b[^>]*\\bdata-lane-image=["']${slug}["'][^>]*>`, "i");
+  if (!pattern.test(html)) throw new Error(`Genre landing missing ${slug} artwork`);
+  return html.replace(
+    pattern,
+    `<img data-lane-image="${slug}" src="/api/release-image?id=${encodeURIComponent(latest.id)}&amp;size=card" alt="${esc(LANES[slug].name)} latest release artwork" loading="${eager ? "eager" : "lazy"}">`,
+  );
+}
+
+function renderLanding(releases, artists, laneStats) {
+  const pagePath = path.join(root, "genres", "index.html");
+  let html = fs.readFileSync(pagePath, "utf8");
+  html = html.replace(
+    /(<main\b[^>]*\bclass=["'][^"']*genre-index-page[^"']*["'][^>]*)(>)/i,
+    (match, start, end) => start.includes("data-static-genres-index=") ? match : `${start} data-static-genres-index="true"${end}`,
+  );
+  html = replaceCount(html, "data-genre-total-releases", releases.length);
+  html = replaceCount(html, "data-genre-total-artists", artists.length);
+
+  Object.entries(LANES).forEach(([slug], index) => {
+    const stats = laneStats[slug];
+    const countPattern = new RegExp(`(<span\\b[^>]*\\bdata-lane-count=["']${slug}["'][^>]*>)[\\s\\S]*?(<\\/span>)`, "i");
+    if (!countPattern.test(html)) throw new Error(`Genre landing missing ${slug} count`);
+    html = html.replace(countPattern, `$1${stats.releases} releases · ${stats.artists} artists$2`);
+    html = replaceLaneImage(html, slug, stats.latest, index === 0);
+  });
+
+  fs.writeFileSync(pagePath, html);
+}
+
+const artists = loadArtists();
+const images = loadImages();
+const payload = JSON.parse(read("releases.json"));
+const releases = Array.isArray(payload.releases) ? payload.releases : [];
+if (!releases.length) throw new Error("releases.json contains no releases");
+
+const laneStats = {};
+for (const [slug, lane] of Object.entries(LANES)) {
+  laneStats[slug] = renderHub(slug, lane, releases, artists, images);
+}
+renderLanding(releases, artists, laneStats);
+
+console.log(`Rendered ${Object.keys(LANES).length} crawlable genre hubs across ${releases.length} releases and ${artists.length} artists.`);

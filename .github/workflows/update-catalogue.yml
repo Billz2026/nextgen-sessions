@@ -11,6 +11,8 @@ on:
       - ".github/workflows/update-catalogue.yml"
       - "scripts/update-catalogue.py"
       - "scripts/render-releases.py"
+      - "scripts/enrich-release-pages.mjs"
+      - "scripts/test-release-editorial.py"
       - "scripts/render-artists.mjs"
       - "scripts/render-genres.mjs"
       - "scripts/normalize-primary-nav.py"
@@ -43,6 +45,7 @@ on:
       - "submit.html"
       - "releases.js"
       - "releases.css"
+      - "release-detail.css"
       - "release-player.js"
       - "mix-player.js"
       - "site-metrics.js"
@@ -78,6 +81,9 @@ jobs:
 
       - name: Render crawlable release archive and pages
         run: python3 scripts/render-releases.py releases.json
+
+      - name: Enrich release detail pages
+        run: node scripts/enrich-release-pages.mjs
 
       - name: Render crawlable artist profile pages
         run: node scripts/render-artists.mjs
@@ -117,6 +123,9 @@ jobs:
           assert archive.count('data-archive-play') >= data["total"]
           print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
           PY
+
+      - name: Validate rich release detail pages
+        run: python3 scripts/test-release-editorial.py
 
       - name: Validate crawlable artist profiles
         run: node scripts/test-artist-static-render.mjs

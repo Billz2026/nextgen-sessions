@@ -30,6 +30,25 @@ const selected = api.selectFullReleases({
 
 assert.deepEqual(selected.map(item => item.id), [fullRelease.id]);
 
+const futureRelease = {
+  ...fullRelease,
+  id: "BBBBBBBBBBB",
+  artist: "Scheduled Artist",
+  title: "Embargoed Release",
+  rawTitle: "Scheduled Artist – Embargoed Release",
+  published: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+  url: "/releases/scheduled-artist-embargoed-release/"
+};
+const futureSelected = api.selectFullReleases({
+  source: "curated-youtube-playlists",
+  releases: [futureRelease, fullRelease]
+});
+assert.deepEqual(
+  futureSelected.map(item => item.id),
+  [fullRelease.id],
+  "Future-dated releases must remain embargoed from /api/latest"
+);
+
 const currentCatalogue = JSON.parse(
   await readFile(new URL("../releases.json", import.meta.url), "utf8")
 );
@@ -42,6 +61,10 @@ assert.ok(
   ),
   "Verified full releases must be ordered newest first"
 );
+assert.ok(
+  currentFullReleases.every(release => Date.parse(release.published) <= Date.now()),
+  "Public release catalogue must not contain future-dated releases"
+);
 
 assert.throws(
   () => api.selectFullReleases({ source: "youtube-videos-tab", releases: [fullRelease] }),
@@ -53,9 +76,11 @@ for (const marker of [
   'policy: "full-release-catalogue-only"',
   'item?.contentType === "full-release"',
   'payload?.source !== "curated-youtube-playlists"',
+  'function releasedNow(item)',
+  'timestamp <= Date.now()',
   'new URL("/api/latest?v=r3"',
 ]) {
   assert.ok(productionWorker.includes(marker), `Production Worker is missing: ${marker}`);
 }
 
-console.log("Latest Release accepts verified full releases and rejects Shorts/unverified sources.");
+console.log("Latest Release accepts verified full releases and rejects Shorts, future releases and unverified sources.");

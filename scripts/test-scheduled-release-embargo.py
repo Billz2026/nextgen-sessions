@@ -40,8 +40,9 @@ def same_release(left: dict, right: dict) -> bool:
 
 assert SCHEDULE.get("policy") == "metadata-only-no-media-identifiers"
 scheduled = SCHEDULE.get("releases", [])
-assert isinstance(scheduled, list) and scheduled, "Scheduled release registry is empty"
+assert isinstance(scheduled, list), "Scheduled release registry must contain a releases array"
 
+future_count = 0
 for item in scheduled:
     forbidden = DISALLOWED_SCHEDULE_KEYS.intersection(item)
     assert not forbidden, f"Scheduled metadata must not contain media identifiers: {sorted(forbidden)}"
@@ -50,6 +51,7 @@ for item in scheduled:
 
     if NOW >= release_at:
         continue
+    future_count += 1
 
     public_matches = [release for release in CATALOGUE.get("releases", []) if same_release(release, item)]
     assert not public_matches, f"Future release leaked into releases.json: {item['artist']} — {item['title']}"
@@ -80,4 +82,7 @@ for release in CATALOGUE.get("releases", []):
         f"Future-dated release present in public catalogue: {release.get('artist')} — {release.get('title')}"
     )
 
-print(f"Scheduled-release embargo validated for {len(scheduled)} scheduled release(s).")
+print(
+    f"Scheduled-release policy validated for {len(scheduled)} registered release(s); "
+    f"{future_count} currently under release-time protection."
+)

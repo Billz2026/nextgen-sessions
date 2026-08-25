@@ -1,15 +1,15 @@
 (function () {
   "use strict";
 
-  const visual = "/assets/artists/zion-daley-artist-visual.svg?v=20260825-zionfix1";
+  const portrait = "/assets/artists/zion-daley-portrait-final.webp?v=20260825-zionfinal1";
   window.NGS_ARTIST_IMAGES = window.NGS_ARTIST_IMAGES && typeof window.NGS_ARTIST_IMAGES === "object"
     ? window.NGS_ARTIST_IMAGES
     : {};
 
   window.NGS_ARTIST_IMAGES["zion-daley"] = {
-    src: visual,
-    portrait: visual,
-    fallback: visual,
-    position: "50% 40%"
+    src: portrait,
+    portrait,
+    fallback: portrait,
+    position: "50% 34%"
   };
 })();

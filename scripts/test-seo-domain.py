@@ -19,6 +19,7 @@ FORBIDDEN = (
 CANONICAL_RE = re.compile(r'<link\s+rel="canonical"\s+href="([^"]+)"\s*/?>', re.IGNORECASE)
 OG_URL_RE = re.compile(r'<meta\s+property="og:url"\s+content="([^"]+)"\s*/?>', re.IGNORECASE)
 LOC_RE = re.compile(r'<loc>([^<]+)</loc>', re.IGNORECASE)
+ROBOTS_SITEMAP_RE = re.compile(r'^Sitemap:\s*(\S+)\s*$', re.IGNORECASE | re.MULTILINE)
 
 
 def public_path(relative: Path) -> str:
@@ -56,17 +57,27 @@ for path in sorted(ROOT.rglob("*.html")):
 
 assert checked >= 100, f"Unexpectedly few canonical pages checked: {checked}"
 
-sitemap_path = ROOT / "sitemap.xml"
-sitemap = sitemap_path.read_text(encoding="utf-8")
-assert_no_forbidden(sitemap_path, sitemap)
-locations = LOC_RE.findall(sitemap)
-assert locations, "Sitemap contains no <loc> entries"
-for location in locations:
-    assert location.startswith(ORIGIN + "/") or location == ORIGIN, f"Non-canonical sitemap URL: {location}"
+sitemap_files = sorted(ROOT.glob("sitemap*.xml"))
+assert sitemap_files, "No sitemap files found"
+all_locations: list[str] = []
+for sitemap_path in sitemap_files:
+    sitemap = sitemap_path.read_text(encoding="utf-8")
+    assert_no_forbidden(sitemap_path, sitemap)
+    locations = LOC_RE.findall(sitemap)
+    assert locations, f"Sitemap contains no <loc> entries: {sitemap_path.name}"
+    for location in locations:
+        assert location.startswith(ORIGIN + "/") or location == ORIGIN, f"Non-canonical sitemap URL in {sitemap_path.name}: {location}"
+    all_locations.extend(locations)
 
 robots_path = ROOT / "robots.txt"
 if robots_path.exists():
-    assert_no_forbidden(robots_path, robots_path.read_text(encoding="utf-8"))
+    robots = robots_path.read_text(encoding="utf-8")
+    assert_no_forbidden(robots_path, robots)
+    advertised = ROBOTS_SITEMAP_RE.findall(robots)
+    assert advertised, "robots.txt does not advertise a sitemap"
+    for location in advertised:
+        assert location.startswith(ORIGIN + "/"), f"robots.txt advertises non-canonical sitemap: {location}"
+        assert (ROOT / location.removeprefix(ORIGIN + "/")).exists(), f"robots.txt advertises missing sitemap: {location}"
 
 runtime_files: list[Path] = []
 for pattern in ("*.js", "*.json", "*.jsonc"):
@@ -84,6 +95,6 @@ assert 'hostname === "nextgensessions.com"' in worker, "Production Worker does n
 assert 'hostname === "www.nextgensessions.com"' in worker, "Production Worker does not recognise the www hostname"
 
 print(
-    f"SEO domain audit passed: {checked} canonical HTML pages, {len(locations)} sitemap URLs, "
-    f"and {len(set(runtime_files))} runtime text files use the canonical production domain."
+    f"SEO domain audit passed: {checked} canonical HTML pages, {len(sitemap_files)} sitemap files / "
+    f"{len(all_locations)} sitemap URLs, and {len(set(runtime_files))} runtime text files use the canonical production domain."
 )

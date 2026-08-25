@@ -87,14 +87,32 @@ for pattern in ("*.js", "*.json", "*.jsonc"):
             continue
         runtime_files.append(path)
 
+redirect_source_path = ROOT / "functions" / "_middleware.js"
+worker_path = ROOT / ".worker" / "index.js"
+allowed_legacy_paths = {redirect_source_path, worker_path}
+
 for path in sorted(set(runtime_files)):
+    if path in allowed_legacy_paths:
+        continue
     assert_no_forbidden(path, path.read_text(encoding="utf-8"))
 
-worker = (ROOT / ".worker" / "index.js").read_text(encoding="utf-8")
+redirect_source = redirect_source_path.read_text(encoding="utf-8")
+assert f'const CANONICAL_ORIGIN = "{ORIGIN}"' in redirect_source, "Middleware canonical origin is wrong"
+assert LEGACY_HOST in redirect_source, "Legacy Pages hostname redirect protection is missing"
+assert 'Response.redirect(destination.toString(), 301)' in redirect_source, "Legacy hostname must 301 to the canonical origin"
+
+worker = worker_path.read_text(encoding="utf-8")
+assert worker.count(LEGACY_HOST) == 1, "Worker should retain the old hostname only for the 301 redirect allowlist"
 assert 'hostname === "nextgensessions.com"' in worker, "Production Worker does not recognise the canonical hostname"
 assert 'hostname === "www.nextgensessions.com"' in worker, "Production Worker does not recognise the www hostname"
+assert 'hostname === "nextgensessions.pages.dev" ? "production"' not in worker, "Worker still treats the legacy Pages host as production analytics"
+
+analytics_source = (ROOT / "functions" / "api" / "events.js").read_text(encoding="utf-8")
+assert LEGACY_HOST not in analytics_source, "Analytics source still treats the legacy Pages hostname as production"
+assert 'hostname === "nextgensessions.com"' in analytics_source, "Analytics source does not recognise the canonical production hostname"
 
 print(
     f"SEO domain audit passed: {checked} canonical HTML pages, {len(sitemap_files)} sitemap files / "
-    f"{len(all_locations)} sitemap URLs, and {len(set(runtime_files))} runtime text files use the canonical production domain."
+    f"{len(all_locations)} sitemap URLs, and {len(set(runtime_files))} runtime text files use the canonical production domain; "
+    "the old Pages hostname remains only as a 301 redirect target detector."
 )

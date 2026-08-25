@@ -11,8 +11,8 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "His debut release, Where We Live, introduces that identity through street-level realism and conscious writing. The official release arrives 4 September 2026 at 6PM UK time."
     ],
     "imageKey": "zion-daley",
-    "image": "/assets/artists/zion-daley-artist-visual.svg?v=20260825-zionfix1",
-    "imagePosition": "50% 40%",
+    "image": "/assets/artists/zion-daley-portrait-final.webp?v=20260825-zionfinal1",
+    "imagePosition": "50% 34%",
     "featuredVideo": {
       "title": "Where We Live",
       "label": "Zion Daley — Where We Live",

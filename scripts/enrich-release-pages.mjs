@@ -77,9 +77,11 @@ function isoDuration(seconds) {
 }
 
 function loadRosterAndProfiles() {
+  const rosterSource = read("artists.js");
+  const rosterMatch = rosterSource.match(/window\.NGS_ARTISTS\s*=\s*(\[[\s\S]*?\]);/);
+  if (!rosterMatch) throw new Error("artists.js must expose window.NGS_ARTISTS");
+  const roster = JSON.parse(rosterMatch[1]);
   const context = vm.createContext({ window: {} });
-  vm.runInContext(read("artists.js"), context, { filename: "artists.js" });
-  const roster = Array.isArray(context.window.NGS_ARTISTS) ? context.window.NGS_ARTISTS : [];
 
   for (const relativePath of ["artist-profiles.js", "artist-profiles-expanded.js"]) {
     if (fs.existsSync(path.join(root, relativePath))) {

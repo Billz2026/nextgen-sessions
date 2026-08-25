@@ -14,7 +14,9 @@ on:
       - "scripts/render-artists.mjs"
       - "scripts/render-genres.mjs"
       - "scripts/normalize-primary-nav.py"
+      - "scripts/normalize-seo-domain.py"
       - "scripts/test-primary-nav.py"
+      - "scripts/test-seo-domain.py"
       - "scripts/test-artist-static-render.mjs"
       - "scripts/test-genre-static-render.py"
       - "scripts/test-scheduled-release-embargo.py"
@@ -46,8 +48,11 @@ on:
       - "site-metrics.js"
       - "scripts/test-latest-policy.mjs"
       - "scripts/test-catalogue-resilience.py"
+      - "functions/api/events.js"
       - "functions/api/latest.js"
       - ".worker/index.js"
+      - "sitemap.xml"
+      - "robots.txt"
       - "wrangler.jsonc"
 
 permissions:
@@ -86,6 +91,9 @@ jobs:
       - name: Normalize global primary navigation
         run: python3 scripts/normalize-primary-nav.py
 
+      - name: Normalize canonical production domain
+        run: python3 scripts/normalize-seo-domain.py
+
       - name: Validate catalogue
         run: |
           python3 - <<'PY'
@@ -121,6 +129,9 @@ jobs:
 
       - name: Validate scheduled-release source safety
         run: python3 scripts/test-scheduled-release-source.py
+
+      - name: Validate canonical production domain
+        run: python3 scripts/test-seo-domain.py
 
       - name: Validate homepage static fallback
         run: |

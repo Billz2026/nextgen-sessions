@@ -67,6 +67,15 @@ for slug, lane in LANES.items():
     for other in related:
         assert f'href="/genres/{other}/"' in html, f"{slug} is missing related genre {other}"
 
+    if slug == "dancehall":
+        assert 'data-search-growth="dancehall"' in html, "Dancehall search-growth section is missing"
+        assert "Discover new independent dancehall artists" in html, "Dancehall hero does not target artist discovery"
+        assert "New dancehall music 2026" in html, "Dancehall 2026 discovery context is missing"
+        assert "Discover independent dancehall artists and original 2026 releases." in html, "Dancehall discovery heading is missing"
+        assert 'href="/artists/kemarco/"' in html, "Dancehall discovery does not route to Kemarco"
+        assert 'href="/artists/reeko/"' in html, "Dancehall discovery does not route to Reeko"
+        assert 'href="/mixes/dancehall-mashups/"' in html, "Dancehall discovery does not route to the Dancehall mix"
+
 landing = (ROOT / "genres" / "index.html").read_text(encoding="utf-8")
 assert 'data-static-genres-index="true"' in landing, "Genre landing page must be pre-rendered"
 assert f'data-genre-total-releases>{len(releases)}<' in landing, "Genre landing release total is stale"

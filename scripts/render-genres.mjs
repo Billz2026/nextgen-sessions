@@ -27,7 +27,27 @@ const LANES = {
       ],
     },
   },
-  "hip-hop-g-funk": { name: "Hip-Hop & G-Funk", groups: ["Hip-Hop / G-Funk"], artistTerms: ["hip-hop", "g-funk"] },
+  "hip-hop-g-funk": {
+    name: "Hip-Hop & G-Funk",
+    groups: ["Hip-Hop / G-Funk"],
+    artistTerms: ["hip-hop", "g-funk"],
+    searchGrowth: {
+      searchTitle: "New Hip-Hop & G-Funk Music 2026 | NextGen Sessions",
+      searchDescription:
+        "Discover independent hip-hop artists and original 2026 releases on NextGen Sessions, from New York storytelling to West Coast hip-hop, G-Funk and cinematic rap.",
+      heroCopy:
+        "Discover independent hip-hop artists and original 2026 releases across NextGen Sessions, from New York storytelling and reflective rap to West Coast glide, G-Funk and cinematic production.",
+      eyebrow: "New hip-hop & G-Funk 2026",
+      title: "Discover independent hip-hop artists and original 2026 releases.",
+      body:
+        "NextGen Sessions brings new hip-hop music, artist profiles and full-length releases into one focused catalogue. Move from Queens-rooted storytelling and mature rap writing into West Coast cruising records, G-Funk textures and cinematic independent hip-hop.",
+      cards: [
+        { href: "/artists/jay-starks/", label: "New York hip-hop artist", title: "Jay Starks" },
+        { href: "/artists/alonzo-ray/", label: "West Coast hip-hop artist", title: "Alonzo Ray" },
+        { href: "/artists/voss-carter/", label: "West Coast hip-hop artist", title: "Voss Carter" },
+      ],
+    },
+  },
   dancehall: {
     name: "Dancehall",
     groups: ["Dancehall"],

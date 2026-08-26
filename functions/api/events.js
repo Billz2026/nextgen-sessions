@@ -6,8 +6,15 @@ const ALLOWED_EVENTS = new Set([
   "funnel_listen",
   "release_play",
   "release_click",
+  "related_release_click",
+  "new_this_week_click",
+  "trending_release_click",
   "artist_click",
+  "related_artist_click",
   "genre_click",
+  "mix_play",
+  "site_search",
+  "search_result_click",
   "archive_search",
   "archive_filter",
   "artist_search",
@@ -41,6 +48,7 @@ function safeLabel(event, value) {
   if (event === "archive_filter") return ALLOWED_FILTERS.has(label) ? label : "other";
   if (/^(archive_search|artist_search)$/.test(event)) return "started";
   if (/^submission_/.test(event)) return "form";
+  if (event === "site_search" && !label) return "no-match";
   return /^[A-Za-z0-9_-]{1,64}$/.test(label) ? label : "unknown";
 }
 

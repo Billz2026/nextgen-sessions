@@ -103,6 +103,24 @@ for slug, lane in LANES.items():
         assert 'href="/artists/reeko/"' in html, "Dancehall discovery does not route to Reeko"
         assert 'href="/mixes/dancehall-mashups/"' in html, "Dancehall discovery does not route to the Dancehall mix"
 
+    if slug == "reggae-lovers-rock":
+        expected_title = "New Reggae &amp; Lovers Rock Music 2026 | NextGen Sessions"
+        expected_description = (
+            "Discover independent reggae and lovers rock artists and original 2026 releases on NextGen Sessions, "
+            "from reflective roots reggae to warm Jamaican love songs."
+        )
+        assert f"<title>{expected_title}</title>" in html, "Reggae/Lovers Rock search title is stale"
+        assert f'content="{expected_description}"' in html, "Reggae/Lovers Rock search description is stale"
+        assert f'property="og:title" content="{expected_title}"' in html, "Reggae/Lovers Rock Open Graph title is stale"
+        assert f'name="twitter:title" content="{expected_title}"' in html, "Reggae/Lovers Rock Twitter title is missing or stale"
+        assert 'data-search-growth="reggae-lovers-rock"' in html, "Reggae/Lovers Rock search-growth section is missing"
+        assert "Discover independent reggae and lovers rock artists" in html, "Reggae/Lovers Rock hero does not target artist discovery"
+        assert "New reggae &amp; lovers rock 2026" in html, "Reggae/Lovers Rock 2026 discovery context is missing"
+        assert "Discover independent reggae and lovers rock artists in 2026." in html, "Reggae/Lovers Rock discovery heading is missing"
+        assert 'href="/artists/omari-v/"' in html, "Reggae/Lovers Rock discovery does not route to Omari V"
+        assert 'href="/artists/darian-gayle/"' in html, "Reggae/Lovers Rock discovery does not route to Darian Gayle"
+        assert 'href="/artists/zion-daley/"' in html, "Reggae/Lovers Rock discovery does not route to Zion Daley"
+
 landing = (ROOT / "genres" / "index.html").read_text(encoding="utf-8")
 assert 'data-static-genres-index="true"' in landing, "Genre landing page must be pre-rendered"
 assert f'data-genre-total-releases>{len(releases)}<' in landing, "Genre landing release total is stale"

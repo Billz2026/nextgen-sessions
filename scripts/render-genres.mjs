@@ -49,7 +49,27 @@ const LANES = {
       ],
     },
   },
-  "reggae-lovers-rock": { name: "Reggae & Lovers Rock", groups: ["Reggae", "Lovers Rock"], artistTerms: ["reggae", "lovers rock"] },
+  "reggae-lovers-rock": {
+    name: "Reggae & Lovers Rock",
+    groups: ["Reggae", "Lovers Rock"],
+    artistTerms: ["reggae", "lovers rock"],
+    searchGrowth: {
+      searchTitle: "New Reggae & Lovers Rock Music 2026 | NextGen Sessions",
+      searchDescription:
+        "Discover independent reggae and lovers rock artists and original 2026 releases on NextGen Sessions, from reflective roots reggae to warm Jamaican love songs.",
+      heroCopy:
+        "Discover independent reggae and lovers rock artists and original 2026 releases across NextGen Sessions, from reflective Jamaican roots records to warm melodic love songs.",
+      eyebrow: "New reggae & lovers rock 2026",
+      title: "Discover independent reggae and lovers rock artists in 2026.",
+      body:
+        "NextGen Sessions brings original reggae and lovers rock releases, artist profiles and warm Jamaican songwriting into one focused catalogue. Move from reflective roots influence and conscious perspective into romance, memory and melodic lovers rock.",
+      cards: [
+        { href: "/artists/omari-v/", label: "Reggae / lovers rock artist", title: "Omari V" },
+        { href: "/artists/darian-gayle/", label: "Reggae artist", title: "Darian Gayle" },
+        { href: "/artists/zion-daley/", label: "Reggae artist", title: "Zion Daley" },
+      ],
+    },
+  },
   "rnb-soul": { name: "R&B & Soul", groups: ["R&B & Soul"], artistTerms: ["r&b"] },
   "global-sounds": { name: "Global Sounds", groups: ["Asian", "Arabic", "Late Night Afro", "Late Night Vibes"], artistTerms: ["punjabi", "south asian", "arabic", "afro"] },
 };

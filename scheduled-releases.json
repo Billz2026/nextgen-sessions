@@ -1,13 +1,14 @@
 {
   "policy": "metadata-only-no-media-identifiers",
+  "defaultTimezone": "Europe/London",
   "releases": [
     {
       "artist": "Zion Daley",
       "title": "Where We Live",
-      "releaseAt": "2026-09-04T17:00:00Z",
+      "releaseLocal": "2026-09-04T18:00:00",
+      "timezone": "Europe/London",
       "artistPath": "/artists/zion-daley/",
-      "releaseSlug": "zion-daley-where-we-live",
-      "scheduleSource": "artists/zion-daley/coming-soon.js"
+      "releaseSlug": "zion-daley-where-we-live"
     }
   ]
 }

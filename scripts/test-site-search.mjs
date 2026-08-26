@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { sameRelease } from "./release-schedule.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -29,6 +30,9 @@ function normalise(value) {
 const artists = loadArtists();
 const releasesPayload = JSON.parse(read("releases.json"));
 const releases = Array.isArray(releasesPayload.releases) ? releasesPayload.releases : [];
+const schedulePayload = JSON.parse(read("scheduled-releases.json"));
+const schedules = Array.isArray(schedulePayload.releases) ? schedulePayload.releases : [];
+const unmatchedSchedules = schedules.filter((item) => !releases.some((release) => sameRelease(release, item)));
 const searchIndex = JSON.parse(read("search-index.json"));
 const items = Array.isArray(searchIndex.items) ? searchIndex.items : [];
 
@@ -37,11 +41,12 @@ const mixPages = fs.readdirSync(mixesRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(mixesRoot, entry.name, "index.html")));
 
 assert.equal(searchIndex.counts.artists, artists.length, "search artist count must match artists.js");
-assert.equal(searchIndex.counts.releases, releases.length, "search release count must match releases.json");
+assert.equal(searchIndex.counts.releases, releases.length + unmatchedSchedules.length, "search release count must include public + scheduled releases");
+assert.equal(searchIndex.counts.upcomingReleases || 0, unmatchedSchedules.length, "search upcoming release count must match central schedule");
 assert.equal(searchIndex.counts.genres, 6, "search must include all six genre hubs");
 assert.equal(searchIndex.counts.mixes, mixPages.length, "search mix count must match dedicated mix pages");
 assert.equal(searchIndex.total, items.length, "search total must match indexed items");
-assert.equal(items.length, artists.length + releases.length + 6 + mixPages.length, "search index item count drift");
+assert.equal(items.length, artists.length + releases.length + unmatchedSchedules.length + 6 + mixPages.length, "search index item count drift");
 assert.ok(items.length >= 130, `search index unexpectedly small: ${items.length}`);
 
 const allowedTypes = new Set(["artist", "release", "genre", "mix"]);
@@ -50,12 +55,19 @@ for (const item of items) {
   assert.ok(allowedTypes.has(item.type), `invalid search type: ${item.type}`);
   assert.ok(String(item.title || "").trim(), `search item missing title: ${JSON.stringify(item)}`);
   assert.ok(/^\/(artists|releases|genres|mixes)\//.test(item.url || ""), `invalid search URL: ${item.url}`);
-  const key = `${item.type}:${item.url}`;
+  const key = `${item.type}:${item.url}:${item.title}`;
   assert.ok(!seen.has(key), `duplicate search result: ${key}`);
   seen.add(key);
 
   const target = path.join(root, item.url.replace(/^\//, ""), "index.html");
   assert.ok(fs.existsSync(target), `search target does not exist: ${item.url}`);
+
+  if (item.type === "release" && item.source === "release-schedule") {
+    assert.ok(item.url.startsWith("/artists/"), `scheduled release must link to artist page until public: ${item.url}`);
+    assert.ok(["upcoming", "publishing"].includes(item.status), `invalid scheduled search status: ${item.status}`);
+  } else if (item.type === "release") {
+    assert.ok(item.url.startsWith("/releases/"), `public release search result must link to release page: ${item.url}`);
+  }
 }
 
 function matches(query) {
@@ -71,6 +83,9 @@ assert.ok(matches("Renz Cole").some((item) => item.type === "artist" && item.url
 assert.ok(matches("Top Shotta").some((item) => item.type === "release" && item.url === "/releases/rudii-marka-top-shotta/"), "Top Shotta release must be searchable");
 assert.ok(matches("Dancehall").some((item) => item.type === "genre" && item.url === "/genres/dancehall/"), "Dancehall genre must be searchable");
 assert.ok(matches("Dancehall").some((item) => item.type === "mix"), "Dancehall search should surface a mix/collection");
+for (const scheduled of unmatchedSchedules) {
+  assert.ok(matches(scheduled.title).some((item) => item.source === "release-schedule" && item.title === scheduled.title), `scheduled release must be searchable: ${scheduled.artist} — ${scheduled.title}`);
+}
 
 const page = read("search/index.html");
 assert.ok(page.includes('data-site-search="true"'), "search page marker missing");
@@ -86,4 +101,4 @@ assert.ok(client.includes('fetch("/search-index.json"'), "search client must loa
 assert.ok(client.includes("function scoreItem"), "search ranking function missing");
 assert.ok(!/algolia|typesense|meilisearch/i.test(client), "search must remain first-party unless explicitly changed");
 
-console.log(`Universal site search validated: ${items.length} indexed items across artists, releases, genres and mixes.`);
+console.log(`Universal site search validated: ${items.length} indexed items including ${unmatchedSchedules.length} scheduled release(s).`);

@@ -85,6 +85,24 @@ for slug, lane in LANES.items():
         assert 'href="/artists/reiss/"' in html, "UK Rap discovery does not route to Reiss"
         assert 'href="/mixes/uk-rap-mashup-series-1/"' in html, "UK Rap discovery does not route to the UK Rap mix"
 
+    if slug == "hip-hop-g-funk":
+        expected_title = "New Hip-Hop &amp; G-Funk Music 2026 | NextGen Sessions"
+        expected_description = (
+            "Discover independent hip-hop artists and original 2026 releases on NextGen Sessions, "
+            "from New York storytelling to West Coast hip-hop, G-Funk and cinematic rap."
+        )
+        assert f"<title>{expected_title}</title>" in html, "Hip-Hop/G-Funk search title is stale"
+        assert f'content="{expected_description}"' in html, "Hip-Hop/G-Funk search description is stale"
+        assert f'property="og:title" content="{expected_title}"' in html, "Hip-Hop/G-Funk Open Graph title is stale"
+        assert f'name="twitter:title" content="{expected_title}"' in html, "Hip-Hop/G-Funk Twitter title is missing or stale"
+        assert 'data-search-growth="hip-hop-g-funk"' in html, "Hip-Hop/G-Funk search-growth section is missing"
+        assert "Discover independent hip-hop artists" in html, "Hip-Hop/G-Funk hero does not target artist discovery"
+        assert "New hip-hop &amp; G-Funk 2026" in html, "Hip-Hop/G-Funk 2026 discovery context is missing"
+        assert "Discover independent hip-hop artists and original 2026 releases." in html, "Hip-Hop/G-Funk discovery heading is missing"
+        assert 'href="/artists/jay-starks/"' in html, "Hip-Hop/G-Funk discovery does not route to Jay Starks"
+        assert 'href="/artists/alonzo-ray/"' in html, "Hip-Hop/G-Funk discovery does not route to Alonzo Ray"
+        assert 'href="/artists/voss-carter/"' in html, "Hip-Hop/G-Funk discovery does not route to Voss Carter"
+
     if slug == "dancehall":
         expected_title = "New Dancehall Music &amp; Artists 2026 | NextGen Sessions"
         expected_description = (

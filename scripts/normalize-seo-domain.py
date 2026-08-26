@@ -36,6 +36,13 @@ CTR_METADATA = {
     },
 }
 
+ENTITY_METADATA = {
+    "artists/kemarco/index.html": {
+        "title": "Kemarco | Jamaican Dancehall Artist | NextGen Sessions",
+        "description": "Discover Kemarco, a Jamaican dancehall artist on NextGen Sessions. Listen to Ghetto Blessings and Badman Don’t Rush and explore more dancehall releases.",
+    },
+}
+
 CANONICAL_RE = re.compile(r'<link\s+rel="canonical"\s+href="[^"]*"\s*/?>', re.IGNORECASE)
 OG_URL_RE = re.compile(r'<meta\s+property="og:url"\s+content="[^"]*"\s*/?>', re.IGNORECASE)
 TITLE_RE = re.compile(r'<title>[\s\S]*?</title>', re.IGNORECASE)
@@ -76,8 +83,8 @@ def insert_after_description(source: str, tag: str) -> str:
     return source[: head.end()] + "\n  " + tag + source[head.end() :]
 
 
-def apply_ctr_metadata(relative: Path, source: str) -> str:
-    rule = CTR_METADATA.get(relative.as_posix())
+def apply_search_metadata(relative: Path, source: str) -> str:
+    rule = CTR_METADATA.get(relative.as_posix()) or ENTITY_METADATA.get(relative.as_posix())
     if not rule:
         return source
 
@@ -95,6 +102,26 @@ def apply_ctr_metadata(relative: Path, source: str) -> str:
     for pattern, replacement in replacements:
         if pattern.search(next_source):
             next_source = pattern.sub(replacement, next_source, count=1)
+    return next_source
+
+
+def apply_kemarco_entity(relative: Path, source: str) -> str:
+    if relative.as_posix() != "artists/kemarco/index.html":
+        return source
+
+    next_source = source
+    override_tag = '<script src="/artists/kemarco/profile.js?v=20260826-entity1" defer></script>'
+    if override_tag not in next_source:
+        marker = '<script src="/artist-profile.js?v=20260810-playerfirst1" defer></script>'
+        if marker in next_source:
+            next_source = next_source.replace(marker, override_tag + "\n  " + marker, 1)
+
+    dancehall_cta = '<a class="button button-secondary" href="/genres/dancehall/">Explore Dancehall</a>'
+    if dancehall_cta not in next_source:
+        all_artists = '<a class="button button-secondary" href="/artists/">All artists</a>'
+        if all_artists in next_source:
+            next_source = next_source.replace(all_artists, dancehall_cta + "\n          " + all_artists, 1)
+
     return next_source
 
 
@@ -128,7 +155,8 @@ def normalize_html(path: Path) -> bool:
         else:
             next_source = insert_after_description(next_source, og_tag)
 
-    next_source = apply_ctr_metadata(relative, next_source)
+    next_source = apply_search_metadata(relative, next_source)
+    next_source = apply_kemarco_entity(relative, next_source)
 
     if next_source == source:
         return False
@@ -185,7 +213,10 @@ def main() -> None:
 
     if not scanned:
         raise SystemExit("No public site HTML pages were found for canonical normalization")
-    print(f"Canonical production origin and CTR metadata normalized across {scanned} HTML pages; changed {changed} file(s).")
+    print(
+        f"Canonical production origin, CTR metadata and search-entity metadata normalized across "
+        f"{scanned} HTML pages; changed {changed} file(s)."
+    )
 
 
 if __name__ == "__main__":

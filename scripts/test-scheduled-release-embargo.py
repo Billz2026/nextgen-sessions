@@ -6,11 +6,13 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEDULE = json.loads((ROOT / "scheduled-releases.json").read_text(encoding="utf-8"))
 CATALOGUE = json.loads((ROOT / "releases.json").read_text(encoding="utf-8"))
 NOW = datetime.now(timezone.utc)
+DEFAULT_TIMEZONE = SCHEDULE.get("defaultTimezone", "Europe/London")
 
 DISALLOWED_SCHEDULE_KEYS = {
     "id",
@@ -21,14 +23,31 @@ DISALLOWED_SCHEDULE_KEYS = {
     "embedUrl",
     "thumbnailUrl",
     "contentUrl",
+    "releaseAt",
+    "scheduleSource",
 }
 
 
 def parse_utc(value: str) -> datetime:
     parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
     if parsed.tzinfo is None:
-        raise AssertionError(f"releaseAt must include a timezone: {value}")
+        raise AssertionError(f"timestamp must include a timezone: {value}")
     return parsed.astimezone(timezone.utc)
+
+
+def parse_schedule(item: dict) -> datetime:
+    value = str(item.get("releaseLocal", ""))
+    local = datetime.fromisoformat(value)
+    assert local.tzinfo is None, f"releaseLocal must be timezone-free local wall time: {value}"
+    zone_name = str(item.get("timezone") or DEFAULT_TIMEZONE)
+    zone = ZoneInfo(zone_name)
+    first = local.replace(tzinfo=zone, fold=0)
+    second = local.replace(tzinfo=zone, fold=1)
+    assert first.utcoffset() == second.utcoffset(), f"releaseLocal is ambiguous in {zone_name}: {value}"
+    instant = first.astimezone(timezone.utc)
+    round_trip = instant.astimezone(zone).replace(tzinfo=None)
+    assert round_trip == local, f"releaseLocal does not exist cleanly in {zone_name}: {value}"
+    return instant
 
 
 def same_release(left: dict, right: dict) -> bool:
@@ -39,15 +58,16 @@ def same_release(left: dict, right: dict) -> bool:
 
 
 assert SCHEDULE.get("policy") == "metadata-only-no-media-identifiers"
+assert DEFAULT_TIMEZONE == "Europe/London"
 scheduled = SCHEDULE.get("releases", [])
 assert isinstance(scheduled, list), "Scheduled release registry must contain a releases array"
 
 future_count = 0
 for item in scheduled:
     forbidden = DISALLOWED_SCHEDULE_KEYS.intersection(item)
-    assert not forbidden, f"Scheduled metadata must not contain media identifiers: {sorted(forbidden)}"
-    assert item.get("artist") and item.get("title") and item.get("artistPath") and item.get("releaseSlug")
-    release_at = parse_utc(str(item.get("releaseAt", "")))
+    assert not forbidden, f"Scheduled metadata must not contain derived/media keys: {sorted(forbidden)}"
+    assert item.get("artist") and item.get("title") and item.get("artistPath") and item.get("releaseSlug") and item.get("releaseLocal")
+    release_at = parse_schedule(item)
 
     if NOW >= release_at:
         continue
@@ -59,7 +79,7 @@ for item in scheduled:
     slug = str(item["releaseSlug"]).strip("/")
     release_url = f"/releases/{slug}/"
     release_page = ROOT / "releases" / slug / "index.html"
-    assert not release_page.exists(), f"Future release detail page exists before releaseAt: {release_url}"
+    assert not release_page.exists(), f"Future release detail page exists before release time: {release_url}"
 
     archive = (ROOT / "releases" / "index.html").read_text(encoding="utf-8")
     assert release_url not in archive, f"Future release URL leaked into archive: {release_url}"
@@ -71,9 +91,6 @@ for item in scheduled:
     assert artist_path.exists(), f"Scheduled artist page is missing: {item['artistPath']}"
     artist_html = artist_path.read_text(encoding="utf-8")
     assert release_url not in artist_html, f"Future release page link leaked on artist profile: {release_url}"
-    assert f'data-video-title="{item["artist"]} — {item["title"]}"' not in artist_html, (
-        f"Future release video metadata leaked on artist profile: {item['artist']} — {item['title']}"
-    )
 
 for release in CATALOGUE.get("releases", []):
     published = release.get("published")

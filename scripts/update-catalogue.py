@@ -29,6 +29,7 @@ PLAYLISTS = [
 
 FULL_RELEASE_CONTENT_TYPE = "full-release"
 MINIMUM_FULL_RELEASE_SECONDS = 75
+PERSISTENT_DISCOVERY_SOURCE = "scheduled-channel-upload"
 
 # Verified full releases that are not currently present in a genre playlist.
 # Only the identity/group are pinned here; title/status/publication time are
@@ -199,6 +200,37 @@ def existing_playlist_candidates(existing_catalogue: dict, group: str) -> list[d
     ]
 
 
+def persistent_scheduled_candidates(existing_catalogue: dict) -> list[dict]:
+    """Retain releases that were safely discovered from the public channel after release time.
+
+    These are intentionally persisted even when a curator has not yet added the video to a
+    genre playlist. If the video later appears in a curated playlist, that playlist candidate
+    is processed first and becomes authoritative for the build.
+    """
+    releases = existing_catalogue.get("releases", []) if isinstance(existing_catalogue, dict) else []
+    output: list[dict] = []
+    for release in releases:
+        if release.get("discoverySource") != PERSISTENT_DISCOVERY_SOURCE:
+            continue
+        video_id = str(release.get("id", ""))
+        artist = str(release.get("artist", "")).strip()
+        title = str(release.get("title", "")).strip()
+        group = str(release.get("group", "")).strip()
+        if not re.fullmatch(r"[\w-]{11}", video_id) or not artist or not title or not group:
+            continue
+        output.append(
+            {
+                "id": video_id,
+                "group": group,
+                "rawTitle": release.get("rawTitle", ""),
+                "artist": artist,
+                "title": title,
+                "discoverySource": PERSISTENT_DISCOVERY_SOURCE,
+            }
+        )
+    return output
+
+
 def build_catalogue(existing_catalogue: dict | None = None) -> dict:
     candidates: list[dict] = []
     seen: set[str] = set()
@@ -249,6 +281,12 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
             )
             seen.add(video_id)
 
+    for candidate in persistent_scheduled_candidates(existing_catalogue):
+        if candidate["id"] in seen:
+            continue
+        candidates.append(candidate)
+        seen.add(candidate["id"])
+
     for extra in VERIFIED_EXTRA_RELEASES:
         video_id = extra["id"]
         if video_id in seen:
@@ -285,18 +323,19 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
         else:
             artist, title = split_artist_title(raw_title)
 
-        releases.append(
-            {
-                "id": video_id,
-                "contentType": FULL_RELEASE_CONTENT_TYPE,
-                "artist": artist,
-                "title": title,
-                "group": candidate["group"],
-                "published": published,
-                "durationSeconds": duration,
-                "rawTitle": raw_title,
-            }
-        )
+        release = {
+            "id": video_id,
+            "contentType": FULL_RELEASE_CONTENT_TYPE,
+            "artist": artist,
+            "title": title,
+            "group": candidate["group"],
+            "published": published,
+            "durationSeconds": duration,
+            "rawTitle": raw_title,
+        }
+        if candidate.get("discoverySource"):
+            release["discoverySource"] = candidate["discoverySource"]
+        releases.append(release)
 
     releases.sort(key=lambda item: item.get("published", ""), reverse=True)
     catalogue_counts = {group: 0 for _, group in PLAYLISTS}

@@ -14,6 +14,24 @@
     instagram: "https://www.instagram.com/next.gensessions/"
   });
 
+  const SESSION_DEDUPE = new Set([
+    "release_play",
+    "release_click",
+    "related_release_click",
+    "new_this_week_click",
+    "trending_release_click",
+    "artist_click",
+    "related_artist_click",
+    "genre_click",
+    "mix_play",
+    "site_search",
+    "search_result_click",
+    "youtube_click",
+    "youtube_subscribe_click",
+    "social_follow_click",
+    "funnel_listen"
+  ]);
+
   function ensureMobileNavigation() {
     const version = "20260824-qa2";
     if (!document.querySelector('link[href^="/mobile-nav.css"]')) {
@@ -55,6 +73,7 @@
     if (href === "/releases/") return path === "/releases" || path.startsWith("/releases/");
     if (href === "/genres/") return path === "/genres" || path.startsWith("/genres/");
     if (href === "/mixes/") return path === "/mixes" || path.startsWith("/mixes/");
+    if (href === "/search/") return path === "/search" || path.startsWith("/search/");
     if (href === "/submit.html") return path === "/submit" || path === "/submit.html";
     if (href === "/privacy/") return path === "/privacy" || path.startsWith("/privacy/");
     return false;
@@ -69,6 +88,7 @@
       { label: "Releases", href: "/releases/" },
       { label: "Genres", href: "/genres/" },
       { label: "Mixes", href: "/mixes/" },
+      { label: "Search", href: "/search/" },
       { label: "Submit", href: "/submit.html" },
       { label: "Privacy", href: "/privacy/" },
       { label: "YouTube", href: "https://www.youtube.com/@NextGenSessions", external: true },
@@ -185,7 +205,7 @@
   function installConversionFunnel() {
     if (document.querySelector("[data-ngs-conversion]")) return;
     const path = currentPath();
-    if (path === "/privacy" || path === "/submit" || path === "/submit.html" || path === "/404.html") return;
+    if (path === "/privacy" || path === "/submit" || path === "/submit.html" || path === "/404.html" || path.startsWith("/ops/")) return;
 
     const footer = document.querySelector("footer.site-footer");
     const main = document.querySelector("main");
@@ -238,11 +258,32 @@
 
   installConversionFunnel();
 
+  function sessionKey(event, label) {
+    return `ngs-metric:${event}:${String(label || "").slice(0, 64)}`;
+  }
+
+  function alreadySentInSession(event, label) {
+    if (!SESSION_DEDUPE.has(event)) return false;
+    const key = sessionKey(event, label);
+    try {
+      if (sessionStorage.getItem(key) === "1") return true;
+      sessionStorage.setItem(key, "1");
+      return false;
+    } catch (_) {
+      if (tracked.has(key)) return true;
+      tracked.add(key);
+      return false;
+    }
+  }
+
   function send(event, label) {
+    const safeLabel = String(label || "").slice(0, 64);
+    if (alreadySentInSession(event, safeLabel)) return;
+
     const payload = JSON.stringify({
       event,
       path: location.pathname,
-      label: String(label || "").slice(0, 64)
+      label: safeLabel
     });
     const body = new Blob([payload], { type: "application/json" });
 
@@ -261,6 +302,8 @@
     tracked.add(key);
     send(event, label);
   }
+
+  window.NGS_METRICS = Object.freeze({ track: send });
 
   const primaryNav = document.querySelector(".nav");
   if (primaryNav && !primaryNav.querySelector('a[href="/genres/"]')) {
@@ -284,16 +327,35 @@
     }
   }
 
+  function internalSlug(href, section) {
+    try {
+      const url = new URL(href, location.href);
+      if (url.origin !== location.origin) return "";
+      return url.pathname.match(new RegExp(`^/${section}/([a-z0-9-]+)/?$`, "i"))?.[1]?.toLowerCase() || "";
+    } catch (_) {
+      return "";
+    }
+  }
+
+  function releaseLabel(link) {
+    return internalSlug(link.href, "releases") || youtubeLabel(link.href);
+  }
+
   function artistLabel(link) {
-    const internal = link.getAttribute("href")?.match(/^\/artists\/([a-z0-9-]+)\/?$/i);
-    if (internal) return internal[1].toLowerCase();
+    const internal = internalSlug(link.href, "artists");
+    if (internal) return internal;
     const heading = link.querySelector("h3, strong");
     return safeSlug(heading?.textContent || link.getAttribute("aria-label"), "artist");
   }
 
   function genreLabel(link) {
-    const internal = link.getAttribute("href")?.match(/^\/genres\/([a-z0-9-]+)\/?$/i);
-    return internal ? internal[1].toLowerCase() : "genres";
+    return internalSlug(link.href, "genres") || "genres";
+  }
+
+  function mixLabel(element) {
+    const player = element.closest("[data-mix-player]");
+    const id = String(player?.dataset.id || "").trim();
+    return /^[A-Za-z0-9_-]{10,64}$/.test(id) ? id : safeSlug(currentPath().split("/").pop(), "mix");
   }
 
   send("page_view", "");
@@ -306,17 +368,16 @@
     const target = event.target instanceof Element ? event.target : null;
     if (!target) return;
 
-    const player = target.closest("#latestVideoPlay");
-    if (player) {
-      const id = player.closest("[data-video-id]")?.dataset.videoId || "latest";
+    const releasePlay = target.closest("#latestVideoPlay, [data-archive-play], [data-release-play]");
+    if (releasePlay) {
+      const id = releasePlay.closest("[data-video-id]")?.dataset.videoId || "release";
       send("release_play", id);
       return;
     }
 
-    const archivePlayer = target.closest("[data-archive-play]");
-    if (archivePlayer) {
-      const id = archivePlayer.closest("[data-video-id]")?.dataset.videoId || "archive";
-      send("release_play", id);
+    const mixPlay = target.closest("[data-mix-play]");
+    if (mixPlay) {
+      send("mix_play", mixLabel(mixPlay));
       return;
     }
 
@@ -339,9 +400,36 @@
       return;
     }
 
-    if (link.matches(".release-card, .archive-release-detail-link, .genre-release-card")) {
-      const id = link.closest("[data-video-id]")?.dataset.videoId || youtubeLabel(link.href);
-      send("release_click", id);
+    if (link.closest("[data-trending-feed]")) {
+      const label = releaseLabel(link);
+      if (label && label !== "channel") send("trending_release_click", label);
+      return;
+    }
+
+    if (link.closest("[data-weekly-feed]")) {
+      const label = releaseLabel(link) || artistLabel(link);
+      send("new_this_week_click", label);
+      return;
+    }
+
+    if (link.matches("[data-search-result], .search-result-card")) {
+      const label = releaseLabel(link) || artistLabel(link) || genreLabel(link) || internalSlug(link.href, "mixes") || "result";
+      send("search_result_click", label);
+      return;
+    }
+
+    if (link.closest(".release-related") && internalSlug(link.href, "releases")) {
+      send("related_release_click", releaseLabel(link));
+      return;
+    }
+
+    if (link.closest("[data-related-artists]") && internalSlug(link.href, "artists")) {
+      send("related_artist_click", artistLabel(link));
+      return;
+    }
+
+    if (link.matches(".release-card, .archive-release-detail-link, .genre-release-card, .release-chronology-card")) {
+      send("release_click", releaseLabel(link));
       return;
     }
 
@@ -367,16 +455,25 @@
 
     const isArchive = input.id === "releaseSearch";
     const isArtist = input.id === "artistSearch";
-    if (!isArchive && !isArtist) return;
+    const isSite = input.id === "siteSearchInput";
+    if (!isArchive && !isArtist && !isSite) return;
 
     clearTimeout(searchTimer);
     searchTimer = window.setTimeout(() => {
+      if (isSite) {
+        const first = document.querySelector("#siteSearchResults [data-search-result]");
+        const label = first
+          ? (releaseLabel(first) || artistLabel(first) || genreLabel(first) || internalSlug(first.href, "mixes") || "result")
+          : "no-match";
+        send("site_search", label);
+        return;
+      }
       once(
         isArchive ? "archive-search" : "artist-search",
         isArchive ? "archive_search" : "artist_search",
         "started"
       );
-    }, 600);
+    }, 700);
   }, { passive: true });
 
   document.addEventListener("focusin", event => {

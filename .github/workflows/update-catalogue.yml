@@ -12,7 +12,9 @@ on:
       - "scripts/update-catalogue.py"
       - "scripts/render-releases.py"
       - "scripts/enrich-release-pages.mjs"
+      - "scripts/enrich-release-related-artists.mjs"
       - "scripts/test-release-editorial.py"
+      - "scripts/test-release-related-artists.mjs"
       - "scripts/render-artists.mjs"
       - "scripts/render-artist-index.mjs"
       - "scripts/render-genres.mjs"
@@ -96,6 +98,9 @@ jobs:
       - name: Enrich release detail pages
         run: node scripts/enrich-release-pages.mjs
 
+      - name: Enrich release discovery with related artists
+        run: node scripts/enrich-release-related-artists.mjs
+
       - name: Render crawlable artist profile pages
         run: node scripts/render-artists.mjs
 
@@ -140,6 +145,9 @@ jobs:
 
       - name: Validate rich release detail pages
         run: python3 scripts/test-release-editorial.py
+
+      - name: Validate related artist discovery
+        run: node scripts/test-release-related-artists.mjs
 
       - name: Validate crawlable artist profiles
         run: node scripts/test-artist-static-render.mjs

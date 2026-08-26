@@ -111,7 +111,28 @@ const LANES = {
       ],
     },
   },
-  "global-sounds": { name: "Global Sounds", groups: ["Asian", "Arabic", "Late Night Afro", "Late Night Vibes"], artistTerms: ["punjabi", "south asian", "arabic", "afro"] },
+  "global-sounds": {
+    name: "Global Sounds",
+    groups: ["Asian", "Arabic", "Late Night Afro", "Late Night Vibes"],
+    artistTerms: ["punjabi", "south asian", "arabic", "afro"],
+    searchGrowth: {
+      searchTitle: "Punjabi, Arabic & Afro Music 2026 | NextGen Sessions",
+      searchDescription:
+        "Discover independent Punjabi and South Asian, Arabic and Afro-led music from NextGen Sessions, with original 2026 releases and artist profiles in one global hub.",
+      heroCopy:
+        "Discover independent Punjabi, South Asian, Arabic and Afro-led music across NextGen Sessions, with original 2026 releases and artist profiles gathered into one global discovery hub.",
+      eyebrow: "Punjabi, Arabic & Afro music 2026",
+      title: "Explore independent Punjabi, Arabic and Afro-led music in 2026.",
+      body:
+        "This hub keeps distinct musical lanes visible without pretending they are one genre. Move from Punjabi and South Asian crossover records into Arabic oud-led soul and Afro-influenced late-night releases, then continue into the artists behind each sound.",
+      cards: [
+        { href: "/artists/asif-sultaan/", label: "Punjabi / South Asian fusion", title: "Asif Sultaan" },
+        { href: "/artists/manny-virk/", label: "Punjabi / Bhangra", title: "Manny Virk" },
+        { href: "/artists/leila-nour/", label: "Arabic soul / Oud", title: "Leila Nour" },
+        { href: "/artists/marlo-saint/", label: "UK Afro-Swing / R&B", title: "Marlo Saint" },
+      ],
+    },
+  },
 };
 
 function read(relativePath) {

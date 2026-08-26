@@ -66,7 +66,7 @@ future_count = 0
 for item in scheduled:
     forbidden = DISALLOWED_SCHEDULE_KEYS.intersection(item)
     assert not forbidden, f"Scheduled metadata must not contain derived/media keys: {sorted(forbidden)}"
-    assert item.get("artist") and item.get("title") and item.get("artistPath") and item.get("releaseSlug") and item.get("releaseLocal")
+    assert item.get("artist") and item.get("title") and item.get("group") and item.get("artistPath") and item.get("releaseSlug") and item.get("releaseLocal")
     release_at = parse_schedule(item)
 
     if NOW >= release_at:

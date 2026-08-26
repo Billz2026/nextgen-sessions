@@ -52,6 +52,13 @@ def same_release(left: dict, right: dict) -> bool:
     return normalise(left.get("artist", "")) == normalise(right.get("artist", "")) and normalise(left.get("title", "")) == normalise(right.get("title", ""))
 
 
+def validate_schedule_item(item: dict) -> None:
+    required = ("artist", "title", "group", "releaseLocal", "artistPath", "releaseSlug")
+    missing = [key for key in required if not str(item.get(key, "")).strip()]
+    if missing:
+        raise ValueError(f"Scheduled release is missing required fields {missing}: {item}")
+
+
 def uploads_playlist_id() -> str:
     payload = catalogue_tools.youtube_api(
         "channels",
@@ -75,6 +82,34 @@ def recent_uploads(playlist_id: str) -> list[dict]:
     return payload.get("items", [])
 
 
+def matching_uploads(due: list[dict], upload_items: list[dict]) -> list[tuple[dict, str, str]]:
+    candidates: list[tuple[dict, str, str]] = []
+    matched_schedules: set[tuple[str, str]] = set()
+    for item in upload_items:
+        snippet = item.get("snippet", {})
+        video_id = str(item.get("contentDetails", {}).get("videoId", ""))
+        raw_title = str(snippet.get("title", "")).strip()
+        privacy = str(item.get("status", {}).get("privacyStatus", ""))
+        if (
+            not re.fullmatch(r"[\w-]{11}", video_id)
+            or not raw_title
+            or privacy != "public"
+            or raw_title in ("Private video", "Deleted video")
+            or catalogue_tools.EXCLUDED.search(raw_title)
+        ):
+            continue
+        artist, title = catalogue_tools.split_artist_title(raw_title)
+        for scheduled in due:
+            key = (normalise(scheduled.get("artist")), normalise(scheduled.get("title")))
+            if key in matched_schedules:
+                continue
+            if normalise(artist) == key[0] and normalise(title) == key[1]:
+                candidates.append((scheduled, video_id, raw_title))
+                matched_schedules.add(key)
+                break
+    return candidates
+
+
 def main() -> None:
     if not os.environ.get("YT_KEY"):
         raise SystemExit("YT_KEY is required")
@@ -87,6 +122,7 @@ def main() -> None:
 
     due = []
     for item in schedule_payload.get("releases", []):
+        validate_schedule_item(item)
         if scheduled_at(item, default_timezone) > now:
             continue
         if any(same_release(release, item) for release in releases):
@@ -101,20 +137,7 @@ def main() -> None:
     if not playlist_id:
         raise RuntimeError("YouTube uploads playlist ID is unavailable")
 
-    upload_items = recent_uploads(playlist_id)
-    candidates: list[tuple[dict, str, str]] = []
-    for item in upload_items:
-        snippet = item.get("snippet", {})
-        video_id = str(item.get("contentDetails", {}).get("videoId", ""))
-        raw_title = str(snippet.get("title", "")).strip()
-        if not re.fullmatch(r"[\w-]{11}", video_id) or not raw_title or catalogue_tools.EXCLUDED.search(raw_title):
-            continue
-        artist, title = catalogue_tools.split_artist_title(raw_title)
-        for scheduled in due:
-            if normalise(artist) == normalise(scheduled.get("artist")) and normalise(title) == normalise(scheduled.get("title")):
-                candidates.append((scheduled, video_id, raw_title))
-                break
-
+    candidates = matching_uploads(due, recent_uploads(playlist_id))
     if not candidates:
         print(f"{len(due)} scheduled release(s) are due, but no matching public channel upload is available yet.")
         return
@@ -129,7 +152,7 @@ def main() -> None:
         snippet = video.get("snippet", {})
         published = str(snippet.get("publishedAt", ""))
         duration = catalogue_tools.duration_seconds(video.get("contentDetails", {}).get("duration", ""))
-        if status.get("privacyStatus") not in ("public", "unlisted"):
+        if status.get("privacyStatus") != "public":
             continue
         if not catalogue_tools.is_published(published) or duration < catalogue_tools.MINIMUM_FULL_RELEASE_SECONDS:
             continue
@@ -145,11 +168,12 @@ def main() -> None:
             "published": published,
             "durationSeconds": duration,
             "rawTitle": raw_title,
+            "discoverySource": catalogue_tools.PERSISTENT_DISCOVERY_SOURCE,
         })
         added += 1
 
     if not added:
-        print("Matching scheduled uploads were found but none passed full-release validation yet.")
+        print("Matching scheduled uploads were found but none passed public full-release validation yet.")
         return
 
     releases.sort(key=lambda item: item.get("published", ""), reverse=True)
@@ -162,7 +186,6 @@ def main() -> None:
     catalogue["total"] = len(releases)
     catalogue["counts"] = counts
     catalogue["generatedAt"] = now.isoformat().replace("+00:00", "Z")
-    catalogue["scheduledDiscovery"] = int(catalogue.get("scheduledDiscovery", 0)) + added
     CATALOGUE_PATH.write_text(json.dumps(catalogue, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Promoted {added} due scheduled release(s) from public channel uploads into releases.json.")
 

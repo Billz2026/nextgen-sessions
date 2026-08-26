@@ -34,10 +34,12 @@
     <p>The analytics dataset stores only:</p>
     <ul>
       <li>The page path visited.</li>
-      <li>A broad action type, such as opening an artist profile, playing a release or using a catalogue filter.</li>
-      <li>A limited content label, such as an artist slug, YouTube video ID or genre filter.</li>
+      <li>A broad action type, such as opening an artist profile, playing a release, using catalogue search or moving through related music.</li>
+      <li>A limited content label, such as an artist slug, release slug, YouTube video ID or genre filter.</li>
     </ul>
-    <p>Typed search terms, email contents, listening links, IP addresses and user-agent strings are not written to the analytics dataset. Analytics records are retained by Cloudflare Workers Analytics Engine for up to three months.</p>
+    <p>Typed search terms are not written to the analytics dataset. Site search records only the matched catalogue item identifier, or a generic no-match value. Email contents, listening links, IP addresses and user-agent strings are not written to the custom analytics dataset.</p>
+    <p>To reduce inflated engagement counts, the browser uses session storage to remember when the same content action has already been counted during the current browser-tab session. Those small session-only markers contain an event name and content identifier, are not sent as a visitor identifier and expire with the browser session.</p>
+    <p>Aggregated activity is queried server-side for the private NextGen operations dashboard and, when enough activity exists, to calculate a public rolling seven-day Trending list. The public Trending feed exposes release rankings only, not raw visitor data or analytics counts. Workers Analytics Engine stores the custom analytics records for three months.</p>
 
     <h2>Artist submissions</h2>
     <p>Artist submissions are currently sent directly to NextGen Sessions by Instagram DM or email. The website does not collect or store an artist-submission form.</p>
@@ -50,7 +52,7 @@
     <h2>Questions or deletion requests</h2>
     <p>To ask about this notice or request deletion of information sent directly to NextGen Sessions, email <a href="mailto:submissions@nextgensessions.com">submissions@nextgensessions.com</a>. Aggregate site events contain no visitor identifier, so they cannot be matched back to a specific person.</p>
 
-    <p><strong>Last updated:</strong> 24 August 2026.</p>
+    <p><strong>Last updated:</strong> 26 August 2026.</p>
   </article>
 </main>
 <footer class="site-footer"><div class="footer-inner"><div>© 2026 NextGen Sessions. Original music and independent artists.</div><div class="footer-links"><a href="/artists/">Artists</a><a href="/releases/">Releases</a><a href="/genres/">Genres</a><a href="/mixes/">Mixes</a><a href="/submit.html">Submit</a><a aria-current="page" href="/privacy/">Privacy</a><a href="mailto:contact@nextgensessions.com">Contact</a></div></div></footer>

@@ -318,12 +318,15 @@
   function youtubeLabel(href) {
     try {
       const url = new URL(href, location.href);
+      const host = url.hostname.toLowerCase();
+      const isYouTube = host === "youtu.be" || host === "youtube.com" || host.endsWith(".youtube.com") || host === "youtube-nocookie.com" || host.endsWith(".youtube-nocookie.com");
+      if (!isYouTube) return "";
       const videoId = url.searchParams.get("v");
       if (/^[A-Za-z0-9_-]{11}$/.test(videoId || "")) return videoId;
       const embed = url.pathname.match(/\/embed\/([A-Za-z0-9_-]{11})/);
       return embed ? embed[1] : "channel";
     } catch (_) {
-      return "channel";
+      return "";
     }
   }
 
@@ -350,6 +353,15 @@
 
   function genreLabel(link) {
     return internalSlug(link.href, "genres") || "genres";
+  }
+
+  function entityLabel(link) {
+    return internalSlug(link.href, "releases")
+      || internalSlug(link.href, "artists")
+      || internalSlug(link.href, "genres")
+      || internalSlug(link.href, "mixes")
+      || youtubeLabel(link.href)
+      || "result";
   }
 
   function mixLabel(element) {
@@ -407,14 +419,12 @@
     }
 
     if (link.closest("[data-weekly-feed]")) {
-      const label = releaseLabel(link) || artistLabel(link);
-      send("new_this_week_click", label);
+      send("new_this_week_click", entityLabel(link));
       return;
     }
 
     if (link.matches("[data-search-result], .search-result-card")) {
-      const label = releaseLabel(link) || artistLabel(link) || genreLabel(link) || internalSlug(link.href, "mixes") || "result";
-      send("search_result_click", label);
+      send("search_result_click", entityLabel(link));
       return;
     }
 
@@ -462,10 +472,7 @@
     searchTimer = window.setTimeout(() => {
       if (isSite) {
         const first = document.querySelector("#siteSearchResults [data-search-result]");
-        const label = first
-          ? (releaseLabel(first) || artistLabel(first) || genreLabel(first) || internalSlug(first.href, "mixes") || "result")
-          : "no-match";
-        send("site_search", label);
+        send("site_search", first ? entityLabel(first) : "no-match");
         return;
       }
       once(

@@ -115,7 +115,7 @@ for path in sorted(ROOT.rglob("*.html")):
         assert '/artists/kemarco/profile.js?v=20260826-entity1' in source, "Kemarco browser profile override is missing"
 
     if relative == "artists/nyah-rae/index.html":
-        assert "Nyah Rae is a contemporary R&B artist on NextGen Sessions" in source, "Nyah Rae entity-first bio is missing"
+        assert "Nyah Rae is a contemporary R&amp;B artist on NextGen Sessions" in source, "Nyah Rae entity-first bio is missing"
         assert 'href="/releases/nyah-rae-im-not-surprised/">Latest release: I’m Not Surprised</a>' in source, "Nyah Rae latest release signal is stale"
         assert 'href="/genres/rnb-soul/">Explore R&amp;B &amp; Soul</a>' in source, "Nyah Rae R&B & Soul hub link is missing"
         assert '/artists/nyah-rae/profile.js?v=20260826-entity1' in source, "Nyah Rae browser profile override is missing"

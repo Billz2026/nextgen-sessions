@@ -34,6 +34,10 @@ CTR_METADATA = {
         "title": "UK Rap, Dancehall & Hip-Hop Mixes | NextGen Sessions",
         "description": "Play UK rap, dancehall, grime and hip-hop mixes on NextGen Sessions, including long-form mashups, summer sessions and curated genre collections.",
     },
+    "mixes/dancehall-mashups/index.html": {
+        "title": "Dancehall Mix 2026 | Mashup Series | NextGen Sessions",
+        "description": "Play three Dancehall Mashup mixes from 2026, including the 1-hour Gullyside Takeover. Discover original NextGen dancehall releases and artists.",
+    },
 }
 
 ENTITY_METADATA = {

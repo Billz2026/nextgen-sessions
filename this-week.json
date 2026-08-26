@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-08-26T14:10:50.380Z",
+  "timezone": "Europe/London",
+  "weekStart": "2026-08-24",
+  "weekEnd": "2026-08-30",
+  "weekLabel": "24–30 August 2026",
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Rudii Marka",
+      "artistSlug": "rudii-marka",
+      "title": "Top Shotta",
+      "genre": "Dancehall",
+      "artistUrl": "/artists/rudii-marka/",
+      "releaseUrl": "/releases/rudii-marka-top-shotta/",
+      "dateLocal": "2026-08-24",
+      "dateLabel": "MON 24 AUG",
+      "longDate": "Monday, 24 August 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-08-24T17:00:35.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=n3fv4DXruas&size=card",
+      "source": "catalogue"
+    }
+  ],
+  "nextUp": {
+    "artist": "Zion Daley",
+    "artistSlug": "zion-daley",
+    "title": "Where We Live",
+    "genre": "Reggae",
+    "artistUrl": "/artists/zion-daley/",
+    "dateLocal": "2026-09-04",
+    "dateLabel": "FRI 4 SEPT",
+    "longDate": "Friday, 4 September 2026",
+    "timeLocal": "18:00",
+    "releaseAt": "2026-09-04T17:00:00.000Z",
+    "status": "upcoming",
+    "image": "/assets/artists/zion-daley-portrait.webp?v=20260824-zion1",
+    "source": "schedule"
+  }
+}

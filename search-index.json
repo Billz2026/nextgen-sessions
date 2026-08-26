@@ -1,11 +1,12 @@
 {
-  "generatedAt": "2026-08-26T14:04:12.509Z",
-  "total": 141,
+  "generatedAt": "2026-08-26T14:10:50.487Z",
+  "total": 142,
   "counts": {
     "artists": 33,
-    "releases": 93,
+    "releases": 94,
     "genres": 6,
-    "mixes": 9
+    "mixes": 9,
+    "upcomingReleases": 1
   },
   "items": [
     {
@@ -1892,6 +1893,24 @@
         "UK Rap Mashup — Series 1",
         "Play UK Rap Mashup Series 1, a 65-minute UK rap mix from 2026 blending melodic rap and street energy. Listen on NextGen Sessions and explore more UK rap.",
         "uk rap mashup series 1"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Where We Live",
+      "subtitle": "Zion Daley · Upcoming",
+      "description": "Friday, 4 September 2026 · 18:00 UK time. Release page activates after the public catalogue confirms the track.",
+      "url": "/artists/zion-daley/",
+      "date": "2026-09-04T17:00:00.000Z",
+      "status": "upcoming",
+      "source": "release-schedule",
+      "keywords": [
+        "Zion Daley",
+        "Where We Live",
+        "upcoming",
+        "coming soon",
+        "new release",
+        "Friday, 4 September 2026"
       ]
     }
   ]

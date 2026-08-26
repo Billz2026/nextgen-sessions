@@ -34,7 +34,7 @@ for (const release of releases) {
 
 const rudii = fs.readFileSync(path.join(root, "releases/rudii-marka-top-shotta/index.html"), "utf8");
 const rudiiBlock = rudii.match(/<!-- RELEASE-RELATED-ARTISTS:START -->([\s\S]*?)<!-- RELEASE-RELATED-ARTISTS:END -->/)?.[1] || "";
-for (const href of ["/artists/kemarco/", "/artists/reeko/", "/artists/javon-ranks/"]) {
+for (const href of ["/artists/reeko/", "/artists/kemarco/", "/artists/rell-danja/"]) {
   assert.ok(rudiiBlock.includes(`href="${href}"`), `Top Shotta should link to related artist ${href}`);
 }
 assert.ok(!rudiiBlock.includes('href="/artists/rudii-marka/"'), "Top Shotta must not recommend Rudii Marka as a related artist");

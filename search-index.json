@@ -1,11 +1,1898 @@
 {
-  "generatedAt": null,
-  "total": 0,
+  "generatedAt": "2026-08-26T12:27:01.955Z",
+  "total": 141,
   "counts": {
-    "artists": 0,
-    "releases": 0,
-    "genres": 0,
-    "mixes": 0
+    "artists": 33,
+    "releases": 93,
+    "genres": 6,
+    "mixes": 9
   },
-  "items": []
+  "items": [
+    {
+      "type": "artist",
+      "title": "Alia Bleu",
+      "subtitle": "US R&B",
+      "description": "Late-night soul, emotional boundaries and smooth UK phrasing.",
+      "url": "/artists/alia-bleu/",
+      "keywords": [
+        "Alia Bleu",
+        "US R&B",
+        "Late-night soul, emotional boundaries and smooth UK phrasing."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Alonzo Ray",
+      "subtitle": "West Coast Hip-Hop / Soul",
+      "description": "Soulful hip-hop with mature writing and a cinematic finish.",
+      "url": "/artists/alonzo-ray/",
+      "keywords": [
+        "Alonzo Ray",
+        "West Coast Hip-Hop / Soul",
+        "Soulful hip-hop with mature writing and a cinematic finish."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Andre Kadeem",
+      "subtitle": "UK Rap",
+      "description": "London rap with a grounded voice and modern street perspective.",
+      "url": "/artists/andre-kadeem/",
+      "keywords": [
+        "Andre Kadeem",
+        "UK Rap",
+        "London rap with a grounded voice and modern street perspective."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Asif Sultaan",
+      "subtitle": "Punjabi / South Asian Fusion",
+      "description": "Modern Punjabi records with commanding vocals and crossover production.",
+      "url": "/artists/asif-sultaan/",
+      "keywords": [
+        "Asif Sultaan",
+        "Punjabi / South Asian Fusion",
+        "Modern Punjabi records with commanding vocals and crossover production."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Darian Gayle",
+      "subtitle": "Reggae",
+      "description": "Jamaican reggae with reflective songwriting, warm roots influence and a calm, grounded presence.",
+      "url": "/artists/darian-gayle/",
+      "keywords": [
+        "Darian Gayle",
+        "Reggae",
+        "Jamaican reggae with reflective songwriting, warm roots influence and a calm, grounded presence."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Deon Creed",
+      "subtitle": "Hip-Hop",
+      "description": "Grounded hip-hop with mature neighbourhood storytelling, resilience and reflective perspective.",
+      "url": "/artists/deon-creed/",
+      "keywords": [
+        "Deon Creed",
+        "Hip-Hop",
+        "Grounded hip-hop with mature neighbourhood storytelling, resilience and reflective perspective."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Jahmari Danza",
+      "subtitle": "Jamaican Dancehall",
+      "description": "Melodic Jamaican dancehall with movement, attitude and hook-led records.",
+      "url": "/artists/jahmari-danza/",
+      "keywords": [
+        "Jahmari Danza",
+        "Jamaican Dancehall",
+        "Melodic Jamaican dancehall with movement, attitude and hook-led records."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Javon Ranks",
+      "subtitle": "Jamaican Dancehall",
+      "description": "Jamaican dancehall with confident delivery and rhythmic hooks.",
+      "url": "/artists/javon-ranks/",
+      "keywords": [
+        "Javon Ranks",
+        "Jamaican Dancehall",
+        "Jamaican dancehall with confident delivery and rhythmic hooks."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Jay Starks",
+      "subtitle": "New York Hip-Hop",
+      "description": "Queens-rooted storytelling with classic city grit, soul and perspective.",
+      "url": "/artists/jay-starks/",
+      "keywords": [
+        "Jay Starks",
+        "New York Hip-Hop",
+        "Queens-rooted storytelling with classic city grit, soul and perspective."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Karvell Reign",
+      "subtitle": "West Coast Hip-Hop / G-Funk",
+      "description": "California rap shaped by warmth, confidence and widescreen production.",
+      "url": "/artists/karvell-reign/",
+      "keywords": [
+        "Karvell Reign",
+        "West Coast Hip-Hop / G-Funk",
+        "California rap shaped by warmth, confidence and widescreen production."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Kastro",
+      "subtitle": "Jamaican Dancehall",
+      "description": "Hard-edged Jamaican dancehall with direct delivery and heavyweight production.",
+      "url": "/artists/kastro/",
+      "keywords": [
+        "Kastro",
+        "Jamaican Dancehall",
+        "Hard-edged Jamaican dancehall with direct delivery and heavyweight production."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Keisha",
+      "subtitle": "Dancehall",
+      "description": "Jamaican dancehall centred on confident delivery, melodic hooks and vocal presence.",
+      "url": "/artists/keisha/",
+      "keywords": [
+        "Keisha",
+        "Dancehall",
+        "Jamaican dancehall centred on confident delivery, melodic hooks and vocal presence."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Kemar Ranka",
+      "subtitle": "Jamaican Dancehall",
+      "description": "A developing dancehall identity within the NextGen Sessions roster.",
+      "url": "/artists/kemar-ranka/",
+      "keywords": [
+        "Kemar Ranka",
+        "Jamaican Dancehall",
+        "A developing dancehall identity within the NextGen Sessions roster."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Kemarco",
+      "subtitle": "Jamaican Dancehall",
+      "description": "Controlled pressure, discipline and cold melodic Jamaican production.",
+      "url": "/artists/kemarco/",
+      "keywords": [
+        "Kemarco",
+        "Jamaican Dancehall",
+        "Controlled pressure, discipline and cold melodic Jamaican production."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Killa K",
+      "subtitle": "UK Rap",
+      "description": "Hard-edged UK rap built for direct bars and high-pressure records.",
+      "url": "/artists/killa-k/",
+      "keywords": [
+        "Killa K",
+        "UK Rap",
+        "Hard-edged UK rap built for direct bars and high-pressure records."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Leila Nour",
+      "subtitle": "Arabic Soul / Oud",
+      "description": "Oud-led Arabic soul with elegant, atmospheric presentation.",
+      "url": "/artists/leila-nour/",
+      "keywords": [
+        "Leila Nour",
+        "Arabic Soul / Oud",
+        "Oud-led Arabic soul with elegant, atmospheric presentation."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Mace K",
+      "subtitle": "UK Rap / Grime",
+      "description": "Dark estate storytelling with cinematic grime pressure.",
+      "url": "/artists/mace-k/",
+      "keywords": [
+        "Mace K",
+        "UK Rap / Grime",
+        "Dark estate storytelling with cinematic grime pressure."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Manny Virk",
+      "subtitle": "Punjabi / Bhangra",
+      "description": "Punjabi identity, melodic hooks and modern city energy.",
+      "url": "/artists/manny-virk/",
+      "keywords": [
+        "Manny Virk",
+        "Punjabi / Bhangra",
+        "Punjabi identity, melodic hooks and modern city energy."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Mariana Lo",
+      "subtitle": "UK Rap",
+      "description": "Melodic UK rap with confident delivery, warm coastal energy and a polished visual identity.",
+      "url": "/artists/mariana-lo/",
+      "keywords": [
+        "Mariana Lo",
+        "UK Rap",
+        "Melodic UK rap with confident delivery, warm coastal energy and a polished visual identity."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Marlo Saint",
+      "subtitle": "UK Afro-Swing / R&B",
+      "description": "Late-night melodic hip-hop with a clean, cinematic mood.",
+      "url": "/artists/marlo-saint/",
+      "keywords": [
+        "Marlo Saint",
+        "UK Afro-Swing / R&B",
+        "Late-night melodic hip-hop with a clean, cinematic mood."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Nyah Rae",
+      "subtitle": "R&B",
+      "description": "Smooth contemporary R&B with intimate, emotionally precise writing.",
+      "url": "/artists/nyah-rae/",
+      "keywords": [
+        "Nyah Rae",
+        "R&B",
+        "Smooth contemporary R&B with intimate, emotionally precise writing."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Omari V",
+      "subtitle": "Jamaican Lovers Rock / Reggae",
+      "description": "Warm reggae shaped by reflection, love, memory and changing seasons.",
+      "url": "/artists/omari-v/",
+      "keywords": [
+        "Omari V",
+        "Jamaican Lovers Rock / Reggae",
+        "Warm reggae shaped by reflection, love, memory and changing seasons."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Rafe",
+      "subtitle": "UK Rap",
+      "description": "UK rap with concise writing, presence and contemporary edge.",
+      "url": "/artists/rafe/",
+      "keywords": [
+        "Rafe",
+        "UK Rap",
+        "UK rap with concise writing, presence and contemporary edge."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Ragga Blaze",
+      "subtitle": "Dancehall",
+      "description": "Ragga-driven Jamaican dancehall with fiery energy, rhythmic impact and commanding delivery.",
+      "url": "/artists/ragga-blaze/",
+      "keywords": [
+        "Ragga Blaze",
+        "Dancehall",
+        "Ragga-driven Jamaican dancehall with fiery energy, rhythmic impact and commanding delivery."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Reeko",
+      "subtitle": "Jamaican Dancehall",
+      "description": "Gullyside energy with confident hooks, street detail and strong identity.",
+      "url": "/artists/reeko/",
+      "keywords": [
+        "Reeko",
+        "Jamaican Dancehall",
+        "Gullyside energy with confident hooks, street detail and strong identity."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Reiss",
+      "subtitle": "UK Rap",
+      "description": "Direct UK rap with modern production and focused delivery.",
+      "url": "/artists/reiss/",
+      "keywords": [
+        "Reiss",
+        "UK Rap",
+        "Direct UK rap with modern production and focused delivery."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Rell Danja",
+      "subtitle": "Jamaican Dancehall",
+      "description": "Hard-edged gullyside records about survival, loyalty and consequences.",
+      "url": "/artists/rell-danja/",
+      "keywords": [
+        "Rell Danja",
+        "Jamaican Dancehall",
+        "Hard-edged gullyside records about survival, loyalty and consequences."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Renz Cole",
+      "subtitle": "UK Rap",
+      "description": "Modern London rap with sharp personality, summer energy and memorable hooks.",
+      "url": "/artists/renz-cole/",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap",
+        "Modern London rap with sharp personality, summer energy and memorable hooks."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Rudii Marka",
+      "subtitle": "Jamaican Dancehall",
+      "description": "Youthful melodic gully records with an unmistakable Jamaican presence.",
+      "url": "/artists/rudii-marka/",
+      "keywords": [
+        "Rudii Marka",
+        "Jamaican Dancehall",
+        "Youthful melodic gully records with an unmistakable Jamaican presence."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Voss Carter",
+      "subtitle": "West Coast Hip-Hop",
+      "description": "Calm authority, earned legacy and cinematic championship energy.",
+      "url": "/artists/voss-carter/",
+      "keywords": [
+        "Voss Carter",
+        "West Coast Hip-Hop",
+        "Calm authority, earned legacy and cinematic championship energy."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Yung Tafari",
+      "subtitle": "Dancehall",
+      "description": "Youthful Jamaican dancehall shaped by melody, street energy and resilient songwriting.",
+      "url": "/artists/yung-tafari/",
+      "keywords": [
+        "Yung Tafari",
+        "Dancehall",
+        "Youthful Jamaican dancehall shaped by melody, street energy and resilient songwriting."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Zara Veli",
+      "subtitle": "R&B",
+      "description": "Contemporary R&B with polished vocals, confident boundaries and late-night poise.",
+      "url": "/artists/zara-veli/",
+      "keywords": [
+        "Zara Veli",
+        "R&B",
+        "Contemporary R&B with polished vocals, confident boundaries and late-night poise."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Zion Daley",
+      "subtitle": "Reggae",
+      "description": "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy.",
+      "url": "/artists/zion-daley/",
+      "keywords": [
+        "Zion Daley",
+        "Reggae",
+        "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Top Shotta",
+      "subtitle": "Rudii Marka",
+      "description": "Dancehall · 2026-08-24",
+      "url": "/releases/rudii-marka-top-shotta/",
+      "date": "2026-08-24T17:00:35Z",
+      "keywords": [
+        "Rudii Marka",
+        "Dancehall",
+        "Rudii Marka - Top Shotta | Dancehall 2026 | NextGen Sessions",
+        "Top Shotta"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Tor Wakhri",
+      "subtitle": "Asif Sultaan",
+      "description": "Asian · 2026-08-21",
+      "url": "/releases/asif-sultaan-tor-wakhri/",
+      "date": "2026-08-21T17:00:00Z",
+      "keywords": [
+        "Asif Sultaan",
+        "Asian",
+        "Asif Sultaan - Tor Wakhri | Desi Hip-Hop 2026 | NextGen Sessions",
+        "Tor Wakhri"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Who Owns the Corner Now?",
+      "subtitle": "Jay Starks",
+      "description": "Hip-Hop / G-Funk · 2026-08-19",
+      "url": "/releases/jay-starks-who-owns-the-corner-now/",
+      "date": "2026-08-19T17:00:19Z",
+      "keywords": [
+        "Jay Starks",
+        "Hip-Hop / G-Funk",
+        "Jay Starks - Who Owns the Corner Now? | Hip-Hop 2026 | NextGen Sessions",
+        "Who Owns the Corner Now?"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Ghetto Blessings",
+      "subtitle": "Kemarco",
+      "description": "Dancehall · 2026-08-17",
+      "url": "/releases/kemarco-ghetto-blessings/",
+      "date": "2026-08-17T17:00:11Z",
+      "keywords": [
+        "Kemarco",
+        "Dancehall",
+        "FROM ZINC FENCE TO MANSION GATES | Kemarco - Ghetto Blessings | Dancehall 2026 | NextGen Sessions",
+        "Ghetto Blessings"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Money Bought Silence",
+      "subtitle": "Mizzy G",
+      "description": "UK Rap & Grime · 2026-08-14",
+      "url": "/releases/mizzy-g-money-bought-silence/",
+      "date": "2026-08-14T17:00:33Z",
+      "keywords": [
+        "Mizzy G",
+        "UK Rap & Grime",
+        "WHEN MONEY CHANGES PEOPLE | Mizzy G - Money Bought Silence | UK Rap 2026 | NextGen Sessions",
+        "Money Bought Silence"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Malibu Mood",
+      "subtitle": "Mariana Lo",
+      "description": "UK Rap & Grime · 2026-08-12",
+      "url": "/releases/mariana-lo-malibu-mood/",
+      "date": "2026-08-12T17:00:12Z",
+      "keywords": [
+        "Mariana Lo",
+        "UK Rap & Grime",
+        "LEAVE THE PRESSURE BEHIND | Mariana Lo - Malibu Mood | Summer UK Rap 2026 | NextGen Sessions",
+        "Malibu Mood"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Marked for War",
+      "subtitle": "Rudii Marka",
+      "description": "Dancehall · 2026-08-10",
+      "url": "/releases/rudii-marka-marked-for-war/",
+      "date": "2026-08-10T17:00:29Z",
+      "keywords": [
+        "Rudii Marka",
+        "Dancehall",
+        "WAR ALL AROUND | Rudii Marka - Marked for War | Dancehall 2026 | NextGen Sessions",
+        "Marked for War"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Summer Left Quietly",
+      "subtitle": "Omari V",
+      "description": "Lovers Rock · 2026-08-07",
+      "url": "/releases/omari-v-summer-left-quietly/",
+      "date": "2026-08-07T17:00:03Z",
+      "keywords": [
+        "Omari V",
+        "Lovers Rock",
+        "WHEN SUMMER ENDS | Omari V - Summer Left Quietly | Lovers Rock 2026 | NextGen Sessions",
+        "Summer Left Quietly"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Badman Don’t Rush",
+      "subtitle": "Kemarco",
+      "description": "Dancehall · 2026-08-05",
+      "url": "/releases/kemarco-badman-dont-rush/",
+      "date": "2026-08-05T17:00:07Z",
+      "keywords": [
+        "Kemarco",
+        "Dancehall",
+        "CALM UNDER PRESSURE | Kemarco - Badman Don’t Rush | Dancehall 2026 | NextGen Sessions",
+        "Badman Don’t Rush"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Piggyback",
+      "subtitle": "Alia Bleu",
+      "description": "R&B & Soul · 2026-08-03",
+      "url": "/releases/alia-bleu-piggyback/",
+      "date": "2026-08-03T17:00:30Z",
+      "keywords": [
+        "Alia Bleu",
+        "R&B & Soul",
+        "They Lean on You | Alia Bleu - Piggyback | R&B 2026 | NextGen Sessions",
+        "Piggyback"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Heatwave",
+      "subtitle": "Renz Cole",
+      "description": "UK Rap & Grime · 2026-07-31",
+      "url": "/releases/renz-cole-heatwave/",
+      "date": "2026-07-31T17:00:33Z",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap & Grime",
+        "LONDON’S OUTSIDE | Renz Cole - Heatwave | UK Rap 2026 | NextGen Sessions",
+        "Heatwave"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "After Di Party",
+      "subtitle": "Reeko",
+      "description": "Dancehall · 2026-07-29",
+      "url": "/releases/reeko-after-di-party/",
+      "date": "2026-07-29T17:00:35Z",
+      "keywords": [
+        "Reeko",
+        "Dancehall",
+        "WHO STILL DEH ROUND? | Reeko - After Di Party | Dancehall 2026 | NextGen Sessions",
+        "After Di Party"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Days Like These",
+      "subtitle": "Deon Creed",
+      "description": "Hip-Hop / G-Funk · 2026-07-27",
+      "url": "/releases/deon-creed-days-like-these/",
+      "date": "2026-07-27T17:00:05Z",
+      "keywords": [
+        "Deon Creed",
+        "Hip-Hop / G-Funk",
+        "SUMMER REFLECTIONS | Deon Creed - Days Like These | HipHop 2026 | NextGen Sessions",
+        "Days Like These"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "When Di Breeze Call",
+      "subtitle": "Omari V",
+      "description": "Lovers Rock · 2026-07-24",
+      "url": "/releases/omari-v-when-di-breeze-call/",
+      "date": "2026-07-24T17:00:21Z",
+      "keywords": [
+        "Omari V",
+        "Lovers Rock",
+        "JAMAICAN SUMMER | Omari V - When Di Breeze Call | Lovers Rock Reggae 2026 | NextGen Sessions",
+        "When Di Breeze Call"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Sunshine On The Way Home",
+      "subtitle": "Voss Carter",
+      "description": "Hip-Hop / G-Funk · 2026-07-22",
+      "url": "/releases/voss-carter-sunshine-on-the-way-home/",
+      "date": "2026-07-22T17:00:39Z",
+      "keywords": [
+        "Voss Carter",
+        "Hip-Hop / G-Funk",
+        "SUMMER IN NEW YORK | Voss Carter - Sunshine On The Way Home | HipHop 2026 | NextGen Sessions",
+        "Sunshine On The Way Home"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Marked Rudeboi",
+      "subtitle": "Rudii Marka",
+      "description": "Dancehall · 2026-07-20",
+      "url": "/releases/rudii-marka-marked-rudeboi/",
+      "date": "2026-07-20T17:00:16Z",
+      "keywords": [
+        "Rudii Marka",
+        "Dancehall",
+        "Rudii Marka - Marked Rudeboi | Dancehall 2026 | NextGen Sessions",
+        "Marked Rudeboi"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Urban Reign",
+      "subtitle": "Kastro",
+      "description": "Dancehall · 2026-07-17",
+      "url": "/releases/kastro-urban-reign/",
+      "date": "2026-07-17T17:00:28Z",
+      "keywords": [
+        "Kastro",
+        "Dancehall",
+        "KING WITHOUT CROWN Kastro - Urban Reign | Dancehall 2026 | NextGen Sessions",
+        "Urban Reign"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Somethin’ In The Endz ft. Leon Reid",
+      "subtitle": "Mace K",
+      "description": "UK Rap & Grime · 2026-07-15",
+      "url": "/releases/mace-k-somethin-in-the-endz-ft-leon-reid/",
+      "date": "2026-07-15T17:00:14Z",
+      "keywords": [
+        "Mace K",
+        "UK Rap & Grime",
+        "Mace K - Somethin’ In The Endz ft. Leon Reid UK Rap 2026 | NextGen Sessions",
+        "Somethin’ In The Endz ft. Leon Reid"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Corner To Crown",
+      "subtitle": "Mizzy G",
+      "description": "UK Rap & Grime · 2026-07-13",
+      "url": "/releases/mizzy-g-corner-to-crown/",
+      "date": "2026-07-13T17:00:32Z",
+      "keywords": [
+        "Mizzy G",
+        "UK Rap & Grime",
+        "POWER AIN’T PEACE | Mizzy G - Corner To Crown | UK Rap 2026 | NextGen Sessions",
+        "Corner To Crown"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Cross Me, Regret It",
+      "subtitle": "Rell Danja",
+      "description": "Dancehall · 2026-07-10",
+      "url": "/releases/rell-danja-cross-me-regret-it/",
+      "date": "2026-07-10T17:00:25Z",
+      "keywords": [
+        "Rell Danja",
+        "Dancehall",
+        "NO MORE WARNINGS | Rell Danja - Cross Me, Regret It | Dark Dancehall 2026 | NextGen Sessions",
+        "Cross Me, Regret It"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Smile Wid Knife",
+      "subtitle": "Reeko",
+      "description": "Dancehall · 2026-07-08",
+      "url": "/releases/reeko-smile-wid-knife/",
+      "date": "2026-07-08T17:00:07Z",
+      "keywords": [
+        "Reeko",
+        "Dancehall",
+        "Reeko - Smile Wid Knife | Dancehall 2026 | NextGen Sessions",
+        "Smile Wid Knife"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Pind Ton Shehar",
+      "subtitle": "Manny Virk",
+      "description": "Asian · 2026-07-06",
+      "url": "/releases/manny-virk-pind-ton-shehar/",
+      "date": "2026-07-06T17:00:01Z",
+      "keywords": [
+        "Manny Virk",
+        "Asian",
+        "PIND MADE HIM | Manny Virk - Pind Ton Shehar | Punjabi Hip-Hop 2026 | NextGen Sessions",
+        "Pind Ton Shehar"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "No Shade In Queens",
+      "subtitle": "Jay Starks",
+      "description": "Hip-Hop / G-Funk · 2026-07-01",
+      "url": "/releases/jay-starks-no-shade-in-queens/",
+      "date": "2026-07-01T17:00:20Z",
+      "keywords": [
+        "Jay Starks",
+        "Hip-Hop / G-Funk",
+        "NO SHADE ALL SUMMER | Jay Starks - No Shade In Queens | HipHop 2026 | NextGen Sessions",
+        "No Shade In Queens"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Jamaica Avenue",
+      "subtitle": "Jay Starks",
+      "description": "Hip-Hop / G-Funk · 2026-06-29",
+      "url": "/releases/jay-starks-jamaica-avenue/",
+      "date": "2026-06-29T17:00:13Z",
+      "keywords": [
+        "Jay Starks",
+        "Hip-Hop / G-Funk",
+        "JAMAICA AVENUE | Jay Starks - Jamaica Avenue | Hip Hop 2026 | NextGen Sessions",
+        "Jamaica Avenue"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "California Gold",
+      "subtitle": "Karvell Reign",
+      "description": "Hip-Hop / G-Funk · 2026-06-26",
+      "url": "/releases/karvell-reign-california-gold/",
+      "date": "2026-06-26T17:00:03Z",
+      "keywords": [
+        "Karvell Reign",
+        "Hip-Hop / G-Funk",
+        "SUNSET HITS DIFFERENT | Karvell Reign - California Gold | HipHop 2026 | NextGen Sessions",
+        "California Gold"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Noor El Oud",
+      "subtitle": "Leila Nour",
+      "description": "Arabic · 2026-06-24",
+      "url": "/releases/leila-nour-noor-el-oud/",
+      "date": "2026-06-24T17:00:04Z",
+      "keywords": [
+        "Leila Nour",
+        "Arabic",
+        "SCENT OF LOVE | Leila Nour - Noor El Oud | Arabic R&B 2026 | NextGen Sessions",
+        "Noor El Oud"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Dreams Don’t Chase You",
+      "subtitle": "Alia Bleu",
+      "description": "R&B & Soul · 2026-06-22",
+      "url": "/releases/alia-bleu-dreams-dont-chase-you/",
+      "date": "2026-06-22T17:00:20Z",
+      "keywords": [
+        "Alia Bleu",
+        "R&B & Soul",
+        "DREAMS DON’T CHASE YOU | Alia Bleu - Dreams Don’t Chase You | UK R&B 2026 | NextGen Sessions",
+        "Dreams Don’t Chase You"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Outside Till Late",
+      "subtitle": "Renz Cole",
+      "description": "UK Rap & Grime · 2026-06-19",
+      "url": "/releases/renz-cole-outside-till-late/",
+      "date": "2026-06-19T17:00:31Z",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap & Grime",
+        "SUMMER NIGHTS FEEL LIKE THIS | Renz Cole - Outside Till Late | UK Rap 2026 | NextGen Sessions",
+        "Outside Till Late"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Gold Ain’t Quiet",
+      "subtitle": "Tayo Wray",
+      "description": "Late Night Afro · 2026-06-17",
+      "url": "/releases/tayo-wray-gold-aint-quiet/",
+      "date": "2026-06-17T17:00:07Z",
+      "keywords": [
+        "Tayo Wray",
+        "Late Night Afro",
+        "GOLD ATTRACTS SNAKES | Tayo Wray - Gold Ain’t Quiet | Afro UK Rap 2026 | NextGen Sessions",
+        "Gold Ain’t Quiet"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "After Di Shots",
+      "subtitle": "Reeko",
+      "description": "Dancehall · 2026-06-15",
+      "url": "/releases/reeko-after-di-shots/",
+      "date": "2026-06-15T17:00:11Z",
+      "keywords": [
+        "Reeko",
+        "Dancehall",
+        "MI RUN IT NOW | Reeko - After Di Shots | Dancehall 2026 | NextGen Sessions",
+        "After Di Shots"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Came This Far",
+      "subtitle": "Voss Carter",
+      "description": "Hip-Hop / G-Funk · 2026-06-12",
+      "url": "/releases/voss-carter-came-this-far/",
+      "date": "2026-06-12T17:00:31Z",
+      "keywords": [
+        "Voss Carter",
+        "Hip-Hop / G-Funk",
+        "CAN’T FALL BACK NOW | Voss Carter - Came This Far | HipHop 2026 | NextGen Sessions",
+        "Came This Far"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "No Sleep Fi Di Wicked",
+      "subtitle": "Rell Danja",
+      "description": "Dancehall · 2026-06-10",
+      "url": "/releases/rell-danja-no-sleep-fi-di-wicked/",
+      "date": "2026-06-10T17:00:28Z",
+      "keywords": [
+        "Rell Danja",
+        "Dancehall",
+        "CAN’T SLEEP | Rell Danja - No Sleep Fi Di Wicked | Dancehall 2026 | NextGen Sessions",
+        "No Sleep Fi Di Wicked"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Soul of the Southside",
+      "subtitle": "Deon Creed",
+      "description": "Hip-Hop / G-Funk · 2026-06-08",
+      "url": "/releases/deon-creed-soul-of-the-southside/",
+      "date": "2026-06-08T17:00:19Z",
+      "keywords": [
+        "Deon Creed",
+        "Hip-Hop / G-Funk",
+        "THE STREETS STILL PRAY | Deon Creed - Soul of the Southside | Hip-Hop 2026 | NextGen Sessions",
+        "Soul of the Southside"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Light Through Di Dark",
+      "subtitle": "Yung Tafari",
+      "description": "Dancehall · 2026-06-05",
+      "url": "/releases/yung-tafari-light-through-di-dark/",
+      "date": "2026-06-05T17:00:02Z",
+      "keywords": [
+        "Yung Tafari",
+        "Dancehall",
+        "WHEN THE LIGHT FINDS YOU | Yung Tafari - Light Through Di Dark | Dancehall 2026 | NextGen Sessions",
+        "Light Through Di Dark"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Full Send",
+      "subtitle": "Killa K",
+      "description": "UK Rap & Grime · 2026-06-03",
+      "url": "/releases/killa-k-full-send/",
+      "date": "2026-06-03T17:00:10Z",
+      "keywords": [
+        "Killa K",
+        "UK Rap & Grime",
+        "Killa K - Full Send | UK Grime 2026 | NextGen Sessions",
+        "Full Send"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "False Nine",
+      "subtitle": "Renz Cole",
+      "description": "UK Rap & Grime · 2026-06-01",
+      "url": "/releases/renz-cole-false-nine/",
+      "date": "2026-06-01T17:00:06Z",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap & Grime",
+        "Renz Cole - False Nine | UK Rap 2026 | NextGen Sessions",
+        "False Nine"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Architect of Havoc",
+      "subtitle": "Jay Starks",
+      "description": "Hip-Hop / G-Funk · 2026-05-31",
+      "url": "/releases/jay-starks-architect-of-havoc/",
+      "date": "2026-05-31T17:00:31Z",
+      "keywords": [
+        "Jay Starks",
+        "Hip-Hop / G-Funk",
+        "Jay Starks - Architect of Havoc | Hiphop 2026 | NextGen Sessions",
+        "Architect of Havoc"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Crown Heavy",
+      "subtitle": "Kemar Ranka",
+      "description": "Dancehall · 2026-05-29",
+      "url": "/releases/kemar-ranka-crown-heavy/",
+      "date": "2026-05-29T17:00:16Z",
+      "keywords": [
+        "Kemar Ranka",
+        "Dancehall",
+        "Kemar Ranka - Crown Heavy | Dancehall 2026 | NextGen Sessions",
+        "Crown Heavy"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Top Ranka",
+      "subtitle": "Kemar Ranka",
+      "description": "Dancehall · 2026-05-29",
+      "url": "/releases/kemar-ranka-top-ranka/",
+      "date": "2026-05-29T17:00:07Z",
+      "keywords": [
+        "Kemar Ranka",
+        "Dancehall",
+        "Kemar Ranka - Top Ranka |  Dancehall 2026 | NextGen Sessions",
+        "Top Ranka"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Whispers in the Wind",
+      "subtitle": "Omari V",
+      "description": "Lovers Rock · 2026-05-27",
+      "url": "/releases/omari-v-whispers-in-the-wind/",
+      "date": "2026-05-27T17:00:01Z",
+      "keywords": [
+        "Omari V",
+        "Lovers Rock",
+        "Omari V - Whispers in the Wind | Lovers Rock Reggae 2026 | NextGen Sessions",
+        "Whispers in the Wind"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Queens in My Soul",
+      "subtitle": "Jay Starks",
+      "description": "Hip-Hop / G-Funk · 2026-05-26",
+      "url": "/releases/jay-starks-queens-in-my-soul/",
+      "date": "2026-05-26T17:00:14Z",
+      "keywords": [
+        "Jay Starks",
+        "Hip-Hop / G-Funk",
+        "Jay Starks - Queens in My Soul | HipHop East Coast Rap 2026 | NextGen Sessions",
+        "Queens in My Soul"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Gully Testament",
+      "subtitle": "Yung Tafari",
+      "description": "Dancehall · 2026-05-25",
+      "url": "/releases/yung-tafari-gully-testament/",
+      "date": "2026-05-25T17:00:10Z",
+      "keywords": [
+        "Yung Tafari",
+        "Dancehall",
+        "Yung Tafari - Gully Testament | Only God Know | Dancehall 2026 | NextGen Sessions",
+        "Gully Testament"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Name Still Rings",
+      "subtitle": "Rookz",
+      "description": "UK Rap & Grime · 2026-05-24",
+      "url": "/releases/rookz-name-still-rings/",
+      "date": "2026-05-24T17:00:29Z",
+      "keywords": [
+        "Rookz",
+        "UK Rap & Grime",
+        "Rookz - Name Still Rings | UK Grime Road Rap 2026 | NextGen Sessions",
+        "Name Still Rings"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Nazar",
+      "subtitle": "Asif Sultaan",
+      "description": "Asian · 2026-05-23",
+      "url": "/releases/asif-sultaan-nazar/",
+      "date": "2026-05-23T17:00:07Z",
+      "keywords": [
+        "Asif Sultaan",
+        "Asian",
+        "Asif Sultaan - Nazar | Too Blessed | South Asian Trap Fusion 2026 | NextGen Sessions",
+        "Nazar"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Dem Cyan Move Mi",
+      "subtitle": "Javon Ranks",
+      "description": "Dancehall · 2026-05-22",
+      "url": "/releases/javon-ranks-dem-cyan-move-mi/",
+      "date": "2026-05-22T17:00:07Z",
+      "keywords": [
+        "Javon Ranks",
+        "Dancehall",
+        "Javon Ranks - Dem Cyan Move Mi | Dancehall 2026 | NextGen Sessions",
+        "Dem Cyan Move Mi"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Fire Still A Burn",
+      "subtitle": "Ragga Blaze",
+      "description": "Dancehall · 2026-05-21",
+      "url": "/releases/ragga-blaze-fire-still-a-burn/",
+      "date": "2026-05-21T17:00:02Z",
+      "keywords": [
+        "Ragga Blaze",
+        "Dancehall",
+        "Ragga Blaze - Fire Still A Burn | Dancehall 2026 | NextGen Sessions",
+        "Fire Still A Burn"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Yuh Gone Already",
+      "subtitle": "Omari V",
+      "description": "Lovers Rock · 2026-05-20",
+      "url": "/releases/omari-v-yuh-gone-already/",
+      "date": "2026-05-20T17:01:03Z",
+      "keywords": [
+        "Omari V",
+        "Lovers Rock",
+        "Omari V — Yuh Gone Already | Lovers Rock Reggae 2026 | NextGen Sessions",
+        "Yuh Gone Already"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Gyal Affi Wine",
+      "subtitle": "Jahmari Danza",
+      "description": "Dancehall · 2026-05-19",
+      "url": "/releases/jahmari-danza-gyal-affi-wine/",
+      "date": "2026-05-19T17:00:44Z",
+      "keywords": [
+        "Jahmari Danza",
+        "Dancehall",
+        "Jahmari Danza – Gyal Affi Wine | Dancehall 2026 | NextGen Sessions",
+        "Gyal Affi Wine"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "It’s A Cold Summer",
+      "subtitle": "Jay Starks",
+      "description": "Hip-Hop / G-Funk · 2026-05-18",
+      "url": "/releases/jay-starks-its-a-cold-summer/",
+      "date": "2026-05-18T17:00:34Z",
+      "keywords": [
+        "Jay Starks",
+        "Hip-Hop / G-Funk",
+        "Jay Starks - It’s A Cold Summer | Hiphop 2026 | NextGen Sessions",
+        "It’s A Cold Summer"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Too Boujee To Beg",
+      "subtitle": "Zara Veli",
+      "description": "R&B & Soul · 2026-05-17",
+      "url": "/releases/zara-veli-too-boujee-to-beg/",
+      "date": "2026-05-17T17:00:32Z",
+      "keywords": [
+        "Zara Veli",
+        "R&B & Soul",
+        "Zara Veli – Too Boujee To Beg | Luxury UK R&B 2026 | NextGen Sessions",
+        "Too Boujee To Beg"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Don’t Watch That",
+      "subtitle": "Andre Kadeem",
+      "description": "UK Rap & Grime · 2026-05-16",
+      "url": "/releases/andre-kadeem-dont-watch-that/",
+      "date": "2026-05-16T17:00:48Z",
+      "keywords": [
+        "Andre Kadeem",
+        "UK Rap & Grime",
+        "Andre Kadeem – Don’t Watch That | UK Rap 2026 | NextGen Sessions",
+        "Don’t Watch That"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Mi Know Mi Worth",
+      "subtitle": "Keisha",
+      "description": "Dancehall · 2026-05-15",
+      "url": "/releases/keisha-mi-know-mi-worth/",
+      "date": "2026-05-15T17:01:09Z",
+      "keywords": [
+        "Keisha",
+        "Dancehall",
+        "Keisha – Mi Know Mi Worth | Mi Done See Clear | Dancehall 2026 | NextGen Sessions",
+        "Mi Know Mi Worth"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Nuh Fi Chat",
+      "subtitle": "Rell Danger",
+      "description": "Dancehall · 2026-05-14",
+      "url": "/releases/rell-danger-nuh-fi-chat/",
+      "date": "2026-05-14T17:00:33Z",
+      "keywords": [
+        "Rell Danger",
+        "Dancehall",
+        "Rell Danger – Nuh Fi Chat | Dem A Pree… | Dancehall 2026 | NextGen Sessions",
+        "Nuh Fi Chat"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "One Night Only",
+      "subtitle": "Marlo Saint",
+      "description": "Late Night Afro · 2026-05-13",
+      "url": "/releases/marlo-saint-one-night-only/",
+      "date": "2026-05-13T17:00:36Z",
+      "keywords": [
+        "Marlo Saint",
+        "Late Night Afro",
+        "Marlo Saint – One Night Only | Don’t Get Attached | Afro Swing 2026 | NextGen Sessions",
+        "One Night Only"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Ain’t The Same",
+      "subtitle": "Karvell Reign",
+      "description": "Hip-Hop / G-Funk · 2026-05-12",
+      "url": "/releases/karvell-reign-aint-the-same/",
+      "date": "2026-05-12T17:01:09Z",
+      "keywords": [
+        "Karvell Reign",
+        "Hip-Hop / G-Funk",
+        "Karvell Reign – Ain’t The Same | It Don’t Feel The Same… | West Coast G-Funk 2026 | NextGen Sessions",
+        "Ain’t The Same"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Nuff Man A Watch",
+      "subtitle": "Reeko",
+      "description": "Dancehall · 2026-05-11",
+      "url": "/releases/reeko-nuff-man-a-watch/",
+      "date": "2026-05-11T17:01:07Z",
+      "keywords": [
+        "Reeko",
+        "Dancehall",
+        "Reeko – Nuff Man A Watch | They Watching Me… | Dancehall 2026 | NextGen Sessions",
+        "Nuff Man A Watch"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Talk Di Tings",
+      "subtitle": "Darian Gayle",
+      "description": "Lovers Rock · 2026-05-10",
+      "url": "/releases/darian-gayle-talk-di-tings/",
+      "date": "2026-05-10T17:00:29Z",
+      "keywords": [
+        "Darian Gayle",
+        "Lovers Rock",
+        "Darian Gayle – Talk Di Tings | Mi Hear Dem Talk… | Lovers Rock Reggae 2026 | NextGen Sessions",
+        "Talk Di Tings"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "One Man Army",
+      "subtitle": "Yung Tafari",
+      "description": "Dancehall · 2026-05-09",
+      "url": "/releases/yung-tafari-one-man-army/",
+      "date": "2026-05-09T17:00:21Z",
+      "keywords": [
+        "Yung Tafari",
+        "Dancehall",
+        "Yung Tafari – One Man Army | They Want Me Down… I Rise | Dancehall 2026 | NextGen Sessions",
+        "One Man Army"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "On Route",
+      "subtitle": "Reiss",
+      "description": "UK Rap & Grime · 2026-05-07",
+      "url": "/releases/reiss-on-route/",
+      "date": "2026-05-07T17:00:30Z",
+      "keywords": [
+        "Reiss",
+        "UK Rap & Grime",
+        "Reiss – On Route | We Still Got Time… | UK Rap 2026 | NextGen Sessions",
+        "On Route"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "On A Regular",
+      "subtitle": "Reiss",
+      "description": "UK Rap & Grime · 2026-05-06",
+      "url": "/releases/reiss-on-a-regular/",
+      "date": "2026-05-06T17:00:32Z",
+      "keywords": [
+        "Reiss",
+        "UK Rap & Grime",
+        "Reiss – On A Regular | This Ain’t New To Me… | UK Rap 2026 | NextGen Sessions",
+        "On A Regular"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Already Know",
+      "subtitle": "Reiss",
+      "description": "UK Rap & Grime · 2026-05-05",
+      "url": "/releases/reiss-already-know/",
+      "date": "2026-05-05T17:00:52Z",
+      "keywords": [
+        "Reiss",
+        "UK Rap & Grime",
+        "Reiss – Already Know Single | You Knew Already… | UK Rap 2026 | NextGen Sessions",
+        "Already Know"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "After the Rain",
+      "subtitle": "Isaac Grey",
+      "description": "Lovers Rock · 2026-05-04",
+      "url": "/releases/isaac-grey-after-the-rain/",
+      "date": "2026-05-04T17:00:14Z",
+      "keywords": [
+        "Isaac Grey",
+        "Lovers Rock",
+        "Isaac Grey – After the Rain | Lovers Rock 2026 | NextGen Sessions",
+        "After the Rain"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "I’m Not Surprised",
+      "subtitle": "Nyah Rae",
+      "description": "R&B & Soul · 2026-05-03",
+      "url": "/releases/nyah-rae-im-not-surprised/",
+      "date": "2026-05-03T17:00:58Z",
+      "keywords": [
+        "Nyah Rae",
+        "R&B & Soul",
+        "Nyah Rae – I’m Not Surprised | Left On Read | R&B 2026 | NextGen Sessions",
+        "I’m Not Surprised"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Don’t Call Past 2",
+      "subtitle": "Zara Veli",
+      "description": "R&B & Soul · 2026-05-02",
+      "url": "/releases/zara-veli-dont-call-past-2/",
+      "date": "2026-05-02T17:01:08Z",
+      "keywords": [
+        "Zara Veli",
+        "R&B & Soul",
+        "Zara Veli – Don’t Call Past 2 | Don’t Call Me… | UK Garage R&B 2026 | NextGen Sessions",
+        "Don’t Call Past 2"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Play It Right",
+      "subtitle": "Marlo Saint",
+      "description": "Late Night Afro · 2026-04-30",
+      "url": "/releases/marlo-saint-play-it-right/",
+      "date": "2026-04-30T17:01:32Z",
+      "keywords": [
+        "Marlo Saint",
+        "Late Night Afro",
+        "Marlo Saint – Play It Right | Afro Swing 2026 | NextGen Sessions",
+        "Play It Right"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Don’t Get Too Close",
+      "subtitle": "Mariana Lo",
+      "description": "UK Rap & Grime · 2026-04-29",
+      "url": "/releases/mariana-lo-dont-get-too-close/",
+      "date": "2026-04-29T17:00:32Z",
+      "keywords": [
+        "Mariana Lo",
+        "UK Rap & Grime",
+        "Mariana Lo – Don’t Get Too Close | Cold Energy UK Rap 2026 | NextGen Sessions",
+        "Don’t Get Too Close"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Nuh Friend In The Street (No Friends Left)",
+      "subtitle": "Rell Danja",
+      "description": "Dancehall · 2026-04-28",
+      "url": "/releases/rell-danja-nuh-friend-in-the-street-no-friends-left/",
+      "date": "2026-04-28T17:00:57Z",
+      "keywords": [
+        "Rell Danja",
+        "Dancehall",
+        "Rell Danja – Nuh Friend In The Street (No Friends Left) | Dancehall 2026 | NextGen Sessions",
+        "Nuh Friend In The Street (No Friends Left)"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "No Fire In Your Eyes",
+      "subtitle": "Omari V",
+      "description": "Lovers Rock · 2026-04-27",
+      "url": "/releases/omari-v-no-fire-in-your-eyes/",
+      "date": "2026-04-27T17:01:02Z",
+      "keywords": [
+        "Omari V",
+        "Lovers Rock",
+        "Omari V – No Fire In Your Eyes | Lovers Rock Reggae 2026 | NextGen Sessions",
+        "No Fire In Your Eyes"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "On Blast",
+      "subtitle": "Rafe",
+      "description": "UK Rap & Grime · 2026-04-26",
+      "url": "/releases/rafe-on-blast/",
+      "date": "2026-04-26T17:00:46Z",
+      "keywords": [
+        "Rafe",
+        "UK Rap & Grime",
+        "RAFE – On Blast | Grime 2026 | NextGen Sessions",
+        "On Blast"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Street Whispers",
+      "subtitle": "Isaac Grey",
+      "description": "Lovers Rock · 2026-04-25",
+      "url": "/releases/isaac-grey-street-whispers/",
+      "date": "2026-04-25T17:00:00Z",
+      "keywords": [
+        "Isaac Grey",
+        "Lovers Rock",
+        "Isaac Grey – Street Whispers | Lovers Rock 2026 | NextGen Sessions",
+        "Street Whispers"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Fire Don",
+      "subtitle": "Ragga Blaze",
+      "description": "Dancehall · 2026-04-24",
+      "url": "/releases/ragga-blaze-fire-don/",
+      "date": "2026-04-24T18:01:00Z",
+      "keywords": [
+        "Ragga Blaze",
+        "Dancehall",
+        "Ragga Blaze – Fire Don | Dancehall 2026 | NextGen Sessions",
+        "Fire Don"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "WAZAN",
+      "subtitle": "Asif Sultaan",
+      "description": "Asian · 2026-04-23",
+      "url": "/releases/asif-sultaan-wazan/",
+      "date": "2026-04-23T17:00:10Z",
+      "keywords": [
+        "Asif Sultaan",
+        "Asian",
+        "Asif Sultaan – WAZAN | Melodic Pakistani Hip-Hop 2026 | NextGen Sessions",
+        "WAZAN"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Hold Mi Down",
+      "subtitle": "Keisha",
+      "description": "Dancehall · 2026-04-22",
+      "url": "/releases/keisha-hold-mi-down/",
+      "date": "2026-04-22T17:00:29Z",
+      "keywords": [
+        "Keisha",
+        "Dancehall",
+        "Keisha – Hold Mi Down | Dancehall 2026 | NextGen Sessions",
+        "Hold Mi Down"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Still Walk Alone",
+      "subtitle": "Karvell Reign",
+      "description": "Hip-Hop / G-Funk · 2026-04-21",
+      "url": "/releases/karvell-reign-still-walk-alone/",
+      "date": "2026-04-21T17:00:27Z",
+      "keywords": [
+        "Karvell Reign",
+        "Hip-Hop / G-Funk",
+        "Karvell Reign – Still Walk Alone | West Coast G-Funk 2026 | NextGen Sessions",
+        "Still Walk Alone"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "No Comment",
+      "subtitle": "Reiss",
+      "description": "UK Rap & Grime · 2026-04-20",
+      "url": "/releases/reiss-no-comment/",
+      "date": "2026-04-20T17:01:15Z",
+      "keywords": [
+        "Reiss",
+        "UK Rap & Grime",
+        "Reiss – No Comment | UK Rap 2026 | NextGen Sessions",
+        "No Comment"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Still Hold Firm",
+      "subtitle": "Javon Ranks",
+      "description": "Dancehall · 2026-04-19",
+      "url": "/releases/javon-ranks-still-hold-firm/",
+      "date": "2026-04-19T17:01:09Z",
+      "keywords": [
+        "Javon Ranks",
+        "Dancehall",
+        "Javon Ranks – Still Hold Firm | Dancehall 2026 | NextGen Sessions",
+        "Still Hold Firm"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "All In My Name",
+      "subtitle": "Alonzo Ray",
+      "description": "Hip-Hop / G-Funk · 2026-04-18",
+      "url": "/releases/alonzo-ray-all-in-my-name/",
+      "date": "2026-04-18T17:00:53Z",
+      "keywords": [
+        "Alonzo Ray",
+        "Hip-Hop / G-Funk",
+        "Alonzo Ray – All In My Name | West Coast Hip-Hop 2026 | NextGen Sessions | NextGen Sessions",
+        "All In My Name"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Pasadena",
+      "subtitle": "Alonzo Ray",
+      "description": "Hip-Hop / G-Funk · 2026-04-16",
+      "url": "/releases/alonzo-ray-pasadena/",
+      "date": "2026-04-16T17:00:31Z",
+      "keywords": [
+        "Alonzo Ray",
+        "Hip-Hop / G-Funk",
+        "Alonzo Ray - Pasadena | West Coast Hip-Hop 2026 | NextGen Sessions",
+        "Pasadena"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "What It Took",
+      "subtitle": "Alonzo Ray",
+      "description": "Hip-Hop / G-Funk · 2026-04-15",
+      "url": "/releases/alonzo-ray-what-it-took/",
+      "date": "2026-04-15T17:00:08Z",
+      "keywords": [
+        "Alonzo Ray",
+        "Hip-Hop / G-Funk",
+        "Alonzo Ray – What It Took | West Coast Hip Hop 2026 | NextGen Sessions",
+        "What It Took"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Seasoned",
+      "subtitle": "Alonzo Ray",
+      "description": "Hip-Hop / G-Funk · 2026-04-14",
+      "url": "/releases/alonzo-ray-seasoned/",
+      "date": "2026-04-14T17:01:02Z",
+      "keywords": [
+        "Alonzo Ray",
+        "Hip-Hop / G-Funk",
+        "Alonzo Ray – Seasoned | West Coast Hip-Hop 2026 | NextGen Sessions",
+        "Seasoned"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "You Can’t Afford Me",
+      "subtitle": "Nyah Rae",
+      "description": "R&B & Soul · 2026-04-13",
+      "url": "/releases/nyah-rae-you-cant-afford-me/",
+      "date": "2026-04-13T17:00:47Z",
+      "keywords": [
+        "Nyah Rae",
+        "R&B & Soul",
+        "Nyah Rae - You Can’t Afford Me | R&B 2026 | NextGen Sessions",
+        "You Can’t Afford Me"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "They Know Now",
+      "subtitle": "Renz Cole",
+      "description": "UK Rap & Grime · 2026-04-11",
+      "url": "/releases/renz-cole-they-know-now/",
+      "date": "2026-04-11T17:00:40Z",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap & Grime",
+        "Renz Cole - They Know Now | Playmaker | UK Rap 2026 | NextGen Sessions",
+        "They Know Now"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Catch My Wave",
+      "subtitle": "Renz Cole",
+      "description": "UK Rap & Grime · 2026-04-09",
+      "url": "/releases/renz-cole-catch-my-wave/",
+      "date": "2026-04-09T17:00:01Z",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap & Grime",
+        "Renz Cole – Catch My Wave | UK Rap 2026 | NextGen Sessions",
+        "Catch My Wave"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "No Assist Ting",
+      "subtitle": "Renz Cole",
+      "description": "UK Rap & Grime · 2026-04-08",
+      "url": "/releases/renz-cole-no-assist-ting/",
+      "date": "2026-04-08T17:00:15Z",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap & Grime",
+        "Renz Cole – No Assist Ting | UK Rap 2026 | NextGen Sessions",
+        "No Assist Ting"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Playmaker",
+      "subtitle": "Renz Cole",
+      "description": "UK Rap & Grime · 2026-04-07",
+      "url": "/releases/renz-cole-playmaker/",
+      "date": "2026-04-07T17:01:03Z",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap & Grime",
+        "Renz Cole - Playmaker | UK Rap Single 2026 | NextGen Sessions",
+        "Playmaker"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "No Reply",
+      "subtitle": "Nyah Rae",
+      "description": "R&B & Soul · 2026-04-06",
+      "url": "/releases/nyah-rae-no-reply/",
+      "date": "2026-04-06T17:00:20Z",
+      "keywords": [
+        "Nyah Rae",
+        "R&B & Soul",
+        "Nyah Rae – No Reply | R&B 2026 | NextGen Session",
+        "No Reply"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Mi Call Di Shots",
+      "subtitle": "Reeko",
+      "description": "Dancehall · 2026-04-04",
+      "url": "/releases/reeko-mi-call-di-shots/",
+      "date": "2026-04-04T17:00:00Z",
+      "keywords": [
+        "Reeko",
+        "Dancehall",
+        "Reeko | Mi Call Di Shots Single | Dancehall 2026 | NextGen Sessions",
+        "Mi Call Di Shots"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Nuh Love Round Ya",
+      "subtitle": "Reeko",
+      "description": "Dancehall · 2026-04-02",
+      "url": "/releases/reeko-nuh-love-round-ya/",
+      "date": "2026-04-02T17:00:00Z",
+      "keywords": [
+        "Reeko",
+        "Dancehall",
+        "Reeko - Nuh Love Round Ya | Dancehall 2026 | Mi Call Di Shots Album | NextGen Sessions",
+        "Nuh Love Round Ya"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Gully Boss From Mi Call Di Shots Album",
+      "subtitle": "Reeko",
+      "description": "Dancehall · 2026-04-01",
+      "url": "/releases/reeko-gully-boss-from-mi-call-di-shots-album/",
+      "date": "2026-04-01T17:00:00Z",
+      "keywords": [
+        "Reeko",
+        "Dancehall",
+        "Reeko – Gully Boss From Mi Call Di Shots Album | Dancehall 2026 | NextGen Sessions",
+        "Gully Boss From Mi Call Di Shots Album"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Ready Fi War From Mi Call Di Shots Album",
+      "subtitle": "Reeko",
+      "description": "Dancehall · 2026-03-31",
+      "url": "/releases/reeko-ready-fi-war-from-mi-call-di-shots-album/",
+      "date": "2026-03-31T17:00:00Z",
+      "keywords": [
+        "Reeko",
+        "Dancehall",
+        "Reeko – Ready Fi War From Mi Call Di Shots Album  | Dancehall 2026 | NextGen Sessions",
+        "Ready Fi War From Mi Call Di Shots Album"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Ride Wid Mi",
+      "subtitle": "Reeko x Keisha",
+      "description": "Dancehall · 2026-03-30",
+      "url": "/releases/reeko-x-keisha-ride-wid-mi/",
+      "date": "2026-03-30T18:00:43Z",
+      "keywords": [
+        "Reeko x Keisha",
+        "Dancehall",
+        "Ride Wid Mi | Reeko x Keisha | From Mi Call Di Shots Album | Dancehall 2026 | NextGen Sessions",
+        "Ride Wid Mi"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Undisputed",
+      "subtitle": "Voss Carter",
+      "description": "Hip-Hop / G-Funk · 2026-03-28",
+      "url": "/releases/voss-carter-undisputed/",
+      "date": "2026-03-28T18:00:33Z",
+      "keywords": [
+        "Voss Carter",
+        "Hip-Hop / G-Funk",
+        "Voss Carter - Undisputed |  Single Hip-Hop 2026 | NextGen Sessions",
+        "Undisputed"
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Levels Above",
+      "subtitle": "Voss Carter",
+      "description": "Hip-Hop / G-Funk · 2026-03-24",
+      "url": "/releases/voss-carter-levels-above/",
+      "date": "2026-03-24T18:00:24Z",
+      "keywords": [
+        "Voss Carter",
+        "Hip-Hop / G-Funk",
+        "Voss Carter - Levels Above | Hiphop 2026 | NextGen Sessions",
+        "Levels Above"
+      ]
+    },
+    {
+      "type": "genre",
+      "title": "UK Rap & Grime",
+      "subtitle": "Genre hub",
+      "description": "Discover new independent UK rap artists and original 2026 music on NextGen Sessions, from London rap and melodic records to estate storytelling and grime.",
+      "url": "/genres/uk-rap-grime/",
+      "keywords": [
+        "UK Rap & Grime",
+        "UK rap",
+        "grime",
+        "London rap"
+      ]
+    },
+    {
+      "type": "genre",
+      "title": "Hip-Hop & G-Funk",
+      "subtitle": "Genre hub",
+      "description": "Discover independent hip-hop artists and original 2026 releases on NextGen Sessions, from New York storytelling to West Coast hip-hop, G-Funk and cinematic rap.",
+      "url": "/genres/hip-hop-g-funk/",
+      "keywords": [
+        "Hip-Hop & G-Funk",
+        "hip hop",
+        "G-Funk",
+        "West Coast",
+        "New York"
+      ]
+    },
+    {
+      "type": "genre",
+      "title": "Dancehall",
+      "subtitle": "Genre hub",
+      "description": "Discover new independent dancehall artists and original 2026 music on NextGen Sessions, from Jamaican gully records and melodic dancehall to bashment mixes.",
+      "url": "/genres/dancehall/",
+      "keywords": [
+        "Dancehall",
+        "Jamaican dancehall",
+        "bashment",
+        "gully"
+      ]
+    },
+    {
+      "type": "genre",
+      "title": "Reggae & Lovers Rock",
+      "subtitle": "Genre hub",
+      "description": "Discover independent reggae and lovers rock artists and original 2026 releases on NextGen Sessions, from reflective roots reggae to warm Jamaican love songs.",
+      "url": "/genres/reggae-lovers-rock/",
+      "keywords": [
+        "Reggae & Lovers Rock",
+        "reggae",
+        "lovers rock",
+        "Jamaica"
+      ]
+    },
+    {
+      "type": "genre",
+      "title": "R&B & Soul",
+      "subtitle": "Genre hub",
+      "description": "Discover new independent R&B artists and original 2026 releases on NextGen Sessions, from late-night contemporary R&B to polished soul and emotionally precise songwriting.",
+      "url": "/genres/rnb-soul/",
+      "keywords": [
+        "R&B & Soul",
+        "R&B",
+        "soul",
+        "rhythm and blues"
+      ]
+    },
+    {
+      "type": "genre",
+      "title": "Global Sounds",
+      "subtitle": "Genre hub",
+      "description": "Discover independent Punjabi and South Asian, Arabic and Afro-led music from NextGen Sessions, with original 2026 releases and artist profiles in one global hub.",
+      "url": "/genres/global-sounds/",
+      "keywords": [
+        "Global Sounds",
+        "Punjabi",
+        "South Asian",
+        "Arabic",
+        "Afro"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "Arabic Collection",
+      "subtitle": "Mix / collection",
+      "description": "Choose and play every Arabic Collection song directly on NextGen Sessions.",
+      "url": "/mixes/arabic-collection/",
+      "keywords": [
+        "Arabic Collection",
+        "Choose and play every Arabic Collection song directly on NextGen Sessions.",
+        "arabic collection"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "Asian Collection",
+      "subtitle": "Mix / collection",
+      "description": "Play the Asian Collection directly on NextGen Sessions.",
+      "url": "/mixes/asian-collection/",
+      "keywords": [
+        "Asian Collection",
+        "Play the Asian Collection directly on NextGen Sessions.",
+        "asian collection"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "Dancehall Mashup Series",
+      "subtitle": "Mix / collection",
+      "description": "Play three Dancehall Mashup mixes from 2026, including the 1-hour Gullyside Takeover. Discover original NextGen dancehall releases and artists.",
+      "url": "/mixes/dancehall-mashups/",
+      "keywords": [
+        "Dancehall Mashup Series",
+        "Play three Dancehall Mashup mixes from 2026, including the 1-hour Gullyside Takeover. Discover original NextGen dancehall releases and artists.",
+        "dancehall mashups"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "Grime Mashup — Series 1",
+      "subtitle": "Mix / collection",
+      "description": "Extended grime energy from the NextGen Sessions catalogue, built for uninterrupted listening. Play it directly on NextGen Sessions.",
+      "url": "/mixes/grime-mashup-series-1/",
+      "keywords": [
+        "Grime Mashup — Series 1",
+        "Extended grime energy from the NextGen Sessions catalogue, built for uninterrupted listening. Play it directly on NextGen Sessions.",
+        "grime mashup series 1"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "Hip-Hop Mashup — Series 1",
+      "subtitle": "Mix / collection",
+      "description": "A continuous hip-hop session built for uninterrupted listening from start to finish. Play it directly on NextGen Sessions.",
+      "url": "/mixes/hip-hop-mashup-series-1/",
+      "keywords": [
+        "Hip-Hop Mashup — Series 1",
+        "A continuous hip-hop session built for uninterrupted listening from start to finish. Play it directly on NextGen Sessions.",
+        "hip hop mashup series 1"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "Late Night Afro Vibes",
+      "subtitle": "Mix / collection",
+      "description": "Choose and play every Late Night Afro Vibes song directly on NextGen Sessions.",
+      "url": "/mixes/late-night-afro-vibes/",
+      "keywords": [
+        "Late Night Afro Vibes",
+        "Choose and play every Late Night Afro Vibes song directly on NextGen Sessions.",
+        "late night afro vibes"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "NextGen Sessions Full Albums",
+      "subtitle": "Mix / collection",
+      "description": "Play complete NextGen Sessions artist projects directly on the website.",
+      "url": "/mixes/full-albums/",
+      "keywords": [
+        "NextGen Sessions Full Albums",
+        "Play complete NextGen Sessions artist projects directly on the website.",
+        "full albums"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "The Sound of Summer 2026",
+      "subtitle": "Mix / collection",
+      "description": "Play The Sound of Summer 2026, a 65-minute NextGen Sessions mix spanning dancehall, UK rap, R&B and hip-hop. Listen to the full session and explore related mixes.",
+      "url": "/mixes/sound-of-summer/",
+      "keywords": [
+        "The Sound of Summer 2026",
+        "Play The Sound of Summer 2026, a 65-minute NextGen Sessions mix spanning dancehall, UK rap, R&B and hip-hop. Listen to the full session and explore related mixes.",
+        "sound of summer"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "UK Rap Mashup — Series 1",
+      "subtitle": "Mix / collection",
+      "description": "Play UK Rap Mashup Series 1, a 65-minute UK rap mix from 2026 blending melodic rap and street energy. Listen on NextGen Sessions and explore more UK rap.",
+      "url": "/mixes/uk-rap-mashup-series-1/",
+      "keywords": [
+        "UK Rap Mashup — Series 1",
+        "Play UK Rap Mashup Series 1, a 65-minute UK rap mix from 2026 blending melodic rap and street energy. Listen on NextGen Sessions and explore more UK rap.",
+        "uk rap mashup series 1"
+      ]
+    }
+  ]
 }

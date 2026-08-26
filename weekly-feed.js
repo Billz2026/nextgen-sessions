@@ -1,6 +1,23 @@
 (() => {
   "use strict";
 
+  function ensureTrendingAssets() {
+    if (!document.querySelector('link[href^="/trending.css"]')) {
+      const stylesheet = document.createElement("link");
+      stylesheet.rel = "stylesheet";
+      stylesheet.href = "/trending.css?v=20260826-trending1";
+      document.head.append(stylesheet);
+    }
+    if (!document.querySelector('script[src^="/trending.js"]')) {
+      const script = document.createElement("script");
+      script.src = "/trending.js?v=20260826-trending1";
+      script.defer = true;
+      document.head.append(script);
+    }
+  }
+
+  ensureTrendingAssets();
+
   const cards = [...document.querySelectorAll("[data-release-state-card]")];
   if (!cards.length) return;
 

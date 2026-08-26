@@ -36,6 +36,13 @@ CTR_EXPECTED = {
     ),
 }
 
+ENTITY_EXPECTED = {
+    "artists/kemarco/index.html": (
+        "Kemarco | Jamaican Dancehall Artist | NextGen Sessions",
+        "Discover Kemarco, a Jamaican dancehall artist on NextGen Sessions. Listen to Ghetto Blessings and Badman Don’t Rush and explore more dancehall releases.",
+    ),
+}
+
 CANONICAL_RE = re.compile(r'<link\s+rel="canonical"\s+href="([^"]+)"\s*/?>', re.IGNORECASE)
 OG_URL_RE = re.compile(r'<meta\s+property="og:url"\s+content="([^"]+)"\s*/?>', re.IGNORECASE)
 LOC_RE = re.compile(r'<loc>([^<]+)</loc>', re.IGNORECASE)
@@ -85,20 +92,32 @@ for path in sorted(ROOT.rglob("*.html")):
     assert canonical == [expected], f"Canonical mismatch in {path.relative_to(ROOT)}: {canonical}, expected {expected}"
     assert og_urls == [expected], f"og:url mismatch in {path.relative_to(ROOT)}: {og_urls}, expected {expected}"
 
-    if relative in CTR_EXPECTED:
-        expected_title, expected_description = CTR_EXPECTED[relative]
+    search_expected = CTR_EXPECTED.get(relative) or ENTITY_EXPECTED.get(relative)
+    if search_expected:
+        expected_title, expected_description = search_expected
         title = decoded_match(TITLE_RE, source, "title", relative)
         description = decoded_match(DESCRIPTION_RE, source, "meta description", relative)
         og_title = decoded_match(OG_TITLE_RE, source, "og:title", relative)
         twitter_title = decoded_match(TWITTER_TITLE_RE, source, "twitter:title", relative)
-        assert title == expected_title, f"CTR title reverted in {relative}: {title!r}"
-        assert description == expected_description, f"CTR description reverted in {relative}: {description!r}"
-        assert og_title == expected_title, f"CTR og:title reverted in {relative}: {og_title!r}"
-        assert twitter_title == expected_title, f"CTR twitter:title reverted in {relative}: {twitter_title!r}"
+        assert title == expected_title, f"Search title reverted in {relative}: {title!r}"
+        assert description == expected_description, f"Search description reverted in {relative}: {description!r}"
+        assert og_title == expected_title, f"Search og:title reverted in {relative}: {og_title!r}"
+        assert twitter_title == expected_title, f"Search twitter:title reverted in {relative}: {twitter_title!r}"
+
+    if relative == "artists/kemarco/index.html":
+        assert "Kemarco is a Jamaican dancehall artist from Jamaica" in source, "Kemarco entity-first bio is missing"
+        assert 'href="/releases/kemarco-ghetto-blessings/">Latest release: Ghetto Blessings</a>' in source, "Kemarco latest release signal is stale"
+        assert 'href="/genres/dancehall/">Explore Dancehall</a>' in source, "Kemarco Dancehall hub link is missing"
+        assert '/artists/kemarco/profile.js?v=20260826-entity1' in source, "Kemarco browser profile override is missing"
 
     checked += 1
 
 assert checked >= 100, f"Unexpectedly few canonical pages checked: {checked}"
+
+kemarco_profile = (ROOT / "artists" / "kemarco" / "profile.js").read_text(encoding="utf-8")
+assert 'title: "Ghetto Blessings"' in kemarco_profile, "Kemarco source still features an older release"
+assert 'id: "JI_O7wnEtCc"' in kemarco_profile, "Kemarco Ghetto Blessings video ID is missing from source"
+assert 'profile.genreUrl = "/genres/dancehall/"' in kemarco_profile, "Kemarco source is not connected to the Dancehall hub"
 
 sitemap_files = sorted(ROOT.glob("sitemap*.xml"))
 assert sitemap_files, "No sitemap files found"
@@ -157,5 +176,6 @@ assert 'hostname === "nextgensessions.com"' in analytics_source, "Analytics sour
 print(
     f"SEO domain audit passed: {checked} canonical HTML pages, {len(sitemap_files)} sitemap files / "
     f"{len(all_locations)} sitemap URLs, and {len(set(runtime_files))} runtime text files use the canonical production domain; "
-    f"{len(CTR_EXPECTED)} Search Console CTR targets are locked; the old Pages hostname remains only as a 301 redirect target detector."
+    f"{len(CTR_EXPECTED)} CTR targets and {len(ENTITY_EXPECTED)} artist search entity target are locked; "
+    "the old Pages hostname remains only as a 301 redirect target detector."
 )

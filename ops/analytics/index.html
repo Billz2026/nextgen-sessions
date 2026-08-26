@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Analytics Operations | NextGen Sessions</title>
+  <meta name="theme-color" content="#080808">
+  <link rel="icon" type="image/svg+xml" href="/assets/nextgen-favicon.svg">
+  <link rel="stylesheet" href="/styles.css?v=20260809-header1">
+  <link rel="stylesheet" href="/analytics-dashboard.css?v=20260826-ops1">
+</head>
+<body class="analytics-ops-page">
+  <header class="analytics-ops-header">
+    <a class="analytics-ops-brand" href="/" aria-label="NextGen Sessions home"><img src="/assets/nextgen-header-wordmark-2026.webp" alt="NextGen Sessions"></a>
+    <div class="analytics-ops-header-actions"><span class="analytics-ops-private">Private operations</span><button id="analyticsLogout" class="analytics-ops-ghost" type="button" hidden>Sign out</button></div>
+  </header>
+
+  <main class="analytics-ops-main">
+    <section id="analyticsLoginPanel" class="analytics-login-panel" aria-labelledby="analytics-login-title">
+      <p class="eyebrow">NextGen operations</p>
+      <h1 id="analytics-login-title">Analytics dashboard</h1>
+      <p>Aggregated first-party engagement data only. Enter the private operations key to continue.</p>
+      <form id="analyticsLoginForm" class="analytics-login-form">
+        <label for="analyticsKey">Operations key</label>
+        <div class="analytics-login-row"><input id="analyticsKey" name="key" type="password" required minlength="16" autocomplete="current-password"><button class="button button-primary" type="submit">Open dashboard</button></div>
+        <p id="analyticsLoginStatus" class="analytics-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="analyticsDashboard" class="analytics-dashboard" hidden aria-labelledby="analytics-title">
+      <div class="analytics-dashboard-heading">
+        <div><p class="eyebrow">Performance intelligence</p><h1 id="analytics-title">NextGen Sessions analytics</h1><p id="analyticsUpdated">Loading aggregated production activity…</p></div>
+        <div class="analytics-range" aria-label="Analytics date range">
+          <button type="button" data-range="1d">24 hours</button>
+          <button class="is-active" type="button" data-range="7d">7 days</button>
+          <button type="button" data-range="30d">30 days</button>
+        </div>
+      </div>
+
+      <div id="analyticsError" class="analytics-error" hidden role="alert"></div>
+
+      <section class="analytics-metric-grid" aria-label="Key metrics">
+        <article><span>Page views</span><strong id="metricPageViews">—</strong><small>Production page loads</small></article>
+        <article><span>Release plays</span><strong id="metricReleasePlays">—</strong><small>Session-deduplicated plays</small></article>
+        <article><span>Music discovery</span><strong id="metricDiscovery">—</strong><small>Release + artist + genre actions</small></article>
+        <article><span>YouTube exits</span><strong id="metricYoutube">—</strong><small>Video/channel click-throughs</small></article>
+        <article><span>Searches</span><strong id="metricSearches">—</strong><small>Privacy-safe catalogue matches</small></article>
+        <article><span>Social actions</span><strong id="metricSocial">—</strong><small>Subscribe/follow CTA clicks</small></article>
+      </section>
+
+      <div class="analytics-dashboard-grid">
+        <section class="analytics-panel analytics-panel-wide" aria-labelledby="analytics-releases-title"><div class="analytics-panel-heading"><div><p class="eyebrow">Music performance</p><h2 id="analytics-releases-title">Top releases</h2></div><span>Weighted by plays & discovery</span></div><div id="analyticsTopReleases" class="analytics-ranked-list"></div></section>
+        <section class="analytics-panel" aria-labelledby="analytics-artists-title"><div class="analytics-panel-heading"><div><p class="eyebrow">Artist pull</p><h2 id="analytics-artists-title">Top artists</h2></div></div><div id="analyticsTopArtists" class="analytics-compact-list"></div></section>
+        <section class="analytics-panel" aria-labelledby="analytics-genres-title"><div class="analytics-panel-heading"><div><p class="eyebrow">Sound lanes</p><h2 id="analytics-genres-title">Top genres</h2></div></div><div id="analyticsTopGenres" class="analytics-compact-list"></div></section>
+        <section class="analytics-panel" aria-labelledby="analytics-pages-title"><div class="analytics-panel-heading"><div><p class="eyebrow">Traffic</p><h2 id="analytics-pages-title">Top pages</h2></div></div><div id="analyticsTopPages" class="analytics-compact-list"></div></section>
+        <section class="analytics-panel" aria-labelledby="analytics-search-title"><div class="analytics-panel-heading"><div><p class="eyebrow">Discovery intent</p><h2 id="analytics-search-title">Top matched searches</h2></div></div><div id="analyticsTopSearches" class="analytics-compact-list"></div></section>
+        <section class="analytics-panel analytics-panel-wide" aria-labelledby="analytics-daily-title"><div class="analytics-panel-heading"><div><p class="eyebrow">Activity trend</p><h2 id="analytics-daily-title">Daily activity</h2></div></div><div class="analytics-table-wrap"><table><thead><tr><th>Date</th><th>Page views</th><th>Release plays</th><th>Release clicks</th><th>Artist clicks</th></tr></thead><tbody id="analyticsDaily"></tbody></table></div></section>
+      </div>
+    </section>
+  </main>
+
+  <script src="/analytics-dashboard.js?v=20260826-ops1" defer></script>
+</body>
+</html>

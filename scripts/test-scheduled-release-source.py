@@ -22,7 +22,7 @@ assert not re.search(r"youtube-nocookie\.com/embed/[A-Za-z0-9_-]{6,20}", raw), "
 seen = set()
 checked = 0
 for item in SCHEDULE.get("releases", []):
-    assert item.get("artist") and item.get("title") and item.get("releaseLocal")
+    assert item.get("artist") and item.get("title") and item.get("group") and item.get("releaseLocal")
     assert item.get("artistPath") and item.get("releaseSlug")
     assert "releaseAt" not in item, "releaseAt is derived and must not be hand-maintained"
     assert "scheduleSource" not in item, "per-artist schedule sources are no longer allowed"

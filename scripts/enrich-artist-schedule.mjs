@@ -100,7 +100,7 @@ for (const item of schedules) {
 
   let html = cleanLegacySchedule(fs.readFileSync(pagePath, "utf8"));
   const block = scheduleBlock(item, artist.genre || "NextGen Sessions", defaultTimezone, now);
-  const hero = /(<section\s+class="profile-hero"\b[\s\S]*?<\/section>)/i;
+  const hero = /(<section\s+class="profile-hero"[^>]*>[\s\S]*?<\/section>)/i;
   if (!hero.test(html)) throw new Error(`Artist hero missing for scheduled release: ${relativePath}`);
   html = html.replace(hero, `$1\n\n    ${block}`);
   html = ensureAssets(html);

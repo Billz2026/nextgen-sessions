@@ -18,6 +18,8 @@ on:
       - "scripts/render-artists.mjs"
       - "scripts/render-artist-index.mjs"
       - "scripts/render-genres.mjs"
+      - "scripts/build-search-index.mjs"
+      - "scripts/test-site-search.mjs"
       - "scripts/normalize-primary-nav.py"
       - "scripts/normalize-seo-domain.py"
       - "scripts/normalize-schema-graph.mjs"
@@ -50,6 +52,10 @@ on:
       - "index.html"
       - "mixes/**"
       - "mixes.json"
+      - "search/**"
+      - "search.js"
+      - "search.css"
+      - "search-index.json"
       - "mobile-nav.css"
       - "mobile-nav.js"
       - "conversion-funnel.css"
@@ -110,6 +116,9 @@ jobs:
       - name: Render crawlable genre discovery pages
         run: node scripts/render-genres.mjs
 
+      - name: Build universal site search index
+        run: node scripts/build-search-index.mjs
+
       - name: Sync homepage static fallback
         run: python3 scripts/sync-homepage-fallback.py releases.json
 
@@ -148,6 +157,9 @@ jobs:
 
       - name: Validate related artist discovery
         run: node scripts/test-release-related-artists.mjs
+
+      - name: Validate universal site search
+        run: node scripts/test-site-search.mjs
 
       - name: Validate crawlable artist profiles
         run: node scripts/test-artist-static-render.mjs

@@ -13,6 +13,9 @@ const LANES = {
     groups: ["Dancehall"],
     artistTerms: ["dancehall"],
     searchGrowth: {
+      searchTitle: "New Dancehall Music & Artists 2026 | NextGen Sessions",
+      searchDescription:
+        "Discover new independent dancehall artists and original 2026 music on NextGen Sessions, from Jamaican gully records and melodic dancehall to bashment mixes.",
       heroCopy:
         "Discover new independent dancehall artists and original 2026 releases across NextGen Sessions, from melodic Jamaican records and bashment movement to harder gullyside pressure.",
       eyebrow: "New dancehall music 2026",
@@ -106,6 +109,52 @@ function relatedCards(currentSlug) {
     .join("");
 }
 
+function applySearchMetadata(html, slug, growth) {
+  const title = esc(growth.searchTitle);
+  const description = esc(growth.searchDescription);
+  let nextHtml = html;
+
+  const titlePattern = /<title>[\s\S]*?<\/title>/i;
+  if (!titlePattern.test(nextHtml)) throw new Error(`Missing title on ${slug}`);
+  nextHtml = nextHtml.replace(titlePattern, `<title>${title}</title>`);
+
+  const descriptionPattern = /<meta\s+name="description"\s+content="[^"]*"\s*\/?\s*>/i;
+  if (!descriptionPattern.test(nextHtml)) throw new Error(`Missing meta description on ${slug}`);
+  nextHtml = nextHtml.replace(descriptionPattern, `<meta name="description" content="${description}">`);
+
+  const ogTitlePattern = /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?\s*>/i;
+  if (ogTitlePattern.test(nextHtml)) {
+    nextHtml = nextHtml.replace(ogTitlePattern, `<meta property="og:title" content="${title}">`);
+  }
+
+  const ogDescriptionPattern = /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?\s*>/i;
+  if (ogDescriptionPattern.test(nextHtml)) {
+    nextHtml = nextHtml.replace(ogDescriptionPattern, `<meta property="og:description" content="${description}">`);
+  }
+
+  const twitterTitle = `<meta name="twitter:title" content="${title}">`;
+  const twitterDescription = `<meta name="twitter:description" content="${description}">`;
+  const twitterTitlePattern = /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?\s*>/i;
+  const twitterDescriptionPattern = /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?\s*>/i;
+  if (twitterTitlePattern.test(nextHtml)) nextHtml = nextHtml.replace(twitterTitlePattern, twitterTitle);
+  if (twitterDescriptionPattern.test(nextHtml)) nextHtml = nextHtml.replace(twitterDescriptionPattern, twitterDescription);
+
+  if (!twitterTitlePattern.test(nextHtml) || !twitterDescriptionPattern.test(nextHtml)) {
+    const twitterCardPattern = /<meta\s+name="twitter:card"\s+content="[^"]*"\s*\/?\s*>/i;
+    const card = nextHtml.match(twitterCardPattern)?.[0];
+    if (!card) throw new Error(`Missing twitter:card on ${slug}`);
+    const additions = [
+      twitterTitlePattern.test(nextHtml) ? "" : twitterTitle,
+      twitterDescriptionPattern.test(nextHtml) ? "" : twitterDescription,
+    ]
+      .filter(Boolean)
+      .join("");
+    nextHtml = nextHtml.replace(card, card + additions);
+  }
+
+  return nextHtml;
+}
+
 function searchGrowthSection(slug, growth) {
   const cards = growth.cards
     .map(
@@ -120,9 +169,10 @@ function applySearchGrowth(html, slug, lane) {
   const growth = lane.searchGrowth;
   if (!growth) return html;
 
+  let nextHtml = applySearchMetadata(html, slug, growth);
   const heroCopyPattern = /<p\s+class="hero-copy">[\s\S]*?<\/p>/i;
-  if (!heroCopyPattern.test(html)) throw new Error(`Missing hero copy on ${slug}`);
-  let nextHtml = html.replace(heroCopyPattern, `<p class="hero-copy">${esc(growth.heroCopy)}</p>`);
+  if (!heroCopyPattern.test(nextHtml)) throw new Error(`Missing hero copy on ${slug}`);
+  nextHtml = nextHtml.replace(heroCopyPattern, `<p class="hero-copy">${esc(growth.heroCopy)}</p>`);
 
   const section = searchGrowthSection(slug, growth);
   const existingSection = new RegExp(

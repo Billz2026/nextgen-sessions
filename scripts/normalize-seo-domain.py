@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import html
 import re
 from pathlib import Path
 
@@ -16,8 +17,33 @@ OLD_ORIGINS = (
     "http://nextgensessions.com",
 )
 
+CTR_METADATA = {
+    "index.html": {
+        "title": "NextGen Sessions | New UK Rap, Dancehall, Hip-Hop & R&B",
+        "description": "Discover and listen to new UK rap, dancehall, hip-hop, R&B and reggae from independent NextGen Sessions artists, releases and mixes.",
+    },
+    "releases/reeko-after-di-party/index.html": {
+        "title": "Reeko – After Di Party | Dancehall 2026 | NextGen Sessions",
+        "description": "Listen to Reeko – After Di Party, a 2026 dancehall release on NextGen Sessions. Watch the full video, explore Reeko and discover more dancehall.",
+    },
+    "artists/alonzo-ray/index.html": {
+        "title": "Alonzo Ray | West Coast Hip-Hop Artist | NextGen Sessions",
+        "description": "Discover Alonzo Ray, a West Coast hip-hop artist on NextGen Sessions. Explore the Seasoned project and releases including Pasadena and All In My Name.",
+    },
+    "mixes/index.html": {
+        "title": "UK Rap, Dancehall & Hip-Hop Mixes | NextGen Sessions",
+        "description": "Play UK rap, dancehall, grime and hip-hop mixes on NextGen Sessions, including long-form mashups, summer sessions and curated genre collections.",
+    },
+}
+
 CANONICAL_RE = re.compile(r'<link\s+rel="canonical"\s+href="[^"]*"\s*/?>', re.IGNORECASE)
 OG_URL_RE = re.compile(r'<meta\s+property="og:url"\s+content="[^"]*"\s*/?>', re.IGNORECASE)
+TITLE_RE = re.compile(r'<title>[\s\S]*?</title>', re.IGNORECASE)
+DESCRIPTION_RE = re.compile(r'<meta\s+name="description"\s+content="[^"]*"\s*/?>', re.IGNORECASE)
+OG_TITLE_RE = re.compile(r'<meta\s+property="og:title"\s+content="[^"]*"\s*/?>', re.IGNORECASE)
+OG_DESCRIPTION_RE = re.compile(r'<meta\s+property="og:description"\s+content="[^"]*"\s*/?>', re.IGNORECASE)
+TWITTER_TITLE_RE = re.compile(r'<meta\s+name="twitter:title"\s+content="[^"]*"\s*/?>', re.IGNORECASE)
+TWITTER_DESCRIPTION_RE = re.compile(r'<meta\s+name="twitter:description"\s+content="[^"]*"\s*/?>', re.IGNORECASE)
 
 
 def public_path(relative: Path) -> str:
@@ -50,6 +76,28 @@ def insert_after_description(source: str, tag: str) -> str:
     return source[: head.end()] + "\n  " + tag + source[head.end() :]
 
 
+def apply_ctr_metadata(relative: Path, source: str) -> str:
+    rule = CTR_METADATA.get(relative.as_posix())
+    if not rule:
+        return source
+
+    title = html.escape(rule["title"], quote=False)
+    description = html.escape(rule["description"], quote=True)
+    replacements = (
+        (TITLE_RE, f"<title>{title}</title>"),
+        (DESCRIPTION_RE, f'<meta name="description" content="{description}">'),
+        (OG_TITLE_RE, f'<meta property="og:title" content="{title}">'),
+        (OG_DESCRIPTION_RE, f'<meta property="og:description" content="{description}">'),
+        (TWITTER_TITLE_RE, f'<meta name="twitter:title" content="{title}">'),
+        (TWITTER_DESCRIPTION_RE, f'<meta name="twitter:description" content="{description}">'),
+    )
+    next_source = source
+    for pattern, replacement in replacements:
+        if pattern.search(next_source):
+            next_source = pattern.sub(replacement, next_source, count=1)
+    return next_source
+
+
 def normalize_html(path: Path) -> bool:
     relative = path.relative_to(ROOT)
     source = path.read_text(encoding="utf-8")
@@ -79,6 +127,8 @@ def normalize_html(path: Path) -> bool:
             next_source = next_source[: canonical_match.end()] + "\n  " + og_tag + next_source[canonical_match.end() :]
         else:
             next_source = insert_after_description(next_source, og_tag)
+
+    next_source = apply_ctr_metadata(relative, next_source)
 
     if next_source == source:
         return False
@@ -135,7 +185,7 @@ def main() -> None:
 
     if not scanned:
         raise SystemExit("No public site HTML pages were found for canonical normalization")
-    print(f"Canonical production origin normalized across {scanned} HTML pages; changed {changed} file(s).")
+    print(f"Canonical production origin and CTR metadata normalized across {scanned} HTML pages; changed {changed} file(s).")
 
 
 if __name__ == "__main__":

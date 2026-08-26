@@ -8,7 +8,27 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const LANES = {
   "uk-rap-grime": { name: "UK Rap & Grime", groups: ["UK Rap & Grime"], artistTerms: ["uk rap", "grime"] },
   "hip-hop-g-funk": { name: "Hip-Hop & G-Funk", groups: ["Hip-Hop / G-Funk"], artistTerms: ["hip-hop", "g-funk"] },
-  dancehall: { name: "Dancehall", groups: ["Dancehall"], artistTerms: ["dancehall"] },
+  dancehall: {
+    name: "Dancehall",
+    groups: ["Dancehall"],
+    artistTerms: ["dancehall"],
+    searchGrowth: {
+      searchTitle: "New Dancehall Music & Artists 2026 | NextGen Sessions",
+      searchDescription:
+        "Discover new independent dancehall artists and original 2026 music on NextGen Sessions, from Jamaican gully records and melodic dancehall to bashment mixes.",
+      heroCopy:
+        "Discover new independent dancehall artists and original 2026 releases across NextGen Sessions, from melodic Jamaican records and bashment movement to harder gullyside pressure.",
+      eyebrow: "New dancehall music 2026",
+      title: "Discover independent dancehall artists and original 2026 releases.",
+      body:
+        "NextGen Sessions brings new dancehall music, artist profiles and full-length releases into one independent catalogue. Move from melodic Jamaican records and bashment energy into gullyside pressure and harder street cuts, then continue into long-form Dancehall mixes.",
+      cards: [
+        { href: "/artists/kemarco/", label: "Dancehall artist", title: "Kemarco" },
+        { href: "/artists/reeko/", label: "Dancehall artist", title: "Reeko" },
+        { href: "/mixes/dancehall-mashups/", label: "Long-form listening", title: "Dancehall Mix 2026" },
+      ],
+    },
+  },
   "reggae-lovers-rock": { name: "Reggae & Lovers Rock", groups: ["Reggae", "Lovers Rock"], artistTerms: ["reggae", "lovers rock"] },
   "rnb-soul": { name: "R&B & Soul", groups: ["R&B & Soul"], artistTerms: ["r&b"] },
   "global-sounds": { name: "Global Sounds", groups: ["Asian", "Arabic", "Late Night Afro", "Late Night Vibes"], artistTerms: ["punjabi", "south asian", "arabic", "afro"] },
@@ -89,6 +109,83 @@ function relatedCards(currentSlug) {
     .join("");
 }
 
+function applySearchMetadata(html, slug, growth) {
+  const title = esc(growth.searchTitle);
+  const description = esc(growth.searchDescription);
+  let nextHtml = html;
+
+  const titlePattern = /<title>[\s\S]*?<\/title>/i;
+  if (!titlePattern.test(nextHtml)) throw new Error(`Missing title on ${slug}`);
+  nextHtml = nextHtml.replace(titlePattern, `<title>${title}</title>`);
+
+  const descriptionPattern = /<meta\s+name="description"\s+content="[^"]*"\s*\/?\s*>/i;
+  if (!descriptionPattern.test(nextHtml)) throw new Error(`Missing meta description on ${slug}`);
+  nextHtml = nextHtml.replace(descriptionPattern, `<meta name="description" content="${description}">`);
+
+  const ogTitlePattern = /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?\s*>/i;
+  if (ogTitlePattern.test(nextHtml)) {
+    nextHtml = nextHtml.replace(ogTitlePattern, `<meta property="og:title" content="${title}">`);
+  }
+
+  const ogDescriptionPattern = /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?\s*>/i;
+  if (ogDescriptionPattern.test(nextHtml)) {
+    nextHtml = nextHtml.replace(ogDescriptionPattern, `<meta property="og:description" content="${description}">`);
+  }
+
+  const twitterTitle = `<meta name="twitter:title" content="${title}">`;
+  const twitterDescription = `<meta name="twitter:description" content="${description}">`;
+  const twitterTitlePattern = /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?\s*>/i;
+  const twitterDescriptionPattern = /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?\s*>/i;
+  if (twitterTitlePattern.test(nextHtml)) nextHtml = nextHtml.replace(twitterTitlePattern, twitterTitle);
+  if (twitterDescriptionPattern.test(nextHtml)) nextHtml = nextHtml.replace(twitterDescriptionPattern, twitterDescription);
+
+  if (!twitterTitlePattern.test(nextHtml) || !twitterDescriptionPattern.test(nextHtml)) {
+    const twitterCardPattern = /<meta\s+name="twitter:card"\s+content="[^"]*"\s*\/?\s*>/i;
+    const card = nextHtml.match(twitterCardPattern)?.[0];
+    if (!card) throw new Error(`Missing twitter:card on ${slug}`);
+    const additions = [
+      twitterTitlePattern.test(nextHtml) ? "" : twitterTitle,
+      twitterDescriptionPattern.test(nextHtml) ? "" : twitterDescription,
+    ]
+      .filter(Boolean)
+      .join("");
+    nextHtml = nextHtml.replace(card, card + additions);
+  }
+
+  return nextHtml;
+}
+
+function searchGrowthSection(slug, growth) {
+  const cards = growth.cards
+    .map(
+      (card) =>
+        `<a class="genre-related-card" href="${esc(card.href)}"><span>${esc(card.label)}</span><strong>${esc(card.title)}</strong></a>`,
+    )
+    .join("");
+  return `<section class="genre-hub-section" aria-labelledby="${esc(slug)}-search-growth-title" data-search-growth="${esc(slug)}"><div class="section-heading"><p class="eyebrow">${esc(growth.eyebrow)}</p><h2 id="${esc(slug)}-search-growth-title">${esc(growth.title)}</h2><p>${esc(growth.body)}</p></div><div class="genre-related-grid">${cards}</div></section>`;
+}
+
+function applySearchGrowth(html, slug, lane) {
+  const growth = lane.searchGrowth;
+  if (!growth) return html;
+
+  let nextHtml = applySearchMetadata(html, slug, growth);
+  const heroCopyPattern = /<p\s+class="hero-copy">[\s\S]*?<\/p>/i;
+  if (!heroCopyPattern.test(nextHtml)) throw new Error(`Missing hero copy on ${slug}`);
+  nextHtml = nextHtml.replace(heroCopyPattern, `<p class="hero-copy">${esc(growth.heroCopy)}</p>`);
+
+  const section = searchGrowthSection(slug, growth);
+  const existingSection = new RegExp(
+    `<section\\b[^>]*data-search-growth=["']${slug}["'][^>]*>[\\s\\S]*?<\\/section>`,
+    "i",
+  );
+  if (existingSection.test(nextHtml)) return nextHtml.replace(existingSection, section);
+
+  const heroSection = /(<section\b[^>]*class=["'][^"']*genre-hub-hero[^"']*["'][^>]*>[\s\S]*?<\/section>)/i;
+  if (!heroSection.test(nextHtml)) throw new Error(`Missing genre hero section on ${slug}`);
+  return nextHtml.replace(heroSection, `$1\n${section}`);
+}
+
 function replaceElementContents(html, marker, replacement) {
   const markerIndex = html.indexOf(marker);
   if (markerIndex < 0) throw new Error(`Missing marker ${marker}`);
@@ -148,6 +245,8 @@ function renderHub(slug, lane, releases, artists, images) {
     heroImagePattern,
     `<img data-genre-hero-image src="/api/release-image?id=${encodeURIComponent(latest.id)}" alt="${esc(latest.title)} by ${esc(latest.artist)}">`,
   );
+
+  html = applySearchGrowth(html, slug, lane);
 
   const releaseMarkup = laneItems.slice(0, 8).map(releaseCard).join("");
   const artistMarkup = lanePeople.map((artist) => artistCard(artist, images)).join("");

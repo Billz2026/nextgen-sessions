@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Search Artists, Releases & Mixes | NextGen Sessions</title>
+  <meta name="description" content="Search the NextGen Sessions catalogue across artists, full releases, genre hubs and long-form mixes.">
+  <link rel="canonical" href="https://nextgensessions.com/search/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Search NextGen Sessions">
+  <meta property="og:description" content="Find artists, releases, genres and mixes across the NextGen Sessions catalogue.">
+  <meta property="og:url" content="https://nextgensessions.com/search/">
+  <meta property="og:image" content="https://nextgensessions.com/assets/nextgen-social-card.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#080808">
+  <link rel="icon" type="image/svg+xml" href="/assets/nextgen-favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/styles.css?v=20260809-header1">
+  <link rel="stylesheet" href="/search.css?v=20260826-search1">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to search</a>
+<header class="site-header"><div class="header-inner"><a class="brand" href="/" aria-label="NextGen Sessions home"><img src="/assets/nextgen-header-wordmark-2026.webp" width="1600" height="663" alt="NextGen Sessions"></a><nav class="nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/artists/">Artists</a><a href="/releases/">Releases</a><a href="/genres/">Genres</a><a href="/mixes/">Mixes</a><a aria-current="page" href="/search/">Search</a><a href="/#about">About</a><a href="/submit.html">Submit</a><a class="nav-cta" href="https://www.youtube.com/@NextGenSessions" target="_blank" rel="noopener">YouTube</a></nav></div></header>
+
+<main id="main-content" class="site-search-page" data-site-search="true">
+  <section class="site-search-hero" aria-labelledby="search-title">
+    <p class="eyebrow">Universal catalogue search</p>
+    <h1 id="search-title">Find the artist. Find the track. Keep listening.</h1>
+    <p class="hero-copy">Search the full NextGen Sessions catalogue across artists, releases, genre hubs and long-form mixes.</p>
+
+    <form class="site-search-form" id="siteSearchForm" role="search" action="/search/" method="get">
+      <label class="sr-only" for="siteSearchInput">Search NextGen Sessions</label>
+      <div class="site-search-input-shell">
+        <span class="site-search-icon" aria-hidden="true"></span>
+        <input id="siteSearchInput" name="q" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Try “Renz Cole”, “dancehall” or “Heatwave”…" aria-describedby="search-hint" aria-controls="siteSearchResults">
+        <button class="site-search-submit" type="submit">Search</button>
+      </div>
+      <p id="search-hint" class="site-search-hint">Tip: press <kbd>/</kbd> to focus search. Use ↑ and ↓ to move through results.</p>
+    </form>
+
+    <div class="site-search-filters" id="siteSearchFilters" aria-label="Filter search results">
+      <button type="button" class="search-filter is-active" data-search-filter="all" aria-pressed="true">All</button>
+      <button type="button" class="search-filter" data-search-filter="artist" aria-pressed="false">Artists</button>
+      <button type="button" class="search-filter" data-search-filter="release" aria-pressed="false">Releases</button>
+      <button type="button" class="search-filter" data-search-filter="genre" aria-pressed="false">Genres</button>
+      <button type="button" class="search-filter" data-search-filter="mix" aria-pressed="false">Mixes</button>
+    </div>
+  </section>
+
+  <section class="site-search-results-section" aria-labelledby="search-results-title">
+    <div class="site-search-results-heading">
+      <div>
+        <p class="eyebrow">Catalogue results</p>
+        <h2 id="search-results-title">Search results</h2>
+      </div>
+      <p id="siteSearchStatus" class="site-search-status" role="status" aria-live="polite">Loading catalogue…</p>
+    </div>
+    <div id="siteSearchResults" class="site-search-results" aria-live="polite"></div>
+    <noscript><p class="site-search-empty">JavaScript is required for live catalogue search. You can still browse <a href="/artists/">artists</a>, <a href="/releases/">releases</a>, <a href="/genres/">genres</a> and <a href="/mixes/">mixes</a>.</p></noscript>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="footer-inner"><div>© 2026 NextGen Sessions. Original music and independent artists.</div><div class="footer-links"><a href="/artists/">Artists</a><a href="/releases/">Releases</a><a href="/genres/">Genres</a><a href="/mixes/">Mixes</a><a aria-current="page" href="/search/">Search</a><a href="/privacy/">Privacy</a><a href="mailto:contact@nextgensessions.com">Contact</a></div></div></footer>
+<script src="/search.js?v=20260826-search1" defer></script>
+<script src="/site-metrics.js" defer></script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import html
 import re
 from pathlib import Path
 
@@ -16,10 +17,33 @@ FORBIDDEN = (
     "http://www.nextgensessions.com",
 )
 
+CTR_EXPECTED = {
+    "index.html": (
+        "NextGen Sessions | New UK Rap, Dancehall, Hip-Hop & R&B",
+        "Discover and listen to new UK rap, dancehall, hip-hop, R&B and reggae from independent NextGen Sessions artists, releases and mixes.",
+    ),
+    "releases/reeko-after-di-party/index.html": (
+        "Reeko – After Di Party | Dancehall 2026 | NextGen Sessions",
+        "Listen to Reeko – After Di Party, a 2026 dancehall release on NextGen Sessions. Watch the full video, explore Reeko and discover more dancehall.",
+    ),
+    "artists/alonzo-ray/index.html": (
+        "Alonzo Ray | West Coast Hip-Hop Artist | NextGen Sessions",
+        "Discover Alonzo Ray, a West Coast hip-hop artist on NextGen Sessions. Explore the Seasoned project and releases including Pasadena and All In My Name.",
+    ),
+    "mixes/index.html": (
+        "UK Rap, Dancehall & Hip-Hop Mixes | NextGen Sessions",
+        "Play UK rap, dancehall, grime and hip-hop mixes on NextGen Sessions, including long-form mashups, summer sessions and curated genre collections.",
+    ),
+}
+
 CANONICAL_RE = re.compile(r'<link\s+rel="canonical"\s+href="([^"]+)"\s*/?>', re.IGNORECASE)
 OG_URL_RE = re.compile(r'<meta\s+property="og:url"\s+content="([^"]+)"\s*/?>', re.IGNORECASE)
 LOC_RE = re.compile(r'<loc>([^<]+)</loc>', re.IGNORECASE)
 ROBOTS_SITEMAP_RE = re.compile(r'^Sitemap:\s*(\S+)\s*$', re.IGNORECASE | re.MULTILINE)
+TITLE_RE = re.compile(r'<title>([\s\S]*?)</title>', re.IGNORECASE)
+DESCRIPTION_RE = re.compile(r'<meta\s+name="description"\s+content="([^"]*)"\s*/?>', re.IGNORECASE)
+OG_TITLE_RE = re.compile(r'<meta\s+property="og:title"\s+content="([^"]*)"\s*/?>', re.IGNORECASE)
+TWITTER_TITLE_RE = re.compile(r'<meta\s+name="twitter:title"\s+content="([^"]*)"\s*/?>', re.IGNORECASE)
 
 
 def public_path(relative: Path) -> str:
@@ -37,6 +61,12 @@ def assert_no_forbidden(path: Path, source: str) -> None:
         assert value not in source, f"Legacy/non-canonical production host found in {path.relative_to(ROOT)}: {value}"
 
 
+def decoded_match(pattern: re.Pattern[str], source: str, label: str, relative: str) -> str:
+    match = pattern.search(source)
+    assert match, f"Missing {label} in {relative}"
+    return html.unescape(match.group(1)).strip()
+
+
 checked = 0
 for path in sorted(ROOT.rglob("*.html")):
     if ".git" in path.parts:
@@ -45,7 +75,8 @@ for path in sorted(ROOT.rglob("*.html")):
     if 'class="site-header"' not in source:
         continue
     assert_no_forbidden(path, source)
-    if path.relative_to(ROOT).as_posix() == "404.html":
+    relative = path.relative_to(ROOT).as_posix()
+    if relative == "404.html":
         continue
 
     expected = ORIGIN + public_path(path.relative_to(ROOT))
@@ -53,6 +84,18 @@ for path in sorted(ROOT.rglob("*.html")):
     og_urls = OG_URL_RE.findall(source)
     assert canonical == [expected], f"Canonical mismatch in {path.relative_to(ROOT)}: {canonical}, expected {expected}"
     assert og_urls == [expected], f"og:url mismatch in {path.relative_to(ROOT)}: {og_urls}, expected {expected}"
+
+    if relative in CTR_EXPECTED:
+        expected_title, expected_description = CTR_EXPECTED[relative]
+        title = decoded_match(TITLE_RE, source, "title", relative)
+        description = decoded_match(DESCRIPTION_RE, source, "meta description", relative)
+        og_title = decoded_match(OG_TITLE_RE, source, "og:title", relative)
+        twitter_title = decoded_match(TWITTER_TITLE_RE, source, "twitter:title", relative)
+        assert title == expected_title, f"CTR title reverted in {relative}: {title!r}"
+        assert description == expected_description, f"CTR description reverted in {relative}: {description!r}"
+        assert og_title == expected_title, f"CTR og:title reverted in {relative}: {og_title!r}"
+        assert twitter_title == expected_title, f"CTR twitter:title reverted in {relative}: {twitter_title!r}"
+
     checked += 1
 
 assert checked >= 100, f"Unexpectedly few canonical pages checked: {checked}"
@@ -114,5 +157,5 @@ assert 'hostname === "nextgensessions.com"' in analytics_source, "Analytics sour
 print(
     f"SEO domain audit passed: {checked} canonical HTML pages, {len(sitemap_files)} sitemap files / "
     f"{len(all_locations)} sitemap URLs, and {len(set(runtime_files))} runtime text files use the canonical production domain; "
-    "the old Pages hostname remains only as a 301 redirect target detector."
+    f"{len(CTR_EXPECTED)} Search Console CTR targets are locked; the old Pages hostname remains only as a 301 redirect target detector."
 )

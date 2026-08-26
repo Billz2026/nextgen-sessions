@@ -70,7 +70,27 @@ const LANES = {
       ],
     },
   },
-  "rnb-soul": { name: "R&B & Soul", groups: ["R&B & Soul"], artistTerms: ["r&b"] },
+  "rnb-soul": {
+    name: "R&B & Soul",
+    groups: ["R&B & Soul"],
+    artistTerms: ["r&b"],
+    searchGrowth: {
+      searchTitle: "New R&B Music & Artists 2026 | NextGen Sessions",
+      searchDescription:
+        "Discover new independent R&B artists and original 2026 releases on NextGen Sessions, from late-night contemporary R&B to polished soul and emotionally precise songwriting.",
+      heroCopy:
+        "Discover new independent R&B artists and original 2026 releases across NextGen Sessions, from late-night contemporary R&B and polished vocals to modern soul and emotionally precise songwriting.",
+      eyebrow: "New R&B music 2026",
+      title: "Discover independent R&B artists and original 2026 releases.",
+      body:
+        "NextGen Sessions brings new R&B music, artist profiles and full-length releases into one focused catalogue. Move from late-night relationship writing and smooth contemporary vocals into confident boundary-setting, melodic soul and modern crossover records.",
+      cards: [
+        { href: "/artists/alia-bleu/", label: "R&B artist", title: "Alia Bleu" },
+        { href: "/artists/nyah-rae/", label: "R&B artist", title: "Nyah Rae" },
+        { href: "/artists/zara-veli/", label: "R&B artist", title: "Zara Veli" },
+      ],
+    },
+  },
   "global-sounds": { name: "Global Sounds", groups: ["Asian", "Arabic", "Late Night Afro", "Late Night Vibes"], artistTerms: ["punjabi", "south asian", "arabic", "afro"] },
 };
 

@@ -68,6 +68,15 @@ for slug, lane in LANES.items():
         assert f'href="/genres/{other}/"' in html, f"{slug} is missing related genre {other}"
 
     if slug == "dancehall":
+        expected_title = "New Dancehall Music &amp; Artists 2026 | NextGen Sessions"
+        expected_description = (
+            "Discover new independent dancehall artists and original 2026 music on NextGen Sessions, "
+            "from Jamaican gully records and melodic dancehall to bashment mixes."
+        )
+        assert f"<title>{expected_title}</title>" in html, "Dancehall search title is stale"
+        assert f'content="{expected_description}"' in html, "Dancehall search description is stale"
+        assert f'property="og:title" content="{expected_title}"' in html, "Dancehall Open Graph title is stale"
+        assert f'name="twitter:title" content="{expected_title}"' in html, "Dancehall Twitter title is missing or stale"
         assert 'data-search-growth="dancehall"' in html, "Dancehall search-growth section is missing"
         assert "Discover new independent dancehall artists" in html, "Dancehall hero does not target artist discovery"
         assert "New dancehall music 2026" in html, "Dancehall 2026 discovery context is missing"

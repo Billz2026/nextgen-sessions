@@ -1,0 +1,73 @@
+name: Validate Analytics System
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/validate-analytics.yml"
+      - "functions/_lib/analytics.js"
+      - "functions/_lib/dashboard-auth.js"
+      - "functions/api/events.js"
+      - "functions/api/analytics-login.js"
+      - "functions/api/analytics-logout.js"
+      - "functions/api/analytics-summary.js"
+      - "functions/api/trending.js"
+      - "site-metrics.js"
+      - "weekly-feed.js"
+      - "trending.js"
+      - "trending.css"
+      - "analytics-dashboard.js"
+      - "analytics-dashboard.css"
+      - "ops/analytics/**"
+      - "privacy/**"
+      - "README.md"
+      - "scripts/test-analytics-system.mjs"
+  pull_request:
+    paths:
+      - ".github/workflows/validate-analytics.yml"
+      - "functions/_lib/analytics.js"
+      - "functions/_lib/dashboard-auth.js"
+      - "functions/api/events.js"
+      - "functions/api/analytics-login.js"
+      - "functions/api/analytics-logout.js"
+      - "functions/api/analytics-summary.js"
+      - "functions/api/trending.js"
+      - "site-metrics.js"
+      - "weekly-feed.js"
+      - "trending.js"
+      - "trending.css"
+      - "analytics-dashboard.js"
+      - "analytics-dashboard.css"
+      - "ops/analytics/**"
+      - "privacy/**"
+      - "README.md"
+      - "scripts/test-analytics-system.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check functions/_lib/analytics.js
+          node --check functions/_lib/dashboard-auth.js
+          node --check functions/api/events.js
+          node --check functions/api/analytics-login.js
+          node --check functions/api/analytics-logout.js
+          node --check functions/api/analytics-summary.js
+          node --check functions/api/trending.js
+          node --check site-metrics.js
+          node --check weekly-feed.js
+          node --check trending.js
+          node --check analytics-dashboard.js
+          node --check scripts/test-analytics-system.mjs
+
+      - name: Validate analytics architecture
+        run: node scripts/test-analytics-system.mjs

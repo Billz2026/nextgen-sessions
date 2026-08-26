@@ -6,7 +6,27 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const LANES = {
-  "uk-rap-grime": { name: "UK Rap & Grime", groups: ["UK Rap & Grime"], artistTerms: ["uk rap", "grime"] },
+  "uk-rap-grime": {
+    name: "UK Rap & Grime",
+    groups: ["UK Rap & Grime"],
+    artistTerms: ["uk rap", "grime"],
+    searchGrowth: {
+      searchTitle: "New UK Rap Music & Artists 2026 | NextGen Sessions",
+      searchDescription:
+        "Discover new independent UK rap artists and original 2026 music on NextGen Sessions, from London rap and melodic records to estate storytelling and grime.",
+      heroCopy:
+        "Discover new independent UK rap artists and original 2026 releases across NextGen Sessions, from modern London rap and melody to estate storytelling and grime pressure.",
+      eyebrow: "New UK rap music 2026",
+      title: "Discover independent UK rap artists and original 2026 releases.",
+      body:
+        "NextGen Sessions brings new UK rap music, artist profiles and full-length releases into one independent catalogue. Move from melodic London rap and summer records into estate storytelling and higher-pressure grime, then continue into the long-form UK Rap Mix 2026.",
+      cards: [
+        { href: "/artists/renz-cole/", label: "UK rap artist", title: "Renz Cole" },
+        { href: "/artists/reiss/", label: "UK rap artist", title: "Reiss" },
+        { href: "/mixes/uk-rap-mashup-series-1/", label: "Long-form listening", title: "UK Rap Mix 2026" },
+      ],
+    },
+  },
   "hip-hop-g-funk": { name: "Hip-Hop & G-Funk", groups: ["Hip-Hop / G-Funk"], artistTerms: ["hip-hop", "g-funk"] },
   dancehall: {
     name: "Dancehall",

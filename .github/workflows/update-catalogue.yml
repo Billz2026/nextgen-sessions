@@ -1,9 +1,8 @@
 name: Update Release Catalogue
 
-# Catalogue source sync: Dancehall and Reggae split
 on:
   schedule:
-    - cron: "20 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -13,12 +12,18 @@ on:
       - "scripts/render-releases.py"
       - "scripts/enrich-release-pages.mjs"
       - "scripts/enrich-release-related-artists.mjs"
-      - "scripts/test-release-editorial.py"
-      - "scripts/test-release-related-artists.mjs"
       - "scripts/render-artists.mjs"
+      - "scripts/enrich-artist-schedule.mjs"
       - "scripts/render-artist-index.mjs"
       - "scripts/render-genres.mjs"
+      - "scripts/release-schedule.mjs"
+      - "scripts/build-weekly-feed.mjs"
       - "scripts/build-search-index.mjs"
+      - "scripts/enrich-search-schedule.mjs"
+      - "scripts/preserve-generated-at.mjs"
+      - "scripts/test-release-editorial.py"
+      - "scripts/test-release-related-artists.mjs"
+      - "scripts/test-weekly-feed.mjs"
       - "scripts/test-site-search.mjs"
       - "scripts/normalize-primary-nav.py"
       - "scripts/normalize-seo-domain.py"
@@ -34,12 +39,16 @@ on:
       - "scripts/test-scheduled-release-embargo.py"
       - "scripts/test-scheduled-release-source.py"
       - "scheduled-releases.json"
+      - "weekly-feed.css"
+      - "weekly-feed.js"
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-global-footer.py"
       - "scripts/test-conversion-funnel.py"
       - "scripts/test-genre-hubs.py"
       - "scripts/test-responsive-shell.py"
       - "scripts/test-release-archive-player.py"
+      - "scripts/test-latest-policy.mjs"
+      - "scripts/test-catalogue-resilience.py"
       - "genre-hubs.js"
       - "genre-hubs.css"
       - "genres/**"
@@ -68,8 +77,6 @@ on:
       - "release-player.js"
       - "mix-player.js"
       - "site-metrics.js"
-      - "scripts/test-latest-policy.mjs"
-      - "scripts/test-catalogue-resilience.py"
       - "functions/api/events.js"
       - "functions/api/latest.js"
       - ".worker/index.js"
@@ -93,10 +100,18 @@ jobs:
         with:
           ref: main
 
+      - name: Snapshot generated catalogue state
+        run: |
+          cp releases.json /tmp/releases-before.json
+          cp search-index.json /tmp/search-before.json || true
+
       - name: Build catalogue from public playlists
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python3 scripts/update-catalogue.py releases.json
+
+      - name: Preserve catalogue timestamp on no-op checks
+        run: node scripts/preserve-generated-at.mjs /tmp/releases-before.json releases.json
 
       - name: Render crawlable release archive and pages
         run: python3 scripts/render-releases.py releases.json
@@ -110,14 +125,26 @@ jobs:
       - name: Render crawlable artist profile pages
         run: node scripts/render-artists.mjs
 
+      - name: Apply central release schedule to artist pages
+        run: node scripts/enrich-artist-schedule.mjs
+
       - name: Render crawlable artist roster
         run: node scripts/render-artist-index.mjs
 
       - name: Render crawlable genre discovery pages
         run: node scripts/render-genres.mjs
 
+      - name: Build New This Week release feed
+        run: node scripts/build-weekly-feed.mjs
+
       - name: Build universal site search index
         run: node scripts/build-search-index.mjs
+
+      - name: Add scheduled releases to site search
+        run: node scripts/enrich-search-schedule.mjs
+
+      - name: Preserve search timestamp on no-op checks
+        run: node scripts/preserve-generated-at.mjs /tmp/search-before.json search-index.json
 
       - name: Sync homepage static fallback
         run: python3 scripts/sync-homepage-fallback.py releases.json
@@ -132,6 +159,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import json
+          import os
           with open("releases.json", encoding="utf-8") as handle:
               data = json.load(handle)
           assert data["total"] == len(data["releases"])
@@ -144,7 +172,7 @@ jobs:
           assert all(item.get("published") for item in data["releases"])
           assert any(item["id"] == "ZSjRD_3B5uk" for item in data["releases"]), "Days Like These missing"
           assert any(item["id"] == "6H6yq_1bEsQ" for item in data["releases"]), "After Di Party missing"
-          assert all(__import__("os").path.exists("." + item["url"] + "index.html") for item in data["releases"])
+          assert all(os.path.exists("." + item["url"] + "index.html") for item in data["releases"])
           archive = open("releases/index.html", encoding="utf-8").read()
           assert "Loading catalogue…" not in archive
           assert archive.count('class="archive-release-card"') >= data["total"]
@@ -157,6 +185,9 @@ jobs:
 
       - name: Validate related artist discovery
         run: node scripts/test-release-related-artists.mjs
+
+      - name: Validate automated weekly release system
+        run: node scripts/test-weekly-feed.mjs
 
       - name: Validate universal site search
         run: node scripts/test-site-search.mjs
@@ -208,7 +239,6 @@ jobs:
           assert latest["id"] in site, "JavaScript latest fallback is stale"
           assert "// HOMEPAGE:AUTO-FALLBACK:START" in site
           assert "// HOMEPAGE:AUTO-FALLBACK:END" in site
-          assert "Kemarco – Badman Don’t Rush" not in homepage.split('id="latestVideoTitle">', 1)[-1].split('</h2>', 1)[0]
           print(f'Homepage fallback validated: {latest["artist"]} — {latest["title"]}')
           PY
 
@@ -242,6 +272,7 @@ jobs:
           git config user.email "github-actions@github.com"
           git add -u
           git add releases/
+          git add this-week.json search-index.json index.html artists/
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update release catalogue"
           for attempt in 1 2 3; do

@@ -67,6 +67,24 @@ for slug, lane in LANES.items():
     for other in related:
         assert f'href="/genres/{other}/"' in html, f"{slug} is missing related genre {other}"
 
+    if slug == "uk-rap-grime":
+        expected_title = "New UK Rap Music &amp; Artists 2026 | NextGen Sessions"
+        expected_description = (
+            "Discover new independent UK rap artists and original 2026 music on NextGen Sessions, "
+            "from London rap and melodic records to estate storytelling and grime."
+        )
+        assert f"<title>{expected_title}</title>" in html, "UK Rap search title is stale"
+        assert f'content="{expected_description}"' in html, "UK Rap search description is stale"
+        assert f'property="og:title" content="{expected_title}"' in html, "UK Rap Open Graph title is stale"
+        assert f'name="twitter:title" content="{expected_title}"' in html, "UK Rap Twitter title is missing or stale"
+        assert 'data-search-growth="uk-rap-grime"' in html, "UK Rap search-growth section is missing"
+        assert "Discover new independent UK rap artists" in html, "UK Rap hero does not target artist discovery"
+        assert "New UK rap music 2026" in html, "UK Rap 2026 discovery context is missing"
+        assert "Discover independent UK rap artists and original 2026 releases." in html, "UK Rap discovery heading is missing"
+        assert 'href="/artists/renz-cole/"' in html, "UK Rap discovery does not route to Renz Cole"
+        assert 'href="/artists/reiss/"' in html, "UK Rap discovery does not route to Reiss"
+        assert 'href="/mixes/uk-rap-mashup-series-1/"' in html, "UK Rap discovery does not route to the UK Rap mix"
+
     if slug == "dancehall":
         expected_title = "New Dancehall Music &amp; Artists 2026 | NextGen Sessions"
         expected_description = (

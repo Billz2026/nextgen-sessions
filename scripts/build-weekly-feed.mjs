@@ -60,7 +60,6 @@ function scheduledItem(schedule, catalogue, artistsByName, imageMap, now, defaul
   const timeZone = schedule.timezone || defaultTimezone;
   const state = stateForSchedule(schedule, catalogue, now, defaultTimezone);
   const live = state.live;
-  const releaseDate = live?.published ? new Date(live.published) : state.releaseAt;
   const artistImage = imageMap[artist.slug]?.src || imageMap[artist.slug]?.portrait || "";
   const releaseUrl = live ? publicReleaseUrl(live) : "";
 
@@ -135,7 +134,7 @@ function renderHomepage(feed) {
   const eyebrow = showingWeek ? "New this week" : "Next up";
   const subcopy = showingWeek
     ? `${feed.weekLabel}. Scheduled releases switch to Out Now only after the public catalogue confirms them.`
-    : `Nothing is scheduled inside the current week. The next confirmed NextGen release is shown below.`;
+    : "Nothing is scheduled inside the current week. The next confirmed NextGen release is shown below.";
   const overflow = feed.items.length > 4
     ? `<div class="button-row weekly-feed-more"><a class="button button-secondary" href="/releases/">View all releases</a></div>`
     : "";
@@ -162,15 +161,15 @@ function updateHomepage(feed) {
   if (marker.test(html)) {
     html = html.replace(marker, block);
   } else {
-    const hero = /(<section\s+class="hero"\b[\s\S]*?<\/section>)/i;
+    const hero = /(<section\s+class="hero"[^>]*>[\s\S]*?<\/section>)/i;
     if (!hero.test(html)) throw new Error("Homepage hero section not found for weekly feed insertion");
     html = html.replace(hero, `$1\n${block}`);
   }
-  if (!html.includes('/weekly-feed.css')) {
-    html = html.replace('</head>', '  <link rel="stylesheet" href="/weekly-feed.css?v=20260826-week1">\n</head>');
+  if (!html.includes("/weekly-feed.css")) {
+    html = html.replace("</head>", '  <link rel="stylesheet" href="/weekly-feed.css?v=20260826-week1">\n</head>');
   }
-  if (!html.includes('/weekly-feed.js')) {
-    html = html.replace('</body>', '<script src="/weekly-feed.js?v=20260826-week1" defer></script>\n</body>');
+  if (!html.includes("/weekly-feed.js")) {
+    html = html.replace("</body>", '<script src="/weekly-feed.js?v=20260826-week1" defer></script>\n</body>');
   }
   fs.writeFileSync(homepagePath, html, "utf8");
 }

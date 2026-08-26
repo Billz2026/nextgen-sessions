@@ -18,6 +18,7 @@ ITEMS = [
     ("Releases", "/releases/"),
     ("Genres", "/genres/"),
     ("Mixes", "/mixes/"),
+    ("Search", "/search/"),
     ("About", "/#about"),
     ("Submit", "/submit.html"),
 ]
@@ -35,6 +36,8 @@ def current_section(relative: Path) -> str | None:
         return "Genres"
     if value.startswith("mixes/"):
         return "Mixes"
+    if value.startswith("search/"):
+        return "Search"
     if value == "submit.html":
         return "Submit"
     return None

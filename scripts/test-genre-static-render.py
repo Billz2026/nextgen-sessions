@@ -121,6 +121,24 @@ for slug, lane in LANES.items():
         assert 'href="/artists/darian-gayle/"' in html, "Reggae/Lovers Rock discovery does not route to Darian Gayle"
         assert 'href="/artists/zion-daley/"' in html, "Reggae/Lovers Rock discovery does not route to Zion Daley"
 
+    if slug == "rnb-soul":
+        expected_title = "New R&amp;B Music &amp; Artists 2026 | NextGen Sessions"
+        expected_description = (
+            "Discover new independent R&amp;B artists and original 2026 releases on NextGen Sessions, "
+            "from late-night contemporary R&amp;B to polished soul and emotionally precise songwriting."
+        )
+        assert f"<title>{expected_title}</title>" in html, "R&B search title is stale"
+        assert f'content="{expected_description}"' in html, "R&B search description is stale"
+        assert f'property="og:title" content="{expected_title}"' in html, "R&B Open Graph title is stale"
+        assert f'name="twitter:title" content="{expected_title}"' in html, "R&B Twitter title is missing or stale"
+        assert 'data-search-growth="rnb-soul"' in html, "R&B search-growth section is missing"
+        assert "Discover new independent R&amp;B artists" in html, "R&B hero does not target artist discovery"
+        assert "New R&amp;B music 2026" in html, "R&B 2026 discovery context is missing"
+        assert "Discover independent R&amp;B artists and original 2026 releases." in html, "R&B discovery heading is missing"
+        assert 'href="/artists/alia-bleu/"' in html, "R&B discovery does not route to Alia Bleu"
+        assert 'href="/artists/nyah-rae/"' in html, "R&B discovery does not route to Nyah Rae"
+        assert 'href="/artists/zara-veli/"' in html, "R&B discovery does not route to Zara Veli"
+
 landing = (ROOT / "genres" / "index.html").read_text(encoding="utf-8")
 assert 'data-static-genres-index="true"' in landing, "Genre landing page must be pre-rendered"
 assert f'data-genre-total-releases>{len(releases)}<' in landing, "Genre landing release total is stale"

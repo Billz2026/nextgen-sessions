@@ -134,7 +134,8 @@ def apply_artist_entity_ui(relative: Path, source: str) -> str:
         if marker in next_source:
             next_source = next_source.replace(marker, override_tag + "\n  " + marker, 1)
 
-    genre_cta = f'<a class="button button-secondary" href="{rule["genre_href"]}">{rule["genre_label"]}</a>'
+    genre_label = html.escape(rule["genre_label"], quote=False)
+    genre_cta = f'<a class="button button-secondary" href="{rule["genre_href"]}">{genre_label}</a>'
     if genre_cta not in next_source:
         all_artists = '<a class="button button-secondary" href="/artists/">All artists</a>'
         if all_artists in next_source:

@@ -157,6 +157,26 @@ for slug, lane in LANES.items():
         assert 'href="/artists/nyah-rae/"' in html, "R&B discovery does not route to Nyah Rae"
         assert 'href="/artists/zara-veli/"' in html, "R&B discovery does not route to Zara Veli"
 
+    if slug == "global-sounds":
+        expected_title = "Punjabi, Arabic &amp; Afro Music 2026 | NextGen Sessions"
+        expected_description = (
+            "Discover independent Punjabi and South Asian, Arabic and Afro-led music from NextGen Sessions, "
+            "with original 2026 releases and artist profiles in one global hub."
+        )
+        assert f"<title>{expected_title}</title>" in html, "Global Sounds search title is stale"
+        assert f'content="{expected_description}"' in html, "Global Sounds search description is stale"
+        assert f'property="og:title" content="{expected_title}"' in html, "Global Sounds Open Graph title is stale"
+        assert f'name="twitter:title" content="{expected_title}"' in html, "Global Sounds Twitter title is missing or stale"
+        assert 'data-search-growth="global-sounds"' in html, "Global Sounds search-growth section is missing"
+        assert "Discover independent Punjabi, South Asian, Arabic and Afro-led music" in html, "Global Sounds hero is too generic"
+        assert "Punjabi, Arabic &amp; Afro music 2026" in html, "Global Sounds 2026 discovery context is missing"
+        assert "Explore independent Punjabi, Arabic and Afro-led music in 2026." in html, "Global Sounds discovery heading is missing"
+        assert 'href="/artists/asif-sultaan/"' in html, "Global Sounds discovery does not route to Asif Sultaan"
+        assert 'href="/artists/manny-virk/"' in html, "Global Sounds discovery does not route to Manny Virk"
+        assert 'href="/artists/leila-nour/"' in html, "Global Sounds discovery does not route to Leila Nour"
+        assert 'href="/artists/marlo-saint/"' in html, "Global Sounds discovery does not route to Marlo Saint"
+        assert "without pretending they are one genre" in html, "Global Sounds must preserve distinct-lane framing"
+
 landing = (ROOT / "genres" / "index.html").read_text(encoding="utf-8")
 assert 'data-static-genres-index="true"' in landing, "Genre landing page must be pre-rendered"
 assert f'data-genre-total-releases>{len(releases)}<' in landing, "Genre landing release total is stale"

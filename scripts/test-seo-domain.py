@@ -41,6 +41,10 @@ ENTITY_EXPECTED = {
         "Kemarco | Jamaican Dancehall Artist | NextGen Sessions",
         "Discover Kemarco, a Jamaican dancehall artist on NextGen Sessions. Listen to Ghetto Blessings and Badman Don’t Rush and explore more dancehall releases.",
     ),
+    "artists/nyah-rae/index.html": (
+        "Nyah Rae | R&B Artist | NextGen Sessions",
+        "Discover Nyah Rae, a contemporary R&B artist on NextGen Sessions. Listen to I’m Not Surprised, You Can’t Afford Me and No Reply.",
+    ),
 }
 
 CANONICAL_RE = re.compile(r'<link\s+rel="canonical"\s+href="([^"]+)"\s*/?>', re.IGNORECASE)
@@ -110,6 +114,12 @@ for path in sorted(ROOT.rglob("*.html")):
         assert 'href="/genres/dancehall/">Explore Dancehall</a>' in source, "Kemarco Dancehall hub link is missing"
         assert '/artists/kemarco/profile.js?v=20260826-entity1' in source, "Kemarco browser profile override is missing"
 
+    if relative == "artists/nyah-rae/index.html":
+        assert "Nyah Rae is a contemporary R&B artist on NextGen Sessions" in source, "Nyah Rae entity-first bio is missing"
+        assert 'href="/releases/nyah-rae-im-not-surprised/">Latest release: I’m Not Surprised</a>' in source, "Nyah Rae latest release signal is stale"
+        assert 'href="/genres/rnb-soul/">Explore R&amp;B &amp; Soul</a>' in source, "Nyah Rae R&B & Soul hub link is missing"
+        assert '/artists/nyah-rae/profile.js?v=20260826-entity1' in source, "Nyah Rae browser profile override is missing"
+
     checked += 1
 
 assert checked >= 100, f"Unexpectedly few canonical pages checked: {checked}"
@@ -118,6 +128,11 @@ kemarco_profile = (ROOT / "artists" / "kemarco" / "profile.js").read_text(encodi
 assert 'title: "Ghetto Blessings"' in kemarco_profile, "Kemarco source still features an older release"
 assert 'id: "JI_O7wnEtCc"' in kemarco_profile, "Kemarco Ghetto Blessings video ID is missing from source"
 assert 'profile.genreUrl = "/genres/dancehall/"' in kemarco_profile, "Kemarco source is not connected to the Dancehall hub"
+
+nyah_profile = (ROOT / "artists" / "nyah-rae" / "profile.js").read_text(encoding="utf-8")
+assert 'title: "I’m Not Surprised"' in nyah_profile, "Nyah Rae source latest release is wrong"
+assert 'id: "s4v_aLpMo4Q"' in nyah_profile, "Nyah Rae featured video ID is missing from source"
+assert 'profile.genreUrl = "/genres/rnb-soul/"' in nyah_profile, "Nyah Rae source is not connected to the R&B & Soul hub"
 
 sitemap_files = sorted(ROOT.glob("sitemap*.xml"))
 assert sitemap_files, "No sitemap files found"
@@ -176,6 +191,6 @@ assert 'hostname === "nextgensessions.com"' in analytics_source, "Analytics sour
 print(
     f"SEO domain audit passed: {checked} canonical HTML pages, {len(sitemap_files)} sitemap files / "
     f"{len(all_locations)} sitemap URLs, and {len(set(runtime_files))} runtime text files use the canonical production domain; "
-    f"{len(CTR_EXPECTED)} CTR targets and {len(ENTITY_EXPECTED)} artist search entity target are locked; "
+    f"{len(CTR_EXPECTED)} CTR targets and {len(ENTITY_EXPECTED)} artist search entity targets are locked; "
     "the old Pages hostname remains only as a 301 redirect target detector."
 )

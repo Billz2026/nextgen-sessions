@@ -9,6 +9,7 @@ on:
     paths:
       - ".github/workflows/update-catalogue.yml"
       - "scripts/update-catalogue.py"
+      - "scripts/discover-scheduled-releases.py"
       - "scripts/render-releases.py"
       - "scripts/enrich-release-pages.mjs"
       - "scripts/enrich-release-related-artists.mjs"
@@ -25,6 +26,7 @@ on:
       - "scripts/test-release-related-artists.mjs"
       - "scripts/test-weekly-feed.mjs"
       - "scripts/test-site-search.mjs"
+      - "scripts/test-scheduled-channel-discovery.py"
       - "scripts/normalize-primary-nav.py"
       - "scripts/normalize-seo-domain.py"
       - "scripts/normalize-schema-graph.mjs"
@@ -110,11 +112,16 @@ jobs:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python3 scripts/update-catalogue.py releases.json
 
-      - name: Preserve catalogue timestamp on no-op checks
-        run: node scripts/preserve-generated-at.mjs /tmp/releases-before.json releases.json
+      - name: Discover due scheduled releases from public channel
+        env:
+          YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python3 scripts/discover-scheduled-releases.py
 
       - name: Render crawlable release archive and pages
         run: python3 scripts/render-releases.py releases.json
+
+      - name: Preserve catalogue timestamp on no-op checks
+        run: node scripts/preserve-generated-at.mjs /tmp/releases-before.json releases.json
 
       - name: Enrich release detail pages
         run: node scripts/enrich-release-pages.mjs
@@ -188,6 +195,9 @@ jobs:
 
       - name: Validate automated weekly release system
         run: node scripts/test-weekly-feed.mjs
+
+      - name: Validate scheduled channel discovery
+        run: python3 scripts/test-scheduled-channel-discovery.py
 
       - name: Validate universal site search
         run: node scripts/test-site-search.mjs

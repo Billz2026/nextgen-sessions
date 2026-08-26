@@ -41,6 +41,23 @@ ENTITY_METADATA = {
         "title": "Kemarco | Jamaican Dancehall Artist | NextGen Sessions",
         "description": "Discover Kemarco, a Jamaican dancehall artist on NextGen Sessions. Listen to Ghetto Blessings and Badman Don’t Rush and explore more dancehall releases.",
     },
+    "artists/nyah-rae/index.html": {
+        "title": "Nyah Rae | R&B Artist | NextGen Sessions",
+        "description": "Discover Nyah Rae, a contemporary R&B artist on NextGen Sessions. Listen to I’m Not Surprised, You Can’t Afford Me and No Reply.",
+    },
+}
+
+ARTIST_ENTITY_UI = {
+    "artists/kemarco/index.html": {
+        "override": "/artists/kemarco/profile.js?v=20260826-entity1",
+        "genre_href": "/genres/dancehall/",
+        "genre_label": "Explore Dancehall",
+    },
+    "artists/nyah-rae/index.html": {
+        "override": "/artists/nyah-rae/profile.js?v=20260826-entity1",
+        "genre_href": "/genres/rnb-soul/",
+        "genre_label": "Explore R&B & Soul",
+    },
 }
 
 CANONICAL_RE = re.compile(r'<link\s+rel="canonical"\s+href="[^"]*"\s*/?>', re.IGNORECASE)
@@ -105,22 +122,23 @@ def apply_search_metadata(relative: Path, source: str) -> str:
     return next_source
 
 
-def apply_kemarco_entity(relative: Path, source: str) -> str:
-    if relative.as_posix() != "artists/kemarco/index.html":
+def apply_artist_entity_ui(relative: Path, source: str) -> str:
+    rule = ARTIST_ENTITY_UI.get(relative.as_posix())
+    if not rule:
         return source
 
     next_source = source
-    override_tag = '<script src="/artists/kemarco/profile.js?v=20260826-entity1" defer></script>'
+    override_tag = f'<script src="{rule["override"]}" defer></script>'
     if override_tag not in next_source:
         marker = '<script src="/artist-profile.js?v=20260810-playerfirst1" defer></script>'
         if marker in next_source:
             next_source = next_source.replace(marker, override_tag + "\n  " + marker, 1)
 
-    dancehall_cta = '<a class="button button-secondary" href="/genres/dancehall/">Explore Dancehall</a>'
-    if dancehall_cta not in next_source:
+    genre_cta = f'<a class="button button-secondary" href="{rule["genre_href"]}">{rule["genre_label"]}</a>'
+    if genre_cta not in next_source:
         all_artists = '<a class="button button-secondary" href="/artists/">All artists</a>'
         if all_artists in next_source:
-            next_source = next_source.replace(all_artists, dancehall_cta + "\n          " + all_artists, 1)
+            next_source = next_source.replace(all_artists, genre_cta + "\n          " + all_artists, 1)
 
     return next_source
 
@@ -156,7 +174,7 @@ def normalize_html(path: Path) -> bool:
             next_source = insert_after_description(next_source, og_tag)
 
     next_source = apply_search_metadata(relative, next_source)
-    next_source = apply_kemarco_entity(relative, next_source)
+    next_source = apply_artist_entity_ui(relative, next_source)
 
     if next_source == source:
         return False

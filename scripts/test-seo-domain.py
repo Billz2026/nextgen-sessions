@@ -34,6 +34,10 @@ CTR_EXPECTED = {
         "UK Rap, Dancehall & Hip-Hop Mixes | NextGen Sessions",
         "Play UK rap, dancehall, grime and hip-hop mixes on NextGen Sessions, including long-form mashups, summer sessions and curated genre collections.",
     ),
+    "mixes/dancehall-mashups/index.html": (
+        "Dancehall Mix 2026 | Mashup Series | NextGen Sessions",
+        "Play three Dancehall Mashup mixes from 2026, including the 1-hour Gullyside Takeover. Discover original NextGen dancehall releases and artists.",
+    ),
 }
 
 ENTITY_EXPECTED = {
@@ -119,6 +123,12 @@ for path in sorted(ROOT.rglob("*.html")):
         assert 'href="/releases/nyah-rae-im-not-surprised/">Latest release: I’m Not Surprised</a>' in source, "Nyah Rae latest release signal is stale"
         assert 'href="/genres/rnb-soul/">Explore R&amp;B &amp; Soul</a>' in source, "Nyah Rae R&B & Soul hub link is missing"
         assert '/artists/nyah-rae/profile.js?v=20260826-entity1' in source, "Nyah Rae browser profile override is missing"
+
+    if relative == "mixes/dancehall-mashups/index.html":
+        assert 'href="/genres/dancehall/">Explore Dancehall</a>' in source, "Dancehall mix genre link is missing"
+        assert 'href="/artists/kemarco/"' in source, "Dancehall mix Kemarco link is missing"
+        assert 'href="/artists/reeko/"' in source, "Dancehall mix Reeko link is missing"
+        assert "more than 1 hour 45 minutes" in source, "Dancehall mix long-form context is missing"
 
     checked += 1
 

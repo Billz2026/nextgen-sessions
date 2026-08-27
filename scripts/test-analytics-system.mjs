@@ -67,10 +67,13 @@ assert(analytics.includes("CF_ANALYTICS_READ_TOKEN"), "analytics helper must use
 assert(analytics.includes("analytics_engine/sql"), "analytics helper must query Analytics Engine SQL API");
 assert(analytics.includes("_sample_interval * double1"), "Analytics Engine queries must account for sampling");
 
+// Browser code may display the *names* of required Cloudflare settings to an operator, but it must
+// never access server environment objects or contain authorization headers/tokens itself.
 const publicStaticFiles = [metrics, trendingClient, dashboardJs, dashboardHtml, homepage];
 for (const source of publicStaticFiles) {
-  assert(!source.includes("CF_ANALYTICS_READ_TOKEN"), "Cloudflare analytics read token name must not be embedded in browser assets");
-  assert(!source.includes("ANALYTICS_DASHBOARD_KEY"), "dashboard secret name must not be embedded in browser assets");
+  assert(!source.includes("context.env"), "browser assets must never read Cloudflare server environment values");
+  assert(!source.includes("process.env"), "browser assets must never read server environment values");
+  assert(!/Authorization\s*:\s*[`'\"]Bearer\s+/i.test(source), "browser assets must never embed Analytics Engine bearer credentials");
 }
 
 assert(auth.includes("HttpOnly; Secure; SameSite=Strict"), "dashboard session cookie must be HttpOnly, Secure and SameSite=Strict");

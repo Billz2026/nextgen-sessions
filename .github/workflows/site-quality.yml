@@ -1,0 +1,52 @@
+name: Site Quality Assurance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/site-quality.yml"
+      - "scripts/test-primary-nav.py"
+      - "scripts/test-global-footer.py"
+      - "scripts/test-conversion-funnel.py"
+      - "scripts/test-responsive-shell.py"
+      - "scripts/test-analytics-system.mjs"
+      - "mobile-nav.css"
+      - "mobile-nav.js"
+      - "site-metrics.js"
+      - "conversion-funnel.css"
+      - "privacy/**"
+      - "404.html"
+      - "submit.html"
+      - "functions/api/**"
+      - "ops/**"
+      - "trending.js"
+      - "trending.css"
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Test global primary navigation
+        run: python3 scripts/test-primary-nav.py
+
+      - name: Test global Privacy footer
+        run: python3 scripts/test-global-footer.py
+
+      - name: Test Listen Subscribe Follow funnel
+        run: python3 scripts/test-conversion-funnel.py
+
+      - name: Test responsive shell
+        run: python3 scripts/test-responsive-shell.py
+
+      - name: Test analytics and Trending architecture
+        run: node scripts/test-analytics-system.mjs

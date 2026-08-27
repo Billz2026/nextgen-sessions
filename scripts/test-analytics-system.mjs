@@ -49,7 +49,9 @@ for (const event of requiredEvents) {
 assert(metrics.includes("sessionStorage.getItem"), "site-metrics.js must session-deduplicate engagement");
 assert(metrics.includes("sessionStorage.setItem"), "site-metrics.js must persist session dedupe markers");
 assert(metrics.includes('send("page_view", "")'), "page views must remain tracked");
-assert(!/SESSION_DEDUPE[\s\S]*?"page_view"/.test(metrics), "page_view must not be session-deduplicated");
+const dedupeBlock = metrics.match(/const SESSION_DEDUPE = new Set\(\[([\s\S]*?)\]\);/)?.[1] || "";
+assert(dedupeBlock, "SESSION_DEDUPE definition must remain readable by regression tests");
+assert(!dedupeBlock.includes('"page_view"'), "page_view must not be session-deduplicated");
 assert(metrics.includes('input.id === "siteSearchInput"'), "universal site search must be instrumented");
 assert(metrics.includes('send("site_search", first ? entityLabel(first) : "no-match")'), "site search must record only matched entity/no-match");
 assert(!metrics.includes('send("site_search", input.value'), "raw search input must never be sent to analytics");

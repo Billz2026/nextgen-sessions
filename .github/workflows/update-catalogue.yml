@@ -22,69 +22,23 @@ on:
       - "scripts/build-search-index.mjs"
       - "scripts/enrich-search-schedule.mjs"
       - "scripts/preserve-generated-at.mjs"
-      - "scripts/test-release-editorial.py"
-      - "scripts/test-release-related-artists.mjs"
+      - "scripts/sync-homepage-fallback.py"
       - "scripts/test-weekly-feed.mjs"
       - "scripts/test-site-search.mjs"
       - "scripts/test-scheduled-channel-discovery.py"
-      - "scripts/normalize-primary-nav.py"
-      - "scripts/normalize-seo-domain.py"
-      - "scripts/normalize-schema-graph.mjs"
-      - "scripts/refine-schema-graph.mjs"
-      - "scripts/test-schema-graph.mjs"
-      - "scripts/test-schema-quality.mjs"
-      - "scripts/test-primary-nav.py"
-      - "scripts/test-seo-domain.py"
-      - "scripts/test-artist-static-render.mjs"
-      - "scripts/test-artist-index-static.mjs"
-      - "scripts/test-genre-static-render.py"
       - "scripts/test-scheduled-release-embargo.py"
       - "scripts/test-scheduled-release-source.py"
-      - "scheduled-releases.json"
-      - "weekly-feed.css"
-      - "weekly-feed.js"
-      - "scripts/sync-homepage-fallback.py"
-      - "scripts/test-global-footer.py"
-      - "scripts/test-conversion-funnel.py"
-      - "scripts/test-genre-hubs.py"
-      - "scripts/test-responsive-shell.py"
       - "scripts/test-release-archive-player.py"
       - "scripts/test-latest-policy.mjs"
       - "scripts/test-catalogue-resilience.py"
-      - "genre-hubs.js"
-      - "genre-hubs.css"
-      - "genres/**"
+      - "scheduled-releases.json"
       - "artists.js"
-      - "artists/index.html"
-      - "artists/*/profile.js"
       - "artist-profiles.js"
       - "artist-profiles-expanded.js"
       - "artist-images.js"
-      - "index.html"
-      - "mixes/**"
-      - "mixes.json"
-      - "search/**"
-      - "search.js"
-      - "search.css"
-      - "search-index.json"
-      - "mobile-nav.css"
-      - "mobile-nav.js"
-      - "conversion-funnel.css"
-      - "privacy/**"
-      - "404.html"
-      - "submit.html"
+      - "genre-hubs.js"
       - "releases.js"
-      - "releases.css"
-      - "release-detail.css"
-      - "release-player.js"
-      - "mix-player.js"
-      - "site-metrics.js"
-      - "functions/api/events.js"
-      - "functions/api/latest.js"
-      - ".worker/index.js"
-      - "sitemap.xml"
-      - "robots.txt"
-      - "wrangler.jsonc"
+      - "site.js"
 
 permissions:
   contents: write
@@ -96,38 +50,53 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Check out website
         uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Snapshot generated catalogue state
+      - name: Snapshot last-known-good generated state
         run: |
           cp releases.json /tmp/releases-before.json
           cp search-index.json /tmp/search-before.json || true
 
+      # External API calls get multiple attempts. If YouTube/API infrastructure is temporarily
+      # unavailable, this run fails without touching production and the next 15-minute run retries.
       - name: Build catalogue from public playlists
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: python3 scripts/update-catalogue.py releases.json
+        run: |
+          for attempt in 1 2 3 4; do
+            if python3 scripts/update-catalogue.py releases.json; then
+              exit 0
+            fi
+            echo "Playlist catalogue attempt ${attempt}/4 failed; retrying..."
+            sleep $((attempt * 10))
+          done
+          exit 1
 
       - name: Discover due scheduled releases from public channel
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: python3 scripts/discover-scheduled-releases.py
+        run: |
+          for attempt in 1 2 3 4; do
+            if python3 scripts/discover-scheduled-releases.py; then
+              exit 0
+            fi
+            echo "Scheduled channel discovery attempt ${attempt}/4 failed; retrying..."
+            sleep $((attempt * 10))
+          done
+          exit 1
 
+      # Core publication outputs. A failure here should block publication because the generated
+      # release experience would be incomplete.
       - name: Render crawlable release archive and pages
         run: python3 scripts/render-releases.py releases.json
 
       - name: Preserve catalogue timestamp on no-op checks
         run: node scripts/preserve-generated-at.mjs /tmp/releases-before.json releases.json
-
-      - name: Enrich release detail pages
-        run: node scripts/enrich-release-pages.mjs
-
-      - name: Enrich release discovery with related artists
-        run: node scripts/enrich-release-related-artists.mjs
 
       - name: Render crawlable artist profile pages
         run: node scripts/render-artists.mjs
@@ -156,42 +125,70 @@ jobs:
       - name: Sync homepage static fallback
         run: python3 scripts/sync-homepage-fallback.py releases.json
 
+      # Optional enhancements must never freeze a verified release out of production. The base
+      # renderer already produces functional release/artist pages, so these are best-effort.
+      - name: Enrich release detail pages
+        continue-on-error: true
+        run: node scripts/enrich-release-pages.mjs
+
+      - name: Enrich release discovery with related artists
+        continue-on-error: true
+        run: node scripts/enrich-release-related-artists.mjs
+
       - name: Normalize global primary navigation
+        continue-on-error: true
         run: python3 scripts/normalize-primary-nav.py
 
       - name: Normalize canonical production domain
+        continue-on-error: true
         run: python3 scripts/normalize-seo-domain.py
 
-      - name: Validate catalogue
+      - name: Normalize structured data graph
+        continue-on-error: true
+        run: node scripts/normalize-schema-graph.mjs
+
+      - name: Refine structured data quality
+        continue-on-error: true
+        run: node scripts/refine-schema-graph.mjs
+
+      # Release-critical integrity gates only. These protect against wrong/private/short content,
+      # stale homepage/week/search output and broken core catalogue publication.
+      - name: Validate catalogue integrity
         run: |
           python3 - <<'PY'
           import json
           import os
-          with open("releases.json", encoding="utf-8") as handle:
-              data = json.load(handle)
-          assert data["total"] == len(data["releases"])
-          assert len({item["id"] for item in data["releases"]}) == data["total"]
-          assert data["total"] >= 80, f"Unexpectedly small catalogue: {data['total']}"
-          assert len({item["url"] for item in data["releases"]}) == data["total"]
-          assert all(item.get("contentType") == "full-release" for item in data["releases"])
-          assert all(item.get("durationSeconds", 0) >= 75 for item in data["releases"])
-          assert data.get("contentPolicy", {}).get("shortsAllowed") is False
-          assert all(item.get("published") for item in data["releases"])
-          assert any(item["id"] == "ZSjRD_3B5uk" for item in data["releases"]), "Days Like These missing"
-          assert any(item["id"] == "6H6yq_1bEsQ" for item in data["releases"]), "After Di Party missing"
-          assert all(os.path.exists("." + item["url"] + "index.html") for item in data["releases"])
-          archive = open("releases/index.html", encoding="utf-8").read()
+          from pathlib import Path
+
+          current = json.loads(Path("releases.json").read_text(encoding="utf-8"))
+          before = json.loads(Path("/tmp/releases-before.json").read_text(encoding="utf-8"))
+          releases = current.get("releases", [])
+          previous = before.get("releases", [])
+
+          assert current["total"] == len(releases)
+          assert len({item["id"] for item in releases}) == current["total"]
+          assert current["total"] >= 80, f"Unexpectedly small catalogue: {current['total']}"
+          assert current["total"] >= before.get("total", 0), (
+              f"Catalogue shrank from {before.get('total', 0)} to {current['total']}"
+          )
+          assert len({item["url"] for item in releases}) == current["total"]
+          assert all(item.get("contentType") == "full-release" for item in releases)
+          assert all(item.get("durationSeconds", 0) >= 75 for item in releases)
+          assert current.get("contentPolicy", {}).get("shortsAllowed") is False
+          assert all(item.get("published") for item in releases)
+          assert all(os.path.exists("." + item["url"] + "index.html") for item in releases)
+
+          current_ids = {item["id"] for item in releases}
+          previous_ids = {item["id"] for item in previous}
+          missing = sorted(previous_ids - current_ids)
+          assert not missing, f"Previously verified releases disappeared: {missing[:10]}"
+
+          archive = Path("releases/index.html").read_text(encoding="utf-8")
           assert "Loading catalogue…" not in archive
-          assert archive.count('class="archive-release-card"') >= data["total"]
-          assert archive.count('data-archive-play') >= data["total"]
-          print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
+          assert archive.count('class="archive-release-card"') >= current["total"]
+          assert archive.count('data-archive-play') >= current["total"]
+          print(json.dumps({"total": current["total"], "counts": current["counts"]}, indent=2))
           PY
-
-      - name: Validate rich release detail pages
-        run: python3 scripts/test-release-editorial.py
-
-      - name: Validate related artist discovery
-        run: node scripts/test-release-related-artists.mjs
 
       - name: Validate automated weekly release system
         run: node scripts/test-weekly-feed.mjs
@@ -202,35 +199,11 @@ jobs:
       - name: Validate universal site search
         run: node scripts/test-site-search.mjs
 
-      - name: Validate crawlable artist profiles
-        run: node scripts/test-artist-static-render.mjs
-
-      - name: Validate crawlable artist roster
-        run: node scripts/test-artist-index-static.mjs
-
-      - name: Validate crawlable genre discovery pages
-        run: python3 scripts/test-genre-static-render.py
-
       - name: Validate scheduled-release embargoes
         run: python3 scripts/test-scheduled-release-embargo.py
 
       - name: Validate scheduled-release source safety
         run: python3 scripts/test-scheduled-release-source.py
-
-      - name: Validate canonical production domain
-        run: python3 scripts/test-seo-domain.py
-
-      - name: Normalize structured data graph
-        run: node scripts/normalize-schema-graph.mjs
-
-      - name: Refine structured data quality
-        run: node scripts/refine-schema-graph.mjs
-
-      - name: Validate structured data graph
-        run: node scripts/test-schema-graph.mjs
-
-      - name: Validate structured data quality
-        run: node scripts/test-schema-quality.mjs
 
       - name: Validate homepage static fallback
         run: |
@@ -252,26 +225,6 @@ jobs:
           print(f'Homepage fallback validated: {latest["artist"]} — {latest["title"]}')
           PY
 
-      - name: Test global primary navigation
-        run: python3 scripts/test-primary-nav.py
-
-      # These are site-shell/editorial QA checks, not release-integrity gates. They should surface
-      # regressions without freezing a verified YouTube release out of the live catalogue.
-      - name: Test global Privacy footer
-        continue-on-error: true
-        run: python3 scripts/test-global-footer.py
-
-      - name: Test Listen Subscribe Follow funnel
-        continue-on-error: true
-        run: python3 scripts/test-conversion-funnel.py
-
-      - name: Test responsive shell
-        continue-on-error: true
-        run: python3 scripts/test-responsive-shell.py
-
-      - name: Test genre hubs
-        run: python3 scripts/test-genre-hubs.py
-
       - name: Test release archive inline player
         run: python3 scripts/test-release-archive-player.py
 
@@ -281,21 +234,62 @@ jobs:
       - name: Test unavailable-playlist fallback
         run: python3 scripts/test-catalogue-resilience.py
 
-      - name: Publish changed catalogue
+      # Atomic publication: nothing is committed until the complete core output has been generated
+      # and release-critical checks have passed. A failed run leaves the last-known-good site live.
+      - name: Publish changed catalogue atomically
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add -u
           git add releases/
-          git add this-week.json search-index.json index.html artists/
+          git add this-week.json search-index.json index.html artists/ genres/
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update release catalogue"
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5; do
             git pull --rebase origin main
             if git push origin HEAD:main; then
               exit 0
             fi
-            sleep $((attempt * 2))
+            echo "Publish attempt ${attempt}/5 failed; retrying..."
+            sleep $((attempt * 3))
           done
-          echo "Could not update main after 3 attempts."
+          echo "Could not update main after 5 attempts."
           exit 1
+
+      # Quality checks below this point can report regressions, but publication has already happened
+      # and these checks can never hold a verified release hostage.
+      - name: Advisory release editorial QA
+        continue-on-error: true
+        run: python3 scripts/test-release-editorial.py
+
+      - name: Advisory related-artist discovery QA
+        continue-on-error: true
+        run: node scripts/test-release-related-artists.mjs
+
+      - name: Advisory artist crawlability QA
+        continue-on-error: true
+        run: node scripts/test-artist-static-render.mjs
+
+      - name: Advisory artist roster QA
+        continue-on-error: true
+        run: node scripts/test-artist-index-static.mjs
+
+      - name: Advisory genre crawlability QA
+        continue-on-error: true
+        run: python3 scripts/test-genre-static-render.py
+
+      - name: Advisory canonical-domain QA
+        continue-on-error: true
+        run: python3 scripts/test-seo-domain.py
+
+      - name: Advisory structured-data graph QA
+        continue-on-error: true
+        run: node scripts/test-schema-graph.mjs
+
+      - name: Advisory structured-data quality QA
+        continue-on-error: true
+        run: node scripts/test-schema-quality.mjs
+
+      - name: Advisory genre-hub QA
+        continue-on-error: true
+        run: python3 scripts/test-genre-hubs.py

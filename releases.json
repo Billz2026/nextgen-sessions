@@ -5,13 +5,13 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-08-26T14:53:50.725172Z",
-  "total": 93,
+  "generatedAt": "2026-08-27T08:01:19.913875Z",
+  "total": 94,
   "counts": {
     "Dancehall": 31,
     "Reggae": 0,
     "UK Rap & Grime": 20,
-    "Hip-Hop / G-Funk": 19,
+    "Hip-Hop / G-Funk": 20,
     "Asian": 4,
     "Lovers Rock": 8,
     "R&B & Soul": 7,
@@ -21,6 +21,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "QN-18Jw52f0",
+      "contentType": "full-release",
+      "artist": "Voss Carter",
+      "title": "Nobody Gets the Old Version",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-08-26T17:00:29Z",
+      "durationSeconds": 388,
+      "rawTitle": "Voss Carter | Nobody Gets the Old Version | HipHop 2026  | NextGen Sessions",
+      "slug": "voss-carter-nobody-gets-the-old-version",
+      "url": "/releases/voss-carter-nobody-gets-the-old-version/"
+    },
     {
       "id": "n3fv4DXruas",
       "contentType": "full-release",

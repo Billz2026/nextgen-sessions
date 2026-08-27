@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T14:10:50.380Z",
+  "generatedAt": "2026-08-27T08:01:21.061Z",
   "timezone": "Europe/London",
   "weekStart": "2026-08-24",
   "weekEnd": "2026-08-30",
@@ -20,6 +20,22 @@
       "releaseAt": "2026-08-24T17:00:35.000Z",
       "status": "live",
       "image": "/api/release-image?id=n3fv4DXruas&size=card",
+      "source": "catalogue"
+    },
+    {
+      "artist": "Voss Carter",
+      "artistSlug": "voss-carter",
+      "title": "Nobody Gets the Old Version",
+      "genre": "Hip-Hop / G-Funk",
+      "artistUrl": "/artists/voss-carter/",
+      "releaseUrl": "/releases/voss-carter-nobody-gets-the-old-version/",
+      "dateLocal": "2026-08-26",
+      "dateLabel": "WED 26 AUG",
+      "longDate": "Wednesday, 26 August 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-08-26T17:00:29.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=QN-18Jw52f0&size=card",
       "source": "catalogue"
     }
   ],

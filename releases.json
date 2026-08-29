@@ -5,10 +5,10 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-08-27T08:01:19.913875Z",
-  "total": 94,
+  "generatedAt": "2026-08-29T00:49:39.882083Z",
+  "total": 95,
   "counts": {
-    "Dancehall": 31,
+    "Dancehall": 32,
     "Reggae": 0,
     "UK Rap & Grime": 20,
     "Hip-Hop / G-Funk": 20,
@@ -21,6 +21,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "mPvoThKPqdg",
+      "contentType": "full-release",
+      "artist": "Kemar Ranka",
+      "title": "From Lang Time",
+      "group": "Dancehall",
+      "published": "2026-08-28T17:00:23Z",
+      "durationSeconds": 358,
+      "rawTitle": "Kemar Ranka - From Lang Time | Dancehall 2026 | NextGen Sessions",
+      "slug": "kemar-ranka-from-lang-time",
+      "url": "/releases/kemar-ranka-from-lang-time/"
+    },
     {
       "id": "QN-18Jw52f0",
       "contentType": "full-release",

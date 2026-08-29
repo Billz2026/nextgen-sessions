@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T08:01:21.061Z",
+  "generatedAt": "2026-08-29T00:49:42.976Z",
   "timezone": "Europe/London",
   "weekStart": "2026-08-24",
   "weekEnd": "2026-08-30",
@@ -36,6 +36,22 @@
       "releaseAt": "2026-08-26T17:00:29.000Z",
       "status": "live",
       "image": "/api/release-image?id=QN-18Jw52f0&size=card",
+      "source": "catalogue"
+    },
+    {
+      "artist": "Kemar Ranka",
+      "artistSlug": "kemar-ranka",
+      "title": "From Lang Time",
+      "genre": "Dancehall",
+      "artistUrl": "/artists/kemar-ranka/",
+      "releaseUrl": "/releases/kemar-ranka-from-lang-time/",
+      "dateLocal": "2026-08-28",
+      "dateLabel": "FRI 28 AUG",
+      "longDate": "Friday, 28 August 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-08-28T17:00:23.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=mPvoThKPqdg&size=card",
       "source": "catalogue"
     }
   ],

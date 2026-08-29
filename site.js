@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"QN-18Jw52f0","contentType":"full-release","title":"Voss Carter – Nobody Gets the Old Version","published":"2026-08-26T17:00:29Z","url":"/releases/voss-carter-nobody-gets-the-old-version/"};
+  const FALLBACK_LATEST = {"id":"mPvoThKPqdg","contentType":"full-release","title":"Kemar Ranka – From Lang Time","published":"2026-08-28T17:00:23Z","url":"/releases/kemar-ranka-from-lang-time/"};
 
   const FALLBACK_RELEASES = [
     FALLBACK_LATEST,
+    {"id":"QN-18Jw52f0","contentType":"full-release","title":"Voss Carter – Nobody Gets the Old Version","published":"2026-08-26T17:00:29Z","url":"/releases/voss-carter-nobody-gets-the-old-version/"},
     {"id":"n3fv4DXruas","contentType":"full-release","title":"Rudii Marka – Top Shotta","published":"2026-08-24T17:00:35Z","url":"/releases/rudii-marka-top-shotta/"},
     {"id":"s7W3lr2h3vI","contentType":"full-release","title":"Asif Sultaan – Tor Wakhri","published":"2026-08-21T17:00:00Z","url":"/releases/asif-sultaan-tor-wakhri/"},
     {"id":"lz71Xa1D65k","contentType":"full-release","title":"Jay Starks – Who Owns the Corner Now?","published":"2026-08-19T17:00:19Z","url":"/releases/jay-starks-who-owns-the-corner-now/"},
-    {"id":"JI_O7wnEtCc","contentType":"full-release","title":"Kemarco – Ghetto Blessings","published":"2026-08-17T17:00:11Z","url":"/releases/kemarco-ghetto-blessings/"},
-    {"id":"t4rrj5Ij4cU","contentType":"full-release","title":"Mizzy G – Money Bought Silence","published":"2026-08-14T17:00:33Z","url":"/releases/mizzy-g-money-bought-silence/"}
+    {"id":"JI_O7wnEtCc","contentType":"full-release","title":"Kemarco – Ghetto Blessings","published":"2026-08-17T17:00:11Z","url":"/releases/kemarco-ghetto-blessings/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

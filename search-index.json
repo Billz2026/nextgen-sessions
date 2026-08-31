@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-29T00:49:43.087Z",
-  "total": 144,
+  "generatedAt": "2026-08-31T17:13:52.176Z",
+  "total": 145,
   "counts": {
     "artists": 33,
-    "releases": 96,
+    "releases": 97,
     "genres": 6,
     "mixes": 9,
     "upcomingReleases": 1
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "If I Let You In",
+      "subtitle": "Alia Bleu",
+      "description": "R&B & Soul · 2026-08-31",
+      "url": "/releases/alia-bleu-if-i-let-you-in/",
+      "date": "2026-08-31T17:00:25Z",
+      "keywords": [
+        "Alia Bleu",
+        "R&B & Soul",
+        "Alia Bleu - If I Let You In | R&B 2026 | NextGen Sessions",
+        "If I Let You In"
       ]
     },
     {

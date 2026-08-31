@@ -5,8 +5,8 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-08-29T00:49:39.882083Z",
-  "total": 95,
+  "generatedAt": "2026-08-31T17:13:51.307808Z",
+  "total": 96,
   "counts": {
     "Dancehall": 32,
     "Reggae": 0,
@@ -14,13 +14,25 @@
     "Hip-Hop / G-Funk": 20,
     "Asian": 4,
     "Lovers Rock": 8,
-    "R&B & Soul": 7,
+    "R&B & Soul": 8,
     "Late Night Afro": 3,
     "Late Night Vibes": 0,
     "Arabic": 1
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "cV5-6XzLGlc",
+      "contentType": "full-release",
+      "artist": "Alia Bleu",
+      "title": "If I Let You In",
+      "group": "R&B & Soul",
+      "published": "2026-08-31T17:00:25Z",
+      "durationSeconds": 362,
+      "rawTitle": "Alia Bleu - If I Let You In | R&B 2026 | NextGen Sessions",
+      "slug": "alia-bleu-if-i-let-you-in",
+      "url": "/releases/alia-bleu-if-i-let-you-in/"
+    },
     {
       "id": "mPvoThKPqdg",
       "contentType": "full-release",

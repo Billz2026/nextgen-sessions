@@ -1,11 +1,27 @@
 {
-  "generatedAt": "2026-08-30T23:52:09.210Z",
+  "generatedAt": "2026-08-31T17:13:52.074Z",
   "timezone": "Europe/London",
   "weekStart": "2026-08-31",
   "weekEnd": "2026-09-06",
   "weekLabel": "31 August–6 September 2026",
   "mode": "week",
   "items": [
+    {
+      "artist": "Alia Bleu",
+      "artistSlug": "alia-bleu",
+      "title": "If I Let You In",
+      "genre": "R&B & Soul",
+      "artistUrl": "/artists/alia-bleu/",
+      "releaseUrl": "/releases/alia-bleu-if-i-let-you-in/",
+      "dateLocal": "2026-08-31",
+      "dateLabel": "MON 31 AUG",
+      "longDate": "Monday, 31 August 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-08-31T17:00:25.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=cV5-6XzLGlc&size=card",
+      "source": "catalogue"
+    },
     {
       "artist": "Zion Daley",
       "artistSlug": "zion-daley",

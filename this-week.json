@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T17:13:52.074Z",
+  "generatedAt": "2026-09-02T18:41:52.814Z",
   "timezone": "Europe/London",
   "weekStart": "2026-08-31",
   "weekEnd": "2026-09-06",
@@ -20,6 +20,22 @@
       "releaseAt": "2026-08-31T17:00:25.000Z",
       "status": "live",
       "image": "/api/release-image?id=cV5-6XzLGlc&size=card",
+      "source": "catalogue"
+    },
+    {
+      "artist": "Marlo Saint",
+      "artistSlug": "marlo-saint",
+      "title": "City Heat Love",
+      "genre": "Late Night Afro",
+      "artistUrl": "/artists/marlo-saint/",
+      "releaseUrl": "/releases/marlo-saint-city-heat-love/",
+      "dateLocal": "2026-09-02",
+      "dateLabel": "WED 2 SEPT",
+      "longDate": "Wednesday, 2 September 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-09-02T17:00:33.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=5XC1aQAUZeA&size=card",
       "source": "catalogue"
     },
     {

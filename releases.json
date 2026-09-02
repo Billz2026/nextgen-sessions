@@ -5,8 +5,8 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-08-31T17:13:51.307808Z",
-  "total": 96,
+  "generatedAt": "2026-09-02T18:41:48.903682Z",
+  "total": 97,
   "counts": {
     "Dancehall": 32,
     "Reggae": 0,
@@ -15,12 +15,24 @@
     "Asian": 4,
     "Lovers Rock": 8,
     "R&B & Soul": 8,
-    "Late Night Afro": 3,
+    "Late Night Afro": 4,
     "Late Night Vibes": 0,
     "Arabic": 1
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "5XC1aQAUZeA",
+      "contentType": "full-release",
+      "artist": "Marlo Saint",
+      "title": "City Heat Love",
+      "group": "Late Night Afro",
+      "published": "2026-09-02T17:00:33Z",
+      "durationSeconds": 241,
+      "rawTitle": "Marlo Saint - City Heat Love | UK Afro Swing 2026 | NextGen Sessions",
+      "slug": "marlo-saint-city-heat-love",
+      "url": "/releases/marlo-saint-city-heat-love/"
+    },
     {
       "id": "cV5-6XzLGlc",
       "contentType": "full-release",

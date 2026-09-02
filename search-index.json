@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-31T17:13:52.176Z",
-  "total": 145,
+  "generatedAt": "2026-09-02T18:41:52.920Z",
+  "total": 146,
   "counts": {
     "artists": 33,
-    "releases": 97,
+    "releases": 98,
     "genres": 6,
     "mixes": 9,
     "upcomingReleases": 1
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "City Heat Love",
+      "subtitle": "Marlo Saint",
+      "description": "Late Night Afro · 2026-09-02",
+      "url": "/releases/marlo-saint-city-heat-love/",
+      "date": "2026-09-02T17:00:33Z",
+      "keywords": [
+        "Marlo Saint",
+        "Late Night Afro",
+        "Marlo Saint - City Heat Love | UK Afro Swing 2026 | NextGen Sessions",
+        "City Heat Love"
       ]
     },
     {

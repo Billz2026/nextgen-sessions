@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-02T18:41:52.920Z",
+  "generatedAt": "2026-09-04T17:42:56.576Z",
   "total": 146,
   "counts": {
     "artists": 33,
     "releases": 98,
     "genres": 6,
     "mixes": 9,
-    "upcomingReleases": 1
+    "upcomingReleases": 0
   },
   "items": [
     {
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Where We Live",
+      "subtitle": "Zion Daley",
+      "description": "Reggae · 2026-09-04",
+      "url": "/releases/zion-daley-where-we-live/",
+      "date": "2026-09-04T17:00:10Z",
+      "keywords": [
+        "Zion Daley",
+        "Reggae",
+        "Zion Daley - Where We Live | Reggae 2026 | NextGen Sessions",
+        "Where We Live"
       ]
     },
     {
@@ -1949,24 +1963,6 @@
         "UK Rap Mashup — Series 1",
         "Play UK Rap Mashup Series 1, a 65-minute UK rap mix from 2026 blending melodic rap and street energy. Listen on NextGen Sessions and explore more UK rap.",
         "uk rap mashup series 1"
-      ]
-    },
-    {
-      "type": "release",
-      "title": "Where We Live",
-      "subtitle": "Zion Daley · Upcoming",
-      "description": "Friday, 4 September 2026 · 18:00 UK time. Release page activates after the public catalogue confirms the track.",
-      "url": "/artists/zion-daley/",
-      "date": "2026-09-04T17:00:00.000Z",
-      "status": "upcoming",
-      "source": "release-schedule",
-      "keywords": [
-        "Zion Daley",
-        "Where We Live",
-        "upcoming",
-        "coming soon",
-        "new release",
-        "Friday, 4 September 2026"
       ]
     }
   ]

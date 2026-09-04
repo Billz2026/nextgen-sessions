@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"5XC1aQAUZeA","contentType":"full-release","title":"Marlo Saint – City Heat Love","published":"2026-09-02T17:00:33Z","url":"/releases/marlo-saint-city-heat-love/"};
+  const FALLBACK_LATEST = {"id":"b0tJlFOe0p4","contentType":"full-release","title":"Zion Daley – Where We Live","published":"2026-09-04T17:00:10Z","url":"/releases/zion-daley-where-we-live/"};
 
   const FALLBACK_RELEASES = [
     FALLBACK_LATEST,
+    {"id":"5XC1aQAUZeA","contentType":"full-release","title":"Marlo Saint – City Heat Love","published":"2026-09-02T17:00:33Z","url":"/releases/marlo-saint-city-heat-love/"},
     {"id":"cV5-6XzLGlc","contentType":"full-release","title":"Alia Bleu – If I Let You In","published":"2026-08-31T17:00:25Z","url":"/releases/alia-bleu-if-i-let-you-in/"},
     {"id":"mPvoThKPqdg","contentType":"full-release","title":"Kemar Ranka – From Lang Time","published":"2026-08-28T17:00:23Z","url":"/releases/kemar-ranka-from-lang-time/"},
     {"id":"QN-18Jw52f0","contentType":"full-release","title":"Voss Carter – Nobody Gets the Old Version","published":"2026-08-26T17:00:29Z","url":"/releases/voss-carter-nobody-gets-the-old-version/"},
-    {"id":"n3fv4DXruas","contentType":"full-release","title":"Rudii Marka – Top Shotta","published":"2026-08-24T17:00:35Z","url":"/releases/rudii-marka-top-shotta/"},
-    {"id":"s7W3lr2h3vI","contentType":"full-release","title":"Asif Sultaan – Tor Wakhri","published":"2026-08-21T17:00:00Z","url":"/releases/asif-sultaan-tor-wakhri/"}
+    {"id":"n3fv4DXruas","contentType":"full-release","title":"Rudii Marka – Top Shotta","published":"2026-08-24T17:00:35Z","url":"/releases/rudii-marka-top-shotta/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

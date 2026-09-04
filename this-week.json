@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T18:41:52.814Z",
+  "generatedAt": "2026-09-04T17:42:56.451Z",
   "timezone": "Europe/London",
   "weekStart": "2026-08-31",
   "weekEnd": "2026-09-06",
@@ -44,29 +44,16 @@
       "title": "Where We Live",
       "genre": "Reggae",
       "artistUrl": "/artists/zion-daley/",
+      "releaseUrl": "/releases/zion-daley-where-we-live/",
       "dateLocal": "2026-09-04",
       "dateLabel": "FRI 4 SEPT",
       "longDate": "Friday, 4 September 2026",
       "timeLocal": "18:00",
       "releaseAt": "2026-09-04T17:00:00.000Z",
-      "status": "upcoming",
-      "image": "/assets/artists/zion-daley-portrait.webp?v=20260824-zion1",
+      "status": "live",
+      "image": "/api/release-image?id=b0tJlFOe0p4&size=card",
       "source": "schedule"
     }
   ],
-  "nextUp": {
-    "artist": "Zion Daley",
-    "artistSlug": "zion-daley",
-    "title": "Where We Live",
-    "genre": "Reggae",
-    "artistUrl": "/artists/zion-daley/",
-    "dateLocal": "2026-09-04",
-    "dateLabel": "FRI 4 SEPT",
-    "longDate": "Friday, 4 September 2026",
-    "timeLocal": "18:00",
-    "releaseAt": "2026-09-04T17:00:00.000Z",
-    "status": "upcoming",
-    "image": "/assets/artists/zion-daley-portrait.webp?v=20260824-zion1",
-    "source": "schedule"
-  }
+  "nextUp": null
 }

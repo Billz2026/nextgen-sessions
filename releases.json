@@ -5,11 +5,11 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-09-02T18:41:48.903682Z",
-  "total": 97,
+  "generatedAt": "2026-09-04T17:42:55.277229Z",
+  "total": 98,
   "counts": {
     "Dancehall": 32,
-    "Reggae": 0,
+    "Reggae": 1,
     "UK Rap & Grime": 20,
     "Hip-Hop / G-Funk": 20,
     "Asian": 4,
@@ -21,6 +21,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "b0tJlFOe0p4",
+      "contentType": "full-release",
+      "artist": "Zion Daley",
+      "title": "Where We Live",
+      "group": "Reggae",
+      "published": "2026-09-04T17:00:10Z",
+      "durationSeconds": 379,
+      "rawTitle": "Zion Daley - Where We Live | Reggae 2026 | NextGen Sessions",
+      "slug": "zion-daley-where-we-live",
+      "url": "/releases/zion-daley-where-we-live/"
+    },
     {
       "id": "5XC1aQAUZeA",
       "contentType": "full-release",

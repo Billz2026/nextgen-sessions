@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-04T17:42:56.576Z",
-  "total": 146,
+  "generatedAt": "2026-09-07T18:23:40.753Z",
+  "total": 147,
   "counts": {
     "artists": 33,
-    "releases": 98,
+    "releases": 99,
     "genres": 6,
     "mixes": 9,
     "upcomingReleases": 0
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Keep It Moving",
+      "subtitle": "Renz Cole",
+      "description": "UK Rap & Grime · 2026-09-07",
+      "url": "/releases/renz-cole-keep-it-moving/",
+      "date": "2026-09-07T17:00:31Z",
+      "keywords": [
+        "Renz Cole",
+        "UK Rap & Grime",
+        "Renz Cole - Keep It Moving | UK Rap 2026 | NextGen Sessions",
+        "Keep It Moving"
       ]
     },
     {

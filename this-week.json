@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-09-06T23:52:34.627Z",
+  "generatedAt": "2026-09-07T18:23:40.647Z",
   "timezone": "Europe/London",
   "weekStart": "2026-09-07",
   "weekEnd": "2026-09-13",
   "weekLabel": "7–13 September 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Renz Cole",
+      "artistSlug": "renz-cole",
+      "title": "Keep It Moving",
+      "genre": "UK Rap & Grime",
+      "artistUrl": "/artists/renz-cole/",
+      "releaseUrl": "/releases/renz-cole-keep-it-moving/",
+      "dateLocal": "2026-09-07",
+      "dateLabel": "MON 7 SEPT",
+      "longDate": "Monday, 7 September 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-09-07T17:00:31.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=0xQUdNbdRxQ&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

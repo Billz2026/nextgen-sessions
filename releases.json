@@ -5,12 +5,12 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-09-04T17:42:55.277229Z",
-  "total": 98,
+  "generatedAt": "2026-09-07T18:23:39.801957Z",
+  "total": 99,
   "counts": {
     "Dancehall": 32,
     "Reggae": 1,
-    "UK Rap & Grime": 20,
+    "UK Rap & Grime": 21,
     "Hip-Hop / G-Funk": 20,
     "Asian": 4,
     "Lovers Rock": 8,
@@ -21,6 +21,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "0xQUdNbdRxQ",
+      "contentType": "full-release",
+      "artist": "Renz Cole",
+      "title": "Keep It Moving",
+      "group": "UK Rap & Grime",
+      "published": "2026-09-07T17:00:31Z",
+      "durationSeconds": 248,
+      "rawTitle": "Renz Cole - Keep It Moving | UK Rap 2026 | NextGen Sessions",
+      "slug": "renz-cole-keep-it-moving",
+      "url": "/releases/renz-cole-keep-it-moving/"
+    },
     {
       "id": "b0tJlFOe0p4",
       "contentType": "full-release",

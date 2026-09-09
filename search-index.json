@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-07T18:23:40.753Z",
-  "total": 147,
+  "generatedAt": "2026-09-09T17:19:26.386Z",
+  "total": 148,
   "counts": {
     "artists": 33,
-    "releases": 99,
+    "releases": 100,
     "genres": 6,
     "mixes": 9,
     "upcomingReleases": 0
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "From Round Here",
+      "subtitle": "Andre Kadeem",
+      "description": "UK Rap & Grime · 2026-09-09",
+      "url": "/releases/andre-kadeem-from-round-here/",
+      "date": "2026-09-09T17:00:33Z",
+      "keywords": [
+        "Andre Kadeem",
+        "UK Rap & Grime",
+        "Andre Kadeem - From Round Here | UK Rap 2026 | NextGen Sessions",
+        "From Round Here"
       ]
     },
     {

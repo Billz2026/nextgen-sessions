@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T18:23:40.647Z",
+  "generatedAt": "2026-09-09T17:19:26.281Z",
   "timezone": "Europe/London",
   "weekStart": "2026-09-07",
   "weekEnd": "2026-09-13",
@@ -20,6 +20,22 @@
       "releaseAt": "2026-09-07T17:00:31.000Z",
       "status": "live",
       "image": "/api/release-image?id=0xQUdNbdRxQ&size=card",
+      "source": "catalogue"
+    },
+    {
+      "artist": "Andre Kadeem",
+      "artistSlug": "andre-kadeem",
+      "title": "From Round Here",
+      "genre": "UK Rap & Grime",
+      "artistUrl": "/artists/andre-kadeem/",
+      "releaseUrl": "/releases/andre-kadeem-from-round-here/",
+      "dateLocal": "2026-09-09",
+      "dateLabel": "WED 9 SEPT",
+      "longDate": "Wednesday, 9 September 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-09-09T17:00:33.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=ZOl-pBtvggM&size=card",
       "source": "catalogue"
     }
   ],

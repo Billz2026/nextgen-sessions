@@ -5,12 +5,12 @@
     "minimumDurationSeconds": 600,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-08-10T07:32:31.621564Z",
-  "total": 7,
+  "generatedAt": "2026-09-11T19:57:41.922065Z",
+  "total": 8,
   "counts": {
     "grime": 1,
     "hip-hop": 1,
-    "uk-rap": 1,
+    "uk-rap": 2,
     "dancehall": 3,
     "summer": 1
   },
@@ -53,6 +53,19 @@
       "durationSeconds": 3921,
       "rawTitle": "UK Rap Mashup Series 1 | Melodic UK Rap Mix 2026 | NextGen Sessions",
       "thumbnail": "https://i.ytimg.com/vi/0nnoKsnkQok/hqdefault.jpg"
+    },
+    {
+      "id": "3MH2DQAKkmM",
+      "contentType": "long-mix",
+      "collection": "uk-rap",
+      "title": "UK Rap Mashup — Series II",
+      "label": "Series II",
+      "name": "UK Rap Mashup",
+      "sequence": 2,
+      "published": "2026-09-11T17:00:38Z",
+      "durationSeconds": 2264,
+      "rawTitle": "UK Rap Mashup 2 – In The Endz | Full UK Rap Mix 2026 | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/3MH2DQAKkmM/hqdefault.jpg"
     },
     {
       "id": "_SJRKzTWNX8",

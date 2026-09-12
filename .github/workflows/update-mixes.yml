@@ -2,7 +2,7 @@ name: Update Mix Catalogue
 
 on:
   schedule:
-    - cron: "35 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -11,6 +11,8 @@ on:
       - "scripts/update-mixes.py"
       - "scripts/test-mix-catalogue.py"
       - "scripts/sync-homepage-fallback.py"
+      - "scripts/test-latest-policy.mjs"
+      - "functions/api/latest.js"
       - "mix-player.js"
       - "mix-catalogue.js"
       - "mixes/**"
@@ -25,6 +27,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Check out website
         uses: actions/checkout@v4
@@ -34,10 +37,21 @@ jobs:
       - name: Build long-mix catalogue from YouTube
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: python3 scripts/update-mixes.py mixes.json
+        run: |
+          for attempt in 1 2 3 4; do
+            if python3 scripts/update-mixes.py mixes.json; then
+              exit 0
+            fi
+            echo "Mix catalogue attempt ${attempt}/4 failed; retrying..."
+            sleep $((attempt * 10))
+          done
+          exit 1
 
       - name: Test mix catalogue rules
         run: python3 scripts/test-mix-catalogue.py
+
+      - name: Test Latest eligibility policy
+        run: node scripts/test-latest-policy.mjs
 
       - name: Validate catalogue and page bindings
         run: |
@@ -50,9 +64,13 @@ jobs:
           ids = {item["id"] for item in data["mixes"]}
           assert data["total"] == len(data["mixes"])
           assert len(ids) == data["total"]
-          assert required == set(data["counts"])
+          assert required.issubset(set(data["counts"])), data["counts"]
+          assert "other" in data["counts"]
           assert all(data["counts"][key] >= 1 for key in required)
           assert data["counts"]["dancehall"] >= 3
+          assert data.get("contentPolicy", {}).get("shortsAllowed") is False
+          assert data.get("contentPolicy", {}).get("genericMixTitlesAllowed") is True
+          assert data.get("contentPolicy", {}).get("albumsAllowed") is False
           assert all(item["contentType"] == "long-mix" for item in data["mixes"])
           assert all(item["durationSeconds"] >= 600 for item in data["mixes"])
 
@@ -82,12 +100,13 @@ jobs:
           git add mixes.json index.html site.js
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update mix catalogue"
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5; do
             git pull --rebase origin main
             if git push origin HEAD:main; then
               exit 0
             fi
-            sleep $((attempt * 2))
+            echo "Publish attempt ${attempt}/5 failed; retrying..."
+            sleep $((attempt * 3))
           done
-          echo "Could not update main after 3 attempts."
+          echo "Could not update main after 5 attempts."
           exit 1

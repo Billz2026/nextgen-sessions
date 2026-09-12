@@ -211,7 +211,10 @@
     }
 
     const watchUrl = `https://www.youtube.com/watch?v=${latest.id}`;
-    const releaseUrl = String(latest?.url || "").startsWith("/releases/") ? latest.url : "/releases/";
+    const latestInternalUrl = String(latest?.url || "").trim();
+    const releaseUrl = /^\/(?:releases|mixes)(?:\/|$)/.test(latestInternalUrl)
+      ? latestInternalUrl
+      : "/releases/";
     if (latestLink) latestLink.href = watchUrl;
     if (heroLink) {
       heroLink.href = releaseUrl;
@@ -219,9 +222,16 @@
       heroLink.removeAttribute("rel");
     }
 
-    if (latestStatus) latestStatus.textContent = "Now available on YouTube";
+    if (latestStatus) {
+      latestStatus.textContent = latest.contentType === "long-mix"
+        ? "Latest mix now available on YouTube"
+        : (latest.contentType === "album"
+          ? "Latest album now available on YouTube"
+          : "Now available on YouTube");
+    }
 
-    if (releaseGrid) releaseGrid.innerHTML = releases.slice(0, 6).map(releaseCard).join("");
+    const releaseOnly = releases.filter(item => item?.contentType === "full-release");
+    if (releaseGrid) releaseGrid.innerHTML = releaseOnly.slice(0, 6).map(releaseCard).join("");
   }
 
   renderRoster("");
@@ -237,12 +247,18 @@
 
   function normaliseHomepageRelease(release) {
     const id = safeVideoId(release?.id);
+    const contentType = String(release?.contentType || "").trim();
     const releaseUrl = String(release?.url || "").trim();
     const searchableTitle = `${String(release?.title || "")} ${String(release?.rawTitle || "")}`;
+    const validDestination = contentType === "full-release"
+      ? /^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(releaseUrl)
+      : (contentType === "long-mix"
+        ? /^\/mixes(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)?\/$/.test(releaseUrl)
+        : (contentType === "album" && releaseUrl === "/mixes/full-albums/"));
     if (
       !id ||
-      release?.contentType !== "full-release" ||
-      !/^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(releaseUrl) ||
+      !["full-release", "long-mix", "album"].includes(contentType) ||
+      !validDestination ||
       /\b(?:shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i.test(searchableTitle)
     ) return null;
     const artist = String(release?.artist || "").trim();
@@ -253,6 +269,7 @@
       : (releaseTitle || "Latest NextGen Sessions release");
     return {
       id,
+      contentType,
       title,
       published: String(release?.published || release?.updated || "").trim(),
       url: releaseUrl
@@ -276,7 +293,9 @@
     const items = Array.isArray(payload?.releases) && payload.releases.length
       ? payload.releases
       : (Array.isArray(payload?.items) ? payload.items : []);
-    return items.map(normaliseHomepageRelease).filter(Boolean);
+    return items
+      .map(normaliseHomepageRelease)
+      .filter(item => item?.contentType === "full-release");
   }
 
   function mergeHomepageReleases(releases) {
@@ -317,7 +336,7 @@
   }
 
   if (latestPlayer || releaseGrid) {
-    fetchJson("/api/latest?v=r3")
+    fetchJson("/api/latest?v=r4")
       .then(payload => updateLatest(buildHomepagePayload(payload)))
       .catch(() => updateLatest({
         latest: FALLBACK_LATEST,

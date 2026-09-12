@@ -56,8 +56,6 @@ export function validLongMix(item) {
 
 export function validAlbum(item) {
   return validVideoId(item?.id) &&
-    String(item?.artist || "").trim() &&
-    String(item?.albumTitle || "").trim() &&
     /\balbum\b/i.test(String(item?.rawTitle || "")) &&
     safeTitle(item);
 }
@@ -90,12 +88,17 @@ function normaliseLongMix(item) {
 }
 
 function normaliseAlbum(item) {
-  const artist = String(item?.artist || "NextGen Sessions").trim();
-  const albumTitle = String(item?.albumTitle || "Full Album").trim();
+  const artist = String(item?.artist || "").trim();
+  const albumTitle = String(item?.albumTitle || "").trim();
+  const rawTitle = String(item?.rawTitle || "").trim();
+  const rawLead = rawTitle.split("|")[0].trim();
+  const title = artist && albumTitle
+    ? `${artist} – ${albumTitle} (Full Album)`
+    : (rawLead || rawTitle || "NextGen Sessions Full Album");
   return {
     ...item,
     contentType: "album",
-    title: `${artist} – ${albumTitle} (Full Album)`,
+    title,
     url: ALBUM_DESTINATION
   };
 }

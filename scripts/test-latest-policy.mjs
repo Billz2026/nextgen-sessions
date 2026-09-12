@@ -30,6 +30,49 @@ const selected = api.selectFullReleases({
 
 assert.deepEqual(selected.map(item => item.id), [fullRelease.id]);
 
+const longMix = {
+  id: "3MH2DQAKkmM",
+  contentType: "long-mix",
+  collection: "uk-rap",
+  title: "UK Rap Mashup — Series II",
+  rawTitle: "UK Rap Mashup 2 – In The Endz | Full UK Rap Mix 2026 | NextGen Sessions",
+  published: "2026-09-11T17:00:38Z",
+  durationSeconds: 2264
+};
+
+assert.equal(api.validLongMix(longMix), true);
+assert.equal(api.validLongMix({ ...longMix, durationSeconds: 599 }), false);
+assert.equal(api.validLongMix({ ...longMix, rawTitle: "UK Rap Mashup 2 #Shorts" }), false);
+
+const selectedMixes = api.selectLongMixes({
+  source: "youtube-mix-archives-and-channel-uploads",
+  contentPolicy: { shortsAllowed: false },
+  mixes: [longMix]
+});
+assert.deepEqual(selectedMixes.map(item => item.id), [longMix.id]);
+assert.equal(selectedMixes[0].contentType, "long-mix");
+assert.equal(selectedMixes[0].title, "UK Rap Mashup 2 – In The Endz");
+
+const album = {
+  id: "Xj806cr_eS4",
+  artist: "Jay Starks",
+  albumTitle: "Queens in My Soul",
+  rawTitle: "QUEENS MADE HIM | Jay Starks - Queens in My Soul | East Coast Hip-Hop Album 2026 | NextGen Sessions",
+  published: "2026-07-03T17:00:01Z"
+};
+
+assert.equal(api.validAlbum(album), true);
+assert.equal(api.validAlbum({ ...album, rawTitle: "Queens in My Soul teaser" }), false);
+assert.equal(api.validAlbum({ ...album, rawTitle: "Queens in My Soul full project" }), false);
+
+const selectedAlbums = api.selectAlbums({
+  source: "youtube-album-playlist",
+  albums: [album]
+});
+assert.deepEqual(selectedAlbums.map(item => item.id), [album.id]);
+assert.equal(selectedAlbums[0].contentType, "album");
+assert.equal(selectedAlbums[0].url, "/mixes/full-albums/");
+
 const futureRelease = {
   ...fullRelease,
   id: "BBBBBBBBBBB",
@@ -66,9 +109,32 @@ assert.ok(
   "Public release catalogue must not contain future-dated releases"
 );
 
+const currentMixCatalogue = JSON.parse(
+  await readFile(new URL("../mixes.json", import.meta.url), "utf8")
+);
+const currentMixes = api.selectLongMixes(currentMixCatalogue);
+assert.ok(currentMixes.length >= 1, "Verified mix catalogue must expose at least one eligible long mix");
+assert.ok(currentMixes.every(item => item.contentType === "long-mix"));
+assert.ok(currentMixes.every(item => Number(item.durationSeconds || 0) >= 600));
+
+const currentAlbumCatalogue = JSON.parse(
+  await readFile(new URL("../albums.json", import.meta.url), "utf8")
+);
+const currentAlbums = api.selectAlbums(currentAlbumCatalogue);
+assert.ok(currentAlbums.length >= 1, "Verified album catalogue must expose at least one eligible album");
+assert.ok(currentAlbums.every(item => item.contentType === "album"));
+
 assert.throws(
   () => api.selectFullReleases({ source: "youtube-videos-tab", releases: [fullRelease] }),
   /Unverified release catalogue source/
+);
+assert.throws(
+  () => api.selectLongMixes({ source: "youtube-videos-tab", contentPolicy: { shortsAllowed: false }, mixes: [longMix] }),
+  /Unverified mix catalogue source/
+);
+assert.throws(
+  () => api.selectAlbums({ source: "youtube-videos-tab", albums: [album] }),
+  /Unverified album catalogue source/
 );
 
 const productionWorker = await readFile(new URL("../.worker/index.js", import.meta.url), "utf8");
@@ -83,4 +149,4 @@ for (const marker of [
   assert.ok(productionWorker.includes(marker), `Production Worker is missing: ${marker}`);
 }
 
-console.log("Latest Release accepts verified full releases and rejects Shorts, future releases and unverified sources.");
+console.log("Latest accepts verified full songs, albums and long mixes while rejecting Shorts, promos and future content.");

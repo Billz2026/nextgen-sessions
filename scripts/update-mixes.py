@@ -46,12 +46,18 @@ COLLECTIONS = {
         "name": "The Sound of Summer",
         "match": re.compile(r"\b(?:the\s+)?sound\s+of\s+summer\b|\bsummer\s+mix\b", re.I),
     },
+    "other": {
+        "name": "NextGen Mix",
+        "match": re.compile(r"$^"),
+    },
 }
 
 EXCLUDED = re.compile(
     r"\b(shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts",
     re.I,
 )
+GENERIC_MIX_SIGNAL = re.compile(r"\b(?:mix|mash(?:\s*up)?|mixtape|dj\s+set|megami(?:x|xe))\b", re.I)
+ALBUM_SIGNAL = re.compile(r"\b(?:full\s+album|album|ep|l\.p\.)\b", re.I)
 
 
 def youtube_api(resource: str, **params: str) -> dict:
@@ -118,10 +124,14 @@ def is_published(value: str) -> bool:
 
 
 def classify_title(title: str) -> str:
-    # Specific UK Rap is checked before the broader Grime lane.
+    # Specific known lanes keep their dedicated collection pages. Any other
+    # genuinely mix-labelled upload is retained in the generic lane so future
+    # concepts (Bhangra, Afrobeats, R&B, global mixes, etc.) can still qualify.
     for key in ("uk-rap", "hip-hop", "dancehall", "grime", "summer"):
         if COLLECTIONS[key]["match"].search(title or ""):
             return key
+    if GENERIC_MIX_SIGNAL.search(title or "") and not ALBUM_SIGNAL.search(title or ""):
+        return "other"
     return ""
 
 
@@ -177,7 +187,7 @@ def clean_raw_title(value: str) -> str:
 def display_fields(collection: str, raw_title: str) -> tuple[str, str, int]:
     number = series_number(raw_title)
     name = str(COLLECTIONS[collection]["name"])
-    if number:
+    if number and collection != "other":
         label = f"Series {int_to_roman(number)}"
         return f"{name} — {label}", label, number
     if collection == "summer":
@@ -274,6 +284,7 @@ def build_mix_catalogue(existing_catalogue: dict | None = None) -> dict:
             collection not in COLLECTIONS
             or not raw_title
             or EXCLUDED.search(raw_title)
+            or ALBUM_SIGNAL.search(raw_title)
             or not is_published(published)
             or duration < MINIMUM_MIX_SECONDS
         ):
@@ -313,6 +324,8 @@ def build_mix_catalogue(existing_catalogue: dict | None = None) -> dict:
             "contentType": "long-mix",
             "minimumDurationSeconds": MINIMUM_MIX_SECONDS,
             "shortsAllowed": False,
+            "genericMixTitlesAllowed": True,
+            "albumsAllowed": False,
         },
         "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "total": len(mixes),

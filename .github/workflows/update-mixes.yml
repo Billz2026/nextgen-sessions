@@ -10,6 +10,7 @@ on:
       - ".github/workflows/update-mixes.yml"
       - "scripts/update-mixes.py"
       - "scripts/test-mix-catalogue.py"
+      - "scripts/sync-homepage-fallback.py"
       - "mix-player.js"
       - "mix-catalogue.js"
       - "mixes/**"
@@ -71,11 +72,14 @@ jobs:
           print(json.dumps({"total": data["total"], "counts": data["counts"]}, indent=2))
           PY
 
+      - name: Sync homepage static Latest fallback
+        run: python3 scripts/sync-homepage-fallback.py releases.json
+
       - name: Publish changed mix catalogue
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add mixes.json
+          git add mixes.json index.html site.js
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update mix catalogue"
           for attempt in 1 2 3; do

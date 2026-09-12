@@ -34,6 +34,9 @@ sources = {
     "summer-source": [playlist_item("summermix26", "THE SOUND OF SUMMER 2026 | Summer Mix 2026")],
     "uploads-source": [
         playlist_item("grimemix001", "Grime Mash Up Series 1 | NextGen Sessions"),
+        playlist_item("bhangramix1", "Bhangra Mix 2026 | NextGen Sessions"),
+        playlist_item("quickmix001", "Afrobeats Mix 2026 | NextGen Sessions"),
+        playlist_item("albumfull01", "Alia Bleu Full Album Mix | NextGen Sessions"),
         playlist_item("shortpromo1", "Grime Mashup Series 2 Teaser"),
         playlist_item("regularsong", "Reeko - A Regular Song | Dancehall 2026"),
     ],
@@ -52,7 +55,11 @@ module.playlist_items = lambda playlist_id: sources[playlist_id]
 def details(video_ids: list[str]) -> dict[str, dict]:
     output = {}
     for video_id in video_ids:
-        seconds = 240 if video_id == "regularsong" else 2400
+        seconds = 2400
+        if video_id == "regularsong":
+            seconds = 240
+        elif video_id == "quickmix001":
+            seconds = 480
         output[video_id] = {
             "id": video_id,
             "snippet": {
@@ -72,22 +79,31 @@ def details(video_ids: list[str]) -> dict[str, dict]:
 
 module.video_details = details
 catalogue = module.build_mix_catalogue({})
-assert catalogue["total"] == 6, json.dumps(catalogue, indent=2)
+assert catalogue["total"] == 7, json.dumps(catalogue, indent=2)
 assert catalogue["counts"] == {
     "grime": 1,
     "hip-hop": 1,
     "uk-rap": 1,
     "dancehall": 2,
     "summer": 1,
+    "other": 1,
 }
 assert [item["id"] for item in catalogue["mixes"] if item["collection"] == "dancehall"] == [
     "dancehall01",
     "dancehall04",
 ]
-assert "shortpromo1" not in {item["id"] for item in catalogue["mixes"]}
-assert "regularsong" not in {item["id"] for item in catalogue["mixes"]}
+ids = {item["id"] for item in catalogue["mixes"]}
+assert "bhangramix1" in ids, "Generic full-length mixes must be discovered from channel uploads"
+assert next(item for item in catalogue["mixes"] if item["id"] == "bhangramix1")["collection"] == "other"
+assert "shortpromo1" not in ids
+assert "regularsong" not in ids
+assert "quickmix001" not in ids, "Sub-10-minute mixes must not qualify"
+assert "albumfull01" not in ids, "Albums must stay in the album catalogue, not the mix catalogue"
 assert all(item["contentType"] == "long-mix" for item in catalogue["mixes"])
 assert all(item["durationSeconds"] >= 600 for item in catalogue["mixes"])
+assert catalogue["contentPolicy"]["shortsAllowed"] is False
+assert catalogue["contentPolicy"]["genericMixTitlesAllowed"] is True
+assert catalogue["contentPolicy"]["albumsAllowed"] is False
 
 
 existing = json.loads((ROOT / "mixes.json").read_text(encoding="utf-8"))

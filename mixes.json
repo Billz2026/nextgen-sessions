@@ -3,16 +3,19 @@
   "contentPolicy": {
     "contentType": "long-mix",
     "minimumDurationSeconds": 600,
-    "shortsAllowed": false
+    "shortsAllowed": false,
+    "genericMixTitlesAllowed": true,
+    "albumsAllowed": false
   },
-  "generatedAt": "2026-09-11T19:57:41.922065Z",
+  "generatedAt": "2026-09-12T09:26:31.169604Z",
   "total": 8,
   "counts": {
     "grime": 1,
     "hip-hop": 1,
     "uk-rap": 2,
     "dancehall": 3,
-    "summer": 1
+    "summer": 1,
+    "other": 0
   },
   "mixes": [
     {

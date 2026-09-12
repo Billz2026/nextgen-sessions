@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Keep homepage static and JavaScript fallbacks aligned with releases.json."""
+"""Keep homepage static and JavaScript fallbacks aligned with all eligible full-length catalogues."""
 
 from __future__ import annotations
 
@@ -8,24 +8,42 @@ import html
 import json
 import re
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 START = "// HOMEPAGE:AUTO-FALLBACK:START"
 END = "// HOMEPAGE:AUTO-FALLBACK:END"
+BLOCKED = re.compile(r"\b(?:shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts", re.I)
+MIX_URLS = {
+    "grime": "/mixes/grime-mashup-series-1/",
+    "hip-hop": "/mixes/hip-hop-mashup-series-1/",
+    "uk-rap": "/mixes/uk-rap-mashup-series-1/",
+    "dancehall": "/mixes/dancehall-mashups/",
+    "summer": "/mixes/sound-of-summer/",
+}
+ALBUM_URL = "/mixes/full-albums/"
 
 
 def esc(value: object) -> str:
     return html.escape(str(value or ""), quote=True)
 
 
-def format_date(value: str) -> str:
+def parse_date(value: str) -> datetime | None:
     if not value:
-        return "Official release"
+        return None
     try:
-        date = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed
+
+
+def format_date(value: str) -> str:
+    date = parse_date(value)
+    if not date:
         return "Official release"
     return f"{date.day} {date.strftime('%B %Y')}"
 
@@ -69,18 +87,80 @@ def normalise_release(release: dict) -> dict:
     }
 
 
-def sync_homepage(releases: list[dict]) -> None:
+def normalise_mix(mix: dict) -> dict:
+    raw_title = str(mix.get("rawTitle", "")).strip()
+    raw_lead = raw_title.split("|")[0].strip() if raw_title else ""
+    return {
+        "id": str(mix.get("id", "")).strip(),
+        "contentType": "long-mix",
+        "title": raw_lead or str(mix.get("title", "")).strip() or "NextGen Sessions Mix",
+        "published": str(mix.get("published", "")).strip(),
+        "url": MIX_URLS.get(str(mix.get("collection", "")).strip(), "/mixes/"),
+        "durationSeconds": int(mix.get("durationSeconds", 0) or 0),
+    }
+
+
+def normalise_album(album: dict) -> dict:
+    artist = str(album.get("artist", "")).strip()
+    album_title = str(album.get("albumTitle", "")).strip()
+    raw_title = str(album.get("rawTitle", "")).strip()
+    raw_lead = raw_title.split("|")[0].strip() if raw_title else ""
+    title = f"{artist} – {album_title} (Full Album)" if artist and album_title else (raw_lead or raw_title or "NextGen Sessions Full Album")
+    return {
+        "id": str(album.get("id", "")).strip(),
+        "contentType": "album",
+        "title": title,
+        "published": str(album.get("published", "")).strip(),
+        "url": ALBUM_URL,
+    }
+
+
+def eligible_latest(item: dict) -> bool:
+    video_id = str(item.get("id", "")).strip()
+    if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+        return False
+    if item.get("contentType") not in {"full-release", "long-mix", "album"}:
+        return False
+    if not str(item.get("title", "")).strip() or BLOCKED.search(str(item.get("title", ""))):
+        return False
+    if item.get("contentType") == "long-mix" and int(item.get("durationSeconds", 0) or 0) < 600:
+        return False
+    published = parse_date(str(item.get("published", "")))
+    return not published or published <= datetime.now(timezone.utc)
+
+
+def latest_timestamp(item: dict) -> float:
+    published = parse_date(str(item.get("published", "")))
+    return published.timestamp() if published else 0.0
+
+
+def select_latest_content(releases: list[dict], mixes: list[dict], albums: list[dict]) -> dict:
+    candidates = [normalise_release(item) for item in releases]
+    candidates += [normalise_mix(item) for item in mixes]
+    candidates += [normalise_album(item) for item in albums if re.search(r"\balbum\b", str(item.get("rawTitle", "")), re.I)]
+    candidates = [item for item in candidates if eligible_latest(item)]
+    if not candidates:
+        raise SystemExit("Cannot sync homepage: no eligible full-length songs, albums or mixes")
+    return max(candidates, key=latest_timestamp)
+
+
+def load_catalogue(path: Path, key: str) -> list[dict]:
+    if not path.exists():
+        return []
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    value = payload.get(key, [])
+    return value if isinstance(value, list) else []
+
+
+def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -> None:
     if not releases:
         raise SystemExit("Cannot sync homepage from an empty release catalogue")
 
     featured = releases[:6]
-    latest = featured[0]
+    latest = select_latest_content(releases, mixes, albums)
     latest_id = str(latest.get("id", "")).strip()
-    if not re.fullmatch(r"[A-Za-z0-9_-]{11}", latest_id):
-        raise SystemExit(f"Invalid latest video id: {latest_id!r}")
-
     latest_url = str(latest.get("url", "/releases/")).strip() or "/releases/"
-    latest_title = display_title(latest)
+    latest_title = str(latest.get("title", "Latest NextGen Sessions release")).strip()
     youtube_url = f"https://www.youtube.com/watch?v={latest_id}"
     published = format_date(str(latest.get("published", "")))
 
@@ -103,14 +183,14 @@ def sync_homepage(releases: list[dict]) -> None:
         "homepage release fallback grid",
     )
 
-    version_payload = json.dumps([normalise_release(item) for item in featured], ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    release_fallback = [normalise_release(item) for item in featured]
+    version_payload = json.dumps({"latest": latest, "releases": release_fallback}, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     version = hashlib.sha1(version_payload.encode("utf-8")).hexdigest()[:10]
     source = replace_once(source, r'<script src="/site\.js(?:\?v=[^"]*)?" defer></script>', f'<script src="/site.js?v=catalogue-{version}" defer></script>', "site.js cache version")
     index_path.write_text(source, encoding="utf-8")
 
-    fallback = [normalise_release(item) for item in featured]
-    latest_json = json.dumps(fallback[0], ensure_ascii=False, separators=(",", ":"))
-    rest = ["    FALLBACK_LATEST"] + ["    " + json.dumps(item, ensure_ascii=False, separators=(",", ":")) for item in fallback[1:]]
+    latest_json = json.dumps(latest, ensure_ascii=False, separators=(",", ":"))
+    rest = ["    " + json.dumps(item, ensure_ascii=False, separators=(",", ":")) for item in release_fallback]
     block = (
         f"  {START}\n"
         f"  const FALLBACK_LATEST = {latest_json};\n\n"
@@ -130,14 +210,15 @@ def sync_homepage(releases: list[dict]) -> None:
 
 
 def main() -> None:
-    catalogue_path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "releases.json"
-    if not catalogue_path.is_absolute():
-        catalogue_path = ROOT / catalogue_path
-    payload = json.loads(catalogue_path.read_text(encoding="utf-8"))
-    releases = payload.get("releases", [])
-    sync_homepage(releases)
-    latest = releases[0]
-    print(f"Homepage fallback synced to {latest.get('artist', '')} — {latest.get('title', '')}")
+    release_path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "releases.json"
+    if not release_path.is_absolute():
+        release_path = ROOT / release_path
+    releases = load_catalogue(release_path, "releases")
+    mixes = load_catalogue(ROOT / "mixes.json", "mixes")
+    albums = load_catalogue(ROOT / "albums.json", "albums")
+    sync_homepage(releases, mixes, albums)
+    latest = select_latest_content(releases, mixes, albums)
+    print(f"Homepage fallback synced to {latest.get('contentType', '')}: {latest.get('title', '')}")
 
 
 if __name__ == "__main__":

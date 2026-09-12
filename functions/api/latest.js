@@ -8,6 +8,16 @@ const FALLBACK_RELEASES = [
 
 const BLOCKED_LATEST_TITLE = /\b(?:shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i;
 const RELEASE_PAGE = /^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/;
+const MIX_SOURCE = "youtube-mix-archives-and-channel-uploads";
+const ALBUM_SOURCE = "youtube-album-playlist";
+const MIX_DESTINATIONS = {
+  grime: "/mixes/grime-mashup-series-1/",
+  "hip-hop": "/mixes/hip-hop-mashup-series-1/",
+  "uk-rap": "/mixes/uk-rap-mashup-series-1/",
+  dancehall: "/mixes/dancehall-mashups/",
+  summer: "/mixes/sound-of-summer/"
+};
+const ALBUM_DESTINATION = "/mixes/full-albums/";
 
 function jsonResponse(payload, cacheControl) {
   return new Response(JSON.stringify(payload), {
@@ -19,14 +29,35 @@ function jsonResponse(payload, cacheControl) {
   });
 }
 
+function validVideoId(value) {
+  return /^[A-Za-z0-9_-]{11}$/.test(String(value || ""));
+}
+
+function safeTitle(item) {
+  return !BLOCKED_LATEST_TITLE.test(`${String(item?.title || "")} ${String(item?.rawTitle || "")}`);
+}
+
 export function validFullRelease(item) {
-  const searchableTitle = `${String(item?.title || "")} ${String(item?.rawTitle || "")}`;
-  return /^[A-Za-z0-9_-]{11}$/.test(String(item?.id || "")) &&
+  return validVideoId(item?.id) &&
     item?.contentType === "full-release" &&
     String(item?.artist || "").trim() &&
     String(item?.title || "").trim() &&
     RELEASE_PAGE.test(String(item?.url || "")) &&
-    !BLOCKED_LATEST_TITLE.test(searchableTitle);
+    safeTitle(item);
+}
+
+export function validLongMix(item) {
+  return validVideoId(item?.id) &&
+    item?.contentType === "long-mix" &&
+    String(item?.title || item?.rawTitle || "").trim() &&
+    Number(item?.durationSeconds || 0) >= 600 &&
+    safeTitle(item);
+}
+
+export function validAlbum(item) {
+  return validVideoId(item?.id) &&
+    /\balbum\b/i.test(String(item?.rawTitle || "")) &&
+    safeTitle(item);
 }
 
 function publishedTimestamp(item) {
@@ -38,15 +69,68 @@ function releasedNow(item) {
   return !timestamp || timestamp <= Date.now();
 }
 
-async function fetchCatalogue(context) {
-  const url = new URL("/releases.json?latest=r3", context.request.url);
+function mixDisplayTitle(item) {
+  const raw = String(item?.rawTitle || "").trim();
+  if (raw) {
+    const firstSegment = raw.split("|")[0].trim();
+    if (firstSegment) return firstSegment;
+  }
+  return String(item?.title || "NextGen Sessions Mix").trim();
+}
+
+function normaliseLongMix(item) {
+  return {
+    ...item,
+    contentType: "long-mix",
+    title: mixDisplayTitle(item),
+    url: MIX_DESTINATIONS[String(item?.collection || "").trim()] || "/mixes/"
+  };
+}
+
+function normaliseAlbum(item) {
+  const artist = String(item?.artist || "").trim();
+  const albumTitle = String(item?.albumTitle || "").trim();
+  const rawTitle = String(item?.rawTitle || "").trim();
+  const rawLead = rawTitle.split("|")[0].trim();
+  const title = artist && albumTitle
+    ? `${artist} – ${albumTitle} (Full Album)`
+    : (rawLead || rawTitle || "NextGen Sessions Full Album");
+  return {
+    ...item,
+    contentType: "album",
+    title,
+    url: ALBUM_DESTINATION
+  };
+}
+
+async function fetchAssetJson(context, path, cacheBust) {
+  const url = new URL(`${path}?latest=${cacheBust}`, context.request.url);
   const request = new Request(url.toString(), { headers: { Accept: "application/json" } });
   const response = context.env?.ASSETS?.fetch
     ? await context.env.ASSETS.fetch(request)
     : await fetch(request);
-  if (!response.ok) throw new Error(`Release catalogue returned ${response.status}`);
-  const payload = await response.json();
-  return selectFullReleases(payload);
+  if (!response.ok) throw new Error(`${path} returned ${response.status}`);
+  return response.json();
+}
+
+async function fetchReleaseCatalogue(context) {
+  return selectFullReleases(await fetchAssetJson(context, "/releases.json", "r4"));
+}
+
+async function fetchMixCatalogue(context) {
+  try {
+    return selectLongMixes(await fetchAssetJson(context, "/mixes.json", "r4"));
+  } catch (_) {
+    return [];
+  }
+}
+
+async function fetchAlbumCatalogue(context) {
+  try {
+    return selectAlbums(await fetchAssetJson(context, "/albums.json", "r4"));
+  } catch (_) {
+    return [];
+  }
 }
 
 export function selectFullReleases(payload) {
@@ -60,28 +144,73 @@ export function selectFullReleases(payload) {
     .sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
 }
 
+export function selectLongMixes(payload) {
+  if (payload?.source !== MIX_SOURCE || payload?.contentPolicy?.shortsAllowed !== false) {
+    throw new Error("Unverified mix catalogue source");
+  }
+  const mixes = Array.isArray(payload?.mixes) ? payload.mixes : [];
+  return mixes
+    .filter(validLongMix)
+    .filter(releasedNow)
+    .map(normaliseLongMix)
+    .sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
+}
+
+export function selectAlbums(payload) {
+  if (payload?.source !== ALBUM_SOURCE) {
+    throw new Error("Unverified album catalogue source");
+  }
+  const albums = Array.isArray(payload?.albums) ? payload.albums : [];
+  return albums
+    .filter(validAlbum)
+    .filter(releasedNow)
+    .map(normaliseAlbum)
+    .sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
+}
+
+function combinedItems(releases, mixes, albums) {
+  const byId = new Map();
+  [...releases, ...mixes, ...albums].forEach(item => {
+    if (!item?.id) return;
+    const existing = byId.get(item.id);
+    if (!existing || publishedTimestamp(item) > publishedTimestamp(existing)) {
+      byId.set(item.id, item);
+    }
+  });
+  return [...byId.values()].sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
+}
+
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=r3", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=r4", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   try {
-    const releases = await fetchCatalogue(context);
+    const [releases, mixes, albums] = await Promise.all([
+      fetchReleaseCatalogue(context),
+      fetchMixCatalogue(context),
+      fetchAlbumCatalogue(context)
+    ]);
     if (!releases.length) throw new Error("Release catalogue is empty");
+
+    const items = combinedItems(releases, mixes, albums);
+    if (!items.length) throw new Error("No eligible latest items");
+
     const output = jsonResponse({
-      source: "verified-release-catalogue",
-      policy: "full-release-catalogue-only",
+      source: "verified-full-length-catalogues",
+      policy: "songs-albums-mixes-no-shorts",
       generatedAt: new Date().toISOString(),
-      latest: releases[0],
+      latest: items[0],
       releases: releases.slice(0, 8),
-      items: releases.slice(0, 8)
+      items: items.slice(0, 12)
     }, "public, max-age=60, s-maxage=120, stale-while-revalidate=600");
     context.waitUntil(cache.put(cacheKey, output.clone()));
     return output;
   } catch (_) {
     return jsonResponse({
       source: "curated-fallback",
+      policy: "songs-albums-mixes-no-shorts",
       generatedAt: new Date().toISOString(),
       latest: FALLBACK_RELEASES[0],
       releases: FALLBACK_RELEASES,

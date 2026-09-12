@@ -10,11 +10,13 @@ on:
       - ".github/workflows/update-mixes.yml"
       - "scripts/update-mixes.py"
       - "scripts/test-mix-catalogue.py"
+      - "scripts/test-mix-card-artwork.mjs"
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-latest-policy.mjs"
       - "functions/api/latest.js"
       - "mix-player.js"
       - "mix-catalogue.js"
+      - "styles.css"
       - "mixes/**"
 
 permissions:
@@ -49,6 +51,9 @@ jobs:
 
       - name: Test mix catalogue rules
         run: python3 scripts/test-mix-catalogue.py
+
+      - name: Test newest mix card artwork
+        run: node scripts/test-mix-card-artwork.mjs
 
       - name: Test Latest eligibility policy
         run: node scripts/test-latest-policy.mjs

@@ -27,7 +27,6 @@ const selected = api.selectFullReleases({
     fullRelease
   ]
 });
-
 assert.deepEqual(selected.map(item => item.id), [fullRelease.id]);
 
 const longMix = {
@@ -44,15 +43,28 @@ assert.equal(api.validLongMix(longMix), true);
 assert.equal(api.validLongMix({ ...longMix, durationSeconds: 599 }), false);
 assert.equal(api.validLongMix({ ...longMix, rawTitle: "UK Rap Mashup 2 #Shorts" }), false);
 
+const genericMix = {
+  id: "bhangramix1",
+  contentType: "long-mix",
+  collection: "other",
+  title: "Bhangra Mix 2026",
+  rawTitle: "Bhangra Mix 2026 | NextGen Sessions",
+  published: "2026-10-16T17:00:00Z",
+  durationSeconds: 1800
+};
+assert.equal(api.validLongMix(genericMix), true, "Generic future long mixes must be eligible");
+
 const selectedMixes = api.selectLongMixes({
   source: "youtube-mix-archives-and-channel-uploads",
   contentPolicy: { shortsAllowed: false },
-  mixes: [longMix]
+  mixes: [longMix, genericMix]
 });
-assert.deepEqual(selectedMixes.map(item => item.id), [longMix.id]);
+assert.deepEqual(selectedMixes.map(item => item.id), [genericMix.id, longMix.id]);
 assert.equal(selectedMixes[0].contentType, "long-mix");
-assert.equal(selectedMixes[0].title, "UK Rap Mashup 2 – In The Endz");
-assert.equal(selectedMixes[0].url, "/mixes/uk-rap-mashup-series-2/");
+assert.equal(selectedMixes[0].title, "Bhangra Mix 2026");
+assert.equal(selectedMixes[0].url, "/mixes/", "Unknown mix collections must safely fall back to the mix hub");
+assert.equal(selectedMixes[1].title, "UK Rap Mashup 2 – In The Endz");
+assert.equal(selectedMixes[1].url, "/mixes/uk-rap-mashup-series-2/");
 
 const album = {
   id: "Xj806cr_eS4",
@@ -91,6 +103,22 @@ assert.deepEqual(
   futureSelected.map(item => item.id),
   [fullRelease.id],
   "Future-dated releases must remain embargoed from /api/latest"
+);
+
+const futureMix = {
+  ...genericMix,
+  id: "CCCCCCCCCCC",
+  published: new Date(Date.now() + 60 * 60 * 1000).toISOString()
+};
+const futureMixSelected = api.selectLongMixes({
+  source: "youtube-mix-archives-and-channel-uploads",
+  contentPolicy: { shortsAllowed: false },
+  mixes: [futureMix, longMix]
+});
+assert.deepEqual(
+  futureMixSelected.map(item => item.id),
+  [longMix.id],
+  "Future-dated mixes must remain embargoed until YouTube publication time"
 );
 
 const currentCatalogue = JSON.parse(
@@ -143,16 +171,16 @@ assert.throws(
   /Unverified album catalogue source/
 );
 
-const productionWorker = await readFile(new URL("../.worker/index.js", import.meta.url), "utf8");
 for (const marker of [
-  'policy: "full-release-catalogue-only"',
-  'item?.contentType === "full-release"',
-  'payload?.source !== "curated-youtube-playlists"',
-  'function releasedNow(item)',
-  'timestamp <= Date.now()',
-  'new URL("/api/latest?v=r3"',
+  'policy: "songs-albums-mixes-no-shorts"',
+  'fetchMixCatalogue(context)',
+  'fetchAlbumCatalogue(context)',
+  'selectLongMixes',
+  'selectAlbums',
+  'new URL("/api/latest?v=r4"',
 ]) {
-  assert.ok(productionWorker.includes(marker), `Production Worker is missing: ${marker}`);
+  assert.ok(source.includes(marker), `Latest API source is missing: ${marker}`);
 }
+assert.ok(!source.includes('policy: "full-release-catalogue-only"'), "Song-only Latest policy must never return");
 
 console.log("Latest accepts verified full songs, albums and long mixes while rejecting Shorts, promos and future content.");

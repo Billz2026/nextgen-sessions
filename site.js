@@ -321,7 +321,10 @@
     ]));
 
     const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
-    const latest = apiLatest || releases[0] || FALLBACK_LATEST;
+    const fallbackLatest = normaliseHomepageRelease(FALLBACK_LATEST);
+    const latest = [apiLatest, fallbackLatest, releases[0]]
+      .filter(Boolean)
+      .sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a))[0] || FALLBACK_LATEST;
 
     return { latest, releases };
   }

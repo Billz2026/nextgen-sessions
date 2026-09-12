@@ -52,6 +52,7 @@ const selectedMixes = api.selectLongMixes({
 assert.deepEqual(selectedMixes.map(item => item.id), [longMix.id]);
 assert.equal(selectedMixes[0].contentType, "long-mix");
 assert.equal(selectedMixes[0].title, "UK Rap Mashup 2 – In The Endz");
+assert.equal(selectedMixes[0].url, "/mixes/uk-rap-mashup-series-2/");
 
 const album = {
   id: "Xj806cr_eS4",
@@ -116,6 +117,11 @@ const currentMixes = api.selectLongMixes(currentMixCatalogue);
 assert.ok(currentMixes.length >= 1, "Verified mix catalogue must expose at least one eligible long mix");
 assert.ok(currentMixes.every(item => item.contentType === "long-mix"));
 assert.ok(currentMixes.every(item => Number(item.durationSeconds || 0) >= 600));
+assert.equal(
+  currentMixes.find(item => item.id === "3MH2DQAKkmM")?.url,
+  "/mixes/uk-rap-mashup-series-2/",
+  "UK Rap Mashup 2 must deep-link to its dedicated landing page"
+);
 
 const currentAlbumCatalogue = JSON.parse(
   await readFile(new URL("../albums.json", import.meta.url), "utf8")

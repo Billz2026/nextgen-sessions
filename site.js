@@ -23,10 +23,10 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"ZOl-pBtvggM","contentType":"full-release","title":"Andre Kadeem – From Round Here","published":"2026-09-09T17:00:33Z","url":"/releases/andre-kadeem-from-round-here/"};
+  const FALLBACK_LATEST = {"id":"3MH2DQAKkmM","contentType":"long-mix","title":"UK Rap Mashup 2 – In The Endz","published":"2026-09-11T17:00:38Z","url":"/mixes/uk-rap-mashup-series-1/","durationSeconds":2264};
 
   const FALLBACK_RELEASES = [
-    FALLBACK_LATEST,
+    {"id":"ZOl-pBtvggM","contentType":"full-release","title":"Andre Kadeem – From Round Here","published":"2026-09-09T17:00:33Z","url":"/releases/andre-kadeem-from-round-here/"},
     {"id":"0xQUdNbdRxQ","contentType":"full-release","title":"Renz Cole – Keep It Moving","published":"2026-09-07T17:00:31Z","url":"/releases/renz-cole-keep-it-moving/"},
     {"id":"b0tJlFOe0p4","contentType":"full-release","title":"Zion Daley – Where We Live","published":"2026-09-04T17:00:10Z","url":"/releases/zion-daley-where-we-live/"},
     {"id":"5XC1aQAUZeA","contentType":"full-release","title":"Marlo Saint – City Heat Love","published":"2026-09-02T17:00:33Z","url":"/releases/marlo-saint-city-heat-love/"},

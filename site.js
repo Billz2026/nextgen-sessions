@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"3MH2DQAKkmM","contentType":"long-mix","title":"UK Rap Mashup 2 – In The Endz","published":"2026-09-11T17:00:38Z","url":"/mixes/uk-rap-mashup-series-1/","durationSeconds":2264};
+  const FALLBACK_LATEST = {"id":"3MH2DQAKkmM","contentType":"long-mix","title":"UK Rap Mashup 2 – In The Endz","published":"2026-09-11T17:00:38Z","url":"/mixes/uk-rap-mashup-series-2/","durationSeconds":2264};
 
   const FALLBACK_RELEASES = [
     {"id":"ZOl-pBtvggM","contentType":"full-release","title":"Andre Kadeem – From Round Here","published":"2026-09-09T17:00:33Z","url":"/releases/andre-kadeem-from-round-here/"},

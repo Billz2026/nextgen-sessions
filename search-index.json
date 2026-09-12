@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-09T17:19:26.386Z",
-  "total": 148,
+  "generatedAt": "2026-09-12T08:39:09.964Z",
+  "total": 149,
   "counts": {
     "artists": 33,
     "releases": 100,
     "genres": 6,
-    "mixes": 9,
+    "mixes": 10,
     "upcomingReleases": 0
   },
   "items": [
@@ -1991,6 +1991,18 @@
         "UK Rap Mashup — Series 1",
         "Play UK Rap Mashup Series 1, a 65-minute UK rap mix from 2026 blending melodic rap and street energy. Listen on NextGen Sessions and explore more UK rap.",
         "uk rap mashup series 1"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "UK Rap Mashup 2 – In The Endz",
+      "subtitle": "Mix / collection",
+      "description": "Play UK Rap Mashup 2 – In The Endz, a 37-minute full UK rap mix from NextGen Sessions released in September 2026.",
+      "url": "/mixes/uk-rap-mashup-series-2/",
+      "keywords": [
+        "UK Rap Mashup 2 – In The Endz",
+        "Play UK Rap Mashup 2 – In The Endz, a 37-minute full UK rap mix from NextGen Sessions released in September 2026.",
+        "uk rap mashup series 2"
       ]
     }
   ]

@@ -208,21 +208,29 @@ jobs:
       - name: Validate homepage static fallback
         run: |
           python3 - <<'PY'
+          import importlib.util
           import json
           from pathlib import Path
-          data = json.loads(Path("releases.json").read_text(encoding="utf-8"))
-          releases = data.get("releases", [])
+
+          spec = importlib.util.spec_from_file_location("homepage_fallback", "scripts/sync-homepage-fallback.py")
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+
+          releases = json.loads(Path("releases.json").read_text(encoding="utf-8")).get("releases", [])
+          mixes = json.loads(Path("mixes.json").read_text(encoding="utf-8")).get("mixes", [])
+          albums = json.loads(Path("albums.json").read_text(encoding="utf-8")).get("albums", [])
           assert releases, "Release catalogue is empty"
-          latest = releases[0]
+          latest = module.select_latest_content(releases, mixes, albums)
+
           homepage = Path("index.html").read_text(encoding="utf-8")
           site = Path("site.js").read_text(encoding="utf-8")
           assert f'data-video-id="{latest["id"]}"' in homepage, "Homepage video fallback is stale"
-          assert f'href="{latest["url"]}"' in homepage, "Homepage latest-release link is stale"
+          assert f'href="{latest["url"]}"' in homepage, "Homepage latest-content link is stale"
           assert f'/api/release-image?id={latest["id"]}' in homepage, "Homepage thumbnail fallback is stale"
           assert latest["id"] in site, "JavaScript latest fallback is stale"
           assert "// HOMEPAGE:AUTO-FALLBACK:START" in site
           assert "// HOMEPAGE:AUTO-FALLBACK:END" in site
-          print(f'Homepage fallback validated: {latest["artist"]} — {latest["title"]}')
+          print(f'Homepage fallback validated: {latest["contentType"]} — {latest["title"]}')
           PY
 
       - name: Test release archive inline player

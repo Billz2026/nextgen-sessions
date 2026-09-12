@@ -49,7 +49,7 @@ const genericMix = {
   collection: "other",
   title: "Bhangra Mix 2026",
   rawTitle: "Bhangra Mix 2026 | NextGen Sessions",
-  published: "2026-10-16T17:00:00Z",
+  published: "2026-09-12T08:00:00Z",
   durationSeconds: 1800
 };
 assert.equal(api.validLongMix(genericMix), true, "Generic future long mixes must be eligible");

@@ -17,6 +17,9 @@ const MIX_DESTINATIONS = {
   dancehall: "/mixes/dancehall-mashups/",
   summer: "/mixes/sound-of-summer/"
 };
+const MIX_ITEM_DESTINATIONS = {
+  "3MH2DQAKkmM": "/mixes/uk-rap-mashup-series-2/"
+};
 const ALBUM_DESTINATION = "/mixes/full-albums/";
 
 function jsonResponse(payload, cacheControl) {
@@ -79,11 +82,12 @@ function mixDisplayTitle(item) {
 }
 
 function normaliseLongMix(item) {
+  const id = String(item?.id || "").trim();
   return {
     ...item,
     contentType: "long-mix",
     title: mixDisplayTitle(item),
-    url: MIX_DESTINATIONS[String(item?.collection || "").trim()] || "/mixes/"
+    url: MIX_ITEM_DESTINATIONS[id] || MIX_DESTINATIONS[String(item?.collection || "").trim()] || "/mixes/"
   };
 }
 

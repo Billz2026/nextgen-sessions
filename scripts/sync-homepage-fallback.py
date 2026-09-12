@@ -22,6 +22,9 @@ MIX_URLS = {
     "dancehall": "/mixes/dancehall-mashups/",
     "summer": "/mixes/sound-of-summer/",
 }
+MIX_ITEM_URLS = {
+    "3MH2DQAKkmM": "/mixes/uk-rap-mashup-series-2/",
+}
 ALBUM_URL = "/mixes/full-albums/"
 
 
@@ -90,12 +93,13 @@ def normalise_release(release: dict) -> dict:
 def normalise_mix(mix: dict) -> dict:
     raw_title = str(mix.get("rawTitle", "")).strip()
     raw_lead = raw_title.split("|")[0].strip() if raw_title else ""
+    video_id = str(mix.get("id", "")).strip()
     return {
-        "id": str(mix.get("id", "")).strip(),
+        "id": video_id,
         "contentType": "long-mix",
         "title": raw_lead or str(mix.get("title", "")).strip() or "NextGen Sessions Mix",
         "published": str(mix.get("published", "")).strip(),
-        "url": MIX_URLS.get(str(mix.get("collection", "")).strip(), "/mixes/"),
+        "url": MIX_ITEM_URLS.get(video_id, MIX_URLS.get(str(mix.get("collection", "")).strip(), "/mixes/")),
         "durationSeconds": int(mix.get("durationSeconds", 0) or 0),
     }
 

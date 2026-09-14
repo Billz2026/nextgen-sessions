@@ -1,43 +1,10 @@
 {
-  "generatedAt": "2026-09-09T17:19:26.281Z",
+  "generatedAt": "2026-09-14T10:43:40.346Z",
   "timezone": "Europe/London",
-  "weekStart": "2026-09-07",
-  "weekEnd": "2026-09-13",
-  "weekLabel": "7–13 September 2026",
-  "mode": "week",
-  "items": [
-    {
-      "artist": "Renz Cole",
-      "artistSlug": "renz-cole",
-      "title": "Keep It Moving",
-      "genre": "UK Rap & Grime",
-      "artistUrl": "/artists/renz-cole/",
-      "releaseUrl": "/releases/renz-cole-keep-it-moving/",
-      "dateLocal": "2026-09-07",
-      "dateLabel": "MON 7 SEPT",
-      "longDate": "Monday, 7 September 2026",
-      "timeLocal": "",
-      "releaseAt": "2026-09-07T17:00:31.000Z",
-      "status": "live",
-      "image": "/api/release-image?id=0xQUdNbdRxQ&size=card",
-      "source": "catalogue"
-    },
-    {
-      "artist": "Andre Kadeem",
-      "artistSlug": "andre-kadeem",
-      "title": "From Round Here",
-      "genre": "UK Rap & Grime",
-      "artistUrl": "/artists/andre-kadeem/",
-      "releaseUrl": "/releases/andre-kadeem-from-round-here/",
-      "dateLocal": "2026-09-09",
-      "dateLabel": "WED 9 SEPT",
-      "longDate": "Wednesday, 9 September 2026",
-      "timeLocal": "",
-      "releaseAt": "2026-09-09T17:00:33.000Z",
-      "status": "live",
-      "image": "/api/release-image?id=ZOl-pBtvggM&size=card",
-      "source": "catalogue"
-    }
-  ],
+  "weekStart": "2026-09-14",
+  "weekEnd": "2026-09-20",
+  "weekLabel": "14–20 September 2026",
+  "mode": "empty",
+  "items": [],
   "nextUp": null
 }

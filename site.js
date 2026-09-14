@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"3MH2DQAKkmM","contentType":"long-mix","title":"UK Rap Mashup 2 – In The Endz","published":"2026-09-11T17:00:38Z","url":"/mixes/uk-rap-mashup-series-2/","durationSeconds":2264};
+  const FALLBACK_LATEST = {"id":"TjXtRh2DtJE","contentType":"full-release","title":"Alonzo Ray – Still Rollin Clean","published":"2026-09-14T17:00:28Z","url":"/releases/alonzo-ray-still-rollin-clean/"};
 
   const FALLBACK_RELEASES = [
+    {"id":"TjXtRh2DtJE","contentType":"full-release","title":"Alonzo Ray – Still Rollin Clean","published":"2026-09-14T17:00:28Z","url":"/releases/alonzo-ray-still-rollin-clean/"},
     {"id":"ZOl-pBtvggM","contentType":"full-release","title":"Andre Kadeem – From Round Here","published":"2026-09-09T17:00:33Z","url":"/releases/andre-kadeem-from-round-here/"},
     {"id":"0xQUdNbdRxQ","contentType":"full-release","title":"Renz Cole – Keep It Moving","published":"2026-09-07T17:00:31Z","url":"/releases/renz-cole-keep-it-moving/"},
     {"id":"b0tJlFOe0p4","contentType":"full-release","title":"Zion Daley – Where We Live","published":"2026-09-04T17:00:10Z","url":"/releases/zion-daley-where-we-live/"},
     {"id":"5XC1aQAUZeA","contentType":"full-release","title":"Marlo Saint – City Heat Love","published":"2026-09-02T17:00:33Z","url":"/releases/marlo-saint-city-heat-love/"},
-    {"id":"cV5-6XzLGlc","contentType":"full-release","title":"Alia Bleu – If I Let You In","published":"2026-08-31T17:00:25Z","url":"/releases/alia-bleu-if-i-let-you-in/"},
-    {"id":"mPvoThKPqdg","contentType":"full-release","title":"Kemar Ranka – From Lang Time","published":"2026-08-28T17:00:23Z","url":"/releases/kemar-ranka-from-lang-time/"}
+    {"id":"cV5-6XzLGlc","contentType":"full-release","title":"Alia Bleu – If I Let You In","published":"2026-08-31T17:00:25Z","url":"/releases/alia-bleu-if-i-let-you-in/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

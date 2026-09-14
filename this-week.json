@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-09-14T10:43:40.346Z",
+  "generatedAt": "2026-09-14T20:34:40.623Z",
   "timezone": "Europe/London",
   "weekStart": "2026-09-14",
   "weekEnd": "2026-09-20",
   "weekLabel": "14–20 September 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Alonzo Ray",
+      "artistSlug": "alonzo-ray",
+      "title": "Still Rollin Clean",
+      "genre": "Hip-Hop / G-Funk",
+      "artistUrl": "/artists/alonzo-ray/",
+      "releaseUrl": "/releases/alonzo-ray-still-rollin-clean/",
+      "dateLocal": "2026-09-14",
+      "dateLabel": "MON 14 SEPT",
+      "longDate": "Monday, 14 September 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-09-14T17:00:28.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=TjXtRh2DtJE&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

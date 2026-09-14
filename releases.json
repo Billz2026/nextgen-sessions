@@ -5,13 +5,13 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-09-09T17:19:25.199304Z",
-  "total": 100,
+  "generatedAt": "2026-09-14T20:34:39.467608Z",
+  "total": 101,
   "counts": {
     "Dancehall": 32,
     "Reggae": 1,
     "UK Rap & Grime": 22,
-    "Hip-Hop / G-Funk": 20,
+    "Hip-Hop / G-Funk": 21,
     "Asian": 4,
     "Lovers Rock": 8,
     "R&B & Soul": 8,
@@ -21,6 +21,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "TjXtRh2DtJE",
+      "contentType": "full-release",
+      "artist": "Alonzo Ray",
+      "title": "Still Rollin Clean",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-09-14T17:00:28Z",
+      "durationSeconds": 293,
+      "rawTitle": "Alonzo Ray - Still Rollin Clean | Hip-Hop 2026 | NextGen Sessions",
+      "slug": "alonzo-ray-still-rollin-clean",
+      "url": "/releases/alonzo-ray-still-rollin-clean/"
+    },
     {
       "id": "ZOl-pBtvggM",
       "contentType": "full-release",

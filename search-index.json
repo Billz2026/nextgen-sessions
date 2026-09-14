@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-12T08:39:09.964Z",
-  "total": 149,
+  "generatedAt": "2026-09-14T20:34:40.742Z",
+  "total": 150,
   "counts": {
     "artists": 33,
-    "releases": 100,
+    "releases": 101,
     "genres": 6,
     "mixes": 10,
     "upcomingReleases": 0
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Still Rollin Clean",
+      "subtitle": "Alonzo Ray",
+      "description": "Hip-Hop / G-Funk · 2026-09-14",
+      "url": "/releases/alonzo-ray-still-rollin-clean/",
+      "date": "2026-09-14T17:00:28Z",
+      "keywords": [
+        "Alonzo Ray",
+        "Hip-Hop / G-Funk",
+        "Alonzo Ray - Still Rollin Clean | Hip-Hop 2026 | NextGen Sessions",
+        "Still Rollin Clean"
       ]
     },
     {

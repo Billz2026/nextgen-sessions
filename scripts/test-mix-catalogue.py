@@ -32,6 +32,7 @@ sources = {
     "hiphop-source": [playlist_item("hiphopmix01", "Hip-Hop Mash Up Series 1 | NextGen Sessions")],
     "ukrap-source": [playlist_item("ukrapmix001", "UK Rap Mashup Series 1 | NextGen Sessions")],
     "summer-source": [playlist_item("summermix26", "THE SOUND OF SUMMER 2026 | Summer Mix 2026")],
+    "bhangra-source": [playlist_item("bhangraarc1", "Punjab All Night | NextGen Sessions")],
     "uploads-source": [
         playlist_item("grimemix001", "Grime Mash Up Series 1 | NextGen Sessions"),
         playlist_item("bhangramix1", "Bhangra Mix 2026 | NextGen Sessions"),
@@ -47,6 +48,7 @@ module.MIX_PLAYLISTS = [
     ("hiphop-source", "hip-hop"),
     ("ukrap-source", "uk-rap"),
     ("summer-source", "summer"),
+    ("bhangra-source", "bhangra"),
 ]
 module.UPLOADS_PLAYLIST_ID = "uploads-source"
 module.playlist_items = lambda playlist_id: sources[playlist_id]
@@ -79,22 +81,26 @@ def details(video_ids: list[str]) -> dict[str, dict]:
 
 module.video_details = details
 catalogue = module.build_mix_catalogue({})
-assert catalogue["total"] == 7, json.dumps(catalogue, indent=2)
+assert catalogue["total"] == 8, json.dumps(catalogue, indent=2)
 assert catalogue["counts"] == {
     "grime": 1,
     "hip-hop": 1,
     "uk-rap": 1,
     "dancehall": 2,
     "summer": 1,
-    "other": 1,
+    "bhangra": 2,
+    "other": 0,
 }
 assert [item["id"] for item in catalogue["mixes"] if item["collection"] == "dancehall"] == [
     "dancehall01",
     "dancehall04",
 ]
 ids = {item["id"] for item in catalogue["mixes"]}
-assert "bhangramix1" in ids, "Generic full-length mixes must be discovered from channel uploads"
-assert next(item for item in catalogue["mixes"] if item["id"] == "bhangramix1")["collection"] == "other"
+assert "bhangraarc1" in ids, "A video in the dedicated Bhangra playlist must classify as Bhangra even without Bhangra in its title"
+assert next(item for item in catalogue["mixes"] if item["id"] == "bhangraarc1")["collection"] == "bhangra"
+assert "bhangramix1" in ids, "Bhangra full-length mixes must also be discovered from channel uploads"
+assert next(item for item in catalogue["mixes"] if item["id"] == "bhangramix1")["collection"] == "bhangra"
+assert module.is_published("2999-10-16T17:00:00Z") is False, "Future scheduled mixes must remain excluded"
 assert "shortpromo1" not in ids
 assert "regularsong" not in ids
 assert "quickmix001" not in ids, "Sub-10-minute mixes must not qualify"

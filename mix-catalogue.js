@@ -2,7 +2,6 @@
   "use strict";
 
   const VIDEO_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
-  const BHANGRA_SIGNAL = /\bbhangra\b/i;
 
   function timestamp(item) {
     const parsed = Date.parse(String(item?.published || ""));
@@ -46,15 +45,18 @@
     };
   }
 
-  function publicBhangraMixes(mixes) {
+  function publicDesiMixes(mixes) {
     const now = Date.now();
     return mixes
       .filter((item) => {
         if (item?.contentType !== "long-mix") return false;
         if (!VIDEO_ID_PATTERN.test(String(item.id || ""))) return false;
-        if (!BHANGRA_SIGNAL.test(
-          `${String(item.rawTitle || "")} ${String(item.title || "")} ${String(item.name || "")}`,
-        )) return false;
+
+        // The dedicated YouTube playlist is the source of truth for the Desi lane.
+        // The catalogue currently keeps the internal collection key as "bhangra"
+        // for backwards compatibility, while the public website presents the
+        // broader and future-proof label "Desi Mixes".
+        if (String(item.collection || "").trim() !== "bhangra") return false;
 
         const publishedAt = Date.parse(String(item.published || ""));
         return Number.isFinite(publishedAt) && publishedAt <= now;
@@ -62,12 +64,12 @@
       .sort((a, b) => timestamp(b) - timestamp(a));
   }
 
-  function buildBhangraCard(items) {
+  function buildDesiCard(items) {
     const grid = document.querySelector("#mashups .mix-grid");
-    if (!grid || !items.length || grid.querySelector("[data-auto-bhangra-card]")) return;
+    if (!grid || !items.length || grid.querySelector("[data-auto-desi-card]")) return;
 
     const latest = items[0];
-    const rawTitle = String(latest.rawTitle || latest.title || "Bhangra Mix")
+    const rawTitle = String(latest.rawTitle || latest.title || "Desi Mix")
       .split("|")[0]
       .trim();
     const fallback = String(latest.thumbnail || "").trim() ||
@@ -75,7 +77,7 @@
 
     const card = document.createElement("a");
     card.className = "mix-card";
-    card.dataset.autoBhangraCard = "";
+    card.dataset.autoDesiCard = "";
     card.href = `https://www.youtube.com/watch?v=${encodeURIComponent(latest.id)}`;
     card.target = "_blank";
     card.rel = "noopener";
@@ -107,10 +109,10 @@
     tag.textContent = `${items.length} ${items.length === 1 ? "mix" : "mixes"}`;
 
     const heading = document.createElement("h3");
-    heading.textContent = "Bhangra Mixes";
+    heading.textContent = "Desi Mixes";
 
     const description = document.createElement("p");
-    description.textContent = "Full-length Bhangra energy from the NextGen Sessions catalogue.";
+    description.textContent = "Punjabi, Bhangra and South Asian sounds collected in one long-form Desi mix lane.";
 
     copy.append(tag, heading, description);
     card.append(media, copy);
@@ -119,7 +121,7 @@
     const mashupCopy = document.querySelector("#mashups .mix-category-heading p:last-child");
     if (mashupCopy) {
       mashupCopy.textContent =
-        "Long-form series spanning grime, hip-hop, UK rap, dancehall and Bhangra. Select a mix to open its release.";
+        "Long-form series spanning grime, hip-hop, UK rap, dancehall and Desi sounds. Select a mix to open its release.";
     }
   }
 
@@ -147,7 +149,7 @@
       applyLatestArtwork(card, latestForCollection(items, collection));
     });
 
-    buildBhangraCard(publicBhangraMixes(mixes));
+    buildDesiCard(publicDesiMixes(mixes));
   }
 
   fetch("/mixes.json", { cache: "no-store" })
@@ -159,6 +161,6 @@
     .then(updateCards)
     .catch(() => {
       // Keep the crawlable fallback counts and latest artwork when the catalogue is unavailable.
-      // The gated Bhangra card remains absent unless the public catalogue confirms it.
+      // The gated Desi Mixes card remains absent unless the public catalogue confirms it.
     });
 })();

@@ -1,6 +1,9 @@
 (function () {
   "use strict";
 
+  const VIDEO_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
+  const BHANGRA_SIGNAL = /\bbhangra\b/i;
+
   function timestamp(item) {
     const parsed = Date.parse(String(item?.published || ""));
     return Number.isFinite(parsed) ? parsed : 0;
@@ -11,7 +14,7 @@
       .filter((item) =>
         item?.contentType === "long-mix" &&
         String(item.collection || "").trim() === collection &&
-        /^[A-Za-z0-9_-]{11}$/.test(String(item.id || "")),
+        VIDEO_ID_PATTERN.test(String(item.id || "")),
       )
       .sort((a, b) => {
         const dateDifference = timestamp(b) - timestamp(a);
@@ -43,6 +46,83 @@
     };
   }
 
+  function publicBhangraMixes(mixes) {
+    const now = Date.now();
+    return mixes
+      .filter((item) => {
+        if (item?.contentType !== "long-mix") return false;
+        if (!VIDEO_ID_PATTERN.test(String(item.id || ""))) return false;
+        if (!BHANGRA_SIGNAL.test(
+          `${String(item.rawTitle || "")} ${String(item.title || "")} ${String(item.name || "")}`,
+        )) return false;
+
+        const publishedAt = Date.parse(String(item.published || ""));
+        return Number.isFinite(publishedAt) && publishedAt <= now;
+      })
+      .sort((a, b) => timestamp(b) - timestamp(a));
+  }
+
+  function buildBhangraCard(items) {
+    const grid = document.querySelector("#mashups .mix-grid");
+    if (!grid || !items.length || grid.querySelector("[data-auto-bhangra-card]")) return;
+
+    const latest = items[0];
+    const rawTitle = String(latest.rawTitle || latest.title || "Bhangra Mix")
+      .split("|")[0]
+      .trim();
+    const fallback = String(latest.thumbnail || "").trim() ||
+      `https://i.ytimg.com/vi/${encodeURIComponent(latest.id)}/hqdefault.jpg`;
+
+    const card = document.createElement("a");
+    card.className = "mix-card";
+    card.dataset.autoBhangraCard = "";
+    card.href = `https://www.youtube.com/watch?v=${encodeURIComponent(latest.id)}`;
+    card.target = "_blank";
+    card.rel = "noopener";
+    card.setAttribute("aria-label", `Open ${rawTitle} on YouTube`);
+
+    const media = document.createElement("div");
+    media.className = "mix-card-media";
+
+    const image = document.createElement("img");
+    image.src = thumbnailUrl(latest.id);
+    image.alt = `${rawTitle} artwork`;
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.onerror = function () {
+      this.onerror = null;
+      this.src = fallback;
+    };
+
+    const play = document.createElement("span");
+    play.className = "mix-play";
+    play.setAttribute("aria-hidden", "true");
+    media.append(image, play);
+
+    const copy = document.createElement("div");
+    copy.className = "mix-card-copy";
+
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = `${items.length} ${items.length === 1 ? "mix" : "mixes"}`;
+
+    const heading = document.createElement("h3");
+    heading.textContent = "Bhangra Mixes";
+
+    const description = document.createElement("p");
+    description.textContent = "Full-length Bhangra energy from the NextGen Sessions catalogue.";
+
+    copy.append(tag, heading, description);
+    card.append(media, copy);
+    grid.append(card);
+
+    const mashupCopy = document.querySelector("#mashups .mix-category-heading p:last-child");
+    if (mashupCopy) {
+      mashupCopy.textContent =
+        "Long-form series spanning grime, hip-hop, UK rap, dancehall and Bhangra. Select a mix to open its release.";
+    }
+  }
+
   function updateCards(payload) {
     const mixes = Array.isArray(payload?.mixes) ? payload.mixes : [];
 
@@ -66,6 +146,8 @@
 
       applyLatestArtwork(card, latestForCollection(items, collection));
     });
+
+    buildBhangraCard(publicBhangraMixes(mixes));
   }
 
   fetch("/mixes.json", { cache: "no-store" })
@@ -77,5 +159,6 @@
     .then(updateCards)
     .catch(() => {
       // Keep the crawlable fallback counts and latest artwork when the catalogue is unavailable.
+      // The gated Bhangra card remains absent unless the public catalogue confirms it.
     });
 })();

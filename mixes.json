@@ -7,7 +7,7 @@
     "genericMixTitlesAllowed": true,
     "albumsAllowed": false
   },
-  "generatedAt": "2026-09-12T09:26:31.169604Z",
+  "generatedAt": "2026-09-15T16:11:48.379938Z",
   "total": 8,
   "counts": {
     "grime": 1,
@@ -15,6 +15,7 @@
     "uk-rap": 2,
     "dancehall": 3,
     "summer": 1,
+    "bhangra": 0,
     "other": 0
   },
   "mixes": [

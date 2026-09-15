@@ -21,6 +21,7 @@ MIX_PLAYLISTS = [
     ("PL7VCdVWElIJGzKTCsH1bYUWYeuJ3TLH80", "hip-hop"),
     ("PL7VCdVWElIJFBW8boYLO9Y9c5O3zgUxYi", "uk-rap"),
     ("PL7VCdVWElIJEOeOol8I7b6oN_rjgxS4vu", "summer"),
+    ("PLFKXfJUlSHf4", "bhangra"),
 ]
 UPLOADS_PLAYLIST_ID = "UUJdBLa1mf6yxk7xaOzSpBjg"
 MINIMUM_MIX_SECONDS = 10 * 60
@@ -45,6 +46,10 @@ COLLECTIONS = {
     "summer": {
         "name": "The Sound of Summer",
         "match": re.compile(r"\b(?:the\s+)?sound\s+of\s+summer\b|\bsummer\s+mix\b", re.I),
+    },
+    "bhangra": {
+        "name": "Bhangra Mix",
+        "match": re.compile(r"(?:\bbhangra\b.*\b(?:mash(?:\s*up)?|mix|mixtape|dj\s+set)\b|\b(?:mash(?:\s*up)?|mix|mixtape|dj\s+set)\b.*\bbhangra\b)", re.I),
     },
     "other": {
         "name": "NextGen Mix",
@@ -126,8 +131,8 @@ def is_published(value: str) -> bool:
 def classify_title(title: str) -> str:
     # Specific known lanes keep their dedicated collection pages. Any other
     # genuinely mix-labelled upload is retained in the generic lane so future
-    # concepts (Bhangra, Afrobeats, R&B, global mixes, etc.) can still qualify.
-    for key in ("uk-rap", "hip-hop", "dancehall", "grime", "summer"):
+    # concepts (Afrobeats, R&B, global mixes, etc.) can still qualify.
+    for key in ("uk-rap", "hip-hop", "dancehall", "grime", "summer", "bhangra"):
         if COLLECTIONS[key]["match"].search(title or ""):
             return key
     if GENERIC_MIX_SIGNAL.search(title or "") and not ALBUM_SIGNAL.search(title or ""):

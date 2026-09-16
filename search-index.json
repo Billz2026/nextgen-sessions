@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T20:34:40.742Z",
+  "generatedAt": "2026-09-16T11:53:38.826Z",
   "total": 150,
   "counts": {
     "artists": 33,
@@ -1913,18 +1913,6 @@
     },
     {
       "type": "mix",
-      "title": "Asian Collection",
-      "subtitle": "Mix / collection",
-      "description": "Play the Asian Collection directly on NextGen Sessions.",
-      "url": "/mixes/asian-collection/",
-      "keywords": [
-        "Asian Collection",
-        "Play the Asian Collection directly on NextGen Sessions.",
-        "asian collection"
-      ]
-    },
-    {
-      "type": "mix",
       "title": "Dancehall Mashup Series",
       "subtitle": "Mix / collection",
       "description": "Play three Dancehall Mashup mixes from 2026, including the 1-hour Gullyside Takeover. Discover original NextGen dancehall releases and artists.",
@@ -1933,6 +1921,18 @@
         "Dancehall Mashup Series",
         "Play three Dancehall Mashup mixes from 2026, including the 1-hour Gullyside Takeover. Discover original NextGen dancehall releases and artists.",
         "dancehall mashups"
+      ]
+    },
+    {
+      "type": "mix",
+      "title": "Desi Sounds",
+      "subtitle": "Mix / collection",
+      "description": "Play Desi Sounds on NextGen Sessions — Punjabi, Bhangra, Qawwali, Sufi and wider South Asian releases in one listening lane.",
+      "url": "/mixes/asian-collection/",
+      "keywords": [
+        "Desi Sounds",
+        "Play Desi Sounds on NextGen Sessions — Punjabi, Bhangra, Qawwali, Sufi and wider South Asian releases in one listening lane.",
+        "asian collection"
       ]
     },
     {

@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"I68NaEz-deQ","contentType":"full-release","title":"Deon Creed – It Is What It Is","published":"2026-09-16T17:00:12Z","url":"/releases/deon-creed-it-is-what-it-is/"};
+  const FALLBACK_LATEST = {"id":"GTctzq86Kbg","contentType":"long-mix","title":"HipHop Mashup 2: Coast To Coast","published":"2026-09-18T17:00:37Z","url":"/mixes/hip-hop-mashup-series-1/","durationSeconds":2517};
 
   const FALLBACK_RELEASES = [
     {"id":"I68NaEz-deQ","contentType":"full-release","title":"Deon Creed – It Is What It Is","published":"2026-09-16T17:00:12Z","url":"/releases/deon-creed-it-is-what-it-is/"},

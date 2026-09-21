@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"GTctzq86Kbg","contentType":"long-mix","title":"HipHop Mashup 2: Coast To Coast","published":"2026-09-18T17:00:37Z","url":"/mixes/hip-hop-mashup-series-1/","durationSeconds":2517};
+  const FALLBACK_LATEST = {"id":"lDTzyfox7t8","contentType":"full-release","title":"Javon Ranks – Mi Nah Switch","published":"2026-09-21T17:00:05Z","url":"/releases/javon-ranks-mi-nah-switch/"};
 
   const FALLBACK_RELEASES = [
+    {"id":"lDTzyfox7t8","contentType":"full-release","title":"Javon Ranks – Mi Nah Switch","published":"2026-09-21T17:00:05Z","url":"/releases/javon-ranks-mi-nah-switch/"},
     {"id":"I68NaEz-deQ","contentType":"full-release","title":"Deon Creed – It Is What It Is","published":"2026-09-16T17:00:12Z","url":"/releases/deon-creed-it-is-what-it-is/"},
     {"id":"TjXtRh2DtJE","contentType":"full-release","title":"Alonzo Ray – Still Rollin Clean","published":"2026-09-14T17:00:28Z","url":"/releases/alonzo-ray-still-rollin-clean/"},
     {"id":"ZOl-pBtvggM","contentType":"full-release","title":"Andre Kadeem – From Round Here","published":"2026-09-09T17:00:33Z","url":"/releases/andre-kadeem-from-round-here/"},
     {"id":"0xQUdNbdRxQ","contentType":"full-release","title":"Renz Cole – Keep It Moving","published":"2026-09-07T17:00:31Z","url":"/releases/renz-cole-keep-it-moving/"},
-    {"id":"b0tJlFOe0p4","contentType":"full-release","title":"Zion Daley – Where We Live","published":"2026-09-04T17:00:10Z","url":"/releases/zion-daley-where-we-live/"},
-    {"id":"5XC1aQAUZeA","contentType":"full-release","title":"Marlo Saint – City Heat Love","published":"2026-09-02T17:00:33Z","url":"/releases/marlo-saint-city-heat-love/"}
+    {"id":"b0tJlFOe0p4","contentType":"full-release","title":"Zion Daley – Where We Live","published":"2026-09-04T17:00:10Z","url":"/releases/zion-daley-where-we-live/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

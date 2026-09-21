@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-09-20T23:34:00.921Z",
+  "generatedAt": "2026-09-21T19:26:01.962Z",
   "timezone": "Europe/London",
   "weekStart": "2026-09-21",
   "weekEnd": "2026-09-27",
   "weekLabel": "21–27 September 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Javon Ranks",
+      "artistSlug": "javon-ranks",
+      "title": "Mi Nah Switch",
+      "genre": "Dancehall",
+      "artistUrl": "/artists/javon-ranks/",
+      "releaseUrl": "/releases/javon-ranks-mi-nah-switch/",
+      "dateLocal": "2026-09-21",
+      "dateLabel": "MON 21 SEPT",
+      "longDate": "Monday, 21 September 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-09-21T17:00:05.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=lDTzyfox7t8&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

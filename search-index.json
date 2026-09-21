@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T19:26:02.204Z",
-  "total": 151,
+  "generatedAt": "2026-09-21T19:26:02.067Z",
+  "total": 152,
   "counts": {
     "artists": 33,
-    "releases": 102,
+    "releases": 103,
     "genres": 6,
     "mixes": 10,
     "upcomingReleases": 0
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Mi Nah Switch",
+      "subtitle": "Javon Ranks",
+      "description": "Dancehall · 2026-09-21",
+      "url": "/releases/javon-ranks-mi-nah-switch/",
+      "date": "2026-09-21T17:00:05Z",
+      "keywords": [
+        "Javon Ranks",
+        "Dancehall",
+        "Javon Ranks - Mi Nah Switch | Dancehall 2026 | NextGen Sessions",
+        "Mi Nah Switch"
       ]
     },
     {

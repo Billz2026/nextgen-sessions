@@ -5,10 +5,10 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-09-16T19:26:01.469665Z",
-  "total": 102,
+  "generatedAt": "2026-09-21T19:26:01.220283Z",
+  "total": 103,
   "counts": {
-    "Dancehall": 32,
+    "Dancehall": 33,
     "Reggae": 1,
     "UK Rap & Grime": 22,
     "Hip-Hop / G-Funk": 22,
@@ -21,6 +21,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "lDTzyfox7t8",
+      "contentType": "full-release",
+      "artist": "Javon Ranks",
+      "title": "Mi Nah Switch",
+      "group": "Dancehall",
+      "published": "2026-09-21T17:00:05Z",
+      "durationSeconds": 229,
+      "rawTitle": "Javon Ranks - Mi Nah Switch | Dancehall 2026 | NextGen Sessions",
+      "slug": "javon-ranks-mi-nah-switch",
+      "url": "/releases/javon-ranks-mi-nah-switch/"
+    },
     {
       "id": "I68NaEz-deQ",
       "contentType": "full-release",

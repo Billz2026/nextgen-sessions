@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-21T19:26:02.067Z",
-  "total": 152,
+  "generatedAt": "2026-09-23T18:46:51.016Z",
+  "total": 153,
   "counts": {
     "artists": 33,
-    "releases": 103,
+    "releases": 104,
     "genres": 6,
     "mixes": 10,
     "upcomingReleases": 0
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Last Man Deh",
+      "subtitle": "Kastro",
+      "description": "Dancehall · 2026-09-23",
+      "url": "/releases/kastro-last-man-deh/",
+      "date": "2026-09-23T17:00:33Z",
+      "keywords": [
+        "Kastro",
+        "Dancehall",
+        "Kastro - Last Man Deh | Dancehall 2026 | NextGen Sessions",
+        "Last Man Deh"
       ]
     },
     {

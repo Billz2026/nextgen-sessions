@@ -9,7 +9,13 @@ on:
     paths:
       - ".github/workflows/update-mixes.yml"
       - "scripts/update-mixes.py"
+      - "scripts/render-mix-collections.py"
       - "scripts/test-mix-catalogue.py"
+      - "scripts/test-mix-static-catalogue.py"
+      - "scripts/build-search-index.mjs"
+      - "scripts/enrich-search-schedule.mjs"
+      - "scripts/preserve-generated-at.mjs"
+      - "scripts/normalize-schema-graph.mjs"
       - "scripts/test-mix-card-artwork.mjs"
       - "scripts/sync-homepage-fallback.py"
       - "scripts/test-latest-policy.mjs"
@@ -36,6 +42,9 @@ jobs:
         with:
           ref: main
 
+      - name: Snapshot search index
+        run: cp search-index.json /tmp/search-before.json || true
+
       - name: Build long-mix catalogue from YouTube
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
@@ -51,6 +60,27 @@ jobs:
 
       - name: Test mix catalogue rules
         run: python3 scripts/test-mix-catalogue.py
+
+      - name: Render crawlable mix collection pages
+        run: python3 scripts/render-mix-collections.py
+
+      - name: Normalize mix structured data
+        run: node scripts/normalize-schema-graph.mjs --mixes-only
+
+      - name: Build universal site search index
+        run: node scripts/build-search-index.mjs
+
+      - name: Add scheduled releases to site search
+        run: node scripts/enrich-search-schedule.mjs
+
+      - name: Preserve search timestamp on no-op checks
+        run: node scripts/preserve-generated-at.mjs /tmp/search-before.json search-index.json
+
+      - name: Validate universal site search
+        run: node scripts/test-site-search.mjs
+
+      - name: Validate crawlable mix catalogue
+        run: python3 scripts/test-mix-static-catalogue.py
 
       - name: Test newest mix card artwork
         run: node scripts/test-mix-card-artwork.mjs
@@ -102,7 +132,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add mixes.json index.html site.js
+          git add mixes.json index.html site.js search-index.json mixes/
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update mix catalogue"
           for attempt in 1 2 3 4 5; do

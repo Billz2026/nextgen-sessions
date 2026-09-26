@@ -183,4 +183,42 @@ for (const marker of [
 }
 assert.ok(!source.includes('policy: "full-release-catalogue-only"'), "Song-only Latest policy must never return");
 
-console.log("Latest accepts verified full songs, albums and long mixes while rejecting Shorts, promos and future content.");
+const homepageSource = await readFile(new URL("../site.js", import.meta.url), "utf8");
+const homepageHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const fallbackSync = await readFile(new URL("./sync-homepage-fallback.py", import.meta.url), "utf8");
+
+for (const expected of [
+  'case "long-mix"',
+  'label: "Latest mix"',
+  'playCta: "Play full mix"',
+  'case "album"',
+  'label: "Latest album"',
+  'playCta: "Play full album"',
+  'label: "Latest release"',
+  'heroLink.textContent = presentation.heroCta',
+  'latestShell.dataset.contentKind = presentation.kind'
+]) {
+  assert.ok(homepageSource.includes(expected), `Homepage Latest presentation missing: ${expected}`);
+}
+
+for (const expected of [
+  'id="latestTypeLabel"',
+  'id="latestPlayCopy"',
+  'id="latestKicker"',
+  'data-content-kind="mix"'
+]) {
+  assert.ok(homepageHtml.includes(expected), `Homepage static Latest markup missing: ${expected}`);
+}
+
+for (const expected of [
+  'def content_presentation(content_type: str)',
+  '"label": "Latest mix"',
+  '"label": "Latest album"',
+  '"label": "Latest release"',
+  'presentation["heroCta"]',
+  'presentation["playCta"]'
+]) {
+  assert.ok(fallbackSync.includes(expected), `Homepage fallback sync missing: ${expected}`);
+}
+
+console.log("Latest accepts verified full songs, albums and long mixes while rejecting Shorts, promos and future content, with matching type-aware homepage presentation.");

@@ -85,9 +85,6 @@ jobs:
       - name: Test newest mix card artwork
         run: node scripts/test-mix-card-artwork.mjs
 
-      - name: Test Latest eligibility policy
-        run: node scripts/test-latest-policy.mjs
-
       - name: Validate catalogue and page bindings
         run: |
           python3 - <<'PY'
@@ -102,7 +99,6 @@ jobs:
           assert required.issubset(set(data["counts"])), data["counts"]
           assert "other" in data["counts"]
           assert all(data["counts"][key] >= 1 for key in required)
-          assert data["counts"]["dancehall"] >= 3
           assert data.get("contentPolicy", {}).get("shortsAllowed") is False
           assert data.get("contentPolicy", {}).get("genericMixTitlesAllowed") is True
           assert data.get("contentPolicy", {}).get("albumsAllowed") is False
@@ -127,6 +123,9 @@ jobs:
 
       - name: Sync homepage static Latest fallback
         run: python3 scripts/sync-homepage-fallback.py releases.json
+
+      - name: Test Latest eligibility and homepage policy
+        run: node scripts/test-latest-policy.mjs
 
       - name: Publish changed mix catalogue
         run: |

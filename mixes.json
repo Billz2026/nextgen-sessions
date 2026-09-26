@@ -7,13 +7,13 @@
     "genericMixTitlesAllowed": true,
     "albumsAllowed": false
   },
-  "generatedAt": "2026-09-18T18:39:04.405507Z",
-  "total": 9,
+  "generatedAt": "2026-09-26T06:33:13.935762Z",
+  "total": 10,
   "counts": {
     "grime": 1,
     "hip-hop": 2,
     "uk-rap": 2,
-    "dancehall": 3,
+    "dancehall": 4,
     "summer": 1,
     "bhangra": 0,
     "other": 0
@@ -122,6 +122,19 @@
       "durationSeconds": 3679,
       "rawTitle": "Gullyside Takeover | Dancehall Mashup Series 3 | 1 Hour Party Mix 2026 | NextGen Sessions",
       "thumbnail": "https://i.ytimg.com/vi/2dcF-n0UJts/hqdefault.jpg"
+    },
+    {
+      "id": "F9XWFEv5YXs",
+      "contentType": "long-mix",
+      "collection": "dancehall",
+      "title": "Dancehall Mashup — Series IV",
+      "label": "Series IV",
+      "name": "Dancehall Mashup",
+      "sequence": 4,
+      "published": "2026-09-25T17:00:16Z",
+      "durationSeconds": 2701,
+      "rawTitle": "Dancehall Mashup Series IV - Bruk Out | Dancehall Mix 2026 | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/F9XWFEv5YXs/hqdefault.jpg"
     },
     {
       "id": "1F1mMsRWdsw",

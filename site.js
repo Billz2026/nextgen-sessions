@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"E2qUwbUA8x4","contentType":"full-release","title":"Kastro – Last Man Deh","published":"2026-09-23T17:00:33Z","url":"/releases/kastro-last-man-deh/"};
+  const FALLBACK_LATEST = {"id":"F9XWFEv5YXs","contentType":"long-mix","title":"Dancehall Mashup Series IV - Bruk Out","published":"2026-09-25T17:00:16Z","url":"/mixes/dancehall-mashups/","durationSeconds":2701};
 
   const FALLBACK_RELEASES = [
     {"id":"E2qUwbUA8x4","contentType":"full-release","title":"Kastro – Last Man Deh","published":"2026-09-23T17:00:33Z","url":"/releases/kastro-last-man-deh/"},

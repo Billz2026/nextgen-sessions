@@ -99,6 +99,7 @@
     }
 
     if (latestVideoThumbnail) {
+      latestVideoThumbnail.dataset.fallbackStage = "proxy";
       latestVideoThumbnail.src = `/api/release-image?id=${encodeURIComponent(next.id)}`;
     }
     if (latestVideoPlay) {
@@ -125,6 +126,18 @@
 
   latestVideoPlay?.addEventListener("click", loadLatestPlayer);
   latestVideoThumbnail?.addEventListener("error", () => {
+    const id = validVideoId(activeLatest?.id || FALLBACK_LATEST.id);
+    const stage = latestVideoThumbnail.dataset.fallbackStage || "proxy";
+    if (stage === "proxy") {
+      latestVideoThumbnail.dataset.fallbackStage = "maxres";
+      latestVideoThumbnail.src = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+      return;
+    }
+    if (stage === "maxres") {
+      latestVideoThumbnail.dataset.fallbackStage = "hq";
+      latestVideoThumbnail.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+      return;
+    }
     latestVideoPlay?.classList.add("is-fallback");
   });
 

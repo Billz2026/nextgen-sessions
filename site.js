@@ -44,6 +44,41 @@
     return String(release?.title || "Latest NextGen Sessions release").trim();
   }
 
+  function latestPresentation(contentType) {
+    switch (String(contentType || "").trim()) {
+      case "long-mix":
+        return {
+          kind: "mix",
+          label: "Latest mix",
+          heroCta: "Explore latest mix",
+          playCta: "Play full mix",
+          status: "Long-form session · Now on YouTube",
+          kicker: "Long-form session",
+          fallback: "Latest NextGen Sessions mix"
+        };
+      case "album":
+        return {
+          kind: "album",
+          label: "Latest album",
+          heroCta: "Explore latest album",
+          playCta: "Play full album",
+          status: "Full project · Now on YouTube",
+          kicker: "Full project",
+          fallback: "Latest NextGen Sessions album"
+        };
+      default:
+        return {
+          kind: "release",
+          label: "Latest release",
+          heroCta: "Explore latest release",
+          playCta: "Play latest release",
+          status: "Fresh release · Now on YouTube",
+          kicker: "Official release",
+          fallback: "Latest NextGen Sessions release"
+        };
+    }
+  }
+
   function updateLatestPlayer(release) {
     const next = {
       id: validVideoId(release?.id),
@@ -202,12 +237,24 @@
     const latestLink = document.getElementById("latestWatchLink");
     const heroLink = document.getElementById("heroLatestLink");
     const latestStatus = document.getElementById("latestStatus");
+    const latestTypeLabel = document.getElementById("latestTypeLabel");
+    const latestKicker = document.getElementById("latestKicker");
+    const latestPlayCopy = document.getElementById("latestPlayCopy");
+    const latestShell = document.querySelector(".media-shell");
+    const presentation = latestPresentation(latest.contentType);
 
     updateLatestPlayer(latest);
-    if (latestTitle) latestTitle.textContent = latest.title || "Latest NextGen Sessions release";
+    if (latestTitle) latestTitle.textContent = latest.title || presentation.fallback;
     if (latestDate) {
       const date = formatDate(latest.published);
-      latestDate.textContent = date ? `Published ${date}` : "Latest official NextGen Sessions release";
+      latestDate.textContent = date ? `Published ${date}` : presentation.fallback;
+    }
+    if (latestTypeLabel) latestTypeLabel.textContent = presentation.label;
+    if (latestKicker) latestKicker.textContent = presentation.kicker;
+    if (latestPlayCopy) latestPlayCopy.textContent = presentation.playCta;
+    if (latestShell) {
+      latestShell.dataset.contentKind = presentation.kind;
+      latestShell.setAttribute("aria-label", `${presentation.label}: ${latest.title || presentation.fallback}`);
     }
 
     const watchUrl = `https://www.youtube.com/watch?v=${latest.id}`;
@@ -218,17 +265,12 @@
     if (latestLink) latestLink.href = watchUrl;
     if (heroLink) {
       heroLink.href = releaseUrl;
+      heroLink.textContent = presentation.heroCta;
       heroLink.removeAttribute("target");
       heroLink.removeAttribute("rel");
     }
 
-    if (latestStatus) {
-      latestStatus.textContent = latest.contentType === "long-mix"
-        ? "Latest mix now available on YouTube"
-        : (latest.contentType === "album"
-          ? "Latest album now available on YouTube"
-          : "Now available on YouTube");
-    }
+    if (latestStatus) latestStatus.textContent = presentation.status;
 
     const releaseOnly = releases.filter(item => item?.contentType === "full-release");
     if (releaseGrid) releaseGrid.innerHTML = releaseOnly.slice(0, 6).map(releaseCard).join("");

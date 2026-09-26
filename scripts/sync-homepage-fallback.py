@@ -203,7 +203,7 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
 
     index_path = ROOT / "index.html"
     source = index_path.read_text(encoding="utf-8")
-    source = replace_once(source, r'(<a class="button button-secondary" id="heroLatestLink" href=")[^"]*(")[^<]*(</a>)', lambda m: m.group(1) + esc(latest_url) + m.group(2) + esc(presentation["heroCta"]) + m.group(3), "hero latest link")
+    source = replace_once(source, r'(<a class="button button-secondary" id="heroLatestLink" href=")[^"]*(">)[^<]*(</a>)', lambda m: m.group(1) + esc(latest_url) + m.group(2) + esc(presentation["heroCta"]) + m.group(3), "hero latest link")
     source = replace_once(source, r'<div class="media-shell"[^>]*>', lambda _m: f'<div class="media-shell" data-content-kind="{esc(presentation["kind"])}" aria-label="{esc(presentation["label"] + ": " + latest_title)}">', "latest media shell")
     source = replace_once(source, r'(<strong id="latestTypeLabel">).*?(</strong>)', lambda m: m.group(1) + esc(presentation["label"]) + m.group(2), "latest type label")
     source = replace_once(source, r'(<span id="latestStatus">).*?(</span>)', lambda m: m.group(1) + esc(presentation["status"]) + m.group(2), "latest status")
@@ -211,7 +211,7 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     source = replace_once(source, r'(<button class="video-poster" id="latestVideoPlay" type="button" aria-label=")[^"]*(")', lambda m: m.group(1) + esc(f"Play {latest_title}") + m.group(2), "latest play label")
     source = replace_once(source, r'(<span class="video-play-copy" id="latestPlayCopy">).*?(</span>)', lambda m: m.group(1) + esc(presentation["playCta"]) + m.group(2), "latest play copy")
     source = replace_once(source, r'(<img id="latestVideoThumbnail" src=")[^"]*(")', lambda m: m.group(1) + f"/api/release-image?id={esc(latest_id)}" + m.group(2), "latest thumbnail")
-    source = replace_once(source, r'(<noscript><a class="video-no-script" href=")[^"]*(")[^<]*(</a></noscript>)', lambda m: m.group(1) + esc(youtube_url) + m.group(2) + esc(presentation["noscript"]) + m.group(3), "latest no-script link")
+    source = replace_once(source, r'(<noscript><a class="video-no-script" href=")[^"]*(">)[^<]*(</a></noscript>)', lambda m: m.group(1) + esc(youtube_url) + m.group(2) + esc(presentation["noscript"]) + m.group(3), "latest no-script link")
     source = replace_once(source, r'(<div class="latest-kicker" id="latestKicker">).*?(</div>)', lambda m: m.group(1) + esc(presentation["kicker"]) + m.group(2), "latest kicker")
     source = replace_once(source, r'(<h2 id="latestVideoTitle">).*?(</h2>)', lambda m: m.group(1) + esc(latest_title) + m.group(2), "latest title")
     source = replace_once(source, r'(<p id="latestVideoDate">).*?(</p>)', lambda m: m.group(1) + esc(f"Published {published}") + m.group(2), "latest date")

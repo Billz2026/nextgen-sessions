@@ -199,6 +199,11 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     latest_title = str(latest.get("title", "Latest NextGen Sessions release")).strip()
     presentation = content_presentation(str(latest.get("contentType", "")).strip())
     youtube_url = f"https://www.youtube.com/watch?v={latest_id}"
+    thumbnail_url = (
+        f"https://i.ytimg.com/vi/{latest_id}/maxresdefault.jpg"
+        if latest.get("contentType") in {"long-mix", "album"}
+        else f"/api/release-image?id={latest_id}"
+    )
     published = format_date(str(latest.get("published", "")))
 
     index_path = ROOT / "index.html"
@@ -210,7 +215,7 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     source = replace_once(source, r'(<div class="video-frame" id="latestVideoFrame" data-video-id=")[^"]*(")', lambda m: m.group(1) + esc(latest_id) + m.group(2), "latest video id")
     source = replace_once(source, r'(<button class="video-poster" id="latestVideoPlay" type="button" aria-label=")[^"]*(")', lambda m: m.group(1) + esc(f"Play {latest_title}") + m.group(2), "latest play label")
     source = replace_once(source, r'(<span class="video-play-copy" id="latestPlayCopy">).*?(</span>)', lambda m: m.group(1) + esc(presentation["playCta"]) + m.group(2), "latest play copy")
-    source = replace_once(source, r'(<img id="latestVideoThumbnail" src=")[^"]*(")', lambda m: m.group(1) + f"/api/release-image?id={esc(latest_id)}" + m.group(2), "latest thumbnail")
+    source = replace_once(source, r'(<img id="latestVideoThumbnail" src=")[^"]*(")', lambda m: m.group(1) + esc(thumbnail_url) + m.group(2), "latest thumbnail")
     source = replace_once(source, r'(<noscript><a class="video-no-script" href=")[^"]*(">)[^<]*(</a></noscript>)', lambda m: m.group(1) + esc(youtube_url) + m.group(2) + esc(presentation["noscript"]) + m.group(3), "latest no-script link")
     source = replace_once(source, r'(<div class="latest-kicker" id="latestKicker">).*?(</div>)', lambda m: m.group(1) + esc(presentation["kicker"]) + m.group(2), "latest kicker")
     source = replace_once(source, r'(<h2 id="latestVideoTitle">).*?(</h2>)', lambda m: m.group(1) + esc(latest_title) + m.group(2), "latest title")
@@ -226,8 +231,10 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     )
 
     release_fallback = [normalise_release(item) for item in featured]
+    site_path = ROOT / "site.js"
+    site = site_path.read_text(encoding="utf-8")
     version_payload = json.dumps({"latest": latest, "releases": release_fallback}, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    version = hashlib.sha1(version_payload.encode("utf-8")).hexdigest()[:10]
+    version = hashlib.sha1((version_payload + "\n" + site).encode("utf-8")).hexdigest()[:10]
     source = replace_once(source, r'<script src="/site\.js(?:\?v=[^"]*)?" defer></script>', f'<script src="/site.js?v=catalogue-{version}" defer></script>', "site.js cache version")
     index_path.write_text(source, encoding="utf-8")
 
@@ -242,8 +249,6 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
         f"  {END}"
     )
 
-    site_path = ROOT / "site.js"
-    site = site_path.read_text(encoding="utf-8")
     if START in site and END in site:
         site = replace_once(site, re.escape(START) + r".*?" + re.escape(END), block.strip(), "marked JavaScript fallback block")
     else:

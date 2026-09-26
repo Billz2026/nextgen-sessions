@@ -144,8 +144,17 @@ def fallback_details(video_ids: list[str]) -> dict[str, dict]:
 
 module.video_details = fallback_details
 fallback = module.build_mix_catalogue(existing)
-assert fallback["counts"]["dancehall"] == 3
-assert [item["sequence"] for item in fallback["mixes"]] == [1, 2, 3]
+expected_dancehall = [
+    item for item in existing["mixes"]
+    if item.get("collection") == "dancehall"
+]
+assert fallback["counts"]["dancehall"] == len(expected_dancehall)
+assert [item["id"] for item in fallback["mixes"]] == [
+    item["id"] for item in expected_dancehall
+]
+assert [item["sequence"] for item in fallback["mixes"]] == [
+    item.get("sequence", 0) for item in expected_dancehall
+]
 
 unchanged = {**catalogue, "generatedAt": "2026-08-10T00:00:00Z"}
 rebuilt = {**catalogue, "generatedAt": "2026-08-10T01:00:00Z"}

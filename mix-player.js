@@ -31,6 +31,15 @@
     return `https://www.youtube.com/playlist?list=${encodeURIComponent(id)}`;
   }
 
+  function requestedMixId() {
+    try {
+      const id = new URLSearchParams(window.location.search).get("mix") || "";
+      return VIDEO_ID_PATTERN.test(id) ? id : "";
+    } catch (_error) {
+      return "";
+    }
+  }
+
   function buildPoster(player, title, poster) {
     const button = document.createElement("button");
     button.className = "video-poster";
@@ -91,7 +100,9 @@
           kind: "video",
           id: String(item.id || "").trim(),
           title: String(
-            item.title || item.rawTitle || "NextGen Sessions mix",
+            String(item.rawTitle || "").split("|")[0].trim() ||
+              item.title ||
+              "NextGen Sessions mix",
           ).trim(),
           label: String(item.label || "Full-length mix").trim(),
           name: String(item.name || "NextGen Sessions mix").trim(),
@@ -332,7 +343,10 @@
         );
         if (!items.length) return;
 
-        const selectedId = hasInteracted ? state.id : items[0].id;
+        const requestedId = sourceType === "mixes" ? requestedMixId() : "";
+        const selectedId = hasInteracted
+          ? state.id
+          : (items.some((item) => item.id === requestedId) ? requestedId : items[0].id);
         const selected =
           items.find((item) => item.id === selectedId) || items[0];
         optionsRoot.replaceChildren(

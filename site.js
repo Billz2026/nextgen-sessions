@@ -243,6 +243,22 @@
       </a>`;
   }
 
+  function latestDestination(item) {
+    const rawUrl = String(item?.url || "").trim();
+    const baseUrl = /^\/(?:releases|mixes)(?:\/|$)/.test(rawUrl)
+      ? rawUrl
+      : "/releases/";
+    const id = safeVideoId(item?.id);
+    if (
+      item?.contentType === "long-mix" &&
+      /^\/mixes\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(baseUrl) &&
+      id
+    ) {
+      return `${baseUrl}?mix=${encodeURIComponent(id)}#listen`;
+    }
+    return baseUrl;
+  }
+
   function updateLatest(payload) {
     const releases = Array.isArray(payload?.releases) && payload.releases.length
       ? payload.releases
@@ -275,10 +291,7 @@
     }
 
     const watchUrl = `https://www.youtube.com/watch?v=${latest.id}`;
-    const latestInternalUrl = String(latest?.url || "").trim();
-    const releaseUrl = /^\/(?:releases|mixes)(?:\/|$)/.test(latestInternalUrl)
-      ? latestInternalUrl
-      : "/releases/";
+    const releaseUrl = latestDestination(latest);
     if (latestLink) latestLink.href = watchUrl;
     if (heroLink) {
       heroLink.href = releaseUrl;

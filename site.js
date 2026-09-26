@@ -244,19 +244,11 @@
   }
 
   function latestDestination(item) {
+    if (item?.contentType === "long-mix") return "/mixes/";
     const rawUrl = String(item?.url || "").trim();
-    const baseUrl = /^\/(?:releases|mixes)(?:\/|$)/.test(rawUrl)
+    return /^\/(?:releases|mixes)(?:\/|$)/.test(rawUrl)
       ? rawUrl
       : "/releases/";
-    const id = safeVideoId(item?.id);
-    if (
-      item?.contentType === "long-mix" &&
-      /^\/mixes\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(baseUrl) &&
-      id
-    ) {
-      return `${baseUrl}?mix=${encodeURIComponent(id)}#listen`;
-    }
-    return baseUrl;
   }
 
   function updateLatest(payload) {

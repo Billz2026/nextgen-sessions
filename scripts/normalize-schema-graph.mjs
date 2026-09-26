@@ -664,14 +664,22 @@ function normalizeMixPages() {
   return count;
 }
 
-normalizeHomepage();
-normalizeArtistsIndex();
-const artistCount = normalizeArtistPages();
-normalizeReleasesIndex();
-const releaseCount = normalizeReleasePages();
-normalizeGenresIndex();
-const genreCount = normalizeGenrePages();
-normalizeMixesIndex();
-const mixCount = normalizeMixPages();
+const mixesOnly = process.argv.includes("--mixes-only");
 
-console.log(`Normalized schema graph: homepage, ${artistCount} artists, ${releaseCount} releases, ${genreCount} genre hubs, and ${mixCount} mix pages.`);
+if (mixesOnly) {
+  normalizeMixesIndex();
+  const mixCount = normalizeMixPages();
+  console.log(`Normalized schema graph for mixes index and ${mixCount} mix pages.`);
+} else {
+  normalizeHomepage();
+  normalizeArtistsIndex();
+  const artistCount = normalizeArtistPages();
+  normalizeReleasesIndex();
+  const releaseCount = normalizeReleasePages();
+  normalizeGenresIndex();
+  const genreCount = normalizeGenrePages();
+  normalizeMixesIndex();
+  const mixCount = normalizeMixPages();
+
+  console.log(`Normalized schema graph: homepage, ${artistCount} artists, ${releaseCount} releases, ${genreCount} genre hubs, and ${mixCount} mix pages.`);
+}

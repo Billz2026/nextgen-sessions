@@ -53,6 +53,24 @@ const GENRES = [
 const artists = loadArtists();
 const releasePayload = JSON.parse(read("releases.json"));
 const releases = Array.isArray(releasePayload.releases) ? releasePayload.releases : [];
+const mixPayload = JSON.parse(read("mixes.json"));
+const catalogueMixes = Array.isArray(mixPayload.mixes) ? mixPayload.mixes : [];
+
+function mixGroup(html) {
+  const tags = String(html || "").match(/<[^>]+>/g) || [];
+  for (const tag of tags) {
+    if (!tag.includes('data-source="/mixes.json"') || !tag.includes('data-source-type="mixes"')) continue;
+    const match = tag.match(/data-group="([^"]+)"/i);
+    if (match) return match[1].trim();
+  }
+  return "";
+}
+
+function mixLeadTitle(item) {
+  const raw = String(item?.rawTitle || "").trim();
+  if (raw) return raw.split("|")[0].trim();
+  return String(item?.title || "").trim();
+}
 
 const artistItems = artists.map((artist) => ({
   type: "artist",
@@ -96,13 +114,24 @@ const mixItems = fs.readdirSync(mixesRoot, { withFileTypes: true })
     const html = fs.readFileSync(absolute, "utf8");
     const title = pageH1(html) || entry.name.replaceAll("-", " ");
     const description = metaDescription(html) || "Long-form NextGen Sessions listening page.";
+    const group = mixGroup(html);
+    const collectionMixes = group
+      ? catalogueMixes.filter((item) => String(item?.collection || "").trim() === group)
+      : [];
+    const collectionKeywords = collectionMixes.flatMap((item) => [
+      mixLeadTitle(item),
+      item?.title,
+      item?.rawTitle,
+      item?.label,
+      item?.name,
+    ]).filter(Boolean);
     return {
       type: "mix",
       title,
       subtitle: "Mix / collection",
       description,
       url: `/mixes/${entry.name}/`,
-      keywords: [title, description, entry.name.replaceAll("-", " ")],
+      keywords: [title, description, entry.name.replaceAll("-", " "), ...collectionKeywords],
     };
   })
   .filter(Boolean)

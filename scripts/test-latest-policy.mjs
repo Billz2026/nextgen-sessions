@@ -186,6 +186,7 @@ assert.ok(!source.includes('policy: "full-release-catalogue-only"'), "Song-only 
 const homepageSource = await readFile(new URL("../site.js", import.meta.url), "utf8");
 const homepageHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const fallbackSync = await readFile(new URL("./sync-homepage-fallback.py", import.meta.url), "utf8");
+const mixPlayerSource = await readFile(new URL("../mix-player.js", import.meta.url), "utf8");
 
 for (const expected of [
   'case "long-mix"',
@@ -235,9 +236,26 @@ for (const expected of [
   '"label": "Latest album"',
   '"label": "Latest release"',
   'presentation["heroCta"]',
-  'presentation["playCta"]'
+  'presentation["playCta"]',
+  'def latest_destination(item: dict)',
+  '?mix={video_id}#listen'
 ]) {
   assert.ok(fallbackSync.includes(expected), `Homepage fallback sync missing: ${expected}`);
+}
+
+for (const expected of [
+  'function latestDestination(item)',
+  '?mix=${encodeURIComponent(id)}#listen'
+]) {
+  assert.ok(homepageSource.includes(expected), `Homepage Latest deep-link logic missing: ${expected}`);
+}
+
+for (const expected of [
+  'function requestedMixId()',
+  'new URLSearchParams(window.location.search).get("mix")',
+  'items.some((item) => item.id === requestedId)'
+]) {
+  assert.ok(mixPlayerSource.includes(expected), `Mix player deep-link support missing: ${expected}`);
 }
 
 console.log("Latest accepts verified full songs, albums and long mixes while rejecting Shorts, promos and future content, with matching type-aware homepage presentation.");

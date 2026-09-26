@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MIXES_ROOT = ROOT / "mixes"
 CATALOGUE_START = "<!-- MIX-STATIC-CATALOGUE:START -->"
 CATALOGUE_END = "<!-- MIX-STATIC-CATALOGUE:END -->"
+MIX_PLAYER_VERSION = "20260926-deeplink1"
 
 
 def load_mixes() -> list[dict]:
@@ -132,6 +133,12 @@ def render_collection_pages(mixes: list[dict]) -> list[str]:
 
         updated = update_count(source, len(items))
         updated = replace_or_insert_block(updated, static_block(group, items))
+        updated = re.sub(
+            r'<script src="/mix-player\.js(?:\?v=[^"]*)?" defer></script>',
+            f'<script src="/mix-player.js?v={MIX_PLAYER_VERSION}" defer></script>',
+            updated,
+            count=1,
+        )
         if updated != source:
             page.write_text(updated, encoding="utf-8")
             changed.append(str(page.relative_to(ROOT)))

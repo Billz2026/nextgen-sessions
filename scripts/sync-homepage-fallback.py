@@ -57,6 +57,38 @@ def display_title(release: dict) -> str:
     return f"{artist} – {title}" if artist and title else (title or artist or "Latest NextGen Sessions release")
 
 
+def content_presentation(content_type: str) -> dict[str, str]:
+    if content_type == "long-mix":
+        return {
+            "kind": "mix",
+            "label": "Latest mix",
+            "heroCta": "Explore latest mix",
+            "playCta": "Play full mix",
+            "status": "Long-form session · Now on YouTube",
+            "kicker": "Long-form session",
+            "noscript": "Watch the latest mix on YouTube",
+        }
+    if content_type == "album":
+        return {
+            "kind": "album",
+            "label": "Latest album",
+            "heroCta": "Explore latest album",
+            "playCta": "Play full album",
+            "status": "Full project · Now on YouTube",
+            "kicker": "Full project",
+            "noscript": "Watch the latest album on YouTube",
+        }
+    return {
+        "kind": "release",
+        "label": "Latest release",
+        "heroCta": "Explore latest release",
+        "playCta": "Play latest release",
+        "status": "Fresh release · Now on YouTube",
+        "kicker": "Official release",
+        "noscript": "Watch the latest release on YouTube",
+    }
+
+
 def replace_once(source: str, pattern: str, replacement, label: str) -> str:
     updated, count = re.subn(pattern, replacement, source, count=1, flags=re.S)
     if count != 1:
@@ -165,16 +197,22 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     latest_id = str(latest.get("id", "")).strip()
     latest_url = str(latest.get("url", "/releases/")).strip() or "/releases/"
     latest_title = str(latest.get("title", "Latest NextGen Sessions release")).strip()
+    presentation = content_presentation(str(latest.get("contentType", "")).strip())
     youtube_url = f"https://www.youtube.com/watch?v={latest_id}"
     published = format_date(str(latest.get("published", "")))
 
     index_path = ROOT / "index.html"
     source = index_path.read_text(encoding="utf-8")
-    source = replace_once(source, r'(<a class="button button-secondary" id="heroLatestLink" href=")[^"]*(")', lambda m: m.group(1) + esc(latest_url) + m.group(2), "hero latest link")
+    source = replace_once(source, r'(<a class="button button-secondary" id="heroLatestLink" href=")[^"]*(")[^<]*(</a>)', lambda m: m.group(1) + esc(latest_url) + m.group(2) + esc(presentation["heroCta"]) + m.group(3), "hero latest link")
+    source = replace_once(source, r'<div class="media-shell"[^>]*>', lambda _m: f'<div class="media-shell" data-content-kind="{esc(presentation["kind"])}" aria-label="{esc(presentation["label"] + ": " + latest_title)}">', "latest media shell")
+    source = replace_once(source, r'(<strong id="latestTypeLabel">).*?(</strong>)', lambda m: m.group(1) + esc(presentation["label"]) + m.group(2), "latest type label")
+    source = replace_once(source, r'(<span id="latestStatus">).*?(</span>)', lambda m: m.group(1) + esc(presentation["status"]) + m.group(2), "latest status")
     source = replace_once(source, r'(<div class="video-frame" id="latestVideoFrame" data-video-id=")[^"]*(")', lambda m: m.group(1) + esc(latest_id) + m.group(2), "latest video id")
     source = replace_once(source, r'(<button class="video-poster" id="latestVideoPlay" type="button" aria-label=")[^"]*(")', lambda m: m.group(1) + esc(f"Play {latest_title}") + m.group(2), "latest play label")
+    source = replace_once(source, r'(<span class="video-play-copy" id="latestPlayCopy">).*?(</span>)', lambda m: m.group(1) + esc(presentation["playCta"]) + m.group(2), "latest play copy")
     source = replace_once(source, r'(<img id="latestVideoThumbnail" src=")[^"]*(")', lambda m: m.group(1) + f"/api/release-image?id={esc(latest_id)}" + m.group(2), "latest thumbnail")
-    source = replace_once(source, r'(<noscript><a class="video-no-script" href=")[^"]*(")', lambda m: m.group(1) + esc(youtube_url) + m.group(2), "latest no-script link")
+    source = replace_once(source, r'(<noscript><a class="video-no-script" href=")[^"]*(")[^<]*(</a></noscript>)', lambda m: m.group(1) + esc(youtube_url) + m.group(2) + esc(presentation["noscript"]) + m.group(3), "latest no-script link")
+    source = replace_once(source, r'(<div class="latest-kicker" id="latestKicker">).*?(</div>)', lambda m: m.group(1) + esc(presentation["kicker"]) + m.group(2), "latest kicker")
     source = replace_once(source, r'(<h2 id="latestVideoTitle">).*?(</h2>)', lambda m: m.group(1) + esc(latest_title) + m.group(2), "latest title")
     source = replace_once(source, r'(<p id="latestVideoDate">).*?(</p>)', lambda m: m.group(1) + esc(f"Published {published}") + m.group(2), "latest date")
     source = replace_once(source, r'(<a class="button button-primary latest-watch" id="latestWatchLink" href=")[^"]*(")', lambda m: m.group(1) + esc(youtube_url) + m.group(2), "latest YouTube link")

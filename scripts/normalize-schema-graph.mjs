@@ -572,12 +572,28 @@ function normalizeMixPages() {
     const image = absoluteUrl(ogImage(html) || dataAttr((/<div\b[^>]*data-mix-player[^>]*>/i.exec(html) || [""])[0], "data-poster"));
     const optionTags = [...html.matchAll(/<button\b[^>]*data-mix-option[^>]*>/gi)].map((match) => match[0]);
     const playerTag = (/<div\b[^>]*data-mix-player[^>]*>/i.exec(html) || [""])[0];
+    const sourceTag = (/<[^>]+data-source=["']\/mixes\.json["'][^>]*>/i.exec(html) || [""])[0];
+    const sourceGroup = dataAttr(sourceTag, "data-group");
     const playerKind = dataAttr(playerTag, "data-kind") || "video";
     const playerId = dataAttr(playerTag, "data-id");
+    const catalogueTracks = sourceGroup
+      ? (mixesPayload.mixes || [])
+          .filter((mix) => String(mix?.collection || "").trim() === sourceGroup)
+          .map((mix) => {
+            const raw = String(mix?.rawTitle || "").trim();
+            const mixName = raw ? raw.split("|")[0].trim() : String(mix?.title || "NextGen Sessions mix").trim();
+            const id = String(mix?.id || "").trim();
+            return {
+              "@type": "MusicRecording",
+              name: mixName,
+              url: id ? `https://www.youtube.com/watch?v=${id}` : url,
+            };
+          })
+      : [];
     let mainEntity;
 
-    if (optionTags.length >= 2 || playerKind === "playlist") {
-      const tracks = optionTags.map((tag) => {
+    if (catalogueTracks.length || optionTags.length >= 2 || playerKind === "playlist") {
+      const tracks = catalogueTracks.length ? catalogueTracks : optionTags.map((tag) => {
         const id = dataAttr(tag, "data-id");
         const title = dataAttr(tag, "data-title");
         const release = releaseById.get(id);

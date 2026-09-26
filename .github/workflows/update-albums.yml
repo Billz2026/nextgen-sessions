@@ -9,6 +9,8 @@ on:
     paths:
       - ".github/workflows/update-albums.yml"
       - "scripts/sync-homepage-fallback.py"
+      - "scripts/preserve-generated-at.mjs"
+      - "scripts/test-latest-policy.mjs"
 
 permissions:
   contents: write
@@ -20,6 +22,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       ALBUM_PLAYLIST_ID: PL7VCdVWElIJG6xBdzB-142fxazeXgB5XR
@@ -29,6 +32,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+
+      - name: Snapshot album catalogue
+        run: cp albums.json /tmp/albums-before.json || true
 
       - name: Build album catalogue
         run: |
@@ -150,22 +156,29 @@ jobs:
           print(f"Wrote {len(albums)} albums from playlist {PLAYLIST_ID}")
           PY
 
+      - name: Preserve album timestamp on no-op checks
+        run: node scripts/preserve-generated-at.mjs /tmp/albums-before.json albums.json
+
       - name: Sync homepage static Latest fallback
         run: python3 scripts/sync-homepage-fallback.py releases.json
 
+      - name: Validate Latest policy and homepage fallback
+        run: node scripts/test-latest-policy.mjs
+
       - name: Commit catalogue update
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           git add albums.json index.html site.js
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update album catalogue"
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5; do
             git pull --rebase origin main
             if git push origin HEAD:main; then
               exit 0
             fi
-            sleep $((attempt * 2))
+            echo "Publish attempt ${attempt}/5 failed; retrying..."
+            sleep $((attempt * 3))
           done
-          echo "Could not update main after 3 attempts."
+          echo "Could not update main after 5 attempts."
           exit 1

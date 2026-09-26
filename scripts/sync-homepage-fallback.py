@@ -171,15 +171,9 @@ def latest_timestamp(item: dict) -> float:
 
 
 def latest_destination(item: dict) -> str:
-    url = str(item.get("url", "/releases/")).strip() or "/releases/"
-    video_id = str(item.get("id", "")).strip()
-    if (
-        item.get("contentType") == "long-mix"
-        and re.fullmatch(r"/mixes/[a-z0-9]+(?:-[a-z0-9]+)*/", url)
-        and re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id)
-    ):
-        return f"{url}?mix={video_id}#listen"
-    return url
+    if item.get("contentType") == "long-mix":
+        return "/mixes/"
+    return str(item.get("url", "/releases/")).strip() or "/releases/"
 
 
 def select_latest_content(releases: list[dict], mixes: list[dict], albums: list[dict]) -> dict:

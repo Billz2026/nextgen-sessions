@@ -170,6 +170,18 @@ def latest_timestamp(item: dict) -> float:
     return published.timestamp() if published else 0.0
 
 
+def latest_destination(item: dict) -> str:
+    url = str(item.get("url", "/releases/")).strip() or "/releases/"
+    video_id = str(item.get("id", "")).strip()
+    if (
+        item.get("contentType") == "long-mix"
+        and re.fullmatch(r"/mixes/[a-z0-9]+(?:-[a-z0-9]+)*/", url)
+        and re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id)
+    ):
+        return f"{url}?mix={video_id}#listen"
+    return url
+
+
 def select_latest_content(releases: list[dict], mixes: list[dict], albums: list[dict]) -> dict:
     candidates = [normalise_release(item) for item in releases]
     candidates += [normalise_mix(item) for item in mixes]
@@ -195,7 +207,7 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     featured = releases[:6]
     latest = select_latest_content(releases, mixes, albums)
     latest_id = str(latest.get("id", "")).strip()
-    latest_url = str(latest.get("url", "/releases/")).strip() or "/releases/"
+    latest_url = latest_destination(latest)
     latest_title = str(latest.get("title", "Latest NextGen Sessions release")).strip()
     presentation = content_presentation(str(latest.get("contentType", "")).strip())
     youtube_url = f"https://www.youtube.com/watch?v={latest_id}"

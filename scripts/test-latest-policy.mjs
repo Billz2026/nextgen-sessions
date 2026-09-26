@@ -210,6 +210,25 @@ for (const expected of [
   assert.ok(homepageHtml.includes(expected), `Homepage static Latest markup missing: ${expected}`);
 }
 
+assert.match(
+  homepageHtml,
+  /id="heroLatestLink" href="[^"]+">Explore latest (?:release|mix|album)<\/a>/,
+  "Homepage Latest CTA must be valid closed anchor HTML"
+);
+assert.match(
+  homepageHtml,
+  /class="video-no-script" href="[^"]+">Watch the latest (?:release|mix|album) on YouTube<\/a>/,
+  "Homepage no-script Latest link must be valid closed anchor HTML"
+);
+assert.ok(
+  !/href="[^"]*"(?:Explore|Watch the latest)/.test(homepageHtml),
+  "Homepage Latest links must never omit the closing > after href"
+);
+assert.ok(
+  homepageSource.includes('https://i.ytimg.com/vi/'),
+  "Latest artwork must have a direct YouTube fallback"
+);
+
 for (const expected of [
   'def content_presentation(content_type: str)',
   '"label": "Latest mix"',

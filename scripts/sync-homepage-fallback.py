@@ -237,13 +237,6 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     )
 
     release_fallback = [normalise_release(item) for item in featured]
-    site_path = ROOT / "site.js"
-    site = site_path.read_text(encoding="utf-8")
-    version_payload = json.dumps({"latest": latest, "releases": release_fallback}, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    version = hashlib.sha1((version_payload + "\n" + site).encode("utf-8")).hexdigest()[:10]
-    source = replace_once(source, r'<script src="/site\.js(?:\?v=[^"]*)?" defer></script>', f'<script src="/site.js?v=catalogue-{version}" defer></script>', "site.js cache version")
-    index_path.write_text(source, encoding="utf-8")
-
     latest_json = json.dumps(latest, ensure_ascii=False, separators=(",", ":"))
     rest = ["    " + json.dumps(item, ensure_ascii=False, separators=(",", ":")) for item in release_fallback]
     block = (
@@ -255,11 +248,19 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
         f"  {END}"
     )
 
+    site_path = ROOT / "site.js"
+    site = site_path.read_text(encoding="utf-8")
     if START in site and END in site:
         site = replace_once(site, re.escape(START) + r".*?" + re.escape(END), block.strip(), "marked JavaScript fallback block")
     else:
         site = replace_once(site, r'  const FALLBACK_LATEST = \{.*?\n  const FALLBACK_RELEASES = \[.*?\n  \];', block, "legacy JavaScript fallback block")
+
+    version_payload = json.dumps({"latest": latest, "releases": release_fallback}, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    version = hashlib.sha1((version_payload + "\n" + site).encode("utf-8")).hexdigest()[:10]
+    source = replace_once(source, r'<script src="/site\.js(?:\?v=[^"]*)?" defer></script>', f'<script src="/site.js?v=catalogue-{version}" defer></script>', "site.js cache version")
+
     site_path.write_text(site, encoding="utf-8")
+    index_path.write_text(source, encoding="utf-8")
 
 
 def main() -> None:

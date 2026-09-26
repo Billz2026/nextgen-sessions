@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MIXES_ROOT = ROOT / "mixes"
 CATALOGUE_START = "<!-- MIX-STATIC-CATALOGUE:START -->"
 CATALOGUE_END = "<!-- MIX-STATIC-CATALOGUE:END -->"
-MIX_PLAYER_VERSION = "20260926-deeplink1"
+MIX_PLAYER_VERSION = "20260926-player-lock1"
 
 
 def load_mixes() -> list[dict]:

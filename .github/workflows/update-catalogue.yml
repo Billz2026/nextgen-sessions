@@ -226,7 +226,12 @@ jobs:
           site = Path("site.js").read_text(encoding="utf-8")
           assert f'data-video-id="{latest["id"]}"' in homepage, "Homepage video fallback is stale"
           assert f'href="{latest["url"]}"' in homepage, "Homepage latest-content link is stale"
-          assert f'/api/release-image?id={latest["id"]}' in homepage, "Homepage thumbnail fallback is stale"
+          expected_thumb = (
+    f'https://i.ytimg.com/vi/{latest["id"]}/maxresdefault.jpg'
+    if latest.get("contentType") in {"long-mix", "album"}
+    else f'/api/release-image?id={latest["id"]}'
+)
+assert expected_thumb in homepage, "Homepage thumbnail fallback is stale"
           assert latest["id"] in site, "JavaScript latest fallback is stale"
           assert "// HOMEPAGE:AUTO-FALLBACK:START" in site
           assert "// HOMEPAGE:AUTO-FALLBACK:END" in site

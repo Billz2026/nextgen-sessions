@@ -196,38 +196,12 @@ for (const expected of [
   'playCta: "Play full album"',
   'label: "Latest release"',
   'heroLink.textContent = presentation.heroCta',
-  'latestShell.dataset.contentKind = presentation.kind'
+  'latestShell.dataset.contentKind = presentation.kind',
+  'function latestDestination(item)',
+  'if (item?.contentType === "long-mix") return "/mixes/"'
 ]) {
   assert.ok(homepageSource.includes(expected), `Homepage Latest presentation missing: ${expected}`);
 }
-
-for (const expected of [
-  'id="latestTypeLabel"',
-  'id="latestPlayCopy"',
-  'id="latestKicker"',
-  'data-content-kind="mix"'
-]) {
-  assert.ok(homepageHtml.includes(expected), `Homepage static Latest markup missing: ${expected}`);
-}
-
-assert.match(
-  homepageHtml,
-  /id="heroLatestLink" href="[^"]+">Explore latest (?:release|mix|album)<\/a>/,
-  "Homepage Latest CTA must be valid closed anchor HTML"
-);
-assert.match(
-  homepageHtml,
-  /class="video-no-script" href="[^"]+">Watch the latest (?:release|mix|album) on YouTube<\/a>/,
-  "Homepage no-script Latest link must be valid closed anchor HTML"
-);
-assert.ok(
-  !/href="[^"]*"(?:Explore|Watch the latest)/.test(homepageHtml),
-  "Homepage Latest links must never omit the closing > after href"
-);
-assert.ok(
-  homepageSource.includes('https://i.ytimg.com/vi/'),
-  "Latest artwork must have a direct YouTube fallback"
-);
 
 for (const expected of [
   'def content_presentation(content_type: str)',
@@ -242,17 +216,73 @@ for (const expected of [
   assert.ok(fallbackSync.includes(expected), `Homepage fallback sync missing: ${expected}`);
 }
 
-for (const expected of [
-  'function latestDestination(item)',
-  'if (item?.contentType === "long-mix") return "/mixes/"'
-]) {
-  assert.ok(homepageSource.includes(expected), `Homepage Latest mix-hub routing missing: ${expected}`);
-}
+const currentLatest = [...currentFullReleases, ...currentMixes, ...currentAlbums]
+  .filter(item => Date.parse(item?.published || "") <= Date.now())
+  .sort((a, b) => Date.parse(b.published || "") - Date.parse(a.published || ""))[0];
+
+assert.ok(currentLatest, "At least one eligible current Latest item must exist");
+
+const presentationByType = {
+  "long-mix": {
+    kind: "mix",
+    label: "Latest mix",
+    cta: "Explore latest mix",
+    play: "Play full mix",
+    destination: "/mixes/"
+  },
+  album: {
+    kind: "album",
+    label: "Latest album",
+    cta: "Explore latest album",
+    play: "Play full album",
+    destination: currentLatest?.url
+  },
+  "full-release": {
+    kind: "release",
+    label: "Latest release",
+    cta: "Explore latest release",
+    play: "Play latest release",
+    destination: currentLatest?.url
+  }
+};
+
+const expectedPresentation = presentationByType[currentLatest.contentType];
+assert.ok(expectedPresentation, `Unexpected Latest content type: ${currentLatest.contentType}`);
+
+assert.ok(
+  homepageHtml.includes(`data-video-id="${currentLatest.id}"`),
+  "Homepage static Latest video id must match the newest eligible catalogue item"
+);
+assert.ok(
+  homepageHtml.includes(`data-content-kind="${expectedPresentation.kind}"`),
+  "Homepage static Latest content kind must match the newest eligible catalogue item"
+);
+assert.ok(
+  homepageHtml.includes(`id="latestTypeLabel">${expectedPresentation.label}</strong>`),
+  "Homepage static Latest label must match the newest eligible catalogue item"
+);
+assert.ok(
+  homepageHtml.includes(`id="latestPlayCopy">${expectedPresentation.play}</span>`),
+  "Homepage static Latest play copy must match the newest eligible catalogue item"
+);
+assert.ok(
+  homepageHtml.includes(`id="heroLatestLink" href="${expectedPresentation.destination}">${expectedPresentation.cta}</a>`),
+  "Homepage Latest CTA must match the newest eligible catalogue item"
+);
 
 assert.match(
   homepageHtml,
-  /id="heroLatestLink" href="\/mixes\/">Explore latest mix<\/a>/,
-  "Latest Mix CTA must route to the main mix library"
+  /class="video-no-script" href="[^"]+">Watch the latest (?:release|mix|album) on YouTube<\/a>/,
+  "Homepage no-script Latest link must be valid closed anchor HTML"
+);
+assert.ok(
+  !/href="[^"]*"(?:Explore|Watch the latest)/.test(homepageHtml),
+  "Homepage Latest links must never omit the closing > after href"
+);
+assert.ok(
+  homepageSource.includes('https://i.ytimg.com/vi/'),
+  "Latest artwork must have a direct YouTube fallback"
 );
 
-console.log("Latest accepts verified full songs, albums and long mixes while rejecting Shorts, promos and future content, with matching type-aware homepage presentation.");
+console.log(`Latest policy validated for current ${currentLatest.contentType}: ${currentLatest.id}`);
+

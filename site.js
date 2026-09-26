@@ -82,7 +82,8 @@
   function updateLatestPlayer(release) {
     const next = {
       id: validVideoId(release?.id),
-      title: latestTitle(release)
+      title: latestTitle(release),
+      contentType: String(release?.contentType || "full-release")
     };
     activeLatest = next;
     if (!latestPlayer) return;
@@ -99,8 +100,11 @@
     }
 
     if (latestVideoThumbnail) {
-      latestVideoThumbnail.dataset.fallbackStage = "proxy";
-      latestVideoThumbnail.src = `/api/release-image?id=${encodeURIComponent(next.id)}`;
+      const useYoutubeArtwork = next.contentType === "long-mix" || next.contentType === "album";
+      latestVideoThumbnail.dataset.fallbackStage = useYoutubeArtwork ? "maxres" : "proxy";
+      latestVideoThumbnail.src = useYoutubeArtwork
+        ? `https://i.ytimg.com/vi/${next.id}/maxresdefault.jpg`
+        : `/api/release-image?id=${encodeURIComponent(next.id)}`;
     }
     if (latestVideoPlay) {
       latestVideoPlay.classList.remove("is-fallback");

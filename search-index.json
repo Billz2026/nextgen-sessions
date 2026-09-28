@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-26T15:55:50.961Z",
-  "total": 153,
+  "generatedAt": "2026-09-28T22:17:05.298Z",
+  "total": 154,
   "counts": {
     "artists": 33,
-    "releases": 104,
+    "releases": 105,
     "genres": 6,
     "mixes": 10,
     "upcomingReleases": 0
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Cyaan Stop Mi",
+      "subtitle": "Rudii Marka",
+      "description": "Dancehall · 2026-09-28",
+      "url": "/releases/rudii-marka-cyaan-stop-mi/",
+      "date": "2026-09-28T17:00:45Z",
+      "keywords": [
+        "Rudii Marka",
+        "Dancehall",
+        "Rudii Marka - Cyaan Stop Mi | Dancehall 2026 | NextGen Sessions",
+        "Cyaan Stop Mi"
       ]
     },
     {

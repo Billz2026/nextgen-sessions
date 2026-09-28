@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-09-27T23:25:06.279Z",
+  "generatedAt": "2026-09-28T22:17:05.170Z",
   "timezone": "Europe/London",
   "weekStart": "2026-09-28",
   "weekEnd": "2026-10-04",
   "weekLabel": "28 September–4 October 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Rudii Marka",
+      "artistSlug": "rudii-marka",
+      "title": "Cyaan Stop Mi",
+      "genre": "Dancehall",
+      "artistUrl": "/artists/rudii-marka/",
+      "releaseUrl": "/releases/rudii-marka-cyaan-stop-mi/",
+      "dateLocal": "2026-09-28",
+      "dateLabel": "MON 28 SEPT",
+      "longDate": "Monday, 28 September 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-09-28T17:00:45.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=IKI2BZV3v4k&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"F9XWFEv5YXs","contentType":"long-mix","title":"Dancehall Mashup Series IV - Bruk Out","published":"2026-09-25T17:00:16Z","url":"/mixes/dancehall-mashups/","durationSeconds":2701};
+  const FALLBACK_LATEST = {"id":"IKI2BZV3v4k","contentType":"full-release","title":"Rudii Marka – Cyaan Stop Mi","published":"2026-09-28T17:00:45Z","url":"/releases/rudii-marka-cyaan-stop-mi/"};
 
   const FALLBACK_RELEASES = [
+    {"id":"IKI2BZV3v4k","contentType":"full-release","title":"Rudii Marka – Cyaan Stop Mi","published":"2026-09-28T17:00:45Z","url":"/releases/rudii-marka-cyaan-stop-mi/"},
     {"id":"E2qUwbUA8x4","contentType":"full-release","title":"Kastro – Last Man Deh","published":"2026-09-23T17:00:33Z","url":"/releases/kastro-last-man-deh/"},
     {"id":"lDTzyfox7t8","contentType":"full-release","title":"Javon Ranks – Mi Nah Switch","published":"2026-09-21T17:00:05Z","url":"/releases/javon-ranks-mi-nah-switch/"},
     {"id":"I68NaEz-deQ","contentType":"full-release","title":"Deon Creed – It Is What It Is","published":"2026-09-16T17:00:12Z","url":"/releases/deon-creed-it-is-what-it-is/"},
     {"id":"TjXtRh2DtJE","contentType":"full-release","title":"Alonzo Ray – Still Rollin Clean","published":"2026-09-14T17:00:28Z","url":"/releases/alonzo-ray-still-rollin-clean/"},
-    {"id":"ZOl-pBtvggM","contentType":"full-release","title":"Andre Kadeem – From Round Here","published":"2026-09-09T17:00:33Z","url":"/releases/andre-kadeem-from-round-here/"},
-    {"id":"0xQUdNbdRxQ","contentType":"full-release","title":"Renz Cole – Keep It Moving","published":"2026-09-07T17:00:31Z","url":"/releases/renz-cole-keep-it-moving/"}
+    {"id":"ZOl-pBtvggM","contentType":"full-release","title":"Andre Kadeem – From Round Here","published":"2026-09-09T17:00:33Z","url":"/releases/andre-kadeem-from-round-here/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

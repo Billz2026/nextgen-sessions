@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-28T22:17:05.298Z",
-  "total": 154,
+  "generatedAt": "2026-09-30T20:11:32.179Z",
+  "total": 155,
   "counts": {
     "artists": 33,
-    "releases": 105,
+    "releases": 106,
     "genres": 6,
     "mixes": 10,
     "upcomingReleases": 0
@@ -403,6 +403,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Wi Dweet Proper",
+      "subtitle": "Rudii Marka",
+      "description": "Dancehall · 2026-09-30",
+      "url": "/releases/rudii-marka-wi-dweet-proper/",
+      "date": "2026-09-30T17:00:24Z",
+      "keywords": [
+        "Rudii Marka",
+        "Dancehall",
+        "Rudii Marka - Wi Dweet Proper | Dancehall 2026 | NextGen Sessions",
+        "Wi Dweet Proper"
       ]
     },
     {

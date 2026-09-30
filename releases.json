@@ -5,10 +5,10 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-09-28T22:17:03.810326Z",
-  "total": 105,
+  "generatedAt": "2026-09-30T20:11:31.281366Z",
+  "total": 106,
   "counts": {
-    "Dancehall": 35,
+    "Dancehall": 36,
     "Reggae": 1,
     "UK Rap & Grime": 22,
     "Hip-Hop / G-Funk": 22,
@@ -21,6 +21,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "qrkiRZlqIhE",
+      "contentType": "full-release",
+      "artist": "Rudii Marka",
+      "title": "Wi Dweet Proper",
+      "group": "Dancehall",
+      "published": "2026-09-30T17:00:24Z",
+      "durationSeconds": 348,
+      "rawTitle": "Rudii Marka - Wi Dweet Proper | Dancehall 2026 | NextGen Sessions",
+      "slug": "rudii-marka-wi-dweet-proper",
+      "url": "/releases/rudii-marka-wi-dweet-proper/"
+    },
     {
       "id": "IKI2BZV3v4k",
       "contentType": "full-release",

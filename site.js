@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"qrkiRZlqIhE","contentType":"full-release","title":"Rudii Marka – Wi Dweet Proper","published":"2026-09-30T17:00:24Z","url":"/releases/rudii-marka-wi-dweet-proper/"};
+  const FALLBACK_LATEST = {"id":"BEwbgXnAZbA","contentType":"album","title":"Rudii Marka -  Marked Rudeboi","published":"2026-10-02T17:00:09Z","url":"/mixes/full-albums/"};
 
   const FALLBACK_RELEASES = [
     {"id":"qrkiRZlqIhE","contentType":"full-release","title":"Rudii Marka – Wi Dweet Proper","published":"2026-09-30T17:00:24Z","url":"/releases/rudii-marka-wi-dweet-proper/"},

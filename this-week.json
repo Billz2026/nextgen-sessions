@@ -1,43 +1,10 @@
 {
-  "generatedAt": "2026-09-30T20:11:32.065Z",
+  "generatedAt": "2026-10-04T23:46:33.868Z",
   "timezone": "Europe/London",
-  "weekStart": "2026-09-28",
-  "weekEnd": "2026-10-04",
-  "weekLabel": "28 September–4 October 2026",
-  "mode": "week",
-  "items": [
-    {
-      "artist": "Rudii Marka",
-      "artistSlug": "rudii-marka",
-      "title": "Cyaan Stop Mi",
-      "genre": "Dancehall",
-      "artistUrl": "/artists/rudii-marka/",
-      "releaseUrl": "/releases/rudii-marka-cyaan-stop-mi/",
-      "dateLocal": "2026-09-28",
-      "dateLabel": "MON 28 SEPT",
-      "longDate": "Monday, 28 September 2026",
-      "timeLocal": "",
-      "releaseAt": "2026-09-28T17:00:45.000Z",
-      "status": "live",
-      "image": "/api/release-image?id=IKI2BZV3v4k&size=card",
-      "source": "catalogue"
-    },
-    {
-      "artist": "Rudii Marka",
-      "artistSlug": "rudii-marka",
-      "title": "Wi Dweet Proper",
-      "genre": "Dancehall",
-      "artistUrl": "/artists/rudii-marka/",
-      "releaseUrl": "/releases/rudii-marka-wi-dweet-proper/",
-      "dateLocal": "2026-09-30",
-      "dateLabel": "WED 30 SEPT",
-      "longDate": "Wednesday, 30 September 2026",
-      "timeLocal": "",
-      "releaseAt": "2026-09-30T17:00:24.000Z",
-      "status": "live",
-      "image": "/api/release-image?id=qrkiRZlqIhE&size=card",
-      "source": "catalogue"
-    }
-  ],
+  "weekStart": "2026-10-05",
+  "weekEnd": "2026-10-11",
+  "weekLabel": "5–11 October 2026",
+  "mode": "empty",
+  "items": [],
   "nextUp": null
 }

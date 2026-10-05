@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: nextgen-main-writers
+  group: nextgen-latest-feed
   cancel-in-progress: false
 
 jobs:

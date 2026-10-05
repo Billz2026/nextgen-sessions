@@ -309,10 +309,14 @@ function latestDecodeXml(value) {
 }
 
 function latestFeedTag(block, tag) {
-  const match = String(block || "").match(
-    new RegExp("<" + tag + "[^>]*>([\\\\s\\\\S]*?)<\\\\/" + tag + ">", "i")
-  );
-  return latestDecodeXml(match ? match[1] : "").trim();
+  const source = String(block || "");
+  const openAt = source.indexOf("<" + tag);
+  if (openAt < 0) return "";
+  const contentAt = source.indexOf(">", openAt);
+  if (contentAt < 0) return "";
+  const closeAt = source.indexOf("</" + tag + ">", contentAt + 1);
+  if (closeAt < 0) return "";
+  return latestDecodeXml(source.slice(contentAt + 1, closeAt)).trim();
 }
 
 function latestFeedEntries(xml) {

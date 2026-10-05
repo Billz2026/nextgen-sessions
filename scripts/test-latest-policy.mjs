@@ -185,9 +185,25 @@ for (const marker of [
 }
 assert.ok(!source.includes('policy: "full-release-catalogue-only"'), "Song-only Latest policy must never return");
 assert.ok(!source.includes('const FALLBACK_RELEASES = ['), "Latest API must not fall back to an ancient hard-coded release list");
+assert.ok(
+  homepageSource.includes('fetchJson("/latest-feed.json?v=2")'),
+  "Homepage must read the quota-free Latest feed"
+);
+assert.ok(
+  homepageSource.includes("Promise.allSettled"),
+  "Homepage Latest must tolerate either dynamic source failing"
+);
+for (const marker of [
+  "youtube.com/feeds/videos.xml?channel_id=",
+  "public-youtube-channel-feed",
+  "retaining last-known-good Latest"
+]) {
+  assert.ok(latestFeedUpdater.includes(marker), `Quota-free Latest updater missing: ${marker}`);
+}
 
 const homepageSource = await readFile(new URL("../site.js", import.meta.url), "utf8");
 const homepageHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const latestFeedUpdater = await readFile(new URL("./update-latest-feed.py", import.meta.url), "utf8");
 const fallbackSync = await readFile(new URL("./sync-homepage-fallback.py", import.meta.url), "utf8");
 
 for (const expected of [

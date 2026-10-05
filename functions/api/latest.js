@@ -1,10 +1,127 @@
-const FALLBACK_RELEASES = [
-  { id: "dV6_GbsHrxI", contentType: "full-release", artist: "Kemarco", title: "Badman Don’t Rush", group: "Dancehall", published: "2026-08-05T17:00:07Z", url: "/releases/kemarco-badman-dont-rush/" },
-  { id: "xicnIGw-ei8", contentType: "full-release", artist: "Alia Bleu", title: "Piggyback", group: "R&B & Soul", published: "2026-08-03T17:00:30Z", url: "/releases/alia-bleu-piggyback/" },
-  { id: "Sra1722xEFE", contentType: "full-release", artist: "Renz Cole", title: "Heatwave", group: "UK Rap & Grime", published: "2026-07-31T17:00:33Z", url: "/releases/renz-cole-heatwave/" },
-  { id: "6H6yq_1bEsQ", contentType: "full-release", artist: "Reeko", title: "After Di Party", group: "Dancehall", published: "2026-07-29T17:00:35Z", url: "/releases/reeko-after-di-party/" },
-  { id: "ZSjRD_3B5uk", contentType: "full-release", artist: "Deon Creed", title: "Days Like These", group: "R&B & Soul", published: "2026-07-27T17:00:05Z", url: "/releases/deon-creed-days-like-these/" }
-];
+const LATEST_CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg";
+const LATEST_CHANNEL_FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id=" + LATEST_CHANNEL_ID;
+
+function latestDecodeXml(value) {
+  return String(value || "")
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function latestFeedTag(block, tag) {
+  const match = String(block || "").match(
+    new RegExp("<" + tag + "[^>]*>([\\\\s\\\\S]*?)<\\\\/" + tag + ">", "i")
+  );
+  return latestDecodeXml(match ? match[1] : "").trim();
+}
+
+function latestFeedEntries(xml) {
+  const entries = [];
+  const pattern = /<entry>([\s\S]*?)<\/entry>/gi;
+  let match;
+  while ((match = pattern.exec(String(xml || "")))) {
+    const block = match[1];
+    const id = latestFeedTag(block, "yt:videoId");
+    const title = latestFeedTag(block, "title");
+    const published = latestFeedTag(block, "published");
+    if (id && title && published) entries.push({ id, title, published });
+  }
+  return entries;
+}
+
+function latestFeedArtistTitle(rawTitle) {
+  const segments = String(rawTitle || "").split("|").map(part => part.trim()).filter(Boolean);
+  for (const segment of segments) {
+    const match = segment.match(/^(.*?)\s+[-–—]\s+(.+)$/);
+    if (match && match[1].trim() && match[2].trim()) {
+      return { artist: match[1].trim(), title: match[2].trim() };
+    }
+  }
+  return { artist: "NextGen Sessions", title: segments[0] || String(rawTitle || "").trim() };
+}
+
+function latestFeedContentType(rawTitle) {
+  const title = String(rawTitle || "");
+  if (/\balbum\b/i.test(title)) return "album";
+  if (/\b(?:mash\s*up|mashup|riddim|mix)\b/i.test(title)) return "long-mix";
+  return "full-release";
+}
+
+function latestFeedDestination(contentType) {
+  if (contentType === "album") return ALBUM_DESTINATION;
+  if (contentType === "long-mix") return "/mixes/";
+  return "/releases/";
+}
+
+function trustedLatestFeedTitle(rawTitle) {
+  const title = String(rawTitle || "").trim();
+  const segments = title.split("|").map(part => part.trim()).filter(Boolean);
+  return Boolean(
+    title &&
+    /NextGen Sessions/i.test(title) &&
+    !BLOCKED_LATEST_TITLE.test(title) &&
+    (segments.length >= 3 || /\b(?:album|mash\s*up|mashup|riddim|mix)\b/i.test(title))
+  );
+}
+
+async function latestFeedDurationSeconds(videoId) {
+  try {
+    const response = await fetch("https://www.youtube.com/watch?v=" + encodeURIComponent(videoId), {
+      headers: {
+        "Accept": "text/html",
+        "User-Agent": "Mozilla/5.0 (compatible; NextGenSessionsLatest/2.0)"
+      }
+    });
+    if (!response.ok) return 0;
+    const html = await response.text();
+    const direct = html.match(/"lengthSeconds":"(\d+)"/);
+    if (direct) return Number(direct[1] || 0);
+    const approx = html.match(/"approxDurationMs":"(\d+)"/);
+    return approx ? Math.round(Number(approx[1] || 0) / 1000) : 0;
+  } catch (_) {
+    return 0;
+  }
+}
+
+async function fetchLiveChannelLatest() {
+  const response = await fetch(LATEST_CHANNEL_FEED_URL, {
+    headers: {
+      "Accept": "application/atom+xml,application/xml,text/xml",
+      "User-Agent": "NextGenSessionsLatest/2.0"
+    }
+  });
+  if (!response.ok) throw new Error("YouTube channel feed returned " + response.status);
+
+  const entries = latestFeedEntries(await response.text())
+    .filter(item => validVideoId(item.id))
+    .filter(item => trustedLatestFeedTitle(item.title))
+    .filter(item => (Date.parse(item.published) || 0) <= Date.now())
+    .sort((a, b) => (Date.parse(b.published) || 0) - (Date.parse(a.published) || 0));
+
+  for (const entry of entries.slice(0, 8)) {
+    const contentType = latestFeedContentType(entry.title);
+    const durationSeconds = await latestFeedDurationSeconds(entry.id);
+    const minimum = contentType === "long-mix" ? 600 : 75;
+    if (durationSeconds > 0 && durationSeconds < minimum) continue;
+
+    const parsed = latestFeedArtistTitle(entry.title);
+    return {
+      id: entry.id,
+      contentType,
+      artist: parsed.artist,
+      title: parsed.title,
+      rawTitle: entry.title,
+      published: entry.published,
+      durationSeconds,
+      url: latestFeedDestination(contentType),
+      discoverySource: "youtube-channel-feed"
+    };
+  }
+  return null;
+}
 
 const BLOCKED_LATEST_TITLE = /\b(?:shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i;
 const RELEASE_PAGE = /^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/;
@@ -22,8 +139,9 @@ const MIX_ITEM_DESTINATIONS = {
 };
 const ALBUM_DESTINATION = "/mixes/full-albums/";
 
-function jsonResponse(payload, cacheControl) {
+function jsonResponse(payload, cacheControl, status = 200) {
   return new Response(JSON.stringify(payload), {
+    status,
     headers: {
       "content-type": "application/json; charset=utf-8",
       "cache-control": cacheControl,
@@ -172,9 +290,9 @@ export function selectAlbums(payload) {
     .sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
 }
 
-function combinedItems(releases, mixes, albums) {
+function combinedItems(releases, mixes, albums, liveItems = []) {
   const byId = new Map();
-  [...releases, ...mixes, ...albums].forEach(item => {
+  [...releases, ...mixes, ...albums, ...liveItems].forEach(item => {
     if (!item?.id) return;
     const existing = byId.get(item.id);
     if (!existing || publishedTimestamp(item) > publishedTimestamp(existing)) {
@@ -186,39 +304,44 @@ function combinedItems(releases, mixes, albums) {
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=r4", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=r5", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  try {
-    const [releases, mixes, albums] = await Promise.all([
-      fetchReleaseCatalogue(context),
-      fetchMixCatalogue(context),
-      fetchAlbumCatalogue(context)
-    ]);
-    if (!releases.length) throw new Error("Release catalogue is empty");
+  const [releases, mixes, albums, liveLatest] = await Promise.all([
+    fetchReleaseCatalogue(context).catch(() => []),
+    fetchMixCatalogue(context),
+    fetchAlbumCatalogue(context),
+    fetchLiveChannelLatest().catch(() => null)
+  ]);
 
-    const items = combinedItems(releases, mixes, albums);
-    if (!items.length) throw new Error("No eligible latest items");
-
-    const output = jsonResponse({
-      source: "verified-full-length-catalogues",
-      policy: "songs-albums-mixes-no-shorts",
-      generatedAt: new Date().toISOString(),
-      latest: items[0],
-      releases: releases.slice(0, 8),
-      items: items.slice(0, 12)
-    }, "public, max-age=60, s-maxage=120, stale-while-revalidate=600");
-    context.waitUntil(cache.put(cacheKey, output.clone()));
-    return output;
-  } catch (_) {
+  const items = combinedItems(releases, mixes, albums, liveLatest ? [liveLatest] : []);
+  if (!items.length) {
     return jsonResponse({
-      source: "curated-fallback",
+      source: "latest-unavailable",
       policy: "songs-albums-mixes-no-shorts",
       generatedAt: new Date().toISOString(),
-      latest: FALLBACK_RELEASES[0],
-      releases: FALLBACK_RELEASES,
-      items: FALLBACK_RELEASES
-    }, "public, max-age=30, s-maxage=60");
+      latest: null,
+      releases: [],
+      items: []
+    }, "no-store", 503);
   }
+
+  const releaseItems = combinedItems(
+    releases,
+    [],
+    [],
+    liveLatest?.contentType === "full-release" ? [liveLatest] : []
+  ).filter(item => item?.contentType === "full-release");
+
+  const output = jsonResponse({
+    source: liveLatest ? "verified-catalogues-plus-public-channel-feed" : "verified-full-length-catalogues",
+    policy: "songs-albums-mixes-no-shorts",
+    generatedAt: new Date().toISOString(),
+    latest: items[0],
+    releases: releaseItems.slice(0, 8),
+    items: items.slice(0, 12)
+  }, "public, max-age=45, s-maxage=90, stale-while-revalidate=300");
+  context.waitUntil(cache.put(cacheKey, output.clone()));
+  return output;
 }

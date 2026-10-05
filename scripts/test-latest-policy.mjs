@@ -175,13 +175,16 @@ for (const marker of [
   'policy: "songs-albums-mixes-no-shorts"',
   'fetchMixCatalogue(context)',
   'fetchAlbumCatalogue(context)',
+  'LATEST_CHANNEL_FEED_URL',
+  'fetchLiveChannelLatest()',
   'selectLongMixes',
   'selectAlbums',
-  'new URL("/api/latest?v=r4"',
+  'new URL("/api/latest?v=r5"',
 ]) {
   assert.ok(source.includes(marker), `Latest API source is missing: ${marker}`);
 }
 assert.ok(!source.includes('policy: "full-release-catalogue-only"'), "Song-only Latest policy must never return");
+assert.ok(!source.includes('const FALLBACK_RELEASES = ['), "Latest API must not fall back to an ancient hard-coded release list");
 
 const homepageSource = await readFile(new URL("../site.js", import.meta.url), "utf8");
 const homepageHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");

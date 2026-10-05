@@ -2,7 +2,7 @@ name: Update Mix Catalogue
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -42,8 +42,10 @@ jobs:
         with:
           ref: main
 
-      - name: Snapshot search index
-        run: cp search-index.json /tmp/search-before.json || true
+      - name: Snapshot last-known-good mix and search state
+        run: |
+          cp mixes.json /tmp/mixes-before.json
+          cp search-index.json /tmp/search-before.json || true
 
       - name: Build long-mix catalogue from YouTube
         env:
@@ -56,7 +58,9 @@ jobs:
             echo "Mix catalogue attempt ${attempt}/4 failed; retrying..."
             sleep $((attempt * 10))
           done
-          exit 1
+          echo "YouTube unavailable after retries; restoring last-known-good mix catalogue."
+          cp /tmp/mixes-before.json mixes.json
+          exit 0
 
       - name: Test mix catalogue rules
         run: python3 scripts/test-mix-catalogue.py

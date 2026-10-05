@@ -315,7 +315,7 @@
     const releaseUrl = String(release?.url || "").trim();
     const searchableTitle = `${String(release?.title || "")} ${String(release?.rawTitle || "")}`;
     const validDestination = contentType === "full-release"
-      ? /^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(releaseUrl)
+      ? /^\/releases\/(?:[a-z0-9]+(?:-[a-z0-9]+)*\/)?$/.test(releaseUrl)
       : (contentType === "long-mix"
         ? /^\/mixes(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)?\/$/.test(releaseUrl)
         : (contentType === "album" && releaseUrl === "/mixes/full-albums/"));
@@ -403,7 +403,7 @@
   }
 
   if (latestPlayer || releaseGrid) {
-    fetchJson("/api/latest?v=r4")
+    fetchJson("/api/latest?v=r5")
       .then(payload => updateLatest(buildHomepagePayload(payload)))
       .catch(() => updateLatest({
         latest: FALLBACK_LATEST,

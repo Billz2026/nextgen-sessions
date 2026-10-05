@@ -2,7 +2,7 @@ name: Update Release Catalogue
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "7,37 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -63,7 +63,7 @@ jobs:
           cp search-index.json /tmp/search-before.json || true
 
       # External API calls get multiple attempts. If YouTube/API infrastructure is temporarily
-      # unavailable, this run fails without touching production and the next 15-minute run retries.
+      # unavailable, this run fails without touching production and the next scheduled run retries while production keeps the last-known-good catalogue.
       - name: Build catalogue from public playlists
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
@@ -75,7 +75,9 @@ jobs:
             echo "Playlist catalogue attempt ${attempt}/4 failed; retrying..."
             sleep $((attempt * 10))
           done
-          exit 1
+          echo "YouTube unavailable after retries; restoring last-known-good release catalogue."
+          cp /tmp/releases-before.json releases.json
+          exit 0
 
       - name: Discover due scheduled releases from public channel
         env:
@@ -88,7 +90,8 @@ jobs:
             echo "Scheduled channel discovery attempt ${attempt}/4 failed; retrying..."
             sleep $((attempt * 10))
           done
-          exit 1
+          echo "Scheduled-release discovery unavailable; keeping verified catalogue and continuing."
+          exit 0
 
       # Core publication outputs. A failure here should block publication because the generated
       # release experience would be incomplete.

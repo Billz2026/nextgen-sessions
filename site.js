@@ -374,19 +374,21 @@
     return [...byId.values()].sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a));
   }
 
-  function buildHomepagePayload(apiPayload) {
+  function buildHomepagePayload(apiPayload, feedPayload) {
     const apiReleases = payloadReleases(apiPayload);
+    const feedLatest = normaliseHomepageRelease(feedPayload?.latest);
     const fallbackReleases = FALLBACK_RELEASES
       .map(normaliseHomepageRelease)
       .filter(Boolean);
     const releases = uniqueHomepageReleases(mergeHomepageReleases([
       ...apiReleases,
+      ...(feedLatest?.contentType === "full-release" ? [feedLatest] : []),
       ...fallbackReleases
     ]));
 
     const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
     const fallbackLatest = normaliseHomepageRelease(FALLBACK_LATEST);
-    const latest = [apiLatest, fallbackLatest, releases[0]]
+    const latest = [apiLatest, feedLatest, fallbackLatest, releases[0]]
       .filter(Boolean)
       .sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a))[0] || FALLBACK_LATEST;
 
@@ -403,11 +405,16 @@
   }
 
   if (latestPlayer || releaseGrid) {
-    fetchJson("/api/latest?v=r5")
-      .then(payload => updateLatest(buildHomepagePayload(payload)))
-      .catch(() => updateLatest({
-        latest: FALLBACK_LATEST,
-        releases: FALLBACK_RELEASES
-      }));
+    Promise.allSettled([
+      fetchJson("/api/latest?v=r5"),
+      fetchJson("/latest-feed.json?v=2")
+    ]).then(results => {
+      const apiPayload = results[0]?.status === "fulfilled" ? results[0].value : {};
+      const feedPayload = results[1]?.status === "fulfilled" ? results[1].value : {};
+      updateLatest(buildHomepagePayload(apiPayload, feedPayload));
+    }).catch(() => updateLatest({
+      latest: FALLBACK_LATEST,
+      releases: FALLBACK_RELEASES
+    }));
   }
 })();

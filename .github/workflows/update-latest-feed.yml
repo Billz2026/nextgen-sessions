@@ -1,0 +1,70 @@
+name: Update Quota-Free Latest Feed
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-latest-feed.yml"
+      - "scripts/update-latest-feed.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nextgen-main-writers
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Refresh Latest from public YouTube feed
+        run: python3 scripts/update-latest-feed.py latest-feed.json
+
+      - name: Validate Latest feed payload
+        run: |
+          python3 - <<'PY'
+          import json
+          import re
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          data = json.loads(Path("latest-feed.json").read_text(encoding="utf-8"))
+          latest = data.get("latest") or {}
+          assert re.fullmatch(r"[A-Za-z0-9_-]{11}", str(latest.get("id", "")))
+          assert latest.get("contentType") in {"full-release", "long-mix", "album"}
+          assert str(latest.get("artist", "")).strip()
+          assert str(latest.get("title", "")).strip()
+          assert str(latest.get("rawTitle", "")).strip()
+          published = datetime.fromisoformat(str(latest["published"]).replace("Z", "+00:00"))
+          assert published <= datetime.now(timezone.utc)
+          assert str(latest.get("url", "")).startswith("/")
+          print(f"Validated Latest: {latest['contentType']} — {latest['artist']} — {latest['title']}")
+          PY
+
+      - name: Publish changed Latest payload
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add latest-feed.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-update quota-free Latest feed"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Latest-feed publish attempt ${attempt}/5 failed; retrying..."
+            sleep $((attempt * 3))
+          done
+          echo "Could not publish Latest feed after 5 attempts."
+          exit 1

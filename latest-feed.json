@@ -1,16 +1,16 @@
 {
   "source": "public-youtube-channel-feed",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-10-07T21:13:21.471014Z",
+  "generatedAt": "2026-10-09T18:51:36.555178Z",
   "latest": {
-    "id": "ysGQgRrHRDw",
-    "contentType": "full-release",
+    "id": "jhTKuVi2jbA",
+    "contentType": "album",
     "artist": "Alia Bleu",
-    "title": "On My Side",
-    "rawTitle": "Alia Bleu - On My Side | R&B 2026 | NextGen Sessions",
-    "published": "2026-10-07T17:00:27+00:00",
+    "title": "Bleu Armour",
+    "rawTitle": "Alia Bleu - Bleu Armour | Full Album | R&B 2026 | NextGen Sessions",
+    "published": "2026-10-09T17:00:15+00:00",
     "durationSeconds": 0,
-    "url": "/releases/",
+    "url": "/mixes/full-albums/",
     "discoverySource": "public-youtube-channel-feed"
   }
 }

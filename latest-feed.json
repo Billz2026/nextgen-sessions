@@ -1,16 +1,16 @@
 {
   "source": "public-youtube-channel-feed",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-10-09T18:51:36.555178Z",
+  "generatedAt": "2026-10-12T23:14:42.246340Z",
   "latest": {
-    "id": "jhTKuVi2jbA",
-    "contentType": "album",
-    "artist": "Alia Bleu",
-    "title": "Bleu Armour",
-    "rawTitle": "Alia Bleu - Bleu Armour | Full Album | R&B 2026 | NextGen Sessions",
-    "published": "2026-10-09T17:00:15+00:00",
+    "id": "wpA3hPMAq80",
+    "contentType": "full-release",
+    "artist": "Arif Sial",
+    "title": "Chitta Suit Pa Ke",
+    "rawTitle": "Arif Sial - Chitta Suit Pa Ke | Desi 2026 | NextGen Sessions",
+    "published": "2026-10-12T17:00:26+00:00",
     "durationSeconds": 0,
-    "url": "/mixes/full-albums/",
+    "url": "/releases/",
     "discoverySource": "public-youtube-channel-feed"
   }
 }

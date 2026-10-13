@@ -209,7 +209,7 @@
       return `<iframe loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/${escapeHtml(release.id)}?rel=0&amp;modestbranding=1${autoplay ? "&amp;autoplay=1" : ""}" title="${escapeHtml(`${artist.name} — ${release.title}`)}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>`;
     }
     if (scheduledRelease) {
-      return `<div class="profile-video-unavailable">${escapeHtml(release?.title || "Upcoming release")} releases ${escapeHtml(releaseDate)}.</div>`;
+      return `<div class="profile-video-unavailable">${escapeHtml(releaseDate ? `${release?.title || "Upcoming release"} releases ${releaseDate}.` : "Official music coming soon.")}</div>`;
     }
     return '<div class="profile-video-unavailable">Featured release coming soon.</div>';
   }
@@ -330,14 +330,14 @@
   const bio = Array.isArray(artist.bio) ? artist.bio : [];
   const configuredRelease = configuredFeaturedRelease();
   const releaseDate = String(video.releaseDate || "").trim();
-  const scheduledRelease = !configuredRelease?.id && Boolean(releaseDate);
+  const scheduledRelease = !configuredRelease?.id && (Boolean(releaseDate) || artist.releaseStatus === "upcoming");
   const releaseTitle = configuredRelease?.title || video.title || `${artist.name} featured release`;
   const releaseTag = scheduledRelease ? "Upcoming NextGen Sessions release" : "Featured NextGen Sessions release";
   const releaseCopy = scheduledRelease
-    ? `The official video will be added when the release goes public on ${releaseDate}.`
+    ? (releaseDate ? `The official video will be added when the release goes public on ${releaseDate}.` : "Official music will appear here when published.")
     : "The featured release is selected by NextGen Sessions. Use the catalogue below to play any other track on this page.";
   const portrait = imageSrc
-    ? `<img class="profile-image" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(artist.name)} artist portrait" style="object-position:${imagePosition};transform:scale(${imageScale});transform-origin:${imagePosition}" data-fallback="${escapeHtml(imageFallback)}">`
+    ? `<img class="profile-image" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(artist.imageAlt || `${artist.name} artist portrait`)}" style="object-position:${imagePosition};transform:scale(${imageScale});transform-origin:${imagePosition}" data-fallback="${escapeHtml(imageFallback)}">`
     : `<div class="profile-image-placeholder" aria-hidden="true">${escapeHtml(monogram(artist.name))}</div>`;
 
   root.innerHTML = `

@@ -1,4 +1,11 @@
 window.NGS_ARTIST_IMAGES = {
+  // The portrait file is added separately before the artist becomes public.
+  "dean-lawson": {
+    src: "/assets/artists/dean-lawson-portrait.webp",
+    portrait: "/assets/artists/dean-lawson-portrait.webp",
+    fallback: "/assets/artists/dean-lawson-portrait.webp",
+    position: "50% 28%"
+  },
   "arif-sial": {
     src: "/assets/artists/arif-sial-portrait-hd.webp",
     portrait: "/assets/artists/arif-sial-portrait-hd.webp",

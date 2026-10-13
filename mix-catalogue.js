@@ -125,6 +125,68 @@
     }
   }
 
+  function publicSpecialMixes(mixes) {
+    const now = Date.now();
+    return mixes
+      .filter((item) => {
+        if (item?.contentType !== "long-mix") return false;
+        if (String(item.collection || "").trim() !== "other") return false;
+        if (!VIDEO_ID_PATTERN.test(String(item.id || ""))) return false;
+        if (Number(item.durationSeconds || 0) < 600) return false;
+        const publishedAt = Date.parse(String(item.published || ""));
+        return Number.isFinite(publishedAt) && publishedAt <= now;
+      })
+      .sort((a, b) => timestamp(b) - timestamp(a));
+  }
+
+  function buildSpecialMixCard(items) {
+    const grid = document.querySelector("#mashups .mix-grid");
+    if (!grid || !items.length || grid.querySelector("[data-auto-special-mix-card]")) return;
+
+    const latest = items[0];
+    const lead = String(latest.rawTitle || latest.title || "NextGen Special Mix")
+      .split("|")[0].trim();
+    const fallback = String(latest.thumbnail || "").trim() ||
+      "https://i.ytimg.com/vi/" + encodeURIComponent(latest.id) + "/hqdefault.jpg";
+
+    const card = document.createElement("a");
+    card.className = "mix-card";
+    card.dataset.autoSpecialMixCard = "";
+    card.href = "https://www.youtube.com/watch?v=" + encodeURIComponent(latest.id);
+    card.target = "_blank";
+    card.rel = "noopener";
+    card.setAttribute("aria-label", "Open " + lead + " on YouTube");
+
+    const media = document.createElement("div");
+    media.className = "mix-card-media";
+    const image = document.createElement("img");
+    image.src = thumbnailUrl(latest.id);
+    image.alt = lead + " artwork";
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.onerror = function () {
+      this.onerror = null;
+      this.src = fallback;
+    };
+    const play = document.createElement("span");
+    play.className = "mix-play";
+    play.setAttribute("aria-hidden", "true");
+    media.append(image, play);
+
+    const copy = document.createElement("div");
+    copy.className = "mix-card-copy";
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = items.length + (items.length === 1 ? " mix" : " mixes");
+    const heading = document.createElement("h3");
+    heading.textContent = "NextGen Special Mixes";
+    const description = document.createElement("p");
+    description.textContent = "Special full-length riddims and original sessions, available after their public release.";
+    copy.append(tag, heading, description);
+    card.append(media, copy);
+    grid.append(card);
+  }
+
   function updateCards(payload) {
     const mixes = Array.isArray(payload?.mixes) ? payload.mixes : [];
 
@@ -150,6 +212,7 @@
     });
 
     buildDesiCard(publicDesiMixes(mixes));
+    buildSpecialMixCard(publicSpecialMixes(mixes));
   }
 
   fetch("/mixes.json", { cache: "no-store" })

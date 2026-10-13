@@ -32,7 +32,17 @@ sources = {
     "hiphop-source": [playlist_item("hiphopmix01", "Hip-Hop Mash Up Series 1 | NextGen Sessions")],
     "ukrap-source": [playlist_item("ukrapmix001", "UK Rap Mashup Series 1 | NextGen Sessions")],
     "summer-source": [playlist_item("summermix26", "THE SOUND OF SUMMER 2026 | Summer Mix 2026")],
-    "bhangra-source": [playlist_item("bhangraarc1", "Punjab All Night | NextGen Sessions")],
+    "bhangra-source": [
+        playlist_item("bhangraarc1", "Punjab All Night | NextGen Sessions"),
+        playlist_item("qawwalimix1", "Qawwali Nights Vol. 1 | NextGen Sessions"),
+    ],
+    "special-source": [
+        playlist_item("mcdsriddim1", "MCDS Riddim | NextGen Sessions"),
+        {
+            **playlist_item("unlistedmx1", "Unlisted Special Mix | NextGen Sessions"),
+            "status": {"privacyStatus": "unlisted"},
+        },
+    ],
     "uploads-source": [
         playlist_item("grimemix001", "Grime Mash Up Series 1 | NextGen Sessions"),
         playlist_item("bhangramix1", "Bhangra Mix 2026 | NextGen Sessions"),
@@ -43,12 +53,16 @@ sources = {
     ],
 }
 
+assert ("PLFKXfJUlSHf4", "bhangra") in module.MIX_PLAYLISTS
+assert ("PLbBX67a5Ae3o", "other") in module.MIX_PLAYLISTS
+
 module.MIX_PLAYLISTS = [
     ("dancehall-source", "dancehall"),
     ("hiphop-source", "hip-hop"),
     ("ukrap-source", "uk-rap"),
     ("summer-source", "summer"),
     ("bhangra-source", "bhangra"),
+    ("special-source", "other"),
 ]
 module.UPLOADS_PLAYLIST_ID = "uploads-source"
 module.playlist_items = lambda playlist_id: sources[playlist_id]
@@ -73,7 +87,7 @@ def details(video_ids: list[str]) -> dict[str, dict]:
                 ),
                 "publishedAt": "2026-08-01T18:00:00Z",
             },
-            "status": {"privacyStatus": "public"},
+            "status": {"privacyStatus": "unlisted" if video_id == "unlistedmx1" else "public"},
             "contentDetails": {"duration": f"PT{seconds // 60}M"},
         }
     return output
@@ -81,15 +95,15 @@ def details(video_ids: list[str]) -> dict[str, dict]:
 
 module.video_details = details
 catalogue = module.build_mix_catalogue({})
-assert catalogue["total"] == 8, json.dumps(catalogue, indent=2)
+assert catalogue["total"] == 10, json.dumps(catalogue, indent=2)
 assert catalogue["counts"] == {
     "grime": 1,
     "hip-hop": 1,
     "uk-rap": 1,
     "dancehall": 2,
     "summer": 1,
-    "bhangra": 2,
-    "other": 0,
+    "bhangra": 3,
+    "other": 1,
 }
 assert [item["id"] for item in catalogue["mixes"] if item["collection"] == "dancehall"] == [
     "dancehall01",
@@ -97,6 +111,11 @@ assert [item["id"] for item in catalogue["mixes"] if item["collection"] == "danc
 ]
 ids = {item["id"] for item in catalogue["mixes"]}
 assert "bhangraarc1" in ids, "A video in the dedicated Bhangra playlist must classify as Bhangra even without Bhangra in its title"
+assert "qawwalimix1" in ids, "Qawwali Nights must be discovered through the existing Desi playlist"
+assert next(item for item in catalogue["mixes"] if item["id"] == "qawwalimix1")["collection"] == "bhangra"
+assert "mcdsriddim1" in ids, "MCDS Riddim must be discovered through the special-mixes playlist"
+assert next(item for item in catalogue["mixes"] if item["id"] == "mcdsriddim1")["collection"] == "other"
+assert "unlistedmx1" not in ids, "Unlisted mixes must remain off the public website"
 assert next(item for item in catalogue["mixes"] if item["id"] == "bhangraarc1")["collection"] == "bhangra"
 assert "bhangramix1" in ids, "Bhangra full-length mixes must also be discovered from channel uploads"
 assert next(item for item in catalogue["mixes"] if item["id"] == "bhangramix1")["collection"] == "bhangra"

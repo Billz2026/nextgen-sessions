@@ -21,7 +21,8 @@ MIX_PLAYLISTS = [
     ("PL7VCdVWElIJGzKTCsH1bYUWYeuJ3TLH80", "hip-hop"),
     ("PL7VCdVWElIJFBW8boYLO9Y9c5O3zgUxYi", "uk-rap"),
     ("PL7VCdVWElIJEOeOol8I7b6oN_rjgxS4vu", "summer"),
-    ("PLFKXfJUlSHf4", "bhangra"),
+    ("PLFKXfJUlSHf4", "bhangra"),  # Desi Junction and Qawwali Nights
+    ("PLbBX67a5Ae3o", "other"),  # MCDS Riddim / NextGen special mixes
 ]
 UPLOADS_PLAYLIST_ID = "UUJdBLa1mf6yxk7xaOzSpBjg"
 MINIMUM_MIX_SECONDS = 10 * 60
@@ -226,7 +227,7 @@ def add_playlist_candidates(
         if (
             not re.fullmatch(r"[\w-]{11}", video_id)
             or video_id in seen
-            or privacy not in ("public", "unlisted")
+            or privacy != "public"
             or raw_title in ("Private video", "Deleted video")
             or EXCLUDED.search(raw_title)
         ):
@@ -278,7 +279,7 @@ def build_mix_catalogue(existing_catalogue: dict | None = None) -> dict:
         if not video:
             continue
         status = video.get("status", {})
-        if status.get("privacyStatus", "") not in ("public", "unlisted"):
+        if status.get("privacyStatus", "") != "public":
             continue
         snippet = video.get("snippet", {})
         raw_title = snippet.get("title", "").strip() or candidate.get("rawTitle", "")

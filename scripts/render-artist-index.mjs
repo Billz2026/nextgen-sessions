@@ -44,7 +44,7 @@ function renderCard(artist, images) {
     : "";
   const position = escapeHtml(image?.position || "50% 38%");
   const portrait = hasImage
-    ? `<img class="artist-roster-image featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`
+    ? `<img class="artist-roster-image featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(image.src.endsWith(".svg") ? `${artist.name} branded artwork` : `${artist.name} portrait`)}" style="--artist-image-position:${position}">`
     : "";
 
   return `

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import vm from "node:vm";
 import { readFile } from "node:fs/promises";
 
 const source = await readFile(new URL("../functions/api/latest.js", import.meta.url), "utf8");
@@ -305,3 +306,115 @@ assert.ok(
 
 console.log(`Latest policy validated for current ${currentLatest.contentType}: ${currentLatest.id}`);
 
+
+
+// Exercise the real homepage script with stubbed HTTP responses. In particular,
+// /releases/ from the quota-free feed must never be treated as a specific song page.
+async function simulateHomepageLinks(payloads) {
+  const hero = {
+    href: "",
+    textContent: "",
+    attributes: {},
+    setAttribute(name, value) { this.attributes[name] = value; },
+    removeAttribute(name) { delete this.attributes[name]; }
+  };
+  const grid = { innerHTML: "" };
+  const title = { textContent: "" };
+  const nodes = {
+    heroLatestLink: hero,
+    releaseGrid: grid,
+    latestVideoTitle: title
+  };
+  const document = {
+    querySelector(selector) {
+      // The page already loads the analytics script; avoid adding a DOM mock.
+      return selector === 'script[src="/site-metrics.js"]' ? {} : null;
+    },
+    getElementById(id) { return nodes[id] || null; }
+  };
+  const fetch = async url => {
+    const source = String(url).split("?")[0];
+    if (!Object.hasOwn(payloads, source)) return { ok: false, status: 503 };
+    return { ok: true, status: 200, json: async () => payloads[source] };
+  };
+
+  vm.runInNewContext(homepageSource, {
+    document, fetch,
+    window: { NGS_ARTISTS: [], NGS_ARTIST_IMAGES: {} }
+  }, { filename: "site.js" });
+  await new Promise(resolve => setImmediate(resolve));
+  return { hero, grid: grid.innerHTML, title: title.textContent };
+}
+
+const deepLinkTrack = {
+  id: "NNNNNNNNNNN",
+  contentType: "full-release",
+  artist: "Test Artist",
+  title: "Exact Page",
+  published: "2026-10-12T23:58:00Z",
+  url: "/releases/test-artist-exact-page/"
+};
+const genericFeedTrack = { ...deepLinkTrack, url: "/releases/" };
+const verifiedCatalogue = { releases: [deepLinkTrack] };
+const channelFeed = { latest: genericFeedTrack };
+
+const recoveredStaticLink = await simulateHomepageLinks({
+  "/latest-feed.json": channelFeed,
+  "/releases.json": verifiedCatalogue
+});
+assert.equal(recoveredStaticLink.hero.href, deepLinkTrack.url, "Static catalogue should resolve the exact release URL if the API is down");
+assert.ok(recoveredStaticLink.grid.includes('href="' + deepLinkTrack.url + '"'), "Homepage release cards must use the exact resolved page");
+assert.equal(recoveredStaticLink.hero.attributes.target, undefined, "Internal release pages must not open a new tab");
+
+const recoveredApiLink = await simulateHomepageLinks({
+  "/api/latest": { latest: deepLinkTrack, releases: [deepLinkTrack] },
+  "/latest-feed.json": channelFeed
+});
+assert.equal(recoveredApiLink.hero.href, deepLinkTrack.url, "API catalogue should resolve the exact release URL if the static catalogue is down");
+
+// If a newly published upload is absent from both verified catalogues,
+// its CTA must play that video instead of taking visitors to /releases/.
+const watchOnlyTrack = {
+  ...genericFeedTrack,
+  id: "QQQQQQQQQQQ",
+  title: "Fresh Unknown Track"
+};
+const watchFallback = await simulateHomepageLinks({
+  "/latest-feed.json": { latest: watchOnlyTrack }
+});
+const watchUrl = "https://www.youtube.com/watch?v=QQQQQQQQQQQ";
+assert.equal(watchFallback.hero.href, watchUrl, "Uncatalogued uploads must link directly to their YouTube video");
+assert.equal(watchFallback.hero.attributes.target, "_blank", "YouTube links must open in a new tab");
+assert.equal(watchFallback.hero.attributes.rel, "noopener noreferrer", "External Latest links must be safe");
+assert.equal(watchFallback.hero.textContent, "Watch latest release on YouTube");
+assert.ok(watchFallback.grid.includes('href="' + watchUrl + '"'), "Uncatalogued release cards must point at the correct video");
+assert.ok(watchFallback.grid.includes("Watch on YouTube"), "Uncatalogued release cards must be accurately labelled");
+assert.ok(!watchFallback.grid.includes('href="/releases/"'), "No fresh upload should have a generic archive link");
+
+const albumFallback = await simulateHomepageLinks({
+  "/latest-feed.json": {
+    latest: {
+      id: "PPPPPPPPPPP",
+      contentType: "album",
+      title: "Complete Album",
+      published: "2026-10-12T23:58:00Z",
+      url: "/mixes/full-albums/"
+    }
+  }
+});
+assert.equal(albumFallback.hero.href, "/mixes/full-albums/", "Album routing must remain unchanged");
+
+const mixFallback = await simulateHomepageLinks({
+  "/latest-feed.json": {
+    latest: {
+      id: "MMMMMMMMMMM",
+      contentType: "long-mix",
+      title: "Full Mix",
+      published: "2026-10-12T23:58:00Z",
+      url: "/mixes/"
+    }
+  }
+});
+assert.equal(mixFallback.hero.href, "/mixes/", "Mix routing must remain unchanged");
+
+console.log("Homepage Latest deep-link safeguards passed: verified song pages, YouTube fallback, albums and mixes.");

@@ -13,6 +13,7 @@ import {
   sameRelease,
   weekBounds,
 } from "./release-schedule.mjs";
+import { weeklyMixItems } from "./weekly-mix-items.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DEFAULT_TIMEZONE = "Europe/London";
@@ -110,7 +111,7 @@ function statusLabel(item) {
 
 function renderCard(item) {
   const href = item.status === "live" && item.releaseUrl ? item.releaseUrl : item.artistUrl;
-  const cta = item.status === "live" && item.releaseUrl ? "Play release" : "View artist";
+  const cta = item.status === "live" && item.releaseUrl ? (item.contentType === "long-mix" ? "Explore mix" : "Play release") : "View artist";
   const media = item.image
     ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)} by ${escapeHtml(item.artist)}" loading="lazy" decoding="async">`
     : `<span class="weekly-release-placeholder" aria-hidden="true">NG</span>`;
@@ -180,6 +181,7 @@ const artistsByName = new Map(artists.map((artist) => [normalise(artist.name), a
 const imageMap = loadArtistImages();
 const schedulePayload = JSON.parse(read("scheduled-releases.json"));
 const cataloguePayload = JSON.parse(read("releases.json"));
+const mixPayload = JSON.parse(read("mixes.json"));
 const catalogue = Array.isArray(cataloguePayload.releases) ? cataloguePayload.releases : [];
 const schedules = Array.isArray(schedulePayload.releases) ? schedulePayload.releases : [];
 const timeZone = schedulePayload.defaultTimezone || DEFAULT_TIMEZONE;
@@ -201,7 +203,9 @@ for (const release of catalogue) {
   const item = catalogueItem(release, artistsByName, timeZone);
   if (item.dateLocal >= bounds.start && item.dateLocal <= bounds.end) weekly.push(item);
 }
-weekly.sort((a, b) => a.releaseAt.localeCompare(b.releaseAt) || a.artist.localeCompare(b.artist));
+// Public-only mix catalogue is the authority: never surface scheduled mixes.
+weekly.push(...weeklyMixItems(mixPayload, bounds, now, timeZone));
+weekly.sort((a, b) => b.releaseAt.localeCompare(a.releaseAt) || a.artist.localeCompare(b.artist));
 
 const futureSchedule = scheduleItems
   .filter((item) => item.status !== "live" && item.releaseAt > now.toISOString())

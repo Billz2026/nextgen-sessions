@@ -15,6 +15,7 @@ const json = (name) => JSON.parse(read(name));
 
 const schedulePayload = json("scheduled-releases.json");
 const cataloguePayload = json("releases.json");
+const mixCatalogue = json("mixes.json");
 const feed = json("this-week.json");
 const search = json("search-index.json");
 const catalogue = Array.isArray(cataloguePayload.releases) ? cataloguePayload.releases : [];
@@ -58,6 +59,16 @@ for (const item of feed.items || []) {
   assert.ok(item.artistUrl && item.releaseAt && item.dateLocal && item.dateLabel, `incomplete weekly item: ${key}`);
   const artistTarget = path.join(root, item.artistUrl.replace(/^\//, ""), "index.html");
   assert.ok(fs.existsSync(artistTarget), `weekly artist target missing: ${item.artistUrl}`);
+  if (item.source === "mix-catalogue") {
+    assert.equal(item.contentType, "long-mix");
+    assert.equal(item.status, "live", "No unreleased mix card may appear");
+    assert.equal(item.releaseUrl, "/mixes/");
+    assert.ok(mixCatalogue.mixes.some(mix => (
+      String(mix.rawTitle || mix.title || "").split("|")[0].trim() === item.title &&
+      Number(mix.durationSeconds || 0) >= 600 &&
+      Date.parse(mix.published || "") <= Date.now()
+    )), "Weekly mix must originate from the verified public catalogue");
+  }
   if (item.status === "live") {
     assert.ok(item.releaseUrl, `live weekly item missing release URL: ${key}`);
     const releaseTarget = path.join(root, item.releaseUrl.replace(/^\//, ""), "index.html");

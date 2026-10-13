@@ -32,6 +32,8 @@ on:
       - "scripts/test-latest-policy.mjs"
       - "scripts/test-catalogue-resilience.py"
       - "scripts/test-pop-playlist.py"
+      - "scripts/promote-dean-lawson.py"
+      - "scripts/test-dean-artist-embargo.py"
       - "scheduled-releases.json"
       - "artists.js"
       - "artist-profiles.js"
@@ -101,6 +103,9 @@ jobs:
 
       - name: Preserve catalogue timestamp on no-op checks
         run: node scripts/preserve-generated-at.mjs /tmp/releases-before.json releases.json
+
+      - name: Publish Dean Lawson artist only after verified public Pop release
+        run: python3 scripts/promote-dean-lawson.py
 
       - name: Render crawlable artist profile pages
         run: node scripts/render-artists.mjs
@@ -196,6 +201,9 @@ jobs:
 
       - name: Validate automated weekly release system
         run: node scripts/test-weekly-feed.mjs
+
+      - name: Validate Dean Lawson artist embargo
+        run: python3 scripts/test-dean-artist-embargo.py
 
       - name: Validate Pop playlist and publication embargo
         run: python3 scripts/test-pop-playlist.py

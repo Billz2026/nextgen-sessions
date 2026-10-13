@@ -19,6 +19,8 @@ on:
       - "scripts/render-genres.mjs"
       - "scripts/release-schedule.mjs"
       - "scripts/build-weekly-feed.mjs"
+      - "scripts/weekly-mix-items.mjs"
+      - "scripts/test-weekly-mix-items.mjs"
       - "scripts/build-search-index.mjs"
       - "scripts/enrich-search-schedule.mjs"
       - "scripts/preserve-generated-at.mjs"
@@ -200,7 +202,9 @@ jobs:
           PY
 
       - name: Validate automated weekly release system
-        run: node scripts/test-weekly-feed.mjs
+        run: |
+          node scripts/test-weekly-mix-items.mjs
+          node scripts/test-weekly-feed.mjs
 
       - name: Validate Dean Lawson artist embargo
         run: python3 scripts/test-dean-artist-embargo.py

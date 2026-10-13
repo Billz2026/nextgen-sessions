@@ -44,6 +44,12 @@ assert.equal(api.validLongMix(longMix), true);
 assert.equal(api.validLongMix({ ...longMix, durationSeconds: 599 }), false);
 assert.equal(api.validLongMix({ ...longMix, rawTitle: "UK Rap Mashup 2 #Shorts" }), false);
 
+assert.ok(source.includes("desi\\s+junction"), "Live homepage Latest must recognise Desi Junction as a long mix");
+assert.ok(
+  (await readFile(new URL("./update-latest-feed.py", import.meta.url), "utf8")).includes("desi\\s+junction"),
+  "Quota-free homepage Latest must also recognise Desi Junction as a long mix"
+);
+
 const genericMix = {
   id: "bhangramix1",
   contentType: "long-mix",

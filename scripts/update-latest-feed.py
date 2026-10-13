@@ -22,7 +22,7 @@ BLOCKED = re.compile(
     r"\b(shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts",
     re.IGNORECASE,
 )
-MIX_HINT = re.compile(r"\b(mash\s*up|mashup|riddim|mix|qawwali\s+nights?)\b", re.IGNORECASE)
+MIX_HINT = re.compile(r"\b(mash\s*up|mashup|riddim|mix|qawwali\s+nights?|desi\s+junction)\b", re.IGNORECASE)
 ALBUM_HINT = re.compile(r"\balbum\b", re.IGNORECASE)
 VIDEO_ID = re.compile(r"^[A-Za-z0-9_-]{11}$")
 SEPARATOR = re.compile(r"^(.*?)\s+[-–—]\s+(.+)$")

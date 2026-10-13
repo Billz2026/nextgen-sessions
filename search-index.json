@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-13T04:50:23.213Z",
-  "total": 159,
+  "generatedAt": "2026-10-13T15:59:27.141Z",
+  "total": 160,
   "counts": {
-    "artists": 34,
+    "artists": 35,
     "releases": 109,
     "genres": 6,
     "mixes": 10,
@@ -79,6 +79,18 @@
         "Darian Gayle",
         "Reggae",
         "Jamaican reggae with reflective songwriting, warm roots influence and a calm, grounded presence."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Dean Lawson",
+      "subtitle": "Pop",
+      "description": "Melodic Pop with classic 1980s influences, expressive songwriting and polished production.",
+      "url": "/artists/dean-lawson/",
+      "keywords": [
+        "Dean Lawson",
+        "Pop",
+        "Melodic Pop with classic 1980s influences, expressive songwriting and polished production."
       ]
     },
     {

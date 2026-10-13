@@ -248,6 +248,13 @@ window.NGS_ARTISTS = [
     "genre": "Reggae",
     "summary": "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy.",
     "featured": false
+  },
+  {
+    "name": "Dean Lawson",
+    "slug": "dean-lawson",
+    "genre": "Pop",
+    "summary": "Melodic Pop with classic 1980s influences, expressive songwriting and polished production.",
+    "featured": false
   }
 ];
 

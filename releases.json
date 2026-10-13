@@ -5,22 +5,58 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-09-30T20:11:31.281366Z",
-  "total": 106,
+  "generatedAt": "2026-10-13T04:50:21.960794Z",
+  "total": 109,
   "counts": {
     "Dancehall": 36,
     "Reggae": 1,
     "UK Rap & Grime": 22,
     "Hip-Hop / G-Funk": 22,
-    "Asian": 4,
+    "Asian": 5,
     "Lovers Rock": 8,
-    "R&B & Soul": 8,
+    "R&B & Soul": 10,
     "Late Night Afro": 4,
     "Late Night Vibes": 0,
     "Arabic": 1
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "wpA3hPMAq80",
+      "contentType": "full-release",
+      "artist": "Arif Sial",
+      "title": "Chitta Suit Pa Ke",
+      "group": "Asian",
+      "published": "2026-10-12T17:00:26Z",
+      "durationSeconds": 304,
+      "rawTitle": "Arif Sial - Chitta Suit Pa Ke | Desi 2026 | NextGen Sessions",
+      "slug": "arif-sial-chitta-suit-pa-ke",
+      "url": "/releases/arif-sial-chitta-suit-pa-ke/"
+    },
+    {
+      "id": "ysGQgRrHRDw",
+      "contentType": "full-release",
+      "artist": "Alia Bleu",
+      "title": "On My Side",
+      "group": "R&B & Soul",
+      "published": "2026-10-07T17:00:27Z",
+      "durationSeconds": 280,
+      "rawTitle": "Alia Bleu - On My Side | R&B 2026 | NextGen Sessions",
+      "slug": "alia-bleu-on-my-side",
+      "url": "/releases/alia-bleu-on-my-side/"
+    },
+    {
+      "id": "xmbpD4Vxxgs",
+      "contentType": "full-release",
+      "artist": "Alia Bleu",
+      "title": "Bleu Armour",
+      "group": "R&B & Soul",
+      "published": "2026-10-05T17:00:14Z",
+      "durationSeconds": 293,
+      "rawTitle": "Alia Bleu - Bleu Armour | R&B Single 2026 | NextGen Sessions",
+      "slug": "alia-bleu-bleu-armour",
+      "url": "/releases/alia-bleu-bleu-armour/"
+    },
     {
       "id": "qrkiRZlqIhE",
       "contentType": "full-release",
@@ -280,7 +316,7 @@
       "title": "Badman Don’t Rush",
       "group": "Dancehall",
       "published": "2026-08-05T17:00:07Z",
-      "durationSeconds": 351,
+      "durationSeconds": 352,
       "rawTitle": "CALM UNDER PRESSURE | Kemarco - Badman Don’t Rush | Dancehall 2026 | NextGen Sessions",
       "slug": "kemarco-badman-dont-rush",
       "url": "/releases/kemarco-badman-dont-rush/"

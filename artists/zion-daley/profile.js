@@ -18,7 +18,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "id": "b0tJlFOe0p4",
       "title": "Where We Live",
       "label": "Zion Daley — Where We Live",
-      "published": "2026-09-04T17:00:00Z"
+      "published": "2026-09-04T17:00:10Z"
     },
     "related": [
       { "name": "Darian Gayle", "genre": "Reggae" },

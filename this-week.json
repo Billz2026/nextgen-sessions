@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-10-04T23:46:33.868Z",
+  "generatedAt": "2026-10-13T04:50:23.095Z",
   "timezone": "Europe/London",
-  "weekStart": "2026-10-05",
-  "weekEnd": "2026-10-11",
-  "weekLabel": "5–11 October 2026",
-  "mode": "empty",
-  "items": [],
+  "weekStart": "2026-10-12",
+  "weekEnd": "2026-10-18",
+  "weekLabel": "12–18 October 2026",
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Arif Sial",
+      "artistSlug": "arif-sial",
+      "title": "Chitta Suit Pa Ke",
+      "genre": "Asian",
+      "artistUrl": "/artists/arif-sial/",
+      "releaseUrl": "/releases/arif-sial-chitta-suit-pa-ke/",
+      "dateLocal": "2026-10-12",
+      "dateLabel": "MON 12 OCT",
+      "longDate": "Monday, 12 October 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-10-12T17:00:26.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=wpA3hPMAq80&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

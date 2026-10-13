@@ -100,4 +100,20 @@ assert.match(
   "Mix artwork must fill the 16:9 box with object-fit: cover"
 );
 
-console.log("Mix cards automatically use the newest collection artwork at a responsive 16:9 crop.");
+assert.ok(
+  source.includes('card.href = "https://www.youtube.com/playlist?list=PLFKXfJUlSHf4"'),
+  "Desi Mixes must link to the full playlist, preserving older mixes"
+);
+assert.ok(
+  source.includes('card.href = "https://www.youtube.com/playlist?list=PLbBX67a5Ae3o"'),
+  "Special Mixes must link to the full playlist"
+);
+assert.ok(
+  source.includes('if (!grid || !items.length || grid.querySelector("[data-auto-desi-card]")) return;'),
+  "Desi Mixes card must remain hidden when its playlist has no public mixes"
+);
+assert.ok(
+  source.includes('if (!grid || !items.length || grid.querySelector("[data-auto-special-mix-card]")) return;'),
+  "Special Mixes card must remain hidden until its first public video"
+);
+console.log("Mix artwork, complete playlist links, and hidden-before-release cards validated.");

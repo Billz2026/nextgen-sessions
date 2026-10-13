@@ -78,10 +78,10 @@
     const card = document.createElement("a");
     card.className = "mix-card";
     card.dataset.autoDesiCard = "";
-    card.href = `https://www.youtube.com/watch?v=${encodeURIComponent(latest.id)}`;
+    card.href = "https://www.youtube.com/playlist?list=PLFKXfJUlSHf4";
     card.target = "_blank";
     card.rel = "noopener";
-    card.setAttribute("aria-label", `Open ${rawTitle} on YouTube`);
+    card.setAttribute("aria-label", "Open the Desi Mixes playlist on YouTube");
 
     const media = document.createElement("div");
     media.className = "mix-card-media";
@@ -152,10 +152,10 @@
     const card = document.createElement("a");
     card.className = "mix-card";
     card.dataset.autoSpecialMixCard = "";
-    card.href = "https://www.youtube.com/watch?v=" + encodeURIComponent(latest.id);
+    card.href = "https://www.youtube.com/playlist?list=PLbBX67a5Ae3o";
     card.target = "_blank";
     card.rel = "noopener";
-    card.setAttribute("aria-label", "Open " + lead + " on YouTube");
+    card.setAttribute("aria-label", "Open the NextGen Special Mixes playlist on YouTube");
 
     const media = document.createElement("div");
     media.className = "mix-card-media";

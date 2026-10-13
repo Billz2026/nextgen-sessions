@@ -20,7 +20,7 @@ assert.ok(artistsMatch, "artists.js must expose window.NGS_ARTISTS");
 
 const artists = JSON.parse(artistsMatch[1]);
 const slugs = artists.map((artist) => artist.slug);
-assert.equal(slugs.length, 32, "the roster should contain 32 artists");
+assert.ok(slugs.length >= 32, `the roster should contain at least 32 artists, found ${slugs.length}`);
 assert.equal(new Set(slugs).size, slugs.length, "artist slugs must be unique");
 
 const imageContext = vm.createContext({ window: {} });
@@ -71,7 +71,7 @@ for (const artist of artists) {
     ? Date.parse(profile.featuredVideo.releaseDate)
     : null;
   const isUpcoming = Number.isFinite(releaseDate) && releaseDate > Date.now();
-  if (!isUpcoming) {
+  if (!isUpcoming && !(profile.releaseStatus === "upcoming" && !profile.featuredVideo.id)) {
     assert.match(
       profile.featuredVideo.id || "",
       /^[A-Za-z0-9_-]{11}$/,

@@ -14,6 +14,12 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     "image": "/assets/artists/zion-daley-portrait-final.webp?v=20260825-zionfinal2",
     "imagePosition": "50% 34%",
     "catalogueAliases": ["Zion Daley"],
+    "featuredVideo": {
+      "id": "b0tJlFOe0p4",
+      "title": "Where We Live",
+      "label": "Zion Daley — Where We Live",
+      "published": "2026-09-04T17:00:00Z"
+    },
     "related": [
       { "name": "Darian Gayle", "genre": "Reggae" },
       { "name": "Omari V", "genre": "Jamaican Lovers Rock / Reggae" }

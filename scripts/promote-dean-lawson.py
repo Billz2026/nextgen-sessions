@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Publish Dean Lawson's Pop artist identity only when Dangerous Love is verified public.
+"""Publish Dean Lawson's Pop artist profile now; embargo Dangerous Love until public.
 
-This runs after the YouTube-backed release catalogue is built, and before the
-normal artist/profile/roster/search renderers. The upcoming video ID is never
-included in an artist page, client-side artist data, or the sitemap early.
+Runs after the verified YouTube release catalogue is built and before the
+artist/roster/search renderers. His public biography and portrait are always
+available, while the song and video link come only from a confirmed public
+catalogue entry.
 """
 from __future__ import annotations
 
@@ -60,7 +61,7 @@ def load_roster(source: str) -> tuple[list, int, int]:
     return json.loads(match.group(1)), match.start(1), match.end(1)
 
 
-def make_profile() -> str:
+def make_profile(live: bool) -> str:
     item = {
         "name": ARTIST,
         "path": "/artists/dean-lawson/",
@@ -70,16 +71,16 @@ def make_profile() -> str:
         "headline": "Melodic Pop shaped by classic 1980s influences and polished contemporary songwriting.",
         "bio": [
             "Dean Lawson brings a classic 1980s-inspired Pop sensibility to NextGen Sessions, focusing on strong melodies, expressive vocals and emotional songwriting.",
-            "Dangerous Love introduces his official Pop catalogue. New releases will join this page automatically as they become public."
+            "His official recordings are collected on this page as they become publicly available."
         ],
-        # An artist portrait can be added later; the profile uses a text
-        # placeholder rather than claiming a video cover is a photograph.
         "imageKey": SLUG,
         "catalogueAliases": [ARTIST],
-        "featuredVideo": {
-            "id": VIDEO_ID,
-            "title": TITLE,
-        },
+        # The scheduled video ID and title never enter public profile data early.
+        "featuredVideo": (
+            {"id": VIDEO_ID, "title": TITLE}
+            if live else {"title": "Official recordings"}
+        ),
+        **({} if live else {"releaseStatus": "upcoming"}),
         "related": [],
     }
     return (
@@ -98,19 +99,21 @@ def make_shell() -> str:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Dean Lawson | Pop Artist | NextGen Sessions</title>
-  <meta name="description" content="Discover Dean Lawson, a Pop artist on NextGen Sessions. Listen to Dangerous Love and explore new music.">
+  <meta name="description" content="Discover Dean Lawson, an independent Pop artist with classic 1980s influences, on NextGen Sessions.">
   <link rel="canonical" href="https://nextgensessions.com/artists/dean-lawson/">
   <meta property="og:type" content="profile">
   <meta property="og:title" content="Dean Lawson | Pop Artist | NextGen Sessions">
-  <meta property="og:description" content="Explore the Pop music of Dean Lawson, including Dangerous Love, on NextGen Sessions.">
+  <meta property="og:description" content="Explore Dean Lawson's melodic Pop sound, artist biography and official NextGen Sessions releases.">
   <meta property="og:url" content="https://nextgensessions.com/artists/dean-lawson/">
-  <meta property="og:image" content="https://nextgensessions.com/assets/artists/dean-lawson-portrait.webp">\n  <meta name="twitter:image" content="https://nextgensessions.com/assets/artists/dean-lawson-portrait.webp">
+  <meta property="og:image" content="https://nextgensessions.com/assets/artists/dean-lawson-portrait.webp">
+  <meta name="twitter:image" content="https://nextgensessions.com/assets/artists/dean-lawson-portrait.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#080808">
   <link rel="icon" type="image/svg+xml" href="/assets/nextgen-favicon.svg">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="stylesheet" href="/styles.css?v=20260809-header1">
   <link rel="stylesheet" href="/artist-profile.css?v=20260810-playerfirst1">
+  <link rel="stylesheet" href="/artist-discography.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -123,11 +126,8 @@ def make_shell() -> str:
     <div>© 2026 NextGen Sessions. Original music and independent artists.</div>
     <div class="footer-links"><a href="/">Home</a><a href="/artists/">Artists</a><a href="/releases/">Releases</a><a href="/mixes/">Mixes</a><a href="/privacy/">Privacy</a></div>
   </div></footer>
-  <script src="/artist-images.js" defer></script>
-  <script src="/artist-profiles.js" defer></script>
-  <script src="/artist-profiles-expanded.js" defer></script>
-  <script src="/artists/dean-lawson/profile.js" defer></script>
-  <script src="/artist-profile.js" defer></script>
+  <!-- This profile is pre-rendered from the verified catalogue.
+       Omit the dynamic featured-video module to prevent scheduled video leaks. -->
 </body>
 </html>
 """
@@ -137,10 +137,7 @@ def main() -> None:
     catalogue = json.loads((ROOT / "releases.json").read_text(encoding="utf-8"))
     if catalogue.get("source") != "curated-youtube-playlists":
         raise RuntimeError("Untrusted release catalogue; cannot publish artist")
-    if not is_publicly_released(catalogue.get("releases", [])):
-        print("Dean Lawson remains hidden; Dangerous Love has not been verified public.")
-        return
-
+    live = is_publicly_released(catalogue.get("releases", []))
     roster_path = ROOT / "artists.js"
     source = roster_path.read_text(encoding="utf-8")
     roster, start, end = load_roster(source)
@@ -157,8 +154,9 @@ def main() -> None:
 
     ARTIST_DIR.mkdir(parents=True, exist_ok=True)
     profile_path = ARTIST_DIR / "profile.js"
-    if not profile_path.exists():
-        profile_path.write_text(make_profile(), encoding="utf-8")
+    profile_markup = make_profile(live)
+    if not profile_path.exists() or profile_path.read_text(encoding="utf-8") != profile_markup:
+        profile_path.write_text(profile_markup, encoding="utf-8")
     page_path = ARTIST_DIR / "index.html"
     if not page_path.exists():
         page_path.write_text(make_shell(), encoding="utf-8")
@@ -173,7 +171,7 @@ def main() -> None:
             raise RuntimeError("Sitemap is missing closing urlset")
         sitemap_path.write_text(sitemap.replace("</urlset>", entry + "</urlset>", 1), encoding="utf-8")
 
-    print("Dean Lawson artist profile promoted from verified public Pop release.")
+    print("Dean Lawson artist profile is public; Dangerous Love " + ("is live." if live else "remains embargoed."))
 
 
 if __name__ == "__main__":

@@ -104,7 +104,7 @@ jobs:
       - name: Preserve catalogue timestamp on no-op checks
         run: node scripts/preserve-generated-at.mjs /tmp/releases-before.json releases.json
 
-      - name: Publish Dean Lawson artist only after verified public Pop release
+      - name: Publish Dean Lawson profile with verified-release video embargo
         run: python3 scripts/promote-dean-lawson.py
 
       - name: Render crawlable artist profile pages

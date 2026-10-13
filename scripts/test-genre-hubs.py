@@ -53,7 +53,10 @@ for slug, lane in LANES.items():
         mapped_groups[group] = slug
 
 catalogue_groups = {str(item.get("group", "")).strip() for item in releases}
-unmapped_groups = sorted(group for group in catalogue_groups if group not in mapped_groups)
+# Pop has its own filter in the Releases archive and is intentionally not
+# folded into Global Sounds, R&B or another existing genre hub.
+assert 'data-filter="Pop"' in (ROOT / "releases" / "index.html").read_text(encoding="utf-8")
+unmapped_groups = sorted(group for group in catalogue_groups if group not in mapped_groups and group != "Pop")
 assert not unmapped_groups, f"Unmapped release groups: {unmapped_groups}"
 
 for slug, lane in LANES.items():
@@ -79,6 +82,8 @@ for slug, lane in LANES.items():
 uncovered_artists = []
 for artist in artists:
     genre = str(artist.get("genre", "")).lower()
+    if genre == "pop":
+        continue  # Pop's independent Releases archive category, not Global Sounds
     if not any(
         any(term in genre for term in lane["artist_terms"])
         for lane in LANES.values()

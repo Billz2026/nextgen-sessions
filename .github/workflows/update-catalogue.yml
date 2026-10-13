@@ -31,6 +31,7 @@ on:
       - "scripts/test-release-archive-player.py"
       - "scripts/test-latest-policy.mjs"
       - "scripts/test-catalogue-resilience.py"
+      - "scripts/test-pop-playlist.py"
       - "scheduled-releases.json"
       - "artists.js"
       - "artist-profiles.js"
@@ -195,6 +196,9 @@ jobs:
 
       - name: Validate automated weekly release system
         run: node scripts/test-weekly-feed.mjs
+
+      - name: Validate Pop playlist and publication embargo
+        run: python3 scripts/test-pop-playlist.py
 
       - name: Validate scheduled channel discovery
         run: python3 scripts/test-scheduled-channel-discovery.py

@@ -25,6 +25,7 @@ PLAYLISTS = [
     ("PL7VCdVWElIJFzJpuLDIUuOnct9uwEQ1Dr", "Late Night Afro"),
     ("PL7VCdVWElIJH04lRndw-W9eIEmikl2xfZ", "Late Night Vibes"),
     ("PL7VCdVWElIJF7tTj0IPyNXsy7KejDrnjk", "Arabic"),
+    ("PLQBcrDvzxhtM", "Pop"),  # Dedicated Pop singles, including Dean Lawson
 ]
 
 FULL_RELEASE_CONTENT_TYPE = "full-release"
@@ -65,7 +66,7 @@ KNOWN_ARTISTS = [
     "Deon Creed", "Manny Virk", "Asif Sultaan", "Alia Bleu", "Zara Veli",
     "Nyah Rae", "Keisha", "Marlo Saint", "Mariana Lo", "Tayo Wray", "Omari V",
     "Darian Gayle", "Isaac Grey", "Leila Nour",
-    "Zion Daley",
+    "Zion Daley", "Dean Lawson",
 ]
 
 
@@ -267,6 +268,7 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
                 not re.fullmatch(r"[\w-]{11}", video_id)
                 or video_id in seen
                 or privacy not in ("public", "unlisted")
+                or (group == "Pop" and privacy != "public")
                 or raw_title in ("Private video", "Deleted video")
                 or EXCLUDED.search(raw_title)
             ):
@@ -303,6 +305,8 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
             continue
         status = video.get("status", {})
         if status.get("privacyStatus", "") not in ("public", "unlisted"):
+            continue
+        if candidate.get("group") == "Pop" and status.get("privacyStatus") != "public":
             continue
 
         snippet = video.get("snippet", {})

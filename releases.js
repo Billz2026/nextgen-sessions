@@ -40,6 +40,9 @@
     "r&b / soul": "R&B & Soul",
     "soul / r&b": "R&B & Soul",
     "r&b": "R&B & Soul",
+    "pop": "Pop",
+    "80s pop": "Pop",
+    "synth-pop": "Pop",
     "punjabi / bhangra": "Global Sounds",
     "arabic soul / oud": "Global Sounds",
     "global pop": "Global Sounds",
@@ -89,6 +92,7 @@
     if (/reggae/.test(title)) return "Reggae";
     if (/uk rap|grime|london rap/.test(title)) return "UK Rap & Grime";
     if (/r&b|rnb|soul/.test(title)) return "R&B & Soul";
+    if (/\bpop\b|synth.pop/i.test(title)) return "Pop";
     if (/punjabi|bhangra|arabic|oud|global|afro|latin/.test(title)) return "Global Sounds";
     return "Hip-Hop / G-Funk";
   }
@@ -375,6 +379,12 @@
   loadCatalogue()
     .then(releases => {
       catalogue = uniquePreparedReleases(releases.map(prepareRelease).filter(Boolean));
+      const popFilter = filterButtons.find(button => button.dataset.filter === "Pop");
+      if (popFilter) {
+        const livePop = catalogue.some(release => release.group === "Pop");
+        popFilter.hidden = !livePop;
+        popFilter.style.display = livePop ? "" : "none";
+      }
       render();
     })
     .catch(() => {

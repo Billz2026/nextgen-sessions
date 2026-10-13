@@ -126,6 +126,17 @@ def render_archive(releases: list[dict]) -> None:
         source,
         count=1,
     )
+    # The Pop category only appears once a verified Pop release is public.
+    pop_live = any(release.get("group") == "Pop" for release in releases)
+    pop_control = re.compile(r'<button class="release-filter" type="button" data-filter="Pop"[^>]*>Pop</button>')
+    replacement = (
+        '<button class="release-filter" type="button" data-filter="Pop" '
+        + ('aria-pressed="false"' if pop_live else 'aria-pressed="false" hidden style="display:none"')
+        + '>Pop</button>'
+    )
+    source, changes = pop_control.subn(replacement, source, count=1)
+    if changes != 1:
+        raise SystemExit("Release archive Pop filter missing")
     path.write_text(source, encoding="utf-8")
 
 

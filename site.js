@@ -224,31 +224,35 @@
     }).format(date);
   }
 
-  function releaseCard(release) {
-    const id = escapeHtml(release.id);
-    const title = escapeHtml(release.title || "NextGen Sessions release");
-    const date = formatDate(release.published);
-    const destination = String(release?.url || "").startsWith("/releases/")
-      ? release.url
-      : "/releases/";
-    return `
-      <a class="release-card" href="${escapeHtml(destination)}">
-        <img loading="lazy" decoding="async" src="/api/release-image?id=${encodeURIComponent(release.id)}&size=card" alt="${title} release thumbnail">
-        <div class="release-meta">
-          <span class="tag">Official release</span>
-          <h3>${title}</h3>
-          <p>View release</p>
-          ${date ? `<span class="release-date">${escapeHtml(date)}</span>` : ""}
-        </div>
-      </a>`;
+  // Only exact release pages are suitable for song CTAs; /releases/ is an archive.
+  function dedicatedReleasePath(value) {
+    const url = String(value || "").trim();
+    return /^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(url) ? url : "";
   }
 
   function latestDestination(item) {
     if (item?.contentType === "long-mix") return "/mixes/";
-    const rawUrl = String(item?.url || "").trim();
-    return /^\/(?:releases|mixes)(?:\/|$)/.test(rawUrl)
-      ? rawUrl
-      : "/releases/";
+    if (item?.contentType === "album") return "/mixes/full-albums/";
+    return dedicatedReleasePath(item?.url)
+      || (safeVideoId(item?.id) ? `https://www.youtube.com/watch?v=${item.id}` : "/releases/");
+  }
+
+  function releaseCard(release) {
+    const id = escapeHtml(release.id);
+    const title = escapeHtml(release.title || "NextGen Sessions release");
+    const date = formatDate(release.published);
+    const destination = latestDestination(release);
+    const onYoutube = destination.startsWith("https://www.youtube.com/watch?v=");
+    return `
+      <a class="release-card" href="${escapeHtml(destination)}"${onYoutube ? ' target="_blank" rel="noopener noreferrer"' : ""}>
+        <img loading="lazy" decoding="async" src="/api/release-image?id=${encodeURIComponent(release.id)}&size=card" alt="${title} release thumbnail">
+        <div class="release-meta">
+          <span class="tag">Official release</span>
+          <h3>${title}</h3>
+          <p>${onYoutube ? "Watch on YouTube" : "View release"}</p>
+          ${date ? `<span class="release-date">${escapeHtml(date)}</span>` : ""}
+        </div>
+      </a>`;
   }
 
   function updateLatest(payload) {
@@ -288,8 +292,14 @@
     if (heroLink) {
       heroLink.href = releaseUrl;
       heroLink.textContent = presentation.heroCta;
-      heroLink.removeAttribute("target");
-      heroLink.removeAttribute("rel");
+      if (releaseUrl.startsWith("https://www.youtube.com/watch?v=")) {
+        heroLink.textContent = "Watch latest release on YouTube";
+        heroLink.setAttribute("target", "_blank");
+        heroLink.setAttribute("rel", "noopener noreferrer");
+      } else {
+        heroLink.removeAttribute("target");
+        heroLink.removeAttribute("rel");
+      }
     }
 
     if (latestStatus) latestStatus.textContent = presentation.status;
@@ -374,22 +384,38 @@
     return [...byId.values()].sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a));
   }
 
-  function buildHomepagePayload(apiPayload, feedPayload) {
+  function buildHomepagePayload(apiPayload, feedPayload, cataloguePayload) {
     const apiReleases = payloadReleases(apiPayload);
+    // The static verified catalogue remains available even when the live API is down.
+    const catalogueReleases = payloadReleases(cataloguePayload);
     const feedLatest = normaliseHomepageRelease(feedPayload?.latest);
     const fallbackReleases = FALLBACK_RELEASES
       .map(normaliseHomepageRelease)
       .filter(Boolean);
+
+    // Resolve the exact song page by YouTube ID, never by a guessed title/slug.
+    // Unverified feed URLs such as /releases/ cannot override a verified page.
+    const verifiedPaths = new Map();
+    for (const item of [...fallbackReleases, ...apiReleases, ...catalogueReleases]) {
+      const path = dedicatedReleasePath(item.url);
+      if (path) verifiedPaths.set(item.id, path);
+    }
+    const resolveRelease = item => item?.contentType === "full-release" && verifiedPaths.has(item.id)
+      ? { ...item, url: verifiedPaths.get(item.id) }
+      : item;
+
     const releases = uniqueHomepageReleases(mergeHomepageReleases([
+      ...catalogueReleases,
       ...apiReleases,
       ...(feedLatest?.contentType === "full-release" ? [feedLatest] : []),
       ...fallbackReleases
-    ]));
+    ].map(resolveRelease)));
 
     const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
     const fallbackLatest = normaliseHomepageRelease(FALLBACK_LATEST);
     const latest = [apiLatest, feedLatest, fallbackLatest, releases[0]]
       .filter(Boolean)
+      .map(resolveRelease)
       .sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a))[0] || FALLBACK_LATEST;
 
     return { latest, releases };
@@ -407,11 +433,13 @@
   if (latestPlayer || releaseGrid) {
     Promise.allSettled([
       fetchJson("/api/latest?v=r5"),
-      fetchJson("/latest-feed.json?v=2")
+      fetchJson("/latest-feed.json?v=2"),
+      fetchJson("/releases.json?v=latest-links1")
     ]).then(results => {
       const apiPayload = results[0]?.status === "fulfilled" ? results[0].value : {};
       const feedPayload = results[1]?.status === "fulfilled" ? results[1].value : {};
-      updateLatest(buildHomepagePayload(apiPayload, feedPayload));
+      const cataloguePayload = results[2]?.status === "fulfilled" ? results[2].value : {};
+      updateLatest(buildHomepagePayload(apiPayload, feedPayload, cataloguePayload));
     }).catch(() => updateLatest({
       latest: FALLBACK_LATEST,
       releases: FALLBACK_RELEASES

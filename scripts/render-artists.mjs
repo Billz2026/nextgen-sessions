@@ -162,7 +162,7 @@ function renderPortrait(profile, imageMap, originalHtml) {
   }
   return `
       <div class="profile-image-shell">
-        <img class="profile-image" src="${escapeHtml(src)}" alt="${escapeHtml(profile.name)} artist portrait" style="object-position:${escapeHtml(position)}">
+        <img class="profile-image" src="${escapeHtml(src)}" alt="${escapeHtml(profile.imageAlt || `${profile.name} artist portrait`)}" style="object-position:${escapeHtml(position)}">
         <div class="profile-image-label"><strong>${escapeHtml(profile.name)}</strong><span>${escapeHtml(profile.genre)}</span></div>
       </div>`;
 }

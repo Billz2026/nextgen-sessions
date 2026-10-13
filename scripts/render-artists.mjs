@@ -221,7 +221,7 @@ function renderMain(slug, profile, releases, imageMap, originalHtml, profileByNa
     ? `<a class="button button-secondary" href="${escapeHtml(profile.youtubeUrl)}" target="_blank" rel="noopener">Explore on YouTube</a>`
     : "";
 
-  const verifiedFeatured = slug === "zion-daley"
+  const verifiedFeatured = ["zion-daley", "arif-sial"].includes(slug)
     ? releases.find((release) => release.id === profile.featuredVideo?.id)
     : null;
   const featuredVideoMarkup = verifiedFeatured

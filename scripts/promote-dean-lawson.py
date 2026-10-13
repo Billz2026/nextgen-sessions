@@ -104,7 +104,7 @@ def make_shell() -> str:
   <meta property="og:title" content="Dean Lawson | Pop Artist | NextGen Sessions">
   <meta property="og:description" content="Explore the Pop music of Dean Lawson, including Dangerous Love, on NextGen Sessions.">
   <meta property="og:url" content="https://nextgensessions.com/artists/dean-lawson/">
-  <meta property="og:image" content="https://i.ytimg.com/vi/y_gADQbXSho/hqdefault.jpg">
+  <meta property="og:image" content="https://nextgensessions.com/assets/artists/dean-lawson-portrait.webp">\n  <meta name="twitter:image" content="https://nextgensessions.com/assets/artists/dean-lawson-portrait.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#080808">
   <link rel="icon" type="image/svg+xml" href="/assets/nextgen-favicon.svg">

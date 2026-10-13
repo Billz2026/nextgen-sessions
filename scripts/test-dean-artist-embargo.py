@@ -75,6 +75,7 @@ with TemporaryDirectory(prefix="nextgen-dean-release-test-") as temporary:
         )
         assert sum(artist.get("slug") == "dean-lawson" for artist in new_roster) == 1
         assert (module.ARTIST_DIR / "index.html").is_file()
+        assert "https://nextgensessions.com/assets/artists/dean-lawson-portrait.webp" in (module.ARTIST_DIR / "index.html").read_text(encoding="utf-8"), "Profile social card must use the clean portrait"
         assert (module.ARTIST_DIR / "profile.js").is_file()
         assert "Dean Lawson" in (module.ARTIST_DIR / "profile.js").read_text(encoding="utf-8")
         assert (fixture_root / "sitemap.xml").read_text(encoding="utf-8").count(

@@ -221,6 +221,24 @@ function renderMain(slug, profile, releases, imageMap, originalHtml, profileByNa
     ? `<a class="button button-secondary" href="${escapeHtml(profile.youtubeUrl)}" target="_blank" rel="noopener">Explore on YouTube</a>`
     : "";
 
+  const verifiedFeatured = slug === "zion-daley"
+    ? releases.find((release) => release.id === profile.featuredVideo?.id)
+    : null;
+  const featuredVideoMarkup = verifiedFeatured
+    ? `<section class="profile-section" id="featured-release" aria-labelledby="featured-release-title">
+      <div class="profile-section-heading">
+        <p class="eyebrow">Official video</p>
+        <h2 id="featured-release-title">Watch ${escapeHtml(verifiedFeatured.title)}</h2>
+      </div>
+      <article class="profile-video-card">
+        <div class="profile-video-frame">
+          <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(verifiedFeatured.id)}?rel=0" title="${escapeHtml(profile.name)} — ${escapeHtml(verifiedFeatured.title)}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="profile-video-copy"><h3>${escapeHtml(verifiedFeatured.title)}</h3><p><a href="https://www.youtube.com/watch?v=${encodeURIComponent(verifiedFeatured.id)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
+      </article>
+    </section>`
+    : "";
+
   return `<main class="profile-main" id="artistProfile" data-artist="${escapeHtml(slug)}" data-static-profile="true">
     <section class="profile-hero">
       <div>
@@ -233,6 +251,8 @@ function renderMain(slug, profile, releases, imageMap, originalHtml, profileByNa
       </div>
       ${renderPortrait(profile, imageMap, originalHtml)}
     </section>
+
+    ${featuredVideoMarkup}
 
     <section class="profile-section" id="artist-discography" aria-labelledby="artistDiscographyTitle">
       <div class="profile-section-heading profile-section-heading-split">

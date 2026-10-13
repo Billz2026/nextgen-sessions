@@ -11,8 +11,8 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "His sound centres expressive, weathered vocals, harmonium, dholak, handclaps and audience-style responses. His official recordings and latest releases are collected on this page as they are published."
     ],
     "imageKey": "arif-sial",
-    "imageAlt": "Arif Sial branded placeholder artwork",
-    "imagePosition": "50% 38%",
+    "imageAlt": "Arif Sial official artist portrait",
+    "imagePosition": "50% 32%",
     "catalogueAliases": ["Arif Sial"],
     "featuredVideo": {
       "id": "wpA3hPMAq80",

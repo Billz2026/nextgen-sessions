@@ -1,9 +1,9 @@
 window.NGS_ARTIST_IMAGES = {
   "arif-sial": {
-    src: "/assets/artists/arif-sial-artwork.svg",
-    portrait: "/assets/artists/arif-sial-artwork.svg",
-    fallback: "/assets/artists/arif-sial-artwork.svg",
-    position: "50% 38%"
+    src: "/assets/artists/arif-sial-portrait.webp",
+    portrait: "/assets/artists/arif-sial-portrait.webp",
+    fallback: "/assets/artists/arif-sial-portrait.webp",
+    position: "50% 32%"
   },
   "renz-cole": {
     src: "/assets/artists/renz-cole-card.webp?v=20260805-renz6",

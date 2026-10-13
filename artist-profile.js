@@ -295,8 +295,8 @@
     const configured = configuredFeaturedRelease();
     const resolvedFeatured = configured
       ? releases.find(release => release.id === configured.id) || configured
-      : null;
-    if (resolvedFeatured) setFeaturedPlayer(resolvedFeatured, "Featured release");
+      : artist.releaseStatus === "upcoming" ? latest : null;
+    if (resolvedFeatured) setFeaturedPlayer(resolvedFeatured, configured ? "Featured release" : "Latest release");
   }
 
   if (!artist) {

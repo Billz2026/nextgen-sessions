@@ -1,5 +1,12 @@
 window.NGS_ARTISTS = [
   {
+    "name": "Arif Sial",
+    "slug": "arif-sial",
+    "genre": "Punjabi / Saraiki Folk & Qawwali",
+    "summary": "Mature Punjabi and Saraiki folk vocals with expressive, live-mehfil intensity.",
+    "featured": false
+  },
+  {
     "name": "Renz Cole",
     "slug": "renz-cole",
     "genre": "UK Rap",

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Arif Sial — artist artwork</title>
+  <desc id="desc">Gold-on-black typographic NextGen Sessions placeholder, not a photograph.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1e1710"/><stop offset=".52" stop-color="#0d0c0b"/><stop offset="1" stop-color="#050505"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#e6ba6b" stop-opacity=".18"/><stop offset="1" stop-color="#e6ba6b" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="900" height="1100" fill="url(#bg)"/>
+  <circle cx="450" cy="480" r="370" fill="url(#halo)"/>
+  <g fill="none" stroke="#d0a85c" stroke-opacity=".33">
+    <rect x="42" y="42" width="816" height="1016" rx="18"/>
+    <rect x="64" y="64" width="772" height="972" rx="8" stroke-opacity=".18"/>
+    <path d="M170 316 Q450 90 730 316 M170 786 Q450 1008 730 786" stroke-opacity=".22"/>
+    <path d="M104 550 H260 M640 550 H796" stroke-opacity=".25"/>
+  </g>
+  <text x="450" y="470" text-anchor="middle" fill="#d8b56c" font-family="Georgia,serif" font-size="210" letter-spacing="-18">AS</text>
+  <path d="M292 508 H608" stroke="#b9904e" stroke-width="2" stroke-opacity=".6"/>
+  <text x="450" y="635" text-anchor="middle" fill="#f5e4c5" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="64" letter-spacing="12">ARIF SIAL</text>
+  <text x="450" y="707" text-anchor="middle" fill="#c6a363" font-family="Arial,Helvetica,sans-serif" font-size="24" letter-spacing="5">PUNJABI · SARAIKI FOLK</text>
+  <text x="450" y="984" text-anchor="middle" fill="#a98b59" font-family="Arial,Helvetica,sans-serif" font-size="21" letter-spacing="5">NEXTGEN SESSIONS</text>
+</svg>

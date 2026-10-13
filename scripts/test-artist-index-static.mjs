@@ -46,4 +46,9 @@ for (const artist of sorted) {
   previousIndex = currentIndex;
 }
 
+const homepage = read("index.html");
+const homepageCta = homepage.match(/<a\b(?=[^>]*\bid="allArtistsLink")[^>]*>([^<]*)<\/a>/i);
+assert.ok(homepageCta, "homepage must provide a stable #allArtistsLink CTA");
+assert.equal(homepageCta[1], `Explore all ${artists.length} artist${artists.length === 1 ? "" : "s"}`, "homepage artist count must match the roster");
+
 console.log(`Static artist index passed: ${artists.length} crawlable roster cards with profile links, genre and summaries.`);

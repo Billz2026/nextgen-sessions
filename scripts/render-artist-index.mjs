@@ -90,4 +90,15 @@ html = html.replace(/<div class="roster-count" id="rosterCount">[^<]*<\/div>/, `
 html = html.replace(/<noscript><p class="catalogue-note">Enable JavaScript to browse the full artist roster\.<\/p><\/noscript>/, "<noscript><p class=\"catalogue-note\">All artist profiles remain available without JavaScript.</p></noscript>");
 fs.writeFileSync(pagePath, html);
 
-console.log(`Rendered ${artists.length} crawlable artist cards into artists/index.html.`);
+// Keep the homepage artist count in sync with the same roster, including without JavaScript.
+const homepagePath = path.join(root, "index.html");
+const homepage = fs.readFileSync(homepagePath, "utf8");
+const homepageCta = /(<a\b(?=[^>]*\bid="allArtistsLink")[^>]*>)[^<]*(<\/a>)/i;
+if (!homepageCta.test(homepage)) {
+  throw new Error("Homepage must contain the #allArtistsLink artist directory CTA");
+}
+const artistLabel = `Explore all ${artists.length} artist${artists.length === 1 ? "" : "s"}`;
+const nextHomepage = homepage.replace(homepageCta, (_, open, close) => `${open}${artistLabel}${close}`);
+if (nextHomepage !== homepage) fs.writeFileSync(homepagePath, nextHomepage);
+
+console.log(`Rendered ${artists.length} crawlable artist cards and synchronized homepage artist count.`);

@@ -50,7 +50,7 @@ function latestFeedArtistTitle(rawTitle) {
 function latestFeedContentType(rawTitle) {
   const title = String(rawTitle || "");
   if (/\balbum\b/i.test(title)) return "album";
-  if (/\b(?:mash\s*up|mashup|riddim|mix)\b/i.test(title)) return "long-mix";
+  if (/\b(?:mash\s*up|mashup|riddim|mix|qawwali\s+nights?)\b/i.test(title)) return "long-mix";
   return "full-release";
 }
 
@@ -67,7 +67,7 @@ function trustedLatestFeedTitle(rawTitle) {
     title &&
     /NextGen Sessions/i.test(title) &&
     !BLOCKED_LATEST_TITLE.test(title) &&
-    (segments.length >= 3 || /\b(?:album|mash\s*up|mashup|riddim|mix)\b/i.test(title))
+    (segments.length >= 3 || /\b(?:album|mash\s*up|mashup|riddim|mix|qawwali\s+nights?)\b/i.test(title))
   );
 }
 

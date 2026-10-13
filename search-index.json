@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-30T20:11:32.179Z",
-  "total": 155,
+  "generatedAt": "2026-10-13T04:45:31.239Z",
+  "total": 156,
   "counts": {
-    "artists": 33,
+    "artists": 34,
     "releases": 106,
     "genres": 6,
     "mixes": 10,
@@ -43,6 +43,21 @@
         "Andre Kadeem",
         "UK Rap",
         "London rap with a grounded voice and modern street perspective."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Arif Sial",
+      "subtitle": "Punjabi / Saraiki Folk & Qawwali",
+      "description": "Mature Punjabi and Saraiki folk vocals with expressive, live-mehfil intensity.",
+      "url": "/artists/arif-sial/",
+      "keywords": [
+        "Arif Sial",
+        "Punjabi / Saraiki Folk & Qawwali",
+        "Mature Punjabi and Saraiki folk vocals with expressive, live-mehfil intensity.",
+        "qawwali",
+        "saraiki",
+        "mehfil"
       ]
     },
     {

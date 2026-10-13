@@ -271,6 +271,7 @@ jobs:
           git config user.email "github-actions@github.com"
           git add -u
           git add releases/
+          git add artists/  # Include newly generated artist pages such as Dean Lawson
           git add this-week.json search-index.json index.html artists/ genres/
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update release catalogue"

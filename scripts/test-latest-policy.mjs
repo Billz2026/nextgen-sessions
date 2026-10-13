@@ -184,6 +184,11 @@ for (const marker of [
   assert.ok(source.includes(marker), `Latest API source is missing: ${marker}`);
 }
 assert.ok(!source.includes('policy: "full-release-catalogue-only"'), "Song-only Latest policy must never return");
+const homepageSource = await readFile(new URL("../site.js", import.meta.url), "utf8");
+const homepageHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const latestFeedUpdater = await readFile(new URL("./update-latest-feed.py", import.meta.url), "utf8");
+const fallbackSync = await readFile(new URL("./sync-homepage-fallback.py", import.meta.url), "utf8");
+
 assert.ok(!source.includes('const FALLBACK_RELEASES = ['), "Latest API must not fall back to an ancient hard-coded release list");
 assert.ok(
   homepageSource.includes('fetchJson("/latest-feed.json?v=2")'),
@@ -200,11 +205,6 @@ for (const marker of [
 ]) {
   assert.ok(latestFeedUpdater.includes(marker), `Quota-free Latest updater missing: ${marker}`);
 }
-
-const homepageSource = await readFile(new URL("../site.js", import.meta.url), "utf8");
-const homepageHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
-const latestFeedUpdater = await readFile(new URL("./update-latest-feed.py", import.meta.url), "utf8");
-const fallbackSync = await readFile(new URL("./sync-homepage-fallback.py", import.meta.url), "utf8");
 
 for (const expected of [
   'case "long-mix"',

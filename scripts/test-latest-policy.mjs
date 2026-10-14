@@ -186,7 +186,7 @@ for (const marker of [
   'fetchLiveChannelLatest()',
   'selectLongMixes',
   'selectAlbums',
-  'new URL("/api/latest?v=r5"',
+  'new URL("/api/latest?v=r6"',
 ]) {
   assert.ok(source.includes(marker), `Latest API source is missing: ${marker}`);
 }
@@ -198,7 +198,7 @@ const fallbackSync = await readFile(new URL("./sync-homepage-fallback.py", impor
 
 assert.ok(!source.includes('const FALLBACK_RELEASES = ['), "Latest API must not fall back to an ancient hard-coded release list");
 assert.ok(
-  homepageSource.includes('fetchJson("/latest-feed.json?v=2")'),
+  homepageSource.includes('fetchJson("/latest-feed.json?v=3")'),
   "Homepage must read the quota-free Latest feed"
 );
 assert.ok(
@@ -360,7 +360,7 @@ const deepLinkTrack = {
   published: "2026-10-12T23:58:00Z",
   url: "/releases/test-artist-exact-page/"
 };
-const genericFeedTrack = { ...deepLinkTrack, url: "/releases/" };
+const genericFeedTrack = { ...deepLinkTrack, url: "/releases/", durationSeconds: 240 };
 const verifiedCatalogue = { releases: [deepLinkTrack] };
 const channelFeed = { latest: genericFeedTrack };
 
@@ -402,6 +402,7 @@ const albumFallback = await simulateHomepageLinks({
     latest: {
       id: "PPPPPPPPPPP",
       contentType: "album",
+      durationSeconds: 1800,
       title: "Complete Album",
       published: "2026-10-12T23:58:00Z",
       url: "/mixes/full-albums/"
@@ -415,6 +416,7 @@ const mixFallback = await simulateHomepageLinks({
     latest: {
       id: "MMMMMMMMMMM",
       contentType: "long-mix",
+      durationSeconds: 1800,
       title: "Full Mix",
       published: "2026-10-12T23:58:00Z",
       url: "/mixes/"
@@ -423,4 +425,53 @@ const mixFallback = await simulateHomepageLinks({
 });
 assert.equal(mixFallback.hero.href, "/mixes/", "Mix routing must remain unchanged");
 
-console.log("Homepage Latest deep-link safeguards passed: verified song pages, YouTube fallback, albums and mixes.");
+// Public channel feeds do not prove a Short is a full release just because its
+// title mentions "album" or it has a normal-looking artist/song title.
+const announcement = {
+  ...genericFeedTrack,
+  id: "SSSSSSSSSSS",
+  contentType: "album",
+  title: "NEW DROP NEW ALBUM INCOMING Kemarco",
+  rawTitle: "NEW DROP NEW ALBUM INCOMING Kemarco | NextGen Sessions",
+  url: "/mixes/full-albums/",
+  durationSeconds: 0,
+  published: "2026-10-13T17:00:39Z"
+};
+const announcementResult = await simulateHomepageLinks({
+  "/latest-feed.json": { latest: announcement }
+});
+assert.notEqual(announcementResult.title, announcement.title, "Album announcement Short must not be Latest");
+assert.notEqual(announcementResult.hero.href, "/mixes/full-albums/", "Announcement must not masquerade as an album");
+
+const shortWithNormalTitle = {
+  ...genericFeedTrack, id: "TTTTTTTTTTT",
+  title: "Artist – Genuine Sounding Title",
+  rawTitle: "Artist - Genuine Sounding Title | Dancehall 2026 | NextGen Sessions",
+  durationSeconds: 120, published: "2026-10-13T17:00:39Z"
+};
+const shortResult = await simulateHomepageLinks({
+  "/latest-feed.json": { latest: shortWithNormalTitle },
+  "/api/latest": { latest: { ...shortWithNormalTitle, discoverySource: "youtube-channel-feed" } }
+});
+assert.notEqual(shortResult.hero.href, "https://www.youtube.com/watch?v=TTTTTTTTTTT", "120-second Short must not be selected from either feed");
+const unknownDurationResult = await simulateHomepageLinks({
+  "/latest-feed.json": { latest: { ...shortWithNormalTitle, durationSeconds: 0 } }
+});
+assert.notEqual(unknownDurationResult.title, shortWithNormalTitle.title, "Unknown-duration uploads must fail closed");
+
+const verifiedShortSingle = {
+  ...deepLinkTrack, id: "VVVVVVVVVVV", durationSeconds: 150,
+  title: "Legitimate Two-Minute Single", published: "2026-10-13T18:00:00Z",
+  url: "/releases/legitimate-two-minute-single/"
+};
+const verifiedSingleResult = await simulateHomepageLinks({
+  "/releases.json": { releases: [verifiedShortSingle] }
+});
+assert.equal(verifiedSingleResult.hero.href, verifiedShortSingle.url, "Short-duration standard-format singles in verified catalogue remain eligible");
+
+const savedLatest = JSON.parse(await readFile(new URL("../latest-feed.json", import.meta.url), "utf8")).latest;
+assert.ok(savedLatest?.durationSeconds >= (savedLatest?.contentType === "long-mix" ? 600 : 181), "Saved Latest feed cannot contain a possible Short or unknown duration");
+assert.ok(!/\\b(?:incoming|new\\s+drop|shorts?|teaser|trailer|promo|preview)\\b/i.test(savedLatest.rawTitle), "Saved Latest feed must not contain promotional Shorts");
+assert.ok(source.includes('if (durationSeconds < minimum) continue;'), "Live API must reject unknown and Short-length videos");
+assert.ok(latestFeedUpdater.includes('if seconds < minimum:'), "Scheduled updater must reject unknown and Short-length videos");
+console.log("Homepage Latest policy passed: Shorts/announcements blocked, verified singles, albums and mixes permitted.");

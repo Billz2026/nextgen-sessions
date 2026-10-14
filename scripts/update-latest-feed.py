@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""Maintain a tiny, quota-free Latest payload from the public YouTube channel feed.
+"""Update Latest automatically using verified YouTube metadata.
 
-This is deliberately independent of the YouTube Data API. It is the homepage's
-recovery lane when API quota, credentials or playlist endpoints are unavailable.
+Read the channel uploads playlist through the YouTube Data API when available.
+Fall back to the public RSS feed, and retain the last verified release when
+YouTube cannot supply duration. Shorts are never accepted as Latest.
 """
 
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -18,6 +21,9 @@ from pathlib import Path
 
 CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg"
 FEED_URL = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
+UPLOADS_PLAYLIST_ID = "UU" + CHANNEL_ID[2:]
+MINIMUM_REGULAR_SECONDS = 181
+MINIMUM_MIX_SECONDS = 600
 BLOCKED = re.compile(
     r"\b(shorts?|teaser|trailer|promo|preview|incoming|announcement|announcing|new\s+drop|coming soon|out tomorrow|out tonight|out now)\b|#shorts",
     re.IGNORECASE,
@@ -113,7 +119,89 @@ def destination(kind: str) -> str:
     return "/releases/"
 
 
-def discover() -> dict:
+def iso_duration_seconds(value: str) -> int:
+    """Decode YouTube Data API's contentDetails.duration field."""
+    match = re.fullmatch(r"PT(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+)S)?", str(value or ""))
+    if not match:
+        return 0
+    hours, minutes, seconds = (int(part or 0) for part in match.groups())
+    return hours * 3600 + minutes * 60 + seconds
+
+
+def youtube_json(resource: str, **params) -> dict:
+    params["key"] = os.environ["YT_KEY"]
+    url = "https://www.googleapis.com/youtube/v3/" + resource + "?" + urllib.parse.urlencode(params)
+    return json.loads(request_text(url, timeout=25))
+
+
+def eligible_entry(item: dict, seconds: int) -> bool:
+    raw_title = item.get("rawTitle", "")
+    kind = content_type(raw_title)
+    minimum = MINIMUM_MIX_SECONDS if kind == "long-mix" else MINIMUM_REGULAR_SECONDS
+    return (
+        trusted_title(raw_title)
+        and released(item.get("published", ""))
+        and seconds >= minimum
+    )
+
+
+def make_latest(item: dict, seconds: int, source: str) -> dict:
+    artist, title = artist_title(item["rawTitle"])
+    kind = content_type(item["rawTitle"])
+    return {
+        "id": item["id"],
+        "contentType": kind,
+        "artist": artist,
+        "title": title,
+        "rawTitle": item["rawTitle"],
+        "published": item["published"],
+        "durationSeconds": seconds,
+        "url": destination(kind),
+        "discoverySource": source,
+    }
+
+
+def discover_via_api() -> dict:
+    """The official API supplies verifiable length even when watch-page scraping fails."""
+    uploads = youtube_json(
+        "playlistItems", part="contentDetails", playlistId=UPLOADS_PLAYLIST_ID, maxResults=50
+    ).get("items", [])
+    ids = [
+        str(entry.get("contentDetails", {}).get("videoId", "")).strip()
+        for entry in uploads
+    ]
+    ids = list(dict.fromkeys(video_id for video_id in ids if VIDEO_ID.fullmatch(video_id)))
+    if not ids:
+        raise RuntimeError("YouTube uploads playlist contained no available videos")
+    videos = youtube_json(
+        "videos", part="snippet,status,contentDetails", id=",".join(ids)
+    ).get("items", [])
+
+    candidates = []
+    for video in videos:
+        if video.get("status", {}).get("privacyStatus") != "public":
+            continue
+        snippet = video.get("snippet", {})
+        if snippet.get("liveBroadcastContent") in ("live", "upcoming"):
+            continue
+        item = {
+            "id": str(video.get("id", "")),
+            "rawTitle": str(snippet.get("title", "")).strip(),
+            "published": str(snippet.get("publishedAt", "")).strip(),
+        }
+        if not VIDEO_ID.fullmatch(item["id"]):
+            continue
+        seconds = iso_duration_seconds(video.get("contentDetails", {}).get("duration", ""))
+        if eligible_entry(item, seconds):
+            candidates.append((item, seconds))
+    if not candidates:
+        raise RuntimeError("No verified non-Short uploads returned by YouTube Data API")
+    item, seconds = max(candidates, key=lambda row: row[0]["published"])
+    return make_latest(item, seconds, "youtube-channel-feed")
+
+
+def discover_via_rss() -> dict:
+    """Quota-free recovery: duration must still be verifiable, never guessed."""
     entries = sorted(
         (
             item
@@ -129,24 +217,20 @@ def discover() -> dict:
         seconds = duration_seconds(item["id"])
         # Shorts can run up to three minutes. Only >180-second public-feed videos qualify.
         # Shorter genuine singles remain eligible via the verified releases catalogue.
-        minimum = 600 if kind == "long-mix" else 181
-        if seconds < minimum:
+        if not eligible_entry(item, seconds):
             continue
-
-        artist, title = artist_title(item["rawTitle"])
-        return {
-            "id": item["id"],
-            "contentType": kind,
-            "artist": artist,
-            "title": title,
-            "rawTitle": item["rawTitle"],
-            "published": item["published"],
-            "durationSeconds": seconds,
-            "url": destination(kind),
-            "discoverySource": "public-youtube-channel-feed",
-        }
+        return make_latest(item, seconds, "public-youtube-channel-feed")
 
     raise RuntimeError("No eligible full-length NextGen Sessions upload found in the public channel feed")
+
+
+def discover() -> dict:
+    if os.environ.get("YT_KEY"):
+        try:
+            return discover_via_api()
+        except Exception as error:
+            print(f"Warning: YouTube Data API unavailable: {error}", file=sys.stderr)
+    return discover_via_rss()
 
 
 def load_existing(path: Path) -> dict:
@@ -176,6 +260,17 @@ def main() -> None:
         raise
 
     previous = existing.get("latest", {})
+    # A temporarily lagging YouTube feed must never roll back a verified release.
+    if (
+        previous.get("id") != latest["id"]
+        and trusted_title(str(previous.get("rawTitle", "")))
+        and int(previous.get("durationSeconds") or 0) >= (
+            MINIMUM_MIX_SECONDS if previous.get("contentType") == "long-mix" else MINIMUM_REGULAR_SECONDS
+        )
+        and str(previous.get("published", "")) > latest["published"]
+    ):
+        print(f"Latest discovery is older than verified release {previous['id']}; retaining newer release")
+        return
     if (
         previous.get("id") == latest["id"]
         and previous.get("published") == latest["published"]
@@ -185,7 +280,7 @@ def main() -> None:
         return
 
     payload = {
-        "source": "public-youtube-channel-feed",
+        "source": "verified-youtube-channel-uploads",
         "policy": "full-length-standard-title-no-shorts",
         "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "latest": latest,

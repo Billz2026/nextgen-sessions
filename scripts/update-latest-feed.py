@@ -121,7 +121,7 @@ def destination(kind: str) -> str:
 
 def iso_duration_seconds(value: str) -> int:
     """Decode YouTube Data API's contentDetails.duration field."""
-    match = re.fullmatch(r"PT(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+)S)?", str(value or ""))
+    match = re.fullmatch(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", str(value or ""))
     if not match:
         return 0
     hours, minutes, seconds = (int(part or 0) for part in match.groups())

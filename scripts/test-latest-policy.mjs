@@ -352,12 +352,14 @@ async function simulateHomepageLinks(payloads) {
   return { hero, grid: grid.innerHTML, title: title.textContent };
 }
 
+// Use a near-current fixture date so real future releases do not make link regression tests stale.
+const fixturePublished = new Date(Date.now() - 1000).toISOString();
 const deepLinkTrack = {
   id: "NNNNNNNNNNN",
   contentType: "full-release",
   artist: "Test Artist",
   title: "Exact Page",
-  published: "2026-10-12T23:58:00Z",
+  published: fixturePublished,
   url: "/releases/test-artist-exact-page/"
 };
 const genericFeedTrack = { ...deepLinkTrack, url: "/releases/", durationSeconds: 240 };
@@ -404,7 +406,7 @@ const albumFallback = await simulateHomepageLinks({
       contentType: "album",
       durationSeconds: 1800,
       title: "Complete Album",
-      published: "2026-10-12T23:58:00Z",
+      published: fixturePublished,
       url: "/mixes/full-albums/"
     }
   }
@@ -418,7 +420,7 @@ const mixFallback = await simulateHomepageLinks({
       contentType: "long-mix",
       durationSeconds: 1800,
       title: "Full Mix",
-      published: "2026-10-12T23:58:00Z",
+      published: fixturePublished,
       url: "/mixes/"
     }
   }
@@ -461,7 +463,7 @@ assert.notEqual(unknownDurationResult.title, shortWithNormalTitle.title, "Unknow
 
 const verifiedShortSingle = {
   ...deepLinkTrack, id: "VVVVVVVVVVV", durationSeconds: 150,
-  title: "Legitimate Two-Minute Single", published: "2026-10-13T18:00:00Z",
+  title: "Legitimate Two-Minute Single", published: fixturePublished,
   url: "/releases/legitimate-two-minute-single/"
 };
 const verifiedSingleResult = await simulateHomepageLinks({

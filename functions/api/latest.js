@@ -108,8 +108,10 @@ async function fetchLiveChannelLatest() {
   for (const entry of entries.slice(0, 8)) {
     const contentType = latestFeedContentType(entry.title);
     const durationSeconds = await latestFeedDurationSeconds(entry.id);
-    const minimum = contentType === "long-mix" ? 600 : 75;
-    if (durationSeconds > 0 && durationSeconds < minimum) continue;
+    // Feed-only items are not independently verified releases. Fail closed when
+    // YouTube does not provide duration; any Short can be up to 180 seconds.
+    const minimum = contentType === "long-mix" ? 600 : 181;
+    if (durationSeconds < minimum) continue;
 
     const parsed = latestFeedArtistTitle(entry.title);
     return {
@@ -127,7 +129,7 @@ async function fetchLiveChannelLatest() {
   return null;
 }
 
-const BLOCKED_LATEST_TITLE = /\b(?:shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i;
+const BLOCKED_LATEST_TITLE = /\b(?:shorts?|teaser|trailer|promo|preview|incoming|announcement|announcing|new\s+drop|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i;
 const RELEASE_PAGE = /^\/releases\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/;
 const MIX_SOURCE = "youtube-mix-archives-and-channel-uploads";
 const ALBUM_SOURCE = "youtube-album-playlist";
@@ -308,7 +310,7 @@ function combinedItems(releases, mixes, albums, liveItems = []) {
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=r5", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=r6", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

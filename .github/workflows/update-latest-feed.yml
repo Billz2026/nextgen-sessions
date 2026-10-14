@@ -27,7 +27,9 @@ jobs:
         with:
           ref: main
 
-      - name: Refresh Latest from public YouTube feed
+      - name: Refresh Latest from verified YouTube uploads
+        env:
+          YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python3 scripts/update-latest-feed.py latest-feed.json
 
       - name: Validate Latest feed payload

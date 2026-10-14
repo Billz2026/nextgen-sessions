@@ -45,6 +45,10 @@ jobs:
           assert str(latest.get("artist", "")).strip()
           assert str(latest.get("title", "")).strip()
           assert str(latest.get("rawTitle", "")).strip()
+          seconds = int(latest.get("durationSeconds") or 0)
+          minimum = 600 if latest["contentType"] == "long-mix" else 181
+          assert seconds >= minimum, f"Rejecting possible Short or unknown duration: {seconds}s"
+          assert not re.search(r"\b(?:shorts?|teaser|trailer|promo|preview|incoming|announcement|announcing|new\s+drop|coming soon|out tomorrow|out tonight|out now)\b|#shorts", str(latest["rawTitle"]), re.I)
           published = datetime.fromisoformat(str(latest["published"]).replace("Z", "+00:00"))
           assert published <= datetime.now(timezone.utc)
           assert str(latest.get("url", "")).startswith("/")

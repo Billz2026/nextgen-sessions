@@ -19,7 +19,7 @@ from pathlib import Path
 CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg"
 FEED_URL = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
 BLOCKED = re.compile(
-    r"\b(shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts",
+    r"\b(shorts?|teaser|trailer|promo|preview|incoming|announcement|announcing|new\s+drop|coming soon|out tomorrow|out tonight|out now)\b|#shorts",
     re.IGNORECASE,
 )
 MIX_HINT = re.compile(r"\b(mash\s*up|mashup|riddim|mix|qawwali\s+nights?|desi\s+junction)\b", re.IGNORECASE)
@@ -82,7 +82,7 @@ def artist_title(raw_title: str) -> tuple[str, str]:
 
 
 def duration_seconds(video_id: str) -> int:
-    """Best-effort Shorts guard. A trusted standard title remains usable if YouTube blocks this page."""
+    """Return verified duration or zero. Unknown duration must never qualify as Latest."""
     try:
         html = request_text(f"https://www.youtube.com/watch?v={video_id}", timeout=20)
     except (OSError, urllib.error.URLError, urllib.error.HTTPError):
@@ -127,8 +127,10 @@ def discover() -> dict:
     for item in entries[:10]:
         kind = content_type(item["rawTitle"])
         seconds = duration_seconds(item["id"])
-        minimum = 600 if kind == "long-mix" else 75
-        if seconds and seconds < minimum:
+        # Shorts can run up to three minutes. Only >180-second public-feed videos qualify.
+        # Shorter genuine singles remain eligible via the verified releases catalogue.
+        minimum = 600 if kind == "long-mix" else 181
+        if seconds < minimum:
             continue
 
         artist, title = artist_title(item["rawTitle"])
@@ -161,7 +163,14 @@ def main() -> None:
     try:
         latest = discover()
     except Exception as error:
-        if existing.get("latest", {}).get("id"):
+        previous = existing.get("latest") or {}
+        previous_seconds = int(previous.get("durationSeconds") or 0)
+        previous_minimum = 600 if previous.get("contentType") == "long-mix" else 181
+        if (
+            VIDEO_ID.fullmatch(str(previous.get("id", "")))
+            and trusted_title(str(previous.get("rawTitle", "")))
+            and previous_seconds >= previous_minimum
+        ):
             print(f"Warning: public YouTube feed unavailable; retaining last-known-good Latest: {error}", file=sys.stderr)
             return
         raise

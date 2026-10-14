@@ -1,16 +1,16 @@
 {
   "source": "verified-full-length-catalogue-fallback",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-10-14T17:03:02.777Z",
+  "generatedAt": "2026-10-14T17:08:38.851Z",
   "latest": {
-    "id": "wpA3hPMAq80",
+    "id": "fZGV7LnHAFI",
     "contentType": "full-release",
-    "artist": "Arif Sial",
-    "title": "Chitta Suit Pa Ke",
-    "rawTitle": "Arif Sial - Chitta Suit Pa Ke | Desi 2026 | NextGen Sessions",
-    "published": "2026-10-12T17:00:26Z",
-    "durationSeconds": 304,
-    "url": "/releases/arif-sial-chitta-suit-pa-ke/",
+    "artist": "Jassi Noor",
+    "title": "Gall Sun Ve",
+    "rawTitle": "Jassi Noor - Gall Sun Ve | Punjabi 2026 | NextGen Sessions",
+    "published": "2026-10-14T17:00:02Z",
+    "durationSeconds": 206,
+    "url": "/releases/jassi-noor-gall-sun-ve/",
     "discoverySource": "curated-youtube-playlists"
   }
 }

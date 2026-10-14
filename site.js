@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"wpA3hPMAq80","contentType":"full-release","title":"Arif Sial – Chitta Suit Pa Ke","published":"2026-10-12T17:00:26Z","url":"/releases/arif-sial-chitta-suit-pa-ke/"};
+  const FALLBACK_LATEST = {"id":"fZGV7LnHAFI","contentType":"full-release","title":"Jassi Noor – Gall Sun Ve","published":"2026-10-14T17:00:02Z","url":"/releases/jassi-noor-gall-sun-ve/"};
 
   const FALLBACK_RELEASES = [
+    {"id":"fZGV7LnHAFI","contentType":"full-release","title":"Jassi Noor – Gall Sun Ve","published":"2026-10-14T17:00:02Z","url":"/releases/jassi-noor-gall-sun-ve/"},
     {"id":"wpA3hPMAq80","contentType":"full-release","title":"Arif Sial – Chitta Suit Pa Ke","published":"2026-10-12T17:00:26Z","url":"/releases/arif-sial-chitta-suit-pa-ke/"},
     {"id":"ysGQgRrHRDw","contentType":"full-release","title":"Alia Bleu – On My Side","published":"2026-10-07T17:00:27Z","url":"/releases/alia-bleu-on-my-side/"},
     {"id":"xmbpD4Vxxgs","contentType":"full-release","title":"Alia Bleu – Bleu Armour","published":"2026-10-05T17:00:14Z","url":"/releases/alia-bleu-bleu-armour/"},
     {"id":"qrkiRZlqIhE","contentType":"full-release","title":"Rudii Marka – Wi Dweet Proper","published":"2026-09-30T17:00:24Z","url":"/releases/rudii-marka-wi-dweet-proper/"},
-    {"id":"IKI2BZV3v4k","contentType":"full-release","title":"Rudii Marka – Cyaan Stop Mi","published":"2026-09-28T17:00:45Z","url":"/releases/rudii-marka-cyaan-stop-mi/"},
-    {"id":"E2qUwbUA8x4","contentType":"full-release","title":"Kastro – Last Man Deh","published":"2026-09-23T17:00:33Z","url":"/releases/kastro-last-man-deh/"}
+    {"id":"IKI2BZV3v4k","contentType":"full-release","title":"Rudii Marka – Cyaan Stop Mi","published":"2026-09-28T17:00:45Z","url":"/releases/rudii-marka-cyaan-stop-mi/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

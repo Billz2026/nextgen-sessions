@@ -1,11 +1,27 @@
 {
-  "generatedAt": "2026-10-13T04:50:23.095Z",
+  "generatedAt": "2026-10-14T17:07:47.066Z",
   "timezone": "Europe/London",
   "weekStart": "2026-10-12",
   "weekEnd": "2026-10-18",
   "weekLabel": "12–18 October 2026",
   "mode": "week",
   "items": [
+    {
+      "artist": "Jassi Noor",
+      "artistSlug": "",
+      "title": "Gall Sun Ve",
+      "genre": "Asian",
+      "artistUrl": "/artists/",
+      "releaseUrl": "/releases/jassi-noor-gall-sun-ve/",
+      "dateLocal": "2026-10-14",
+      "dateLabel": "WED 14 OCT",
+      "longDate": "Wednesday, 14 October 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-10-14T17:00:02.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=fZGV7LnHAFI&size=card",
+      "source": "catalogue"
+    },
     {
       "artist": "Arif Sial",
       "artistSlug": "arif-sial",

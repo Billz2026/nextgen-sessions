@@ -5,14 +5,14 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-10-13T11:09:39.982875Z",
-  "total": 109,
+  "generatedAt": "2026-10-14T17:07:46.388033Z",
+  "total": 110,
   "counts": {
     "Dancehall": 36,
     "Reggae": 1,
     "UK Rap & Grime": 22,
     "Hip-Hop / G-Funk": 22,
-    "Asian": 5,
+    "Asian": 6,
     "Lovers Rock": 8,
     "R&B & Soul": 10,
     "Late Night Afro": 4,
@@ -22,6 +22,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "fZGV7LnHAFI",
+      "contentType": "full-release",
+      "artist": "Jassi Noor",
+      "title": "Gall Sun Ve",
+      "group": "Asian",
+      "published": "2026-10-14T17:00:02Z",
+      "durationSeconds": 206,
+      "rawTitle": "Jassi Noor - Gall Sun Ve | Punjabi 2026 | NextGen Sessions",
+      "slug": "jassi-noor-gall-sun-ve",
+      "url": "/releases/jassi-noor-gall-sun-ve/"
+    },
     {
       "id": "wpA3hPMAq80",
       "contentType": "full-release",

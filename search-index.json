@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-13T15:59:27.141Z",
-  "total": 160,
+  "generatedAt": "2026-10-14T17:07:47.147Z",
+  "total": 161,
   "counts": {
     "artists": 35,
-    "releases": 109,
+    "releases": 110,
     "genres": 6,
     "mixes": 10,
     "upcomingReleases": 0
@@ -427,6 +427,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Gall Sun Ve",
+      "subtitle": "Jassi Noor",
+      "description": "Asian · 2026-10-14",
+      "url": "/releases/jassi-noor-gall-sun-ve/",
+      "date": "2026-10-14T17:00:02Z",
+      "keywords": [
+        "Jassi Noor",
+        "Asian",
+        "Jassi Noor - Gall Sun Ve | Punjabi 2026 | NextGen Sessions",
+        "Gall Sun Ve"
       ]
     },
     {

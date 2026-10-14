@@ -324,6 +324,13 @@
     const contentType = String(release?.contentType || "").trim();
     const releaseUrl = String(release?.url || "").trim();
     const searchableTitle = `${String(release?.title || "")} ${String(release?.rawTitle || "")}`;
+    // Public channel feeds include Shorts. Fail closed unless the full-length duration is verified.
+    // Curated releases can include genuine sub-three-minute singles and remain eligible.
+    const fromChannelFeed = ["public-youtube-channel-feed", "youtube-channel-feed"]
+      .includes(String(release?.discoverySource || "").trim());
+    const durationSeconds = Number(release?.durationSeconds || 0);
+    const minimumFeedSeconds = contentType === "long-mix" ? 600 : 181;
+    const validFeedDuration = !fromChannelFeed || (Number.isFinite(durationSeconds) && durationSeconds >= minimumFeedSeconds);
     const validDestination = contentType === "full-release"
       ? /^\/releases\/(?:[a-z0-9]+(?:-[a-z0-9]+)*\/)?$/.test(releaseUrl)
       : (contentType === "long-mix"
@@ -333,7 +340,8 @@
       !id ||
       !["full-release", "long-mix", "album"].includes(contentType) ||
       !validDestination ||
-      /\b(?:shorts?|teaser|trailer|promo|preview|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i.test(searchableTitle)
+      !validFeedDuration ||
+      /\b(?:shorts?|teaser|trailer|promo|preview|incoming|announcement|announcing|new\s+drop|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i.test(searchableTitle)
     ) return null;
     const artist = String(release?.artist || "").trim();
     const releaseTitle = String(release?.title || "").trim();
@@ -388,7 +396,10 @@
     const apiReleases = payloadReleases(apiPayload);
     // The static verified catalogue remains available even when the live API is down.
     const catalogueReleases = payloadReleases(cataloguePayload);
-    const feedLatest = normaliseHomepageRelease(feedPayload?.latest);
+    // Validate as an untrusted channel-feed item even when the feed omits its source label.
+    const feedLatest = normaliseHomepageRelease(feedPayload?.latest
+      ? { ...feedPayload.latest, discoverySource: "public-youtube-channel-feed" }
+      : null);
     const fallbackReleases = FALLBACK_RELEASES
       .map(normaliseHomepageRelease)
       .filter(Boolean);
@@ -432,8 +443,8 @@
 
   if (latestPlayer || releaseGrid) {
     Promise.allSettled([
-      fetchJson("/api/latest?v=r5"),
-      fetchJson("/latest-feed.json?v=2"),
+      fetchJson("/api/latest?v=r6"),
+      fetchJson("/latest-feed.json?v=3"),
       fetchJson("/releases.json?v=latest-links1")
     ]).then(results => {
       const apiPayload = results[0]?.status === "fulfilled" ? results[0].value : {};

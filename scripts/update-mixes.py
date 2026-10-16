@@ -25,6 +25,9 @@ MIX_PLAYLISTS = [
     ("PLbBX67a5Ae3o", "other"),  # MCDS Riddim / NextGen special mixes
 ]
 UPLOADS_PLAYLIST_ID = "UUJdBLa1mf6yxk7xaOzSpBjg"
+# Explicitly supplied public launch video; included only if YouTube confirms
+# that it is public, published, not an album/Short, and at least 10 minutes long.
+KNOWN_MIX_VIDEO_IDS = {"-zp1PLcxn5w": "bhangra"}
 MINIMUM_MIX_SECONDS = 10 * 60
 
 COLLECTIONS = {
@@ -130,6 +133,10 @@ def is_published(value: str) -> bool:
 
 
 def classify_title(title: str) -> str:
+    # Named Desi programmes are long-form mixes even when their title omits
+    # generic words like "mix" or "mashup". Duration/publication checks still apply.
+    if re.search(r"\b(?:desi\s+junction|qawwali\s+nights)\b", title or "", re.I):
+        return "bhangra"
     # Specific known lanes keep their dedicated collection pages. Any other
     # genuinely mix-labelled upload is retained in the generic lane so future
     # concepts (Afrobeats, R&B, global mixes, etc.) can still qualify.
@@ -271,6 +278,14 @@ def build_mix_catalogue(existing_catalogue: dict | None = None) -> dict:
         uploads = []
         print("Warning: channel uploads feed returned 404; dedicated mix archives remain active.", file=sys.stderr)
     add_playlist_candidates(candidates, seen, uploads)
+
+    # A published named mix must not vanish because an archive playlist is
+    # temporarily inaccessible or YouTube's playlist items API returns 404.
+    # The final eligibility checks rely on YouTube's video metadata.
+    for video_id, collection in KNOWN_MIX_VIDEO_IDS.items():
+        if video_id not in seen:
+            candidates.append({"id": video_id, "fixedCollection": collection})
+            seen.add(video_id)
 
     videos = video_details([candidate["id"] for candidate in candidates])
     mixes: list[dict] = []

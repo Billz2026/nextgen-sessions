@@ -1,16 +1,16 @@
 {
-  "source": "verified-full-length-catalogue-fallback",
+  "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-10-14T17:08:38.851Z",
+  "generatedAt": "2026-10-16T18:07:29.760405Z",
   "latest": {
-    "id": "fZGV7LnHAFI",
-    "contentType": "full-release",
-    "artist": "Jassi Noor",
-    "title": "Gall Sun Ve",
-    "rawTitle": "Jassi Noor - Gall Sun Ve | Punjabi 2026 | NextGen Sessions",
-    "published": "2026-10-14T17:00:02Z",
-    "durationSeconds": 206,
-    "url": "/releases/jassi-noor-gall-sun-ve/",
-    "discoverySource": "curated-youtube-playlists"
+    "id": "-zp1PLcxn5w",
+    "contentType": "long-mix",
+    "artist": "NextGen Sessions",
+    "title": "Desi Junction",
+    "rawTitle": "Desi Junction | Desi Mix | NextGen Sessions",
+    "published": "2026-10-16T17:00:14Z",
+    "durationSeconds": 2230,
+    "url": "/mixes/",
+    "discoverySource": "youtube-channel-feed"
   }
 }

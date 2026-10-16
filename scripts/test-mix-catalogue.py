@@ -50,6 +50,7 @@ sources = {
     "uploads-source": [
         playlist_item("grimemix001", "Grime Mash Up Series 1 | NextGen Sessions"),
         playlist_item("bhangramix1", "Bhangra Mix 2026 | NextGen Sessions"),
+        playlist_item("-zp1PLcxn5w", "Desi Junction | NextGen Sessions"),
         playlist_item("quickmix001", "Afrobeats Mix 2026 | NextGen Sessions"),
         playlist_item("albumfull01", "Alia Bleu Full Album Mix | NextGen Sessions"),
         playlist_item("shortpromo1", "Grime Mashup Series 2 Teaser"),
@@ -99,14 +100,14 @@ def details(video_ids: list[str]) -> dict[str, dict]:
 
 module.video_details = details
 catalogue = module.build_mix_catalogue({})
-assert catalogue["total"] == 11, json.dumps(catalogue, indent=2)
+assert catalogue["total"] == 12, json.dumps(catalogue, indent=2)
 assert catalogue["counts"] == {
     "grime": 1,
     "hip-hop": 1,
     "uk-rap": 1,
     "dancehall": 2,
     "summer": 1,
-    "bhangra": 4,
+    "bhangra": 5,
     "other": 1,
 }
 assert [item["id"] for item in catalogue["mixes"] if item["collection"] == "dancehall"] == [
@@ -126,6 +127,10 @@ assert next(item for item in catalogue["mixes"] if item["id"] == "mcdsriddim1")[
 assert "unlistedmx1" not in ids, "Unlisted mixes must remain off the public website"
 assert next(item for item in catalogue["mixes"] if item["id"] == "bhangraarc1")["collection"] == "bhangra"
 assert "bhangramix1" in ids, "Bhangra full-length mixes must also be discovered from channel uploads"
+assert "-zp1PLcxn5w" in ids, "Desi Junction must be discovered in channel uploads even without the word mix"
+assert next(item for item in catalogue["mixes"] if item["id"] == "-zp1PLcxn5w")["collection"] == "bhangra"
+assert module.classify_title("Desi Junction | NextGen Sessions") == "bhangra"
+assert module.classify_title("Qawwali Nights Vol. 1 | NextGen Sessions") == "bhangra"
 assert next(item for item in catalogue["mixes"] if item["id"] == "bhangramix1")["collection"] == "bhangra"
 assert module.is_published("2999-10-16T17:00:00Z") is False, "Future scheduled mixes must remain excluded"
 assert "shortpromo1" not in ids

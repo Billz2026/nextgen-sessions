@@ -59,7 +59,15 @@ for stale in ("Cloudflare Turnstile", "transactional email provider sends the co
 assert "<strong>Last updated:</strong>" in privacy, "Privacy update marker is missing"
 
 # Artist landing copy and shell should reflect the current 33-profile system.
-assert "Explore 33 NextGen Sessions artists" in artists, "Artist count/copy is stale"
+import json
+import re
+
+roster_source = (ROOT / "artists.js").read_text(encoding="utf-8")
+roster_match = re.search(r"window\.NGS_ARTISTS\s*=\s*(\[[\s\S]*?\]);", roster_source)
+assert roster_match, "Cannot read official artist roster"
+roster_count = len(json.loads(roster_match.group(1)))
+assert f"Explore {roster_count} NextGen Sessions artists" in artists, "Artist count/copy is stale"
+assert f'id="rosterCount">{roster_count} artists' in artists, "Visible artist count disagrees with catalogue"
 assert "Open any artist profile" in artists, "Artist landing still describes the old partial-profile model"
 assert "Published profile pages open directly" not in artists, "Old artist-profile wording remains"
 assert 'href="/genres/"' in artists, "Artists static navigation is missing Genres"

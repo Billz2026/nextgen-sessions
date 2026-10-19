@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"fZGV7LnHAFI","contentType":"full-release","title":"Jassi Noor – Gall Sun Ve","published":"2026-10-14T17:00:02Z","url":"/releases/jassi-noor-gall-sun-ve/"};
+  const FALLBACK_LATEST = {"id":"-zp1PLcxn5w","contentType":"long-mix","title":"Desi Junction","published":"2026-10-16T17:00:14Z","url":"/mixes/","durationSeconds":2230};
 
   const FALLBACK_RELEASES = [
     {"id":"fZGV7LnHAFI","contentType":"full-release","title":"Jassi Noor – Gall Sun Ve","published":"2026-10-14T17:00:02Z","url":"/releases/jassi-noor-gall-sun-ve/"},

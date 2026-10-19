@@ -7,15 +7,15 @@
     "genericMixTitlesAllowed": true,
     "albumsAllowed": false
   },
-  "generatedAt": "2026-09-26T06:33:13.935762Z",
-  "total": 10,
+  "generatedAt": "2026-10-19T20:12:06.960505Z",
+  "total": 11,
   "counts": {
     "grime": 1,
     "hip-hop": 2,
     "uk-rap": 2,
     "dancehall": 4,
     "summer": 1,
-    "bhangra": 0,
+    "bhangra": 1,
     "other": 0
   },
   "mixes": [
@@ -148,6 +148,19 @@
       "durationSeconds": 3928,
       "rawTitle": "THE SOUND OF SUMMER 2026 | Summer Mix 2026 | Dancehall, UK Rap, R&B & Hip-Hop | NextGen Sessions",
       "thumbnail": "https://i.ytimg.com/vi/1F1mMsRWdsw/hqdefault.jpg"
+    },
+    {
+      "id": "-zp1PLcxn5w",
+      "contentType": "long-mix",
+      "collection": "bhangra",
+      "title": "Desi Junction",
+      "label": "Full-length mix",
+      "name": "Bhangra Mix",
+      "sequence": 0,
+      "published": "2026-10-16T17:00:14Z",
+      "durationSeconds": 2230,
+      "rawTitle": "Desi Junction | Desi Mix | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/-zp1PLcxn5w/hqdefault.jpg"
     }
   ]
 }

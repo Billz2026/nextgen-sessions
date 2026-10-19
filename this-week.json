@@ -1,43 +1,10 @@
 {
-  "generatedAt": "2026-10-14T17:07:47.066Z",
+  "generatedAt": "2026-10-19T20:12:07.721Z",
   "timezone": "Europe/London",
-  "weekStart": "2026-10-12",
-  "weekEnd": "2026-10-18",
-  "weekLabel": "12–18 October 2026",
-  "mode": "week",
-  "items": [
-    {
-      "artist": "Jassi Noor",
-      "artistSlug": "",
-      "title": "Gall Sun Ve",
-      "genre": "Asian",
-      "artistUrl": "/artists/",
-      "releaseUrl": "/releases/jassi-noor-gall-sun-ve/",
-      "dateLocal": "2026-10-14",
-      "dateLabel": "WED 14 OCT",
-      "longDate": "Wednesday, 14 October 2026",
-      "timeLocal": "",
-      "releaseAt": "2026-10-14T17:00:02.000Z",
-      "status": "live",
-      "image": "/api/release-image?id=fZGV7LnHAFI&size=card",
-      "source": "catalogue"
-    },
-    {
-      "artist": "Arif Sial",
-      "artistSlug": "arif-sial",
-      "title": "Chitta Suit Pa Ke",
-      "genre": "Asian",
-      "artistUrl": "/artists/arif-sial/",
-      "releaseUrl": "/releases/arif-sial-chitta-suit-pa-ke/",
-      "dateLocal": "2026-10-12",
-      "dateLabel": "MON 12 OCT",
-      "longDate": "Monday, 12 October 2026",
-      "timeLocal": "",
-      "releaseAt": "2026-10-12T17:00:26.000Z",
-      "status": "live",
-      "image": "/api/release-image?id=wpA3hPMAq80&size=card",
-      "source": "catalogue"
-    }
-  ],
+  "weekStart": "2026-10-19",
+  "weekEnd": "2026-10-25",
+  "weekLabel": "19–25 October 2026",
+  "mode": "empty",
+  "items": [],
   "nextUp": null
 }

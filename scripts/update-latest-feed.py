@@ -73,7 +73,12 @@ def trusted_title(raw_title: str) -> bool:
 def content_type(raw_title: str) -> str:
     if ALBUM_HINT.search(raw_title):
         return "album"
-    if MIX_HINT.search(raw_title):
+    # A song named "Dangerous Love (MCDS Riddim)" is not a 10-minute mix.
+    # Recognise mix markers in the primary title, not parenthetical song versions
+    # or later genre/credit segments separated by a pipe.
+    lead = raw_title.split("|", 1)[0]
+    lead_without_edits = re.sub(r"\([^)]*\)", " ", lead)
+    if MIX_HINT.search(lead_without_edits):
         return "long-mix"
     return "full-release"
 

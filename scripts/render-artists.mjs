@@ -174,7 +174,7 @@ function renderReleaseCard(release, inlineVideoId = "") {
   return `
         <article class="discography-card">
           <a class="discography-art" data-monogram="${escapeHtml(monogram(release.artist))}" href="${escapeHtml(artDestination)}" aria-label="${escapeHtml(artLabel)}">
-            <img loading="lazy" decoding="async" src="/api/release-image?id=${encodeURIComponent(release.id)}" alt="${escapeHtml(release.title)} by ${escapeHtml(release.artist)} artwork">
+            <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/${encodeURIComponent(release.id)}/hqdefault.jpg" alt="${escapeHtml(release.title)} by ${escapeHtml(release.artist)} artwork">
             <span class="discography-play-mark" aria-hidden="true">▶</span>
           </a>
           <div class="discography-card-body">

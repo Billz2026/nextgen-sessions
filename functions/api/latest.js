@@ -50,7 +50,9 @@ function latestFeedArtistTitle(rawTitle) {
 function latestFeedContentType(rawTitle) {
   const title = String(rawTitle || "");
   if (/\balbum\b/i.test(title)) return "album";
-  if (/\b(?:mash\s*up|mashup|riddim|mix|qawwali\s+nights?|desi\s+junction)\b/i.test(title)) return "long-mix";
+  // A named song with a parenthetical riddim/version credit is still a single.
+  const lead = title.split("|", 1)[0].replace(/\([^)]*\)/g, " ");
+  if (/\b(?:mash\s*up|mashup|riddim|mix|qawwali\s+nights?|desi\s+junction)\b/i.test(lead)) return "long-mix";
   return "full-release";
 }
 

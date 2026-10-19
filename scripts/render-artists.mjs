@@ -210,6 +210,10 @@ function relatedProfile(profile, profileByName) {
 
 function renderMain(slug, profile, releases, imageMap, originalHtml, profileByName) {
   const latest = releases[0] || null;
+  // Embed only published catalogue videos; never reveal a scheduled upload.
+  const verifiedFeatured = ["zion-daley", "arif-sial", "dean-lawson"].includes(slug)
+    ? releases.find((release) => release.id === profile.featuredVideo?.id)
+    : null;
   const bio = Array.isArray(profile.bio) ? profile.bio : [];
   const bioMarkup = bio.map((paragraph) => `<p data-static-bio>${escapeHtml(paragraph)}</p>`).join("\n          ");
   const releaseMarkup = releases.length
@@ -222,10 +226,6 @@ function renderMain(slug, profile, releases, imageMap, originalHtml, profileByNa
     ? `<a class="button button-secondary" href="${escapeHtml(profile.youtubeUrl)}" target="_blank" rel="noopener">Explore on YouTube</a>`
     : "";
 
-  // Embed only published catalogue videos; never reveal a scheduled upload.
-  const verifiedFeatured = ["zion-daley", "arif-sial", "dean-lawson"].includes(slug)
-    ? releases.find((release) => release.id === profile.featuredVideo?.id)
-    : null;
   const featuredVideoMarkup = verifiedFeatured
     ? `<section class="profile-section" id="featured-release" aria-labelledby="featured-release-title">
       <div class="profile-section-heading">

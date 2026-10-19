@@ -27,7 +27,7 @@ def is_publicly_released(items: list[dict], now: datetime | None = None) -> bool
         if not (
             item.get("id") == VIDEO_ID
             and item.get("artist") == ARTIST
-            and item.get("title") == TITLE
+            and item.get("title") in {TITLE, f"{TITLE} (MCDS Riddim)"}
             and item.get("group") == "Pop"
             and item.get("contentType") == "full-release"
             and int(item.get("durationSeconds") or 0) >= 75

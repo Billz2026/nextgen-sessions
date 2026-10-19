@@ -12,6 +12,12 @@ on:
       - "scripts/test-global-footer.py"
       - "scripts/test-conversion-funnel.py"
       - "scripts/test-responsive-shell.py"
+      - "scripts/test-artist-static-render.mjs"
+      - "scripts/render-artists.mjs"
+      - "artist-profile.css"
+      - "artist-discography.css"
+      - "artists/**"
+      - "artists.js"
       - "scripts/test-analytics-system.mjs"
       - "mobile-nav.css"
       - "mobile-nav.js"
@@ -47,6 +53,9 @@ jobs:
 
       - name: Test responsive shell
         run: python3 scripts/test-responsive-shell.py
+
+      - name: Test every artist profile and verified video player
+        run: node scripts/test-artist-static-render.mjs
 
       - name: Test analytics and Trending architecture
         run: node scripts/test-analytics-system.mjs

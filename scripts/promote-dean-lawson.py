@@ -61,7 +61,7 @@ def load_roster(source: str) -> tuple[list, int, int]:
     return json.loads(match.group(1)), match.start(1), match.end(1)
 
 
-def make_profile(live: bool) -> str:
+def make_profile(live: bool, verified_title: str = TITLE) -> str:
     item = {
         "name": ARTIST,
         "path": "/artists/dean-lawson/",
@@ -77,7 +77,7 @@ def make_profile(live: bool) -> str:
         "catalogueAliases": [ARTIST],
         # The scheduled video ID and title never enter public profile data early.
         "featuredVideo": (
-            {"id": VIDEO_ID, "title": TITLE}
+            {"id": VIDEO_ID, "title": verified_title}
             if live else {"title": "Official recordings"}
         ),
         **({} if live else {"releaseStatus": "upcoming"}),
@@ -137,7 +137,13 @@ def main() -> None:
     catalogue = json.loads((ROOT / "releases.json").read_text(encoding="utf-8"))
     if catalogue.get("source") != "curated-youtube-playlists":
         raise RuntimeError("Untrusted release catalogue; cannot publish artist")
-    live = is_publicly_released(catalogue.get("releases", []))
+    releases = catalogue.get("releases", [])
+    live = is_publicly_released(releases)
+    # Show the exact verified public title, including legitimate version credits.
+    verified_title = next(
+        (str(item["title"]) for item in releases if is_publicly_released([item])),
+        TITLE,
+    ) if live else TITLE
     roster_path = ROOT / "artists.js"
     source = roster_path.read_text(encoding="utf-8")
     roster, start, end = load_roster(source)
@@ -154,7 +160,7 @@ def main() -> None:
 
     ARTIST_DIR.mkdir(parents=True, exist_ok=True)
     profile_path = ARTIST_DIR / "profile.js"
-    profile_markup = make_profile(live)
+    profile_markup = make_profile(live, verified_title)
     if not profile_path.exists() or profile_path.read_text(encoding="utf-8") != profile_markup:
         profile_path.write_text(profile_markup, encoding="utf-8")
     page_path = ARTIST_DIR / "index.html"

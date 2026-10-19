@@ -213,10 +213,12 @@ function relatedProfile(profile, profileByName) {
 
 function renderMain(slug, profile, releases, imageMap, originalHtml, profileByName) {
   const latest = releases[0] || null;
-  // Embed only published catalogue videos; never reveal a scheduled upload.
-  const verifiedFeatured = ["zion-daley", "arif-sial", "dean-lawson"].includes(slug)
-    ? releases.find((release) => release.id === profile.featuredVideo?.id)
-    : null;
+  // Every artist automatically gets a player for an actually published catalogue video.
+  // Never embed profile overrides or scheduled/unverified video IDs.
+  const publishedIds = new Set(catalogue.map((item) => item.id));
+  const verifiedFeatured = releases.find((release) => release.id === profile.featuredVideo?.id && publishedIds.has(release.id))
+    || releases.find((release) => publishedIds.has(release.id))
+    || null;
   const bio = Array.isArray(profile.bio) ? profile.bio : [];
   const bioMarkup = bio.map((paragraph) => `<p data-static-bio>${escapeHtml(paragraph)}</p>`).join("\n          ");
   const releaseMarkup = releases.length
@@ -327,7 +329,12 @@ for (const rosterArtist of roster) {
   const originalHtml = fs.readFileSync(pagePath, "utf8");
   const releases = releasesFor(profile, catalogue);
   const main = renderMain(slug, profile, releases, imageMap, originalHtml, profileByName);
-  const nextHtml = replaceMain(originalHtml, main);
+  let nextHtml = replaceMain(originalHtml, main);
+  // The shared runtime installs responsive mobile navigation and conversion links.
+  // Static-rendered artist pages must load it even when artist-profile.js is absent.
+  if (!/<script\b[^>]*src=["\']\/site-metrics\.js(?:\?[^"\']*)?["\']/i.test(nextHtml)) {
+    nextHtml = nextHtml.replace(/<\/body>/i, '  <script src="/site-metrics.js?v=20261019-profile-shell1" defer></script>\n</body>');
+  }
   fs.writeFileSync(pagePath, nextHtml);
   rendered += 1;
 }

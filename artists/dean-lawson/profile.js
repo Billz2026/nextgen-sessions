@@ -16,7 +16,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
   ],
   "featuredVideo": {
     "id": "y_gADQbXSho",
-    "title": "Dangerous Love"
+    "title": "Dangerous Love (MCDS Riddim)"
   },
   "related": []
 }

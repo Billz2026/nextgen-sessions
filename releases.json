@@ -5,8 +5,8 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-10-14T17:07:46.388033Z",
-  "total": 110,
+  "generatedAt": "2026-10-19T20:13:21.322532Z",
+  "total": 111,
   "counts": {
     "Dancehall": 36,
     "Reggae": 1,
@@ -18,10 +18,22 @@
     "Late Night Afro": 4,
     "Late Night Vibes": 0,
     "Arabic": 1,
-    "Pop": 0
+    "Pop": 1
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "y_gADQbXSho",
+      "contentType": "full-release",
+      "artist": "Dean Lawson",
+      "title": "Dangerous Love (MCDS Riddim)",
+      "group": "Pop",
+      "published": "2026-10-19T17:00:40Z",
+      "durationSeconds": 380,
+      "rawTitle": "Dean Lawson - Dangerous Love (MCDS Riddim) | Pop 2026 | NextGen Sessions",
+      "slug": "dean-lawson-dangerous-love-mcds-riddim",
+      "url": "/releases/dean-lawson-dangerous-love-mcds-riddim/"
+    },
     {
       "id": "fZGV7LnHAFI",
       "contentType": "full-release",

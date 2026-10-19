@@ -15,9 +15,9 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
     "Dean Lawson"
   ],
   "featuredVideo": {
-    "title": "Official recordings"
+    "id": "y_gADQbXSho",
+    "title": "Dangerous Love"
   },
-  "releaseStatus": "upcoming",
   "related": []
 }
 });

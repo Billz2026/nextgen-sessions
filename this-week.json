@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-10-19T20:12:07.721Z",
+  "generatedAt": "2026-10-19T20:13:22.714Z",
   "timezone": "Europe/London",
   "weekStart": "2026-10-19",
   "weekEnd": "2026-10-25",
   "weekLabel": "19–25 October 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Dean Lawson",
+      "artistSlug": "dean-lawson",
+      "title": "Dangerous Love (MCDS Riddim)",
+      "genre": "Pop",
+      "artistUrl": "/artists/dean-lawson/",
+      "releaseUrl": "/releases/dean-lawson-dangerous-love-mcds-riddim/",
+      "dateLocal": "2026-10-19",
+      "dateLabel": "MON 19 OCT",
+      "longDate": "Monday, 19 October 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-10-19T17:00:40.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=y_gADQbXSho&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

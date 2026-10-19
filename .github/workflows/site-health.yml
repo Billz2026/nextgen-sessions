@@ -1,0 +1,80 @@
+name: NextGen Production Health Monitor
+
+on:
+  schedule:
+    - cron: "13,43 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/site-health.yml"
+      - "scripts/check-site-health.py"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: nextgen-production-health
+  cancel-in-progress: true
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - name: Check out current website
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Audit website source and live production
+        id: audit
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          python3 scripts/check-site-health.py 2>&1 | tee /tmp/nextgen-site-health.log
+
+      - name: Open one actionable GitHub issue when the live site is unhealthy
+        if: steps.audit.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          TITLE="[Site Monitor] NextGen Sessions production failure"
+          ISSUE=$(gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title == "[Site Monitor] NextGen Sessions production failure") | .number' | head -n 1)
+          {
+            echo "NextGen Sessions' automatic production health check failed."
+            echo
+            echo "**Failure run:** https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo
+            echo "Recent test output:"
+            tail -n 75 /tmp/nextgen-site-health.log
+            echo
+            echo "The system keeps the verified catalogue intact. Correct the pipeline or deployment; this issue will close after recovery."
+          } > /tmp/nextgen-site-health-issue.md
+          if [ -z "$ISSUE" ]; then
+            gh issue create --title "$TITLE" --body-file /tmp/nextgen-site-health-issue.md
+          else
+            echo "Existing health alert issue #${ISSUE} remains open."
+          fi
+
+      - name: Close the incident after automated recovery
+        if: steps.audit.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          ISSUE=$(gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title == "[Site Monitor] NextGen Sessions production failure") | .number' | head -n 1)
+          if [ -n "$ISSUE" ]; then
+            gh issue close "$ISSUE" --comment "Automatic production health check recovered. Successful run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          fi
+
+      - name: Mark unhealthy deployments as failed
+        if: steps.audit.outcome == 'failure'
+        run: |
+          echo "The live NextGen Sessions site failed independent health checks." >&2
+          exit 1

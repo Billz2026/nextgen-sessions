@@ -167,7 +167,7 @@ function renderPortrait(profile, imageMap, originalHtml) {
       </div>`;
 }
 
-function renderReleaseCard(release) {
+function renderReleaseCard(release, inlineVideoId = "") {
   return `
         <article class="discography-card">
           <a class="discography-art" data-monogram="${escapeHtml(monogram(release.artist))}" href="${escapeHtml(releasePath(release))}" aria-label="View ${escapeHtml(release.title)} by ${escapeHtml(release.artist)}">
@@ -179,7 +179,8 @@ function renderReleaseCard(release) {
             <h3>${escapeHtml(release.title)}</h3>
             <p>${escapeHtml(formatDate(release.published))}</p>
             <div class="discography-card-actions">
-              <a href="${escapeHtml(releasePath(release))}">Release page →</a>
+              ${release.id === inlineVideoId ? '<a href="#featured-release">▶ Play here</a>' : ""}
+            <a href="${escapeHtml(releasePath(release))}">Release page →</a>
               <a href="https://www.youtube.com/watch?v=${encodeURIComponent(release.id)}" target="_blank" rel="noopener">YouTube ↗</a>
             </div>
           </div>
@@ -212,7 +213,7 @@ function renderMain(slug, profile, releases, imageMap, originalHtml, profileByNa
   const bio = Array.isArray(profile.bio) ? profile.bio : [];
   const bioMarkup = bio.map((paragraph) => `<p data-static-bio>${escapeHtml(paragraph)}</p>`).join("\n          ");
   const releaseMarkup = releases.length
-    ? releases.map(renderReleaseCard).join("")
+    ? releases.map((release) => renderReleaseCard(release, verifiedFeatured?.id || "")).join("")
     : '<div class="discography-empty">No published catalogue releases are available for this artist yet.</div>';
   const latestAction = latest
     ? `<a class="button button-primary" href="${escapeHtml(releasePath(latest))}">Latest release: ${escapeHtml(latest.title)}</a>`
@@ -221,7 +222,8 @@ function renderMain(slug, profile, releases, imageMap, originalHtml, profileByNa
     ? `<a class="button button-secondary" href="${escapeHtml(profile.youtubeUrl)}" target="_blank" rel="noopener">Explore on YouTube</a>`
     : "";
 
-  const verifiedFeatured = ["zion-daley", "arif-sial"].includes(slug)
+  // Embed only published catalogue videos; never reveal a scheduled upload.
+  const verifiedFeatured = ["zion-daley", "arif-sial", "dean-lawson"].includes(slug)
     ? releases.find((release) => release.id === profile.featuredVideo?.id)
     : null;
   const featuredVideoMarkup = verifiedFeatured

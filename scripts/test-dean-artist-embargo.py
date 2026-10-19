@@ -58,7 +58,12 @@ if live:
     assert "Dangerous Love" in html
     assert "y_gADQbXSho" in html
     assert "y_gADQbXSho" in profile_source
+    assert 'src="https://www.youtube-nocookie.com/embed/y_gADQbXSho?rel=0"' in html, "Verified Dean Lawson release must be playable on his profile"
+    assert 'href="#featured-release">▶ Play here</a>' in html, "Profile track card must link to its in-page player"
+    verified_title = next(item["title"] for item in catalogue["releases"] if module.is_publicly_released([item]))
+    assert json.dumps(verified_title) in profile_source, "Profile featured title must match the verified public song"
 else:
+    assert "youtube-nocookie.com/embed/y_gADQbXSho" not in html, "Scheduled player leaked before release"
     assert "Dangerous Love" not in html, "Song title leaked before public release"
     assert "y_gADQbXSho" not in html, "Scheduled video ID leaked in HTML"
     assert "Dangerous Love" not in profile_source, "Song title leaked in client-side profile"

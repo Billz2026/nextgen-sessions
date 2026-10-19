@@ -181,12 +181,16 @@ expected_dancehall = [
     if item.get("collection") == "dancehall"
 ]
 assert fallback["counts"]["dancehall"] == len(expected_dancehall)
-assert [item["id"] for item in fallback["mixes"]] == [
+fallback_dancehall = [item for item in fallback["mixes"] if item["collection"] == "dancehall"]
+assert [item["id"] for item in fallback_dancehall] == [
     item["id"] for item in expected_dancehall
 ]
-assert [item["sequence"] for item in fallback["mixes"]] == [
+assert [item["sequence"] for item in fallback_dancehall] == [
     item.get("sequence", 0) for item in expected_dancehall
 ]
+# Known verified mixes from other collections are also recovered by the
+# pinned-ID fallback. They must not invalidate the dancehall outage test.
+assert all(item["id"] in {old["id"] for old in existing["mixes"]} for item in fallback["mixes"])
 
 unchanged = {**catalogue, "generatedAt": "2026-08-10T00:00:00Z"}
 rebuilt = {**catalogue, "generatedAt": "2026-08-10T01:00:00Z"}

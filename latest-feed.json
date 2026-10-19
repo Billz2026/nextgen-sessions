@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-10-16T18:07:29.760405Z",
+  "generatedAt": "2026-10-19T20:11:45.653045Z",
   "latest": {
-    "id": "-zp1PLcxn5w",
-    "contentType": "long-mix",
-    "artist": "NextGen Sessions",
-    "title": "Desi Junction",
-    "rawTitle": "Desi Junction | Desi Mix | NextGen Sessions",
-    "published": "2026-10-16T17:00:14Z",
-    "durationSeconds": 2230,
-    "url": "/mixes/",
+    "id": "y_gADQbXSho",
+    "contentType": "full-release",
+    "artist": "Dean Lawson",
+    "title": "Dangerous Love (MCDS Riddim)",
+    "rawTitle": "Dean Lawson - Dangerous Love (MCDS Riddim) | Pop 2026 | NextGen Sessions",
+    "published": "2026-10-19T17:00:40Z",
+    "durationSeconds": 380,
+    "url": "/releases/",
     "discoverySource": "youtube-channel-feed"
   }
 }

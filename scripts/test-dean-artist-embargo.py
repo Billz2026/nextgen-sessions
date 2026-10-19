@@ -49,6 +49,9 @@ html = page.read_text(encoding="utf-8")
 profile_source = profile.read_text(encoding="utf-8")
 assert 'data-static-profile="true"' in html, "Artist profile must be visible and crawlable"
 assert "Dean Lawson" in html and 'src="/assets/artists/dean-lawson-portrait.webp"' in html
+css_source = (ROOT / "artist-discography.css").read_text(encoding="utf-8")
+assert ".discography-art{display:block" in css_source, "Artwork must occupy a visible 16:9 block"
+assert "grid-template-columns:repeat(2,minmax(0,1fr))" in css_source, "Mobile action links must not overflow the card"
 assert "https://nextgensessions.com/assets/artists/dean-lawson-portrait.webp" in html
 assert '/artists/dean-lawson/' in (ROOT / "artists/index.html").read_text(encoding="utf-8")
 assert "https://nextgensessions.com/artists/dean-lawson/" in (ROOT / "sitemap.xml").read_text(encoding="utf-8")
@@ -59,7 +62,8 @@ if live:
     assert "y_gADQbXSho" in html
     assert "y_gADQbXSho" in profile_source
     assert 'src="https://www.youtube-nocookie.com/embed/y_gADQbXSho?rel=0"' in html, "Verified Dean Lawson release must be playable on his profile"
-    assert 'href="#featured-release">▶ Play here</a>' in html, "Profile track card must link to its in-page player"
+    assert 'class="discography-inline-play" href="#featured-release">▶ Play here</a>' in html, "Profile track card must link to its in-page player"
+    assert 'src="https://i.ytimg.com/vi/y_gADQbXSho/hqdefault.jpg"' in html, "Verified song artwork must not depend on Cloudflare-only image functions"
     verified_title = next(item["title"] for item in catalogue["releases"] if module.is_publicly_released([item]))
     assert json.dumps(verified_title) in profile_source, "Profile featured title must match the verified public song"
 else:

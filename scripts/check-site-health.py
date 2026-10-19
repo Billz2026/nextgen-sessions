@@ -149,6 +149,8 @@ def run(local_only: bool = False) -> None:
     homepage = fetch_live("/")
     live_releases_raw = fetch_live("/releases.json")
     live_feed_raw = fetch_live("/latest-feed.json")
+    api_releases_raw = fetch_live("/api/releases")
+    api_latest_raw = fetch_live("/api/latest")
     artist_directory = fetch_live("/artists/")
     check("<html" in homepage.lower(), "Production homepage returns HTML")
     check("<html" in artist_directory.lower(), "Production artist directory returns HTML")
@@ -166,6 +168,21 @@ def run(local_only: bool = False) -> None:
     except (ValueError, AttributeError):
         ERRORS.append("Production /latest-feed.json is not valid Latest-feed JSON")
         live_feed = {}
+
+    # A Cloudflare Function can silently return a tiny hard-coded fallback even
+    # while static /releases.json is current; validate both serving routes.
+    try:
+        api_releases = json.loads(api_releases_raw).get("releases", [])
+        check(isinstance(api_releases, list) and len(api_releases) >= 80,
+              "Cloudflare /api/releases serves the full release catalogue (not a stale fallback)")
+    except (ValueError, AttributeError):
+        ERRORS.append("Cloudflare /api/releases did not return usable JSON")
+    try:
+        api_latest = json.loads(api_latest_raw).get("latest") or {}
+        check(safe_id(api_latest.get("id")),
+              "Cloudflare /api/latest returns a playable verified video ID")
+    except (ValueError, AttributeError):
+        ERRORS.append("Cloudflare /api/latest did not return usable JSON")
 
     if repo_commit_age() >= DEPLOY_GRACE_SECONDS:
         if count_match:

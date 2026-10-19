@@ -26,6 +26,8 @@ release = {
 }
 assert not module.is_publicly_released([], NOW)
 assert module.is_publicly_released([release], NOW)
+assert module.is_publicly_released([{**release, "title": "Dangerous Love (MCDS Riddim)"}], NOW)
+assert not module.is_publicly_released([{**release, "title": "Dangerous Love (Unverified Edit)"}], NOW)
 assert not module.is_publicly_released([{**release, "group": "R&B & Soul"}], NOW)
 assert not module.is_publicly_released([{**release, "id": "AAAAAAAAAAA"}], NOW)
 assert not module.is_publicly_released([{**release, "durationSeconds": 25}], NOW)

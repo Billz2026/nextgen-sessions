@@ -168,9 +168,12 @@ function renderPortrait(profile, imageMap, originalHtml) {
 }
 
 function renderReleaseCard(release, inlineVideoId = "") {
+  const isFeaturedVideo = release.id === inlineVideoId;
+  const artDestination = isFeaturedVideo ? "#featured-release" : releasePath(release);
+  const artLabel = isFeaturedVideo ? `Play ${release.title} by ${release.artist} on this page` : `View ${release.title} by ${release.artist}`;
   return `
         <article class="discography-card">
-          <a class="discography-art" data-monogram="${escapeHtml(monogram(release.artist))}" href="${escapeHtml(releasePath(release))}" aria-label="View ${escapeHtml(release.title)} by ${escapeHtml(release.artist)}">
+          <a class="discography-art" data-monogram="${escapeHtml(monogram(release.artist))}" href="${escapeHtml(artDestination)}" aria-label="${escapeHtml(artLabel)}">
             <img loading="lazy" decoding="async" src="/api/release-image?id=${encodeURIComponent(release.id)}" alt="${escapeHtml(release.title)} by ${escapeHtml(release.artist)} artwork">
             <span class="discography-play-mark" aria-hidden="true">▶</span>
           </a>
@@ -179,8 +182,8 @@ function renderReleaseCard(release, inlineVideoId = "") {
             <h3>${escapeHtml(release.title)}</h3>
             <p>${escapeHtml(formatDate(release.published))}</p>
             <div class="discography-card-actions">
-              ${release.id === inlineVideoId ? '<a href="#featured-release">▶ Play here</a>' : ""}
-            <a href="${escapeHtml(releasePath(release))}">Release page →</a>
+              ${isFeaturedVideo ? '<a class="discography-inline-play" href="#featured-release">▶ Play here</a>' : ""}
+              <a href="${escapeHtml(releasePath(release))}">Release page →</a>
               <a href="https://www.youtube.com/watch?v=${encodeURIComponent(release.id)}" target="_blank" rel="noopener">YouTube ↗</a>
             </div>
           </div>

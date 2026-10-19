@@ -353,6 +353,7 @@
   
   
   
+  
   <!-- NEXTGEN-SCHEMA:START -->
   <script type="application/ld+json" data-schema-graph="nextgen">{"@context":"https://schema.org","@graph":[{"@type":"MusicGroup","@id":"https://nextgensessions.com/artists/kastro/#artist","name":"Kastro","url":"https://nextgensessions.com/artists/kastro/","genre":"Jamaican Dancehall","description":"Hard-edged Jamaican dancehall with direct delivery, heavyweight production and a commanding presence.","mainEntityOfPage":{"@id":"https://nextgensessions.com/artists/kastro/#webpage"},"image":"https://nextgensessions.com/assets/artists/kastro-portrait.webp?v=20260806-kastro1","location":{"@type":"Place","name":"Jamaica"}},{"@type":"ProfilePage","@id":"https://nextgensessions.com/artists/kastro/#webpage","url":"https://nextgensessions.com/artists/kastro/","name":"Kastro | Jamaican Dancehall Artist | NextGen Sessions","description":"Discover Kastro, a Jamaican Dancehall artist on NextGen Sessions. Listen to Last Man Deh and Urban Reign. Explore more dancehall releases.","isPartOf":{"@id":"https://nextgensessions.com/#website"},"mainEntity":{"@id":"https://nextgensessions.com/artists/kastro/#artist"},"breadcrumb":{"@id":"https://nextgensessions.com/artists/kastro/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://nextgensessions.com/artists/kastro/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nextgensessions.com/"},{"@type":"ListItem","position":2,"name":"Artists","item":"https://nextgensessions.com/artists/"},{"@type":"ListItem","position":3,"name":"Kastro","item":"https://nextgensessions.com/artists/kastro/"}]}]}</script>
   <!-- NEXTGEN-SCHEMA:END -->
@@ -377,7 +378,18 @@
       </div>
     </section>
 
-    
+    <section class="profile-section" id="featured-release" aria-labelledby="featured-release-title">
+      <div class="profile-section-heading">
+        <p class="eyebrow">Official video</p>
+        <h2 id="featured-release-title">Watch Urban Reign</h2>
+      </div>
+      <article class="profile-video-card">
+        <div class="profile-video-frame">
+          <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/ESEyLheoF9Q?rel=0" title="Kastro — Urban Reign" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="profile-video-copy"><h3>Urban Reign</h3><p><a href="https://www.youtube.com/watch?v=ESEyLheoF9Q" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
+      </article>
+    </section>
 
     <section class="profile-section" id="artist-discography" aria-labelledby="artistDiscographyTitle">
       <div class="profile-section-heading profile-section-heading-split">
@@ -406,7 +418,7 @@
           </div>
         </article>
         <article class="discography-card">
-          <a class="discography-art" data-monogram="K" href="/releases/kastro-urban-reign/" aria-label="View Urban Reign by Kastro">
+          <a class="discography-art" data-monogram="K" href="#featured-release" aria-label="Play Urban Reign by Kastro on this page">
             <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/ESEyLheoF9Q/hqdefault.jpg" alt="Urban Reign by Kastro artwork">
             <span class="discography-play-mark" aria-hidden="true">▶</span>
           </a>
@@ -415,7 +427,7 @@
             <h3>Urban Reign</h3>
             <p>17 July 2026</p>
             <div class="discography-card-actions">
-              
+              <a class="discography-inline-play" href="#featured-release">▶ Play here</a>
               <a href="/releases/kastro-urban-reign/">Release page →</a>
               <a href="https://www.youtube.com/watch?v=ESEyLheoF9Q" target="_blank" rel="noopener">YouTube ↗</a>
             </div>
@@ -480,5 +492,6 @@
   <script src="/artist-profiles.js" defer></script>
   <script src="/artist-profiles-expanded.js?v=20260806-kastro1" defer></script>
   <script src="/artist-profile.js?v=20260810-playerfirst1" defer></script>
+  <script src="/site-metrics.js?v=20261019-profile-shell1" defer></script>
 </body>
 </html>

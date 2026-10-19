@@ -354,6 +354,7 @@
   
   
   
+  
   <!-- NEXTGEN-SCHEMA:START -->
   <script type="application/ld+json" data-schema-graph="nextgen">{"@context":"https://schema.org","@graph":[{"@type":"MusicGroup","@id":"https://nextgensessions.com/artists/renz-cole/#artist","name":"Renz Cole","url":"https://nextgensessions.com/artists/renz-cole/","genre":"UK Rap","description":"Modern London rap built around football-coded confidence, sharp personality, summer movement and memorable hooks.","mainEntityOfPage":{"@id":"https://nextgensessions.com/artists/renz-cole/#webpage"},"image":"https://nextgensessions.com/assets/artists/renz-cole-portrait.webp?v=20260805-renz6","location":{"@type":"Place","name":"London, UK"}},{"@type":"ProfilePage","@id":"https://nextgensessions.com/artists/renz-cole/#webpage","url":"https://nextgensessions.com/artists/renz-cole/","name":"Renz Cole | UK Rap Artist | NextGen Sessions","description":"Discover Renz Cole, a UK Rap artist on NextGen Sessions. Listen to Keep It Moving and Heatwave. Explore more uk rap & grime releases.","isPartOf":{"@id":"https://nextgensessions.com/#website"},"mainEntity":{"@id":"https://nextgensessions.com/artists/renz-cole/#artist"},"breadcrumb":{"@id":"https://nextgensessions.com/artists/renz-cole/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://nextgensessions.com/artists/renz-cole/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nextgensessions.com/"},{"@type":"ListItem","position":2,"name":"Artists","item":"https://nextgensessions.com/artists/"},{"@type":"ListItem","position":3,"name":"Renz Cole","item":"https://nextgensessions.com/artists/renz-cole/"}]}]}</script>
   <!-- NEXTGEN-SCHEMA:END -->
@@ -378,7 +379,18 @@
       </div>
     </section>
 
-    
+    <section class="profile-section" id="featured-release" aria-labelledby="featured-release-title">
+      <div class="profile-section-heading">
+        <p class="eyebrow">Official video</p>
+        <h2 id="featured-release-title">Watch Heatwave</h2>
+      </div>
+      <article class="profile-video-card">
+        <div class="profile-video-frame">
+          <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Sra1722xEFE?rel=0" title="Renz Cole — Heatwave" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="profile-video-copy"><h3>Heatwave</h3><p><a href="https://www.youtube.com/watch?v=Sra1722xEFE" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
+      </article>
+    </section>
 
     <section class="profile-section" id="artist-discography" aria-labelledby="artistDiscographyTitle">
       <div class="profile-section-heading profile-section-heading-split">
@@ -407,7 +419,7 @@
           </div>
         </article>
         <article class="discography-card">
-          <a class="discography-art" data-monogram="RC" href="/releases/renz-cole-heatwave/" aria-label="View Heatwave by Renz Cole">
+          <a class="discography-art" data-monogram="RC" href="#featured-release" aria-label="Play Heatwave by Renz Cole on this page">
             <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/Sra1722xEFE/hqdefault.jpg" alt="Heatwave by Renz Cole artwork">
             <span class="discography-play-mark" aria-hidden="true">▶</span>
           </a>
@@ -416,7 +428,7 @@
             <h3>Heatwave</h3>
             <p>31 July 2026</p>
             <div class="discography-card-actions">
-              
+              <a class="discography-inline-play" href="#featured-release">▶ Play here</a>
               <a href="/releases/renz-cole-heatwave/">Release page →</a>
               <a href="https://www.youtube.com/watch?v=Sra1722xEFE" target="_blank" rel="noopener">YouTube ↗</a>
             </div>
@@ -580,5 +592,6 @@
   <script src="/artist-profile.js?v=20260810-playerfirst1" defer></script>
   <script src="/artist-albums.js?v=20260805-renz6" defer></script>
   <script src="/featured-artist-experience.js?v=20260805-renz6" defer></script>
+  <script src="/site-metrics.js?v=20261019-profile-shell1" defer></script>
 </body>
 </html>

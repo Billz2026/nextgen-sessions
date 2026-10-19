@@ -352,6 +352,7 @@
   
   
   
+  
   <!-- NEXTGEN-SCHEMA:START -->
   <script type="application/ld+json" data-schema-graph="nextgen">{"@context":"https://schema.org","@graph":[{"@type":"MusicGroup","@id":"https://nextgensessions.com/artists/kemarco/#artist","name":"Kemarco","url":"https://nextgensessions.com/artists/kemarco/","genre":"Jamaican Dancehall","description":"Kemarco is a Jamaican dancehall artist on NextGen Sessions, pairing dark melodic gully production with disciplined, controlled delivery.","mainEntityOfPage":{"@id":"https://nextgensessions.com/artists/kemarco/#webpage"},"image":"https://nextgensessions.com/assets/artists/kemarco-portrait.webp","location":{"@type":"Place","name":"Jamaica"}},{"@type":"ProfilePage","@id":"https://nextgensessions.com/artists/kemarco/#webpage","url":"https://nextgensessions.com/artists/kemarco/","name":"Kemarco | Jamaican Dancehall Artist | NextGen Sessions","description":"Discover Kemarco, a Jamaican Dancehall artist on NextGen Sessions. Listen to Ghetto Blessings and Badman Don’t Rush. Explore more dancehall releases.","isPartOf":{"@id":"https://nextgensessions.com/#website"},"mainEntity":{"@id":"https://nextgensessions.com/artists/kemarco/#artist"},"breadcrumb":{"@id":"https://nextgensessions.com/artists/kemarco/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://nextgensessions.com/artists/kemarco/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nextgensessions.com/"},{"@type":"ListItem","position":2,"name":"Artists","item":"https://nextgensessions.com/artists/"},{"@type":"ListItem","position":3,"name":"Kemarco","item":"https://nextgensessions.com/artists/kemarco/"}]}]}</script>
   <!-- NEXTGEN-SCHEMA:END -->
@@ -376,7 +377,18 @@
       </div>
     </section>
 
-    
+    <section class="profile-section" id="featured-release" aria-labelledby="featured-release-title">
+      <div class="profile-section-heading">
+        <p class="eyebrow">Official video</p>
+        <h2 id="featured-release-title">Watch Ghetto Blessings</h2>
+      </div>
+      <article class="profile-video-card">
+        <div class="profile-video-frame">
+          <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/JI_O7wnEtCc?rel=0" title="Kemarco — Ghetto Blessings" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="profile-video-copy"><h3>Ghetto Blessings</h3><p><a href="https://www.youtube.com/watch?v=JI_O7wnEtCc" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
+      </article>
+    </section>
 
     <section class="profile-section" id="artist-discography" aria-labelledby="artistDiscographyTitle">
       <div class="profile-section-heading profile-section-heading-split">
@@ -389,7 +401,7 @@
       </div>
       <div class="discography-grid">
         <article class="discography-card">
-          <a class="discography-art" data-monogram="K" href="/releases/kemarco-ghetto-blessings/" aria-label="View Ghetto Blessings by Kemarco">
+          <a class="discography-art" data-monogram="K" href="#featured-release" aria-label="Play Ghetto Blessings by Kemarco on this page">
             <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/JI_O7wnEtCc/hqdefault.jpg" alt="Ghetto Blessings by Kemarco artwork">
             <span class="discography-play-mark" aria-hidden="true">▶</span>
           </a>
@@ -398,7 +410,7 @@
             <h3>Ghetto Blessings</h3>
             <p>17 August 2026</p>
             <div class="discography-card-actions">
-              
+              <a class="discography-inline-play" href="#featured-release">▶ Play here</a>
               <a href="/releases/kemarco-ghetto-blessings/">Release page →</a>
               <a href="https://www.youtube.com/watch?v=JI_O7wnEtCc" target="_blank" rel="noopener">YouTube ↗</a>
             </div>
@@ -475,5 +487,6 @@
   <script src="/artists/kemarco/profile.js?v=20260826-entity1" defer></script>
   <script src="/artist-profile.js?v=20260810-playerfirst1" defer></script>
   <script src="/artist-albums.js" defer></script>
+  <script src="/site-metrics.js?v=20261019-profile-shell1" defer></script>
 </body>
 </html>

@@ -475,5 +475,7 @@ const savedLatest = JSON.parse(await readFile(new URL("../latest-feed.json", imp
 assert.ok(savedLatest?.durationSeconds >= (savedLatest?.contentType === "long-mix" ? 600 : 181), "Saved Latest feed cannot contain a possible Short or unknown duration");
 assert.ok(!/\b(?:incoming|new\s+drop|shorts?|teaser|trailer|promo|preview)\b/i.test(savedLatest.rawTitle), "Saved Latest feed must not contain promotional Shorts");
 assert.ok(source.includes('if (durationSeconds < minimum) continue;'), "Live API must reject unknown and Short-length videos");
-assert.ok(latestFeedUpdater.includes('if seconds < minimum:'), "Scheduled updater must reject unknown and Short-length videos");
+assert.ok(latestFeedUpdater.includes('seconds >= minimum'), "Scheduled updater must reject unknown and Short-length videos");
+assert.ok(latestFeedUpdater.includes('MINIMUM_REGULAR_SECONDS = 181'), "Channel-only singles must exceed the 180-second Short duration limit");
+assert.ok(latestFeedUpdater.includes('lead_without_edits'), "Song titles with parenthetical riddim names must not be misclassified as full mixes");
 console.log("Homepage Latest policy passed: Shorts/announcements blocked, verified singles, albums and mixes permitted.");

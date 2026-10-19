@@ -82,6 +82,8 @@ for (const artist of artists) {
     `${artist.name} must expose its headline in HTML`,
   );
   assert.ok(page.includes('id="artist-discography"'), `${artist.name} must expose a crawlable discography section`);
+  assert.ok(page.includes('src="/site-metrics.js?v='), `${artist.name} must load shared mobile navigation/metrics on static profiles`);
+  assert.ok(page.includes('src="https://i.ytimg.com/vi/') || !releasesFor(profile).length, `${artist.name} should show publicly cached YouTube artwork`);
   assert.ok(page.includes('id="about-artist"'), `${artist.name} must expose a crawlable biography section`);
   assert.ok(page.includes("data-static-bio"), `${artist.name} must expose biography copy in HTML`);
 
@@ -97,6 +99,7 @@ for (const artist of artists) {
     const latest = [...published].sort((a, b) => (Date.parse(b.published || "") || 0) - (Date.parse(a.published || "") || 0))[0];
     assert.ok(page.includes(escapeHtml(latest.title)), `${artist.name} must expose its latest catalogue release in HTML`);
     assert.ok(page.includes(latest.url), `${artist.name} must link to its latest release page in HTML`);
+    assert.ok(page.includes(`https://www.youtube-nocookie.com/embed/${latest.id}?rel=0`) || (profile.featuredVideo?.id && published.some((item) => item.id === profile.featuredVideo.id) && page.includes(`https://www.youtube-nocookie.com/embed/${profile.featuredVideo.id}?rel=0`)), `${artist.name} must have a playable verified catalogue video on their profile`);
   }
 }
 

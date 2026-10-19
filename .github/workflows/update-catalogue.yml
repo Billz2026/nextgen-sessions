@@ -2,7 +2,8 @@ name: Update Release Catalogue
 
 on:
   schedule:
-    - cron: "7,37 * * * *"
+    # Four checks per hour, staggered from mix catalogue to avoid writer contention.
+    - cron: "5,20,35,50 * * * *"
   workflow_dispatch:
   push:
     branches: [main]

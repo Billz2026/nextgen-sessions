@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-19T20:13:22.866Z",
-  "total": 163,
+  "generatedAt": "2026-10-21T19:22:36.868Z",
+  "total": 164,
   "counts": {
     "artists": 35,
-    "releases": 111,
+    "releases": 112,
     "genres": 6,
     "mixes": 11,
     "upcomingReleases": 0
@@ -427,6 +427,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Queens State of Mind (MCDS Riddim)",
+      "subtitle": "Jay Starks",
+      "description": "Hip-Hop / G-Funk · 2026-10-21",
+      "url": "/releases/jay-starks-queens-state-of-mind-mcds-riddim/",
+      "date": "2026-10-21T17:00:09Z",
+      "keywords": [
+        "Jay Starks",
+        "Hip-Hop / G-Funk",
+        "Jay Starks - Queens State of Mind (MCDS Riddim) | Hip-Hop 2026 | NextGen Sessions",
+        "Queens State of Mind (MCDS Riddim)"
       ]
     },
     {

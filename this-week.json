@@ -1,11 +1,27 @@
 {
-  "generatedAt": "2026-10-19T20:13:22.714Z",
+  "generatedAt": "2026-10-21T19:22:36.736Z",
   "timezone": "Europe/London",
   "weekStart": "2026-10-19",
   "weekEnd": "2026-10-25",
   "weekLabel": "19–25 October 2026",
   "mode": "week",
   "items": [
+    {
+      "artist": "Jay Starks",
+      "artistSlug": "jay-starks",
+      "title": "Queens State of Mind (MCDS Riddim)",
+      "genre": "Hip-Hop / G-Funk",
+      "artistUrl": "/artists/jay-starks/",
+      "releaseUrl": "/releases/jay-starks-queens-state-of-mind-mcds-riddim/",
+      "dateLocal": "2026-10-21",
+      "dateLabel": "WED 21 OCT",
+      "longDate": "Wednesday, 21 October 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-10-21T17:00:09.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=7U0FJKvXtGk&size=card",
+      "source": "catalogue"
+    },
     {
       "artist": "Dean Lawson",
       "artistSlug": "dean-lawson",

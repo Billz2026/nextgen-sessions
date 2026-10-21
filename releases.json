@@ -5,13 +5,13 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-10-19T20:13:21.322532Z",
-  "total": 111,
+  "generatedAt": "2026-10-21T19:22:35.494665Z",
+  "total": 112,
   "counts": {
     "Dancehall": 36,
     "Reggae": 1,
     "UK Rap & Grime": 22,
-    "Hip-Hop / G-Funk": 22,
+    "Hip-Hop / G-Funk": 23,
     "Asian": 6,
     "Lovers Rock": 8,
     "R&B & Soul": 10,
@@ -22,6 +22,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "7U0FJKvXtGk",
+      "contentType": "full-release",
+      "artist": "Jay Starks",
+      "title": "Queens State of Mind (MCDS Riddim)",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-10-21T17:00:09Z",
+      "durationSeconds": 339,
+      "rawTitle": "Jay Starks - Queens State of Mind (MCDS Riddim) | Hip-Hop 2026 | NextGen Sessions",
+      "slug": "jay-starks-queens-state-of-mind-mcds-riddim",
+      "url": "/releases/jay-starks-queens-state-of-mind-mcds-riddim/"
+    },
     {
       "id": "y_gADQbXSho",
       "contentType": "full-release",

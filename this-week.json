@@ -1,11 +1,28 @@
 {
-  "generatedAt": "2026-10-21T19:22:36.736Z",
+  "generatedAt": "2026-10-23T17:40:07.895Z",
   "timezone": "Europe/London",
   "weekStart": "2026-10-19",
   "weekEnd": "2026-10-25",
   "weekLabel": "19–25 October 2026",
   "mode": "week",
   "items": [
+    {
+      "artist": "NextGen Sessions",
+      "artistSlug": "",
+      "title": "MCDS Riddim Mix",
+      "genre": "NextGen Special Mixes",
+      "contentType": "long-mix",
+      "artistUrl": "/mixes/",
+      "releaseUrl": "/mixes/",
+      "dateLocal": "2026-10-23",
+      "dateLabel": "FRI 23 OCT",
+      "longDate": "Friday, 23 October 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-10-23T17:00:27.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=-hXhTGLPkKc&size=card",
+      "source": "mix-catalogue"
+    },
     {
       "artist": "Jay Starks",
       "artistSlug": "jay-starks",

@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"7U0FJKvXtGk","contentType":"full-release","title":"Jay Starks – Queens State of Mind (MCDS Riddim)","published":"2026-10-21T17:00:09Z","url":"/releases/jay-starks-queens-state-of-mind-mcds-riddim/"};
+  const FALLBACK_LATEST = {"id":"-hXhTGLPkKc","contentType":"long-mix","title":"MCDS Riddim Mix","published":"2026-10-23T17:00:27Z","url":"/mixes/","durationSeconds":2654};
 
   const FALLBACK_RELEASES = [
     {"id":"7U0FJKvXtGk","contentType":"full-release","title":"Jay Starks – Queens State of Mind (MCDS Riddim)","published":"2026-10-21T17:00:09Z","url":"/releases/jay-starks-queens-state-of-mind-mcds-riddim/"},

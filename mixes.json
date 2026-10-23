@@ -7,8 +7,8 @@
     "genericMixTitlesAllowed": true,
     "albumsAllowed": false
   },
-  "generatedAt": "2026-10-19T20:12:06.960505Z",
-  "total": 11,
+  "generatedAt": "2026-10-23T17:40:07.263730Z",
+  "total": 12,
   "counts": {
     "grime": 1,
     "hip-hop": 2,
@@ -16,7 +16,7 @@
     "dancehall": 4,
     "summer": 1,
     "bhangra": 1,
-    "other": 0
+    "other": 1
   },
   "mixes": [
     {
@@ -161,6 +161,19 @@
       "durationSeconds": 2230,
       "rawTitle": "Desi Junction | Desi Mix | NextGen Sessions",
       "thumbnail": "https://i.ytimg.com/vi/-zp1PLcxn5w/hqdefault.jpg"
+    },
+    {
+      "id": "-hXhTGLPkKc",
+      "contentType": "long-mix",
+      "collection": "other",
+      "title": "MCDS Riddim Mix",
+      "label": "Full-length mix",
+      "name": "NextGen Mix",
+      "sequence": 0,
+      "published": "2026-10-23T17:00:27Z",
+      "durationSeconds": 2654,
+      "rawTitle": "MCDS Riddim Mix | Special Mix | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/-hXhTGLPkKc/hqdefault.jpg"
     }
   ]
 }

@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-10-21T19:32:29.409516Z",
+  "generatedAt": "2026-10-23T19:20:15.856454Z",
   "latest": {
-    "id": "7U0FJKvXtGk",
-    "contentType": "full-release",
-    "artist": "Jay Starks",
-    "title": "Queens State of Mind (MCDS Riddim)",
-    "rawTitle": "Jay Starks - Queens State of Mind (MCDS Riddim) | Hip-Hop 2026 | NextGen Sessions",
-    "published": "2026-10-21T17:00:09Z",
-    "durationSeconds": 339,
-    "url": "/releases/",
+    "id": "-hXhTGLPkKc",
+    "contentType": "long-mix",
+    "artist": "NextGen Sessions",
+    "title": "MCDS Riddim Mix",
+    "rawTitle": "MCDS Riddim Mix | Special Mix | NextGen Sessions",
+    "published": "2026-10-23T17:00:27Z",
+    "durationSeconds": 2654,
+    "url": "/mixes/",
     "discoverySource": "youtube-channel-feed"
   }
 }

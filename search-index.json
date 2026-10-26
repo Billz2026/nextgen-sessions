@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-21T19:22:36.868Z",
-  "total": 164,
+  "generatedAt": "2026-10-26T21:55:40.233Z",
+  "total": 165,
   "counts": {
     "artists": 35,
-    "releases": 112,
+    "releases": 113,
     "genres": 6,
     "mixes": 11,
     "upcomingReleases": 0
@@ -427,6 +427,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Raatan Lammiyan",
+      "subtitle": "Arif Sial",
+      "description": "Asian · 2026-10-26",
+      "url": "/releases/arif-sial-raatan-lammiyan/",
+      "date": "2026-10-26T18:00:35Z",
+      "keywords": [
+        "Arif Sial",
+        "Asian",
+        "Arif Sial - Raatan Lammiyan | Qawwali 2026 | NextGen Sessions",
+        "Raatan Lammiyan"
       ]
     },
     {

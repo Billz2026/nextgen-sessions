@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-10-26T00:15:14.996Z",
+  "generatedAt": "2026-10-26T21:55:40.147Z",
   "timezone": "Europe/London",
   "weekStart": "2026-10-26",
   "weekEnd": "2026-11-01",
   "weekLabel": "26 October–1 November 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Arif Sial",
+      "artistSlug": "arif-sial",
+      "title": "Raatan Lammiyan",
+      "genre": "Asian",
+      "artistUrl": "/artists/arif-sial/",
+      "releaseUrl": "/releases/arif-sial-raatan-lammiyan/",
+      "dateLocal": "2026-10-26",
+      "dateLabel": "MON 26 OCT",
+      "longDate": "Monday, 26 October 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-10-26T18:00:35.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=XIYMrjbetGE&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

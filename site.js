@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"-hXhTGLPkKc","contentType":"long-mix","title":"MCDS Riddim Mix","published":"2026-10-23T17:00:27Z","url":"/mixes/","durationSeconds":2654};
+  const FALLBACK_LATEST = {"id":"XIYMrjbetGE","contentType":"full-release","title":"Arif Sial – Raatan Lammiyan","published":"2026-10-26T18:00:35Z","url":"/releases/arif-sial-raatan-lammiyan/"};
 
   const FALLBACK_RELEASES = [
+    {"id":"XIYMrjbetGE","contentType":"full-release","title":"Arif Sial – Raatan Lammiyan","published":"2026-10-26T18:00:35Z","url":"/releases/arif-sial-raatan-lammiyan/"},
     {"id":"7U0FJKvXtGk","contentType":"full-release","title":"Jay Starks – Queens State of Mind (MCDS Riddim)","published":"2026-10-21T17:00:09Z","url":"/releases/jay-starks-queens-state-of-mind-mcds-riddim/"},
     {"id":"y_gADQbXSho","contentType":"full-release","title":"Dean Lawson – Dangerous Love (MCDS Riddim)","published":"2026-10-19T17:00:40Z","url":"/releases/dean-lawson-dangerous-love-mcds-riddim/"},
     {"id":"fZGV7LnHAFI","contentType":"full-release","title":"Jassi Noor – Gall Sun Ve","published":"2026-10-14T17:00:02Z","url":"/releases/jassi-noor-gall-sun-ve/"},
     {"id":"wpA3hPMAq80","contentType":"full-release","title":"Arif Sial – Chitta Suit Pa Ke","published":"2026-10-12T17:00:26Z","url":"/releases/arif-sial-chitta-suit-pa-ke/"},
-    {"id":"ysGQgRrHRDw","contentType":"full-release","title":"Alia Bleu – On My Side","published":"2026-10-07T17:00:27Z","url":"/releases/alia-bleu-on-my-side/"},
-    {"id":"xmbpD4Vxxgs","contentType":"full-release","title":"Alia Bleu – Bleu Armour","published":"2026-10-05T17:00:14Z","url":"/releases/alia-bleu-bleu-armour/"}
+    {"id":"ysGQgRrHRDw","contentType":"full-release","title":"Alia Bleu – On My Side","published":"2026-10-07T17:00:27Z","url":"/releases/alia-bleu-on-my-side/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

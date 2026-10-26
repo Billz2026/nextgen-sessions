@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-10-23T19:20:15.856454Z",
+  "generatedAt": "2026-10-26T19:26:51.171128Z",
   "latest": {
-    "id": "-hXhTGLPkKc",
-    "contentType": "long-mix",
-    "artist": "NextGen Sessions",
-    "title": "MCDS Riddim Mix",
-    "rawTitle": "MCDS Riddim Mix | Special Mix | NextGen Sessions",
-    "published": "2026-10-23T17:00:27Z",
-    "durationSeconds": 2654,
-    "url": "/mixes/",
+    "id": "XIYMrjbetGE",
+    "contentType": "full-release",
+    "artist": "Arif Sial",
+    "title": "Raatan Lammiyan",
+    "rawTitle": "Arif Sial - Raatan Lammiyan | Qawwali 2026 | NextGen Sessions",
+    "published": "2026-10-26T18:00:35Z",
+    "durationSeconds": 305,
+    "url": "/releases/",
     "discoverySource": "youtube-channel-feed"
   }
 }

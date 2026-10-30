@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-10-28T19:37:27.759979Z",
+  "generatedAt": "2026-10-30T18:01:47.904543Z",
   "latest": {
-    "id": "gbJCvYw7EzA",
-    "contentType": "full-release",
-    "artist": "Ali Qadeer",
-    "title": "Dil Di Awaaz",
-    "rawTitle": "Ali Qadeer - Dil Di Awaaz | Qawwali 2026 | NextGen Sessions",
-    "published": "2026-10-28T18:00:32Z",
-    "durationSeconds": 283,
-    "url": "/releases/",
+    "id": "Wc6tCzy4_yQ",
+    "contentType": "long-mix",
+    "artist": "NextGen Sessions",
+    "title": "Qawwali Nights Vol 1",
+    "rawTitle": "Qawwali Nights Vol 1 | Ali Qadeer, Arif Sial & Hamza Raza | Full Qawwali Mix 2026 | NextGen Sessions",
+    "published": "2026-10-30T18:00:34Z",
+    "durationSeconds": 2366,
+    "url": "/mixes/",
     "discoverySource": "youtube-channel-feed"
   }
 }

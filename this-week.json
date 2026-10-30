@@ -1,11 +1,28 @@
 {
-  "generatedAt": "2026-10-28T19:48:26.665Z",
+  "generatedAt": "2026-10-30T19:42:38.558Z",
   "timezone": "Europe/London",
   "weekStart": "2026-10-26",
   "weekEnd": "2026-11-01",
   "weekLabel": "26 October–1 November 2026",
   "mode": "week",
   "items": [
+    {
+      "artist": "NextGen Sessions",
+      "artistSlug": "",
+      "title": "Qawwali Nights Vol 1",
+      "genre": "Desi Mixes",
+      "contentType": "long-mix",
+      "artistUrl": "/mixes/",
+      "releaseUrl": "/mixes/",
+      "dateLocal": "2026-10-30",
+      "dateLabel": "FRI 30 OCT",
+      "longDate": "Friday, 30 October 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-10-30T18:00:34.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=Wc6tCzy4_yQ&size=card",
+      "source": "mix-catalogue"
+    },
     {
       "artist": "Ali Qadeer",
       "artistSlug": "",

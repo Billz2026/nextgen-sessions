@@ -7,15 +7,15 @@
     "genericMixTitlesAllowed": true,
     "albumsAllowed": false
   },
-  "generatedAt": "2026-10-23T17:40:07.263730Z",
-  "total": 12,
+  "generatedAt": "2026-10-30T19:42:35.928920Z",
+  "total": 13,
   "counts": {
     "grime": 1,
     "hip-hop": 2,
     "uk-rap": 2,
     "dancehall": 4,
     "summer": 1,
-    "bhangra": 1,
+    "bhangra": 2,
     "other": 1
   },
   "mixes": [
@@ -161,6 +161,19 @@
       "durationSeconds": 2230,
       "rawTitle": "Desi Junction | Desi Mix | NextGen Sessions",
       "thumbnail": "https://i.ytimg.com/vi/-zp1PLcxn5w/hqdefault.jpg"
+    },
+    {
+      "id": "Wc6tCzy4_yQ",
+      "contentType": "long-mix",
+      "collection": "bhangra",
+      "title": "Qawwali Nights Vol 1",
+      "label": "Full-length mix",
+      "name": "Bhangra Mix",
+      "sequence": 0,
+      "published": "2026-10-30T18:00:34Z",
+      "durationSeconds": 2366,
+      "rawTitle": "Qawwali Nights Vol 1 | Ali Qadeer, Arif Sial & Hamza Raza | Full Qawwali Mix 2026 | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/Wc6tCzy4_yQ/hqdefault.jpg"
     },
     {
       "id": "-hXhTGLPkKc",

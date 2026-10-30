@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"gbJCvYw7EzA","contentType":"full-release","title":"Ali Qadeer – Dil Di Awaaz","published":"2026-10-28T18:00:32Z","url":"/releases/ali-qadeer-dil-di-awaaz/"};
+  const FALLBACK_LATEST = {"id":"Wc6tCzy4_yQ","contentType":"long-mix","title":"Qawwali Nights Vol 1","published":"2026-10-30T18:00:34Z","url":"/mixes/","durationSeconds":2366};
 
   const FALLBACK_RELEASES = [
     {"id":"gbJCvYw7EzA","contentType":"full-release","title":"Ali Qadeer – Dil Di Awaaz","published":"2026-10-28T18:00:32Z","url":"/releases/ali-qadeer-dil-di-awaaz/"},

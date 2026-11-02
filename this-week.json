@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-11-02T02:19:03.336Z",
+  "generatedAt": "2026-11-02T19:07:32.930Z",
   "timezone": "Europe/London",
   "weekStart": "2026-11-02",
   "weekEnd": "2026-11-08",
   "weekLabel": "2–8 November 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Deon Creed",
+      "artistSlug": "deon-creed",
+      "title": "Hood Flashbacks (Single)",
+      "genre": "Hip-Hop / G-Funk",
+      "artistUrl": "/artists/deon-creed/",
+      "releaseUrl": "/releases/deon-creed-hood-flashbacks-single/",
+      "dateLocal": "2026-11-02",
+      "dateLabel": "MON 2 NOV",
+      "longDate": "Monday, 2 November 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-11-02T18:00:26.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=Gd-KIm6y9dI&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

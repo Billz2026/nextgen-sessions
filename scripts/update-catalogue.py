@@ -258,16 +258,16 @@ def group_for_channel_release(artist: str, raw_title: str, existing_catalogue: d
     # New artists need a clearly labelled genre; never guess from their name.
     metadata = " | ".join(raw_title.split("|")[1:]).casefold()
     mappings = [
-        (r"\\b(?:uk rap|grime)\\b", "UK Rap & Grime"),
-        (r"\\b(?:dancehall|bashment)\\b", "Dancehall"),
-        (r"\\b(?:lovers rock)\\b", "Lovers Rock"),
-        (r"\\b(?:reggae)\\b", "Reggae"),
-        (r"\\b(?:hip[- ]hop|g[- ]funk|west coast rap)\\b", "Hip-Hop / G-Funk"),
-        (r"\\b(?:r&b|rnb|soul)\\b", "R&B & Soul"),
-        (r"\\b(?:punjabi|bhangra|qawwali|saraiki|desi)\\b", "Asian"),
-        (r"\\b(?:arabic|oud)\\b", "Arabic"),
-        (r"\\b(?:afrobeat|afroswing|afro swing)\\b", "Late Night Afro"),
-        (r"\\bpop\\b", "Pop"),
+        (r"\b(?:uk rap|grime)\b", "UK Rap & Grime"),
+        (r"\b(?:dancehall|bashment)\b", "Dancehall"),
+        (r"\b(?:lovers rock)\b", "Lovers Rock"),
+        (r"\b(?:reggae)\b", "Reggae"),
+        (r"\b(?:hip[- ]hop|g[- ]funk|west coast rap)\b", "Hip-Hop / G-Funk"),
+        (r"\b(?:r&b|rnb|soul)\b", "R&B & Soul"),
+        (r"\b(?:punjabi|bhangra|qawwali|saraiki|desi)\b", "Asian"),
+        (r"\b(?:arabic|oud)\b", "Arabic"),
+        (r"\b(?:afrobeat|afroswing|afro swing)\b", "Late Night Afro"),
+        (r"\bpop\b", "Pop"),
     ]
     for pattern, group in mappings:
         if re.search(pattern, metadata):
@@ -287,7 +287,7 @@ def public_channel_candidates(upload_items: list[dict], existing_catalogue: dict
         raw_title = str(item.get("snippet", {}).get("title", "")).strip()
         privacy = str(item.get("status", {}).get("privacyStatus", ""))
         if (
-            not re.fullmatch(r"[\\w-]{11}", video_id)
+            not re.fullmatch(r"[\w-]{11}", video_id)
             or video_id in seen
             or privacy != "public"
             or not raw_title

@@ -1,0 +1,36 @@
+name: Verify Public Channel Release Discovery
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "scripts/update-catalogue.py"
+      - "scripts/test-public-channel-discovery.py"
+      - ".github/workflows/test-channel-discovery.yml"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/update-catalogue.py"
+      - "scripts/test-public-channel-discovery.py"
+      - ".github/workflows/test-channel-discovery.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Verify new public channel release discovery
+        run: python3 scripts/test-public-channel-discovery.py
+
+      - name: Verify scheduled-release compatibility
+        run: python3 scripts/test-scheduled-channel-discovery.py
+
+      - name: Verify unavailable-playlist resilience
+        run: python3 scripts/test-catalogue-resilience.py

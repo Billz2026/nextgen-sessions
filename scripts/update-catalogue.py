@@ -31,6 +31,18 @@ PLAYLISTS = [
 FULL_RELEASE_CONTENT_TYPE = "full-release"
 MINIMUM_FULL_RELEASE_SECONDS = 75
 PERSISTENT_DISCOVERY_SOURCE = "scheduled-channel-upload"
+YOUTUBE_CHANNEL_ID = "UCJdBLa1mf6yxk7xaOzSpBjg"
+CHANNEL_UPLOADS_PLAYLIST_ID = "UU" + YOUTUBE_CHANNEL_ID[2:]
+CHANNEL_DISCOVERY_SOURCE = "public-channel-upload"
+MINIMUM_DISCOVERED_SECONDS = 181
+# A channel upload must be a song, not a mix, album, trailer or promotional video.
+CHANNEL_NON_RELEASE = re.compile(
+    r"\b(?:full\s+album|album|mixtape|mashup|compilation|playlist|full\s+mix|"
+    r"mix|qawwali\s+nights?|live\s+stream|best\s+of|"
+    r"behind\s+the\s+scenes|interview)\b|\bvol(?:ume)?\.?\s*\d+\b",
+    re.IGNORECASE,
+)
+
 
 # Verified full releases that are not currently present in a genre playlist.
 # Only the identity/group are pinned here; title/status/publication time are
@@ -202,7 +214,7 @@ def existing_playlist_candidates(existing_catalogue: dict, group: str) -> list[d
 
 
 def persistent_scheduled_candidates(existing_catalogue: dict) -> list[dict]:
-    """Retain releases that were safely discovered from the public channel after release time.
+    """Retain verified releases discovered from public channel uploads after release time.
 
     These are intentionally persisted even when a curator has not yet added the video to a
     genre playlist. If the video later appears in a curated playlist, that playlist candidate
@@ -211,7 +223,7 @@ def persistent_scheduled_candidates(existing_catalogue: dict) -> list[dict]:
     releases = existing_catalogue.get("releases", []) if isinstance(existing_catalogue, dict) else []
     output: list[dict] = []
     for release in releases:
-        if release.get("discoverySource") != PERSISTENT_DISCOVERY_SOURCE:
+        if release.get("discoverySource") not in {PERSISTENT_DISCOVERY_SOURCE, CHANNEL_DISCOVERY_SOURCE}:
             continue
         video_id = str(release.get("id", ""))
         artist = str(release.get("artist", "")).strip()
@@ -226,10 +238,98 @@ def persistent_scheduled_candidates(existing_catalogue: dict) -> list[dict]:
                 "rawTitle": release.get("rawTitle", ""),
                 "artist": artist,
                 "title": title,
-                "discoverySource": PERSISTENT_DISCOVERY_SOURCE,
+                "discoverySource": release["discoverySource"],
             }
         )
     return output
+
+
+
+def group_for_channel_release(artist: str, raw_title: str, existing_catalogue: dict) -> str:
+    """Use an established artist category first, then an explicit genre label in the title."""
+    known_groups = {group for _, group in PLAYLISTS}
+    for release in existing_catalogue.get("releases", []):
+        if (
+            str(release.get("artist", "")).casefold() == artist.casefold()
+            and release.get("group") in known_groups
+        ):
+            return str(release["group"])
+
+    # New artists need a clearly labelled genre; never guess from their name.
+    metadata = " | ".join(raw_title.split("|")[1:]).casefold()
+    mappings = [
+        (r"\b(?:uk rap|grime)\b", "UK Rap & Grime"),
+        (r"\b(?:dancehall|bashment)\b", "Dancehall"),
+        (r"\b(?:lovers rock)\b", "Lovers Rock"),
+        (r"\b(?:reggae)\b", "Reggae"),
+        (r"\b(?:hip[- ]hop|g[- ]funk|west coast rap)\b", "Hip-Hop / G-Funk"),
+        (r"\b(?:r&b|rnb|soul)\b", "R&B & Soul"),
+        (r"\b(?:punjabi|bhangra|qawwali|saraiki|desi)\b", "Asian"),
+        (r"\b(?:arabic|oud)\b", "Arabic"),
+        (r"\b(?:afrobeat|afroswing|afro swing)\b", "Late Night Afro"),
+        (r"\bpop\b", "Pop"),
+    ]
+    for pattern, group in mappings:
+        if re.search(pattern, metadata):
+            return group
+    return ""
+
+
+def public_channel_candidates(upload_items: list[dict], existing_catalogue: dict, seen: set[str]) -> list[dict]:
+    """Identify full-song candidates from this channel, whether or not in a curated playlist.
+
+    The YouTube videos endpoint later verifies public visibility, owner, duration and
+    publication timestamp before any candidate is published.
+    """
+    candidates: list[dict] = []
+    for item in upload_items:
+        video_id = str(item.get("contentDetails", {}).get("videoId", ""))
+        raw_title = str(item.get("snippet", {}).get("title", "")).strip()
+        privacy = str(item.get("status", {}).get("privacyStatus", ""))
+        if (
+            not re.fullmatch(r"[\w-]{11}", video_id)
+            or video_id in seen
+            or privacy != "public"
+            or not raw_title
+            or EXCLUDED.search(raw_title)
+            or CHANNEL_NON_RELEASE.search(raw_title)
+        ):
+            continue
+        artist, title = split_artist_title(raw_title)
+        if not artist or not title or artist.casefold() == "nextgen sessions":
+            continue
+        # A channel upload must parse as a named artist release, never a generic title.
+        lead = raw_title.split("|", 1)[0].strip()
+        known_artist = any(
+            str(prior.get("artist", "")).casefold() == artist.casefold()
+            for prior in existing_catalogue.get("releases", [])
+        ) or artist in KNOWN_ARTISTS
+        if not known_artist and not re.search(r"\s[-–—]\s", lead):
+            continue
+        group = group_for_channel_release(artist, raw_title, existing_catalogue)
+        if not group:
+            print(f"Unclassified public channel upload (not published): {video_id} — {raw_title}", file=sys.stderr)
+            continue
+        candidates.append({
+            "id": video_id,
+            "group": group,
+            "artist": artist,
+            "title": title,
+            "rawTitle": raw_title,
+            "discoverySource": CHANNEL_DISCOVERY_SOURCE,
+        })
+        seen.add(video_id)
+    return candidates
+
+
+def recent_public_channel_uploads() -> list[dict]:
+    # Only the newest 50 uploads are relevant; use one API request, not full pagination.
+    return youtube_api(
+        "playlistItems",
+        part="snippet,contentDetails,status",
+        playlistId=CHANNEL_UPLOADS_PLAYLIST_ID,
+        maxResults="50",
+    ).get("items", [])
 
 
 def build_catalogue(existing_catalogue: dict | None = None) -> dict:
@@ -283,11 +383,22 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
             )
             seen.add(video_id)
 
+    # Scheduled releases and previously verified channel discoveries remain durable
+    # even if the public upload temporarily drops out of the most recent 50.
     for candidate in persistent_scheduled_candidates(existing_catalogue):
-        if candidate["id"] in seen:
-            continue
-        candidates.append(candidate)
-        seen.add(candidate["id"])
+        if candidate["id"] not in seen:
+            candidates.append(candidate)
+            seen.add(candidate["id"])
+
+    if os.environ.get("YT_KEY"):
+        try:
+            channel = public_channel_candidates(recent_public_channel_uploads(), existing_catalogue, seen)
+            candidates.extend(channel)
+            if channel:
+                print(f"Discovered {len(channel)} new public channel release candidate(s).")
+        except Exception as error:
+            # A temporary channel API failure cannot erase prior verified releases.
+            print(f"Warning: channel upload discovery unavailable: {error}", file=sys.stderr)
 
     for extra in VERIFIED_EXTRA_RELEASES:
         video_id = extra["id"]
@@ -306,6 +417,11 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
         status = video.get("status", {})
         if status.get("privacyStatus", "") not in ("public", "unlisted"):
             continue
+        if candidate.get("discoverySource") == CHANNEL_DISCOVERY_SOURCE:
+            if status.get("privacyStatus") != "public" or video.get("snippet", {}).get("channelId") != YOUTUBE_CHANNEL_ID:
+                continue
+            if video.get("snippet", {}).get("liveBroadcastContent") in ("live", "upcoming"):
+                continue
         if candidate.get("group") == "Pop" and status.get("privacyStatus") != "public":
             continue
 
@@ -318,6 +434,7 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
             or EXCLUDED.search(raw_title)
             or not is_published(published)
             or duration < MINIMUM_FULL_RELEASE_SECONDS
+            or (candidate.get("discoverySource") == CHANNEL_DISCOVERY_SOURCE and duration < MINIMUM_DISCOVERED_SECONDS)
         ):
             continue
 

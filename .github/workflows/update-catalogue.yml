@@ -10,6 +10,7 @@ on:
     paths:
       - ".github/workflows/update-catalogue.yml"
       - "scripts/update-catalogue.py"
+      - "scripts/test-public-channel-discovery.py"
       - "scripts/discover-scheduled-releases.py"
       - "scripts/render-releases.py"
       - "scripts/enrich-release-pages.mjs"
@@ -215,6 +216,9 @@ jobs:
 
       - name: Validate scheduled channel discovery
         run: python3 scripts/test-scheduled-channel-discovery.py
+
+      - name: Validate public channel release discovery
+        run: python3 scripts/test-public-channel-discovery.py
 
       - name: Validate universal site search
         run: node scripts/test-site-search.mjs

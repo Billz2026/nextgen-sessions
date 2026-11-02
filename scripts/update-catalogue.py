@@ -38,7 +38,7 @@ MINIMUM_DISCOVERED_SECONDS = 181
 # A channel upload must be a song, not a mix, album, trailer or promotional video.
 CHANNEL_NON_RELEASE = re.compile(
     r"\b(?:full\s+album|album|mixtape|mashup|compilation|playlist|full\s+mix|"
-    r"mix\s+20\d{2}|qawwali\s+nights?|live\s+stream|best\s+of|"
+    r"mix|qawwali\s+nights?|live\s+stream|best\s+of|"
     r"behind\s+the\s+scenes|interview)\b|\bvol(?:ume)?\.?\s*\d+\b",
     re.IGNORECASE,
 )
@@ -238,7 +238,7 @@ def persistent_scheduled_candidates(existing_catalogue: dict) -> list[dict]:
                 "rawTitle": release.get("rawTitle", ""),
                 "artist": artist,
                 "title": title,
-                "discoverySource": PERSISTENT_DISCOVERY_SOURCE,
+                "discoverySource": release["discoverySource"],
             }
         )
     return output
@@ -293,11 +293,18 @@ def public_channel_candidates(upload_items: list[dict], existing_catalogue: dict
             or not raw_title
             or EXCLUDED.search(raw_title)
             or CHANNEL_NON_RELEASE.search(raw_title)
-            or "nextgen sessions" not in raw_title.casefold()
         ):
             continue
         artist, title = split_artist_title(raw_title)
         if not artist or not title or artist.casefold() == "nextgen sessions":
+            continue
+        # A channel upload must parse as a named artist release, never a generic title.
+        lead = raw_title.split("|", 1)[0].strip()
+        known_artist = any(
+            str(prior.get("artist", "")).casefold() == artist.casefold()
+            for prior in existing_catalogue.get("releases", [])
+        ) or artist in KNOWN_ARTISTS
+        if not known_artist and not re.search(r"\s[-–—]\s", lead):
             continue
         group = group_for_channel_release(artist, raw_title, existing_catalogue)
         if not group:

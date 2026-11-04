@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-02T19:07:33.049Z",
-  "total": 167,
+  "generatedAt": "2026-11-04T23:32:48.695Z",
+  "total": 168,
   "counts": {
     "artists": 35,
-    "releases": 115,
+    "releases": 116,
     "genres": 6,
     "mixes": 11,
     "upcomingReleases": 0
@@ -427,6 +427,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Came Back Around",
+      "subtitle": "Deon Creed",
+      "description": "Hip-Hop / G-Funk · 2026-11-04",
+      "url": "/releases/deon-creed-came-back-around/",
+      "date": "2026-11-04T18:00:08Z",
+      "keywords": [
+        "Deon Creed",
+        "Hip-Hop / G-Funk",
+        "Deon Creed - Came Back Around | Hip-Hop 2026 | NextGen Sessions",
+        "Came Back Around"
       ]
     },
     {

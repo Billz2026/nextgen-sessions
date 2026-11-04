@@ -5,13 +5,13 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-11-02T19:07:31.827071Z",
-  "total": 115,
+  "generatedAt": "2026-11-04T23:32:47.307613Z",
+  "total": 116,
   "counts": {
     "Dancehall": 36,
     "Reggae": 1,
     "UK Rap & Grime": 22,
-    "Hip-Hop / G-Funk": 24,
+    "Hip-Hop / G-Funk": 25,
     "Asian": 8,
     "Lovers Rock": 8,
     "R&B & Soul": 10,
@@ -22,6 +22,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "bPZOaAN75f4",
+      "contentType": "full-release",
+      "artist": "Deon Creed",
+      "title": "Came Back Around",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-11-04T18:00:08Z",
+      "durationSeconds": 278,
+      "rawTitle": "Deon Creed - Came Back Around | Hip-Hop 2026 | NextGen Sessions",
+      "slug": "deon-creed-came-back-around",
+      "url": "/releases/deon-creed-came-back-around/"
+    },
     {
       "id": "Gd-KIm6y9dI",
       "contentType": "full-release",

@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-11-04T22:49:52.567057Z",
+  "generatedAt": "2026-11-06T22:24:52.051208Z",
   "latest": {
-    "id": "bPZOaAN75f4",
-    "contentType": "full-release",
+    "id": "7Ipptm8b554",
+    "contentType": "album",
     "artist": "Deon Creed",
-    "title": "Came Back Around",
-    "rawTitle": "Deon Creed - Came Back Around | Hip-Hop 2026 | NextGen Sessions",
-    "published": "2026-11-04T18:00:08Z",
-    "durationSeconds": 278,
-    "url": "/releases/",
+    "title": "Hood Flashbacks Full Album",
+    "rawTitle": "Deon Creed - Hood Flashbacks Full Album | Hip-Hop 2026 | NextGen Sessions",
+    "published": "2026-11-06T18:00:39Z",
+    "durationSeconds": 3179,
+    "url": "/mixes/full-albums/",
     "discoverySource": "youtube-channel-feed"
   }
 }

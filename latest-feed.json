@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-11-06T22:24:52.051208Z",
+  "generatedAt": "2026-11-09T20:53:16.001847Z",
   "latest": {
-    "id": "7Ipptm8b554",
-    "contentType": "album",
-    "artist": "Deon Creed",
-    "title": "Hood Flashbacks Full Album",
-    "rawTitle": "Deon Creed - Hood Flashbacks Full Album | Hip-Hop 2026 | NextGen Sessions",
-    "published": "2026-11-06T18:00:39Z",
-    "durationSeconds": 3179,
-    "url": "/mixes/full-albums/",
+    "id": "p1H92T9rwzg",
+    "contentType": "full-release",
+    "artist": "Kemarco",
+    "title": "Nuh Ramp Wid Mi",
+    "rawTitle": "Kemarco - Nuh Ramp Wid Mi | Dancehall 2026 | NextGen Sessions",
+    "published": "2026-11-09T18:00:14Z",
+    "durationSeconds": 300,
+    "url": "/releases/",
     "discoverySource": "youtube-channel-feed"
   }
 }

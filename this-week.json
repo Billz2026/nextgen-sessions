@@ -1,43 +1,10 @@
 {
-  "generatedAt": "2026-11-04T23:32:48.547Z",
+  "generatedAt": "2026-11-09T02:02:05.161Z",
   "timezone": "Europe/London",
-  "weekStart": "2026-11-02",
-  "weekEnd": "2026-11-08",
-  "weekLabel": "2–8 November 2026",
-  "mode": "week",
-  "items": [
-    {
-      "artist": "Deon Creed",
-      "artistSlug": "deon-creed",
-      "title": "Came Back Around",
-      "genre": "Hip-Hop / G-Funk",
-      "artistUrl": "/artists/deon-creed/",
-      "releaseUrl": "/releases/deon-creed-came-back-around/",
-      "dateLocal": "2026-11-04",
-      "dateLabel": "WED 4 NOV",
-      "longDate": "Wednesday, 4 November 2026",
-      "timeLocal": "",
-      "releaseAt": "2026-11-04T18:00:08.000Z",
-      "status": "live",
-      "image": "/api/release-image?id=bPZOaAN75f4&size=card",
-      "source": "catalogue"
-    },
-    {
-      "artist": "Deon Creed",
-      "artistSlug": "deon-creed",
-      "title": "Hood Flashbacks (Single)",
-      "genre": "Hip-Hop / G-Funk",
-      "artistUrl": "/artists/deon-creed/",
-      "releaseUrl": "/releases/deon-creed-hood-flashbacks-single/",
-      "dateLocal": "2026-11-02",
-      "dateLabel": "MON 2 NOV",
-      "longDate": "Monday, 2 November 2026",
-      "timeLocal": "",
-      "releaseAt": "2026-11-02T18:00:26.000Z",
-      "status": "live",
-      "image": "/api/release-image?id=Gd-KIm6y9dI&size=card",
-      "source": "catalogue"
-    }
-  ],
+  "weekStart": "2026-11-09",
+  "weekEnd": "2026-11-15",
+  "weekLabel": "9–15 November 2026",
+  "mode": "empty",
+  "items": [],
   "nextUp": null
 }

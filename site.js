@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"bPZOaAN75f4","contentType":"full-release","title":"Deon Creed – Came Back Around","published":"2026-11-04T18:00:08Z","url":"/releases/deon-creed-came-back-around/"};
+  const FALLBACK_LATEST = {"id":"p1H92T9rwzg","contentType":"full-release","title":"Kemarco – Nuh Ramp Wid Mi","published":"2026-11-09T18:00:14Z","url":"/releases/kemarco-nuh-ramp-wid-mi/"};
 
   const FALLBACK_RELEASES = [
+    {"id":"p1H92T9rwzg","contentType":"full-release","title":"Kemarco – Nuh Ramp Wid Mi","published":"2026-11-09T18:00:14Z","url":"/releases/kemarco-nuh-ramp-wid-mi/"},
     {"id":"bPZOaAN75f4","contentType":"full-release","title":"Deon Creed – Came Back Around","published":"2026-11-04T18:00:08Z","url":"/releases/deon-creed-came-back-around/"},
     {"id":"Gd-KIm6y9dI","contentType":"full-release","title":"Deon Creed – Hood Flashbacks (Single)","published":"2026-11-02T18:00:26Z","url":"/releases/deon-creed-hood-flashbacks-single/"},
     {"id":"gbJCvYw7EzA","contentType":"full-release","title":"Ali Qadeer – Dil Di Awaaz","published":"2026-10-28T18:00:32Z","url":"/releases/ali-qadeer-dil-di-awaaz/"},
     {"id":"XIYMrjbetGE","contentType":"full-release","title":"Arif Sial – Raatan Lammiyan","published":"2026-10-26T18:00:35Z","url":"/releases/arif-sial-raatan-lammiyan/"},
-    {"id":"7U0FJKvXtGk","contentType":"full-release","title":"Jay Starks – Queens State of Mind (MCDS Riddim)","published":"2026-10-21T17:00:09Z","url":"/releases/jay-starks-queens-state-of-mind-mcds-riddim/"},
-    {"id":"y_gADQbXSho","contentType":"full-release","title":"Dean Lawson – Dangerous Love (MCDS Riddim)","published":"2026-10-19T17:00:40Z","url":"/releases/dean-lawson-dangerous-love-mcds-riddim/"}
+    {"id":"7U0FJKvXtGk","contentType":"full-release","title":"Jay Starks – Queens State of Mind (MCDS Riddim)","published":"2026-10-21T17:00:09Z","url":"/releases/jay-starks-queens-state-of-mind-mcds-riddim/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

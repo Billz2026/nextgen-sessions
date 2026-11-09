@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-11-09T02:02:05.161Z",
+  "generatedAt": "2026-11-09T20:10:44.007Z",
   "timezone": "Europe/London",
   "weekStart": "2026-11-09",
   "weekEnd": "2026-11-15",
   "weekLabel": "9–15 November 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Kemarco",
+      "artistSlug": "kemarco",
+      "title": "Nuh Ramp Wid Mi",
+      "genre": "Dancehall",
+      "artistUrl": "/artists/kemarco/",
+      "releaseUrl": "/releases/kemarco-nuh-ramp-wid-mi/",
+      "dateLocal": "2026-11-09",
+      "dateLabel": "MON 9 NOV",
+      "longDate": "Monday, 9 November 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-11-09T18:00:14.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=p1H92T9rwzg&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

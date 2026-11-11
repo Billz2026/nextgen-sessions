@@ -1,11 +1,27 @@
 {
-  "generatedAt": "2026-11-09T20:10:44.007Z",
+  "generatedAt": "2026-11-11T18:06:27.242Z",
   "timezone": "Europe/London",
   "weekStart": "2026-11-09",
   "weekEnd": "2026-11-15",
   "weekLabel": "9–15 November 2026",
   "mode": "week",
   "items": [
+    {
+      "artist": "Kemarco",
+      "artistSlug": "kemarco",
+      "title": "Gyal, A Weh Mi Do Yuh?",
+      "genre": "Dancehall",
+      "artistUrl": "/artists/kemarco/",
+      "releaseUrl": "/releases/kemarco-gyal-a-weh-mi-do-yuh/",
+      "dateLocal": "2026-11-11",
+      "dateLabel": "WED 11 NOV",
+      "longDate": "Wednesday, 11 November 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-11-11T18:00:10.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=Cr_YutUI_wU&size=card",
+      "source": "catalogue"
+    },
     {
       "artist": "Kemarco",
       "artistSlug": "kemarco",

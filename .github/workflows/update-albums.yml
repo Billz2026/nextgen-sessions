@@ -12,6 +12,8 @@ on:
       - "scripts/preserve-generated-at.mjs"
       - "scripts/test-latest-policy.mjs"
       - "scripts/render-album-collection.py"
+      - "scripts/album_metadata.py"
+      - "scripts/test-album-metadata.py"
       - "scripts/test-album-collection.py"
       - "albums.json"
 
@@ -39,8 +41,10 @@ jobs:
       - name: Snapshot album catalogue
         run: cp albums.json /tmp/albums-before.json || true
 
+      - name: Validate new-album title inference
+        run: python3 scripts/test-album-metadata.py
+
       - name: Build album catalogue
-        continue-on-error: true
         run: |
           set -euo pipefail
 
@@ -52,6 +56,7 @@ jobs:
           python3 - <<'PY'
           import json
           import os
+          from scripts.album_metadata import infer_album_metadata
           import urllib.parse
           import urllib.request
           from datetime import datetime, timezone
@@ -143,7 +148,8 @@ jobs:
                   "position": positions.get(video_id, 0),
                   "thumbnail": thumbnail,
               }
-              album.update(VERIFIED_ALBUMS.get(video_id, {}))
+              album.update(VERIFIED_ALBUMS.get(video_id) or infer_album_metadata(album["rawTitle"]))
+              print(f"Verified album: {album['artist']} — {album['albumTitle']} ({video_id})")
               albums.append(album)
 
           albums.sort(key=lambda album: (album.get("position", 0), album.get("published", "")))

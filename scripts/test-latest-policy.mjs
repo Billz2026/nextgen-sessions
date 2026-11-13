@@ -443,7 +443,8 @@ const announcementResult = await simulateHomepageLinks({
   "/latest-feed.json": { latest: announcement }
 });
 assert.notEqual(announcementResult.title, announcement.title, "Album announcement Short must not be Latest");
-assert.notEqual(announcementResult.hero.href, "/mixes/full-albums/", "Announcement must not masquerade as an album");
+assert.ok(!announcementResult.grid.includes("SSSSSSSSSSS"), "Album announcement Short must not appear in the release grid");
+assert.ok(!announcementResult.grid.includes(announcement.title), "Announcement text must never be presented as a full album");
 
 const shortWithNormalTitle = {
   ...genericFeedTrack, id: "TTTTTTTTTTT",

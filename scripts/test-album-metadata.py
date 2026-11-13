@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Regression checks for newly discovered official album titles."""
-from scripts.album_metadata import infer_album_metadata
+from album_metadata import infer_album_metadata
 
 cases = [
     ("Kemarco - Badman Don't Rush | Full Dancehall Album 2026 | NextGen Sessions",

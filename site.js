@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"Cr_YutUI_wU","contentType":"full-release","title":"Kemarco – Gyal, A Weh Mi Do Yuh?","published":"2026-11-11T18:00:10Z","url":"/releases/kemarco-gyal-a-weh-mi-do-yuh/"};
+  const FALLBACK_LATEST = {"id":"_JbKiJk5FnY","contentType":"album","title":"Kemarco – Badman Don't Rush (Full Album)","published":"2026-11-13T18:00:28Z","url":"/mixes/full-albums/"};
 
   const FALLBACK_RELEASES = [
     {"id":"Cr_YutUI_wU","contentType":"full-release","title":"Kemarco – Gyal, A Weh Mi Do Yuh?","published":"2026-11-11T18:00:10Z","url":"/releases/kemarco-gyal-a-weh-mi-do-yuh/"},

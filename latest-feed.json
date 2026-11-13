@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-11-11T23:57:09.072663Z",
+  "generatedAt": "2026-11-13T22:14:33.963837Z",
   "latest": {
-    "id": "Cr_YutUI_wU",
-    "contentType": "full-release",
+    "id": "_JbKiJk5FnY",
+    "contentType": "album",
     "artist": "Kemarco",
-    "title": "Gyal, A Weh Mi Do Yuh?",
-    "rawTitle": "Kemarco - Gyal, A Weh Mi Do Yuh? | Dancehall 2026 | NextGen Sessions",
-    "published": "2026-11-11T18:00:10Z",
-    "durationSeconds": 241,
-    "url": "/releases/",
+    "title": "Badman Don't Rush Full Album",
+    "rawTitle": "Kemarco - Badman Don't Rush Full Album | Dancehall 2026 | NextGen Sessions",
+    "published": "2026-11-13T18:00:28Z",
+    "durationSeconds": 2532,
+    "url": "/mixes/full-albums/",
     "discoverySource": "youtube-channel-feed"
   }
 }

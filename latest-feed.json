@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-11-13T22:14:33.963837Z",
+  "generatedAt": "2026-11-16T19:53:08.266152Z",
   "latest": {
-    "id": "_JbKiJk5FnY",
-    "contentType": "album",
-    "artist": "Kemarco",
-    "title": "Badman Don't Rush Full Album",
-    "rawTitle": "Kemarco - Badman Don't Rush Full Album | Dancehall 2026 | NextGen Sessions",
-    "published": "2026-11-13T18:00:28Z",
-    "durationSeconds": 2532,
-    "url": "/mixes/full-albums/",
+    "id": "c8sTCPXjjzU",
+    "contentType": "full-release",
+    "artist": "Zion Daley",
+    "title": "Viral By Monday",
+    "rawTitle": "Zion Daley - Viral By Monday | Reggae 2026 | NextGen Sessions",
+    "published": "2026-11-16T18:00:27Z",
+    "durationSeconds": 416,
+    "url": "/releases/",
     "discoverySource": "youtube-channel-feed"
   }
 }

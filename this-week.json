@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-11-16T01:58:13.937Z",
+  "generatedAt": "2026-11-17T00:08:42.397Z",
   "timezone": "Europe/London",
   "weekStart": "2026-11-16",
   "weekEnd": "2026-11-22",
   "weekLabel": "16–22 November 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Zion Daley",
+      "artistSlug": "zion-daley",
+      "title": "Viral By Monday",
+      "genre": "Reggae",
+      "artistUrl": "/artists/zion-daley/",
+      "releaseUrl": "/releases/zion-daley-viral-by-monday/",
+      "dateLocal": "2026-11-16",
+      "dateLabel": "MON 16 NOV",
+      "longDate": "Monday, 16 November 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-11-16T18:00:27.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=c8sTCPXjjzU&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

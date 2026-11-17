@@ -5,11 +5,11 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-11-11T18:06:26.094945Z",
-  "total": 118,
+  "generatedAt": "2026-11-17T00:08:41.355987Z",
+  "total": 119,
   "counts": {
     "Dancehall": 38,
-    "Reggae": 1,
+    "Reggae": 2,
     "UK Rap & Grime": 22,
     "Hip-Hop / G-Funk": 25,
     "Asian": 8,
@@ -22,6 +22,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "c8sTCPXjjzU",
+      "contentType": "full-release",
+      "artist": "Zion Daley",
+      "title": "Viral By Monday",
+      "group": "Reggae",
+      "published": "2026-11-16T18:00:27Z",
+      "durationSeconds": 416,
+      "rawTitle": "Zion Daley - Viral By Monday | Reggae 2026 | NextGen Sessions",
+      "slug": "zion-daley-viral-by-monday",
+      "url": "/releases/zion-daley-viral-by-monday/"
+    },
     {
       "id": "Cr_YutUI_wU",
       "contentType": "full-release",

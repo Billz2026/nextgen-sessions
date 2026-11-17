@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-11T18:06:27.337Z",
-  "total": 170,
+  "generatedAt": "2026-11-17T00:08:42.512Z",
+  "total": 171,
   "counts": {
     "artists": 35,
-    "releases": 118,
+    "releases": 119,
     "genres": 6,
     "mixes": 11,
     "upcomingReleases": 0
@@ -427,6 +427,20 @@
         "Zion Daley",
         "Reggae",
         "Straight reggae with grounded Jamaican street perspective, conscious writing and heavyweight roots energy."
+      ]
+    },
+    {
+      "type": "release",
+      "title": "Viral By Monday",
+      "subtitle": "Zion Daley",
+      "description": "Reggae · 2026-11-16",
+      "url": "/releases/zion-daley-viral-by-monday/",
+      "date": "2026-11-16T18:00:27Z",
+      "keywords": [
+        "Zion Daley",
+        "Reggae",
+        "Zion Daley - Viral By Monday | Reggae 2026 | NextGen Sessions",
+        "Viral By Monday"
       ]
     },
     {

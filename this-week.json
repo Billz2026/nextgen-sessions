@@ -1,11 +1,27 @@
 {
-  "generatedAt": "2026-11-17T00:08:42.397Z",
+  "generatedAt": "2026-11-18T23:02:55.546Z",
   "timezone": "Europe/London",
   "weekStart": "2026-11-16",
   "weekEnd": "2026-11-22",
   "weekLabel": "16–22 November 2026",
   "mode": "week",
   "items": [
+    {
+      "artist": "Zion Daley",
+      "artistSlug": "zion-daley",
+      "title": "Iron Zion (Single)",
+      "genre": "Reggae",
+      "artistUrl": "/artists/zion-daley/",
+      "releaseUrl": "/releases/zion-daley-iron-zion-single/",
+      "dateLocal": "2026-11-18",
+      "dateLabel": "WED 18 NOV",
+      "longDate": "Wednesday, 18 November 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-11-18T18:00:34.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=NU-2A94NF6g&size=card",
+      "source": "catalogue"
+    },
     {
       "artist": "Zion Daley",
       "artistSlug": "zion-daley",

@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"c8sTCPXjjzU","contentType":"full-release","title":"Zion Daley – Viral By Monday","published":"2026-11-16T18:00:27Z","url":"/releases/zion-daley-viral-by-monday/"};
+  const FALLBACK_LATEST = {"id":"NU-2A94NF6g","contentType":"full-release","title":"Zion Daley – Iron Zion (Single)","published":"2026-11-18T18:00:34Z","url":"/releases/zion-daley-iron-zion-single/"};
 
   const FALLBACK_RELEASES = [
+    {"id":"NU-2A94NF6g","contentType":"full-release","title":"Zion Daley – Iron Zion (Single)","published":"2026-11-18T18:00:34Z","url":"/releases/zion-daley-iron-zion-single/"},
     {"id":"c8sTCPXjjzU","contentType":"full-release","title":"Zion Daley – Viral By Monday","published":"2026-11-16T18:00:27Z","url":"/releases/zion-daley-viral-by-monday/"},
     {"id":"Cr_YutUI_wU","contentType":"full-release","title":"Kemarco – Gyal, A Weh Mi Do Yuh?","published":"2026-11-11T18:00:10Z","url":"/releases/kemarco-gyal-a-weh-mi-do-yuh/"},
     {"id":"p1H92T9rwzg","contentType":"full-release","title":"Kemarco – Nuh Ramp Wid Mi","published":"2026-11-09T18:00:14Z","url":"/releases/kemarco-nuh-ramp-wid-mi/"},
     {"id":"bPZOaAN75f4","contentType":"full-release","title":"Deon Creed – Came Back Around","published":"2026-11-04T18:00:08Z","url":"/releases/deon-creed-came-back-around/"},
-    {"id":"Gd-KIm6y9dI","contentType":"full-release","title":"Deon Creed – Hood Flashbacks (Single)","published":"2026-11-02T18:00:26Z","url":"/releases/deon-creed-hood-flashbacks-single/"},
-    {"id":"gbJCvYw7EzA","contentType":"full-release","title":"Ali Qadeer – Dil Di Awaaz","published":"2026-10-28T18:00:32Z","url":"/releases/ali-qadeer-dil-di-awaaz/"}
+    {"id":"Gd-KIm6y9dI","contentType":"full-release","title":"Deon Creed – Hood Flashbacks (Single)","published":"2026-11-02T18:00:26Z","url":"/releases/deon-creed-hood-flashbacks-single/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

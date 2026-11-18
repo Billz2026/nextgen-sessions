@@ -5,11 +5,11 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-11-17T00:08:41.355987Z",
-  "total": 119,
+  "generatedAt": "2026-11-18T23:02:54.449639Z",
+  "total": 120,
   "counts": {
     "Dancehall": 38,
-    "Reggae": 2,
+    "Reggae": 3,
     "UK Rap & Grime": 22,
     "Hip-Hop / G-Funk": 25,
     "Asian": 8,
@@ -22,6 +22,18 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "NU-2A94NF6g",
+      "contentType": "full-release",
+      "artist": "Zion Daley",
+      "title": "Iron Zion (Single)",
+      "group": "Reggae",
+      "published": "2026-11-18T18:00:34Z",
+      "durationSeconds": 388,
+      "rawTitle": "Zion Daley - Iron Zion (Single) | Reggae 2026 | NextGen Sessions",
+      "slug": "zion-daley-iron-zion-single",
+      "url": "/releases/zion-daley-iron-zion-single/"
+    },
     {
       "id": "c8sTCPXjjzU",
       "contentType": "full-release",

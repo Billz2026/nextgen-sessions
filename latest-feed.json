@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-11-18T18:18:10.654660Z",
+  "generatedAt": "2026-11-20T20:41:03.461549Z",
   "latest": {
-    "id": "NU-2A94NF6g",
-    "contentType": "full-release",
+    "id": "pX8KaEWxzRU",
+    "contentType": "album",
     "artist": "Zion Daley",
-    "title": "Iron Zion (Single)",
-    "rawTitle": "Zion Daley - Iron Zion (Single) | Reggae 2026 | NextGen Sessions",
-    "published": "2026-11-18T18:00:34Z",
-    "durationSeconds": 388,
-    "url": "/releases/",
+    "title": "Iron Zion Full Album",
+    "rawTitle": "Zion Daley - Iron Zion Full Album | Reggae 2026 | NextGen Sessions",
+    "published": "2026-11-20T18:00:03Z",
+    "durationSeconds": 3716,
+    "url": "/mixes/full-albums/",
     "discoverySource": "youtube-channel-feed"
   }
 }

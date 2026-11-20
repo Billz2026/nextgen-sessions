@@ -23,7 +23,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"NU-2A94NF6g","contentType":"full-release","title":"Zion Daley – Iron Zion (Single)","published":"2026-11-18T18:00:34Z","url":"/releases/zion-daley-iron-zion-single/"};
+  const FALLBACK_LATEST = {"id":"pX8KaEWxzRU","contentType":"album","title":"Zion Daley – Iron Zion (Full Album)","published":"2026-11-20T18:00:03Z","url":"/mixes/full-albums/"};
 
   const FALLBACK_RELEASES = [
     {"id":"NU-2A94NF6g","contentType":"full-release","title":"Zion Daley – Iron Zion (Single)","published":"2026-11-18T18:00:34Z","url":"/releases/zion-daley-iron-zion-single/"},

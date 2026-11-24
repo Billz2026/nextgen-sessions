@@ -10,6 +10,8 @@ const END = "<!-- RELEASE-RELATED-ARTISTS:END -->";
 const LANE_TERMS = {
   "UK Rap & Grime": ["uk rap", "grime"],
   "Hip-Hop / G-Funk": ["hip-hop", "g-funk", "west coast"],
+  "US Drill": ["us drill", "uk rap", "hip-hop"],
+  Pop: ["pop", "r&b", "soul"],
   Dancehall: ["dancehall"],
   Reggae: ["reggae", "lovers rock"],
   "Lovers Rock": ["reggae", "lovers rock"],

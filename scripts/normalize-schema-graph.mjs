@@ -660,6 +660,25 @@ function normalizeMixPages() {
         { name, item: url },
       ]),
     ];
+    // A dynamic collection can still have a verified primary video. Describe that
+    // video separately, without misrepresenting the whole collection as one recording.
+    const primaryMix = playerKind === "video" ? mixById.get(playerId) : null;
+    if (mainEntity["@type"] === "MusicPlaylist" && primaryMix && /^[A-Za-z0-9_-]{11}$/.test(playerId)) {
+      const primaryVideo = {
+        "@type": "VideoObject", "@id": `${url}#video`,
+        name: primaryMix.rawTitle || primaryMix.title || name,
+        description,
+        contentUrl: `https://www.youtube.com/watch?v=${playerId}`,
+        embedUrl: `https://www.youtube-nocookie.com/embed/${playerId}`,
+        thumbnailUrl: primaryMix.thumbnail || `https://i.ytimg.com/vi/${playerId}/hqdefault.jpg`,
+        publisher: { "@id": ORG_ID },
+        mainEntityOfPage: { "@id": pageId },
+        duration: isoDuration(primaryMix.durationSeconds),
+        uploadDate: dateOnly(primaryMix.published),
+      };
+      nodes.push(primaryVideo);
+      nodes[1].video = { "@id": primaryVideo["@id"] };
+    }
     write(relativePath, injectGraph(html, nodes));
     count += 1;
   }

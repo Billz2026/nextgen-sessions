@@ -103,6 +103,10 @@ def decoded_match(pattern: re.Pattern[str], source: str, label: str, relative: s
 
 def artist_lane(genre: object) -> dict[str, str] | None:
     value = normalise(genre)
+    if "us drill" in value or "usa drill" in value:
+        return {"href": "/genres/us-drill/", "label": "Explore US Drill", "name": "US Drill", "seo_genre": "US Drill"}
+    if "pop" in value:
+        return {"href": "/genres/pop/", "label": "Explore Pop", "name": "Pop", "seo_genre": "Pop"}
     if "uk rap" in value or "grime" in value:
         return {
             "href": "/genres/uk-rap-grime/",

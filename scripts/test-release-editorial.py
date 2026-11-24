@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EDITORIAL_RE = re.compile(r"<!-- RELEASE-EDITORIAL:START -->([\s\S]*?)<!-- RELEASE-EDITORIAL:END -->")
 DISCOVERY_RE = re.compile(r"<!-- RELEASE-DISCOVERY:START -->([\s\S]*?)<!-- RELEASE-DISCOVERY:END -->")
-SCRIPT_RE = re.compile(r'<script\s+type="application/ld\+json">([\s\S]*?)</script>', re.I)
+SCRIPT_RE = re.compile(r'<script\b[^>]*type="application/ld\+json"[^>]*>([\s\S]*?)</script>', re.I)
 META_DESCRIPTION_RE = re.compile(r'<meta\s+name="description"\s+content="([^"]+)"', re.I)
 HREF_RE = re.compile(r'href="(/releases/[a-z0-9][a-z0-9-]*/?)"', re.I)
 TAG_RE = re.compile(r"<[^>]+>")
@@ -19,6 +19,8 @@ TAG_RE = re.compile(r"<[^>]+>")
 LANES = {
     "UK Rap & Grime": "/genres/uk-rap-grime/",
     "Hip-Hop / G-Funk": "/genres/hip-hop-g-funk/",
+    "US Drill": "/genres/us-drill/",
+    "Pop": "/genres/pop/",
     "Dancehall": "/genres/dancehall/",
     "Reggae": "/genres/reggae-lovers-rock/",
     "Lovers Rock": "/genres/reggae-lovers-rock/",
@@ -55,7 +57,7 @@ for index, release in enumerate(releases):
     source = page.read_text(encoding="utf-8")
 
     assert 'data-release-editorial="true"' in source, f"Editorial section missing: {release['url']}"
-    assert "<!-- RELEASE-BREADCRUMBS:START -->" in source, f"Breadcrumb schema marker missing: {release['url']}"
+    assert 'data-schema-graph="nextgen"' in source or "<!-- RELEASE-BREADCRUMBS:START -->" in source, f"Structured schema missing: {release['url']}"
     assert "/release-detail.css?v=20260825-editorial1" in source, f"Editorial CSS version missing: {release['url']}"
     assert release["title"] in html.unescape(source), f"Release title missing: {release['url']}"
     assert release["artist"] in html.unescape(source), f"Artist missing: {release['url']}"
@@ -88,7 +90,8 @@ for index, release in enumerate(releases):
     schemas = []
     for raw in SCRIPT_RE.findall(source):
         try:
-            schemas.append(json.loads(raw))
+            document = json.loads(raw)
+            schemas.extend(document.get("@graph", [document]))
         except json.JSONDecodeError as exc:
             raise AssertionError(f"Invalid JSON-LD in {release['url']}: {exc}") from exc
     music = next((item for item in schemas if item.get("@type") == "MusicRecording"), None)
@@ -97,7 +100,8 @@ for index, release in enumerate(releases):
     assert breadcrumbs, f"BreadcrumbList schema missing: {release['url']}"
     if release.get("durationSeconds"):
         assert music.get("duration") == iso_duration(release["durationSeconds"]), f"Schema duration mismatch: {release['url']}"
-    assert music.get("isPartOf", {}).get("url") == "https://nextgensessions.com/releases/", f"Catalogue schema link missing: {release['url']}"
+    catalogue = music.get("isPartOf", {})
+    assert catalogue.get("url") == "https://nextgensessions.com/releases/" or catalogue.get("@id") == "https://nextgensessions.com/releases/#webpage", f"Catalogue schema link missing: {release['url']}"
     assert breadcrumbs.get("itemListElement", [])[-1].get("item") == f"https://nextgensessions.com{release['url']}", f"Breadcrumb endpoint mismatch: {release['url']}"
 
     checked += 1

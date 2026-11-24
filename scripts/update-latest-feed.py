@@ -66,7 +66,14 @@ def trusted_title(raw_title: str) -> bool:
     return bool(
         "nextgen sessions" in raw_title.casefold()
         and not BLOCKED.search(raw_title)
-        and (len(parts) >= 3 or ALBUM_HINT.search(raw_title) or MIX_HINT.search(raw_title))
+        and (
+            len(parts) >= 3
+            or ALBUM_HINT.search(raw_title)
+            or MIX_HINT.search(raw_title)
+            # Verified two-part upload titles are valid too: "Artist - Song USA Drill
+            # 2026 | NextGen Sessions". The old three-part rule silently skipped them.
+            or (len(parts) >= 2 and SEPARATOR.match(parts[0]))
+        )
     )
 
 
@@ -88,7 +95,14 @@ def artist_title(raw_title: str) -> tuple[str, str]:
     for part in parts:
         match = SEPARATOR.match(part)
         if match and match.group(1).strip() and match.group(2).strip():
-            return match.group(1).strip(), match.group(2).strip()
+            title = re.sub(
+                r"\\s+(?:usa? drill|uk drill|drill|uk rap|grime|dancehall|reggae|"
+                r"hip-?hop|r&b|rnb|soul|afro swing)\\s+20\\d{2}$",
+                "",
+                match.group(2).strip(),
+                flags=re.IGNORECASE,
+            ).strip()
+            return match.group(1).strip(), title
     return "NextGen Sessions", parts[0] if parts else raw_title.strip()
 
 
@@ -187,6 +201,8 @@ def discover_via_api() -> dict:
         if video.get("status", {}).get("privacyStatus") != "public":
             continue
         snippet = video.get("snippet", {})
+        if snippet.get("channelId") != CHANNEL_ID:
+            continue
         if snippet.get("liveBroadcastContent") in ("live", "upcoming"):
             continue
         item = {

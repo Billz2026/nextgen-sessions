@@ -248,8 +248,8 @@
     section.append(shell);
 
     if (context.home) {
-      const releases = document.getElementById("releases");
-      if (releases) releases.after(section);
+      const featured = document.getElementById("featured-artists");
+      if (featured) featured.after(section);
       else footer.before(section);
     } else {
       footer.before(section);

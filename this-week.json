@@ -1,10 +1,27 @@
 {
-  "generatedAt": "2026-11-23T00:27:44.416Z",
+  "generatedAt": "2026-11-24T09:10:55.001Z",
   "timezone": "Europe/London",
   "weekStart": "2026-11-23",
   "weekEnd": "2026-11-29",
   "weekLabel": "23–29 November 2026",
-  "mode": "empty",
-  "items": [],
+  "mode": "week",
+  "items": [
+    {
+      "artist": "Brix Knox",
+      "artistSlug": "",
+      "title": "Knock Knock Who's There?",
+      "genre": "Hip-Hop / G-Funk",
+      "artistUrl": "/artists/",
+      "releaseUrl": "/releases/brix-knox-knock-knock-whos-there/",
+      "dateLocal": "2026-11-23",
+      "dateLabel": "MON 23 NOV",
+      "longDate": "Monday, 23 November 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-11-23T18:00:17.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=PFLIYHfUTsM&size=card",
+      "source": "catalogue"
+    }
+  ],
   "nextUp": null
 }

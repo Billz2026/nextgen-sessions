@@ -5,13 +5,13 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-11-18T23:02:54.449639Z",
-  "total": 120,
+  "generatedAt": "2026-11-24T09:10:53.979032Z",
+  "total": 121,
   "counts": {
     "Dancehall": 38,
     "Reggae": 3,
     "UK Rap & Grime": 22,
-    "Hip-Hop / G-Funk": 25,
+    "Hip-Hop / G-Funk": 26,
     "Asian": 8,
     "Lovers Rock": 8,
     "R&B & Soul": 10,
@@ -22,6 +22,19 @@
   },
   "verifiedExtras": 2,
   "releases": [
+    {
+      "id": "PFLIYHfUTsM",
+      "contentType": "full-release",
+      "artist": "Brix Knox",
+      "title": "Knock Knock Who's There?",
+      "group": "Hip-Hop / G-Funk",
+      "published": "2026-11-23T18:00:17Z",
+      "durationSeconds": 253,
+      "rawTitle": "Brix Knox - Knock Knock Who's There? USA Drill 2026 | NextGen Sessions",
+      "discoverySource": "public-channel-upload",
+      "slug": "brix-knox-knock-knock-whos-there",
+      "url": "/releases/brix-knox-knock-knock-whos-there/"
+    },
     {
       "id": "NU-2A94NF6g",
       "contentType": "full-release",

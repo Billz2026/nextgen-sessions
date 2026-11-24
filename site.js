@@ -23,15 +23,15 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"pX8KaEWxzRU","contentType":"album","title":"Zion Daley – Iron Zion (Full Album)","published":"2026-11-20T18:00:03Z","url":"/mixes/full-albums/"};
+  const FALLBACK_LATEST = {"id":"PFLIYHfUTsM","contentType":"full-release","title":"Brix Knox – Knock Knock Who's There?","published":"2026-11-23T18:00:17Z","url":"/releases/brix-knox-knock-knock-whos-there/"};
 
   const FALLBACK_RELEASES = [
+    {"id":"PFLIYHfUTsM","contentType":"full-release","title":"Brix Knox – Knock Knock Who's There?","published":"2026-11-23T18:00:17Z","url":"/releases/brix-knox-knock-knock-whos-there/"},
     {"id":"NU-2A94NF6g","contentType":"full-release","title":"Zion Daley – Iron Zion (Single)","published":"2026-11-18T18:00:34Z","url":"/releases/zion-daley-iron-zion-single/"},
     {"id":"c8sTCPXjjzU","contentType":"full-release","title":"Zion Daley – Viral By Monday","published":"2026-11-16T18:00:27Z","url":"/releases/zion-daley-viral-by-monday/"},
     {"id":"Cr_YutUI_wU","contentType":"full-release","title":"Kemarco – Gyal, A Weh Mi Do Yuh?","published":"2026-11-11T18:00:10Z","url":"/releases/kemarco-gyal-a-weh-mi-do-yuh/"},
     {"id":"p1H92T9rwzg","contentType":"full-release","title":"Kemarco – Nuh Ramp Wid Mi","published":"2026-11-09T18:00:14Z","url":"/releases/kemarco-nuh-ramp-wid-mi/"},
-    {"id":"bPZOaAN75f4","contentType":"full-release","title":"Deon Creed – Came Back Around","published":"2026-11-04T18:00:08Z","url":"/releases/deon-creed-came-back-around/"},
-    {"id":"Gd-KIm6y9dI","contentType":"full-release","title":"Deon Creed – Hood Flashbacks (Single)","published":"2026-11-02T18:00:26Z","url":"/releases/deon-creed-hood-flashbacks-single/"}
+    {"id":"bPZOaAN75f4","contentType":"full-release","title":"Deon Creed – Came Back Around","published":"2026-11-04T18:00:08Z","url":"/releases/deon-creed-came-back-around/"}
   ];
   // HOMEPAGE:AUTO-FALLBACK:END
 

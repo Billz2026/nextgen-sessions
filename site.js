@@ -283,6 +283,8 @@
     const latestStatus = document.getElementById("latestStatus");
     const latestTypeLabel = document.getElementById("latestTypeLabel");
     const latestKicker = document.getElementById("latestKicker");
+    const latestArtist = document.getElementById("latestArtist");
+    const latestGenre = document.getElementById("latestGenre");
     const latestPlayCopy = document.getElementById("latestPlayCopy");
     const latestShell = document.querySelector(".media-shell");
     const presentation = latestPresentation(latest.contentType);
@@ -294,7 +296,10 @@
       latestDate.textContent = date ? `Published ${date}` : presentation.fallback;
     }
     if (latestTypeLabel) latestTypeLabel.textContent = presentation.label;
-    if (latestKicker) latestKicker.textContent = [latest.artist, latest.group].filter(Boolean).join(" · ") || presentation.kicker;
+    if (latestArtist && latestGenre) {
+      latestArtist.textContent = latest.artist || presentation.kicker;
+      latestGenre.textContent = latest.group || "";
+    } else if (latestKicker) latestKicker.textContent = [latest.artist, latest.group].filter(Boolean).join(" · ") || presentation.kicker;
     if (latestPlayCopy) latestPlayCopy.textContent = presentation.playCta;
     if (latestShell) {
       latestShell.dataset.contentKind = presentation.kind;

@@ -83,6 +83,11 @@ try {
     }
     assert.ok(await page.locator(".hero-brand-gold").isVisible());
     assert.equal(await page.locator("#heroLatestLink").count(), 0);
+    assert.ok(await page.locator("#latestArtist").isVisible(), "Latest artist or content label must be visible");
+    assert.equal(await page.locator("#latestGenre").count(), 1, "Latest genre field must remain available");
+    assert.equal(await page.locator("#latestWatchLink svg").count(), 1);
+    const playIcon = await page.locator("#latestVideoPlay .video-play-icon").boundingBox();
+    assert.ok(playIcon && playIcon.width >= 64 && Math.abs(playIcon.width - playIcon.height) < 2, viewport.label + ": play button must be prominent and circular");
     const hero = await page.locator("main > .hero").boundingBox();
     const player = await page.locator("#latestVideoFrame").boundingBox();
     assert.ok(hero && player && Math.abs(player.width / player.height - 16 / 9) < .03, viewport.label + ": latest video must retain 16:9");

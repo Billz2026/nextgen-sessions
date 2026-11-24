@@ -228,9 +228,10 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     source = replace_once(source, r'(<span class="video-play-copy" id="latestPlayCopy">).*?(</span>)', lambda m: m.group(1) + esc(presentation["playCta"]) + m.group(2), "latest play copy")
     source = replace_once(source, r'(<img id="latestVideoThumbnail" src=")[^"]*(")', lambda m: m.group(1) + esc(thumbnail_url) + m.group(2), "latest thumbnail")
     source = replace_once(source, r'(<noscript><a class="video-no-script" href=")[^"]*(">)[^<]*(</a></noscript>)', lambda m: m.group(1) + esc(youtube_url) + m.group(2) + esc(presentation["noscript"]) + m.group(3), "latest no-script link")
-    source = replace_once(source, r'(<div class="latest-kicker" id="latestKicker">).*?(</div>)', lambda m: m.group(1) + esc(" · ".join(str(latest.get(key, "")).strip() for key in ("artist", "group") if latest.get(key)) or presentation["kicker"]) + m.group(2), "latest kicker")
+    source = replace_once(source, r'(<span id="latestArtist">).*?(</span>)', lambda m: m.group(1) + esc(latest.get("artist") or presentation["kicker"]) + m.group(2), "latest artist")
+    source = replace_once(source, r'(<span class="latest-genre" id="latestGenre">).*?(</span>)', lambda m: m.group(1) + esc(latest.get("group", "")) + m.group(2), "latest genre")
     source = replace_once(source, r'(<h2 id="latestVideoTitle">).*?(</h2>)', lambda m: m.group(1) + esc(latest.get("trackTitle") or latest_title) + m.group(2), "latest title")
-    source = replace_once(source, r'(<p id="latestVideoDate">).*?(</p>)', lambda m: m.group(1) + esc(f"Published {published}") + m.group(2), "latest date")
+    source = replace_once(source, r'(<span id="latestVideoDate">).*?(</span>)', lambda m: m.group(1) + esc(f"Published {published}") + m.group(2), "latest date")
     source = replace_once(source, r'(<a class="button button-primary latest-watch" id="latestWatchLink" href=")[^"]*(")', lambda m: m.group(1) + esc(youtube_url) + m.group(2), "latest YouTube link")
 
     cards = "".join(homepage_card(release) for release in featured)

@@ -134,3 +134,26 @@ main > .hero .latest-release-copy h2{font-size:clamp(1.25rem,1.85vw,1.85rem);mar
 main > .hero .latest-watch{border-radius:8px}
 main > .hero .video-poster:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
 @media(prefers-reduced-motion:reduce){main > .hero .video-play-icon,main > .hero .video-poster img{transition:none}}
+
+/* Final signature player finish: one-pixel metallic frame and accessible play target. */
+main > .hero .media-shell{
+  border:1px solid transparent;
+  background:linear-gradient(#101010,#101010) padding-box,linear-gradient(140deg,#d4b66e 0%,#846a35 34%,#b79851 70%,#705b32 100%) border-box;
+}
+main > .hero .video-play-icon{width:82px;height:82px;background:rgba(10,10,10,.87);border:2px solid #eac568;box-shadow:0 5px 24px rgba(0,0,0,.42)}
+main > .hero .video-play-icon::before{border-top-width:13px;border-bottom-width:13px;border-left-width:20px;margin-left:5px}
+main > .hero .video-play-copy{background:rgba(8,8,8,.65);padding:5px 10px;border-radius:4px;letter-spacing:.1em}
+main > .hero .latest-release-copy{padding:18px 20px;gap:18px}
+main > .hero .latest-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:clamp(.83rem,1.1vw,1rem);font-weight:850;letter-spacing:.07em}
+main > .hero .latest-genre{font-size:.7rem;letter-spacing:.08em;color:#c7bda9;font-weight:650;border-left:1px solid #675632;padding-left:8px}
+main > .hero .latest-genre:empty{display:none}
+main > .hero .latest-release-copy h2{font-size:clamp(1.25rem,1.95vw,1.9rem);line-height:1.12;margin:7px 0 10px}
+main > .hero .latest-date-line{display:flex;align-items:center;gap:7px;margin:0;font-size:.82rem;color:#bfb8ab;font-weight:600}
+main > .hero .latest-date-line svg{flex:none;color:#bca268}
+main > .hero .latest-watch{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+main > .hero .latest-watch svg{flex:none}
+@media(max-width:720px){
+  main > .hero .video-play-icon{width:64px;height:64px}
+  main > .hero .video-play-icon::before{border-top-width:10px;border-bottom-width:10px;border-left-width:16px}
+  main > .hero .latest-release-copy{padding:14px;gap:12px}
+}

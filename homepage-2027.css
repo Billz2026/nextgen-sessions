@@ -157,3 +157,11 @@ main > .hero .latest-watch svg{flex:none}
   main > .hero .video-play-icon::before{border-top-width:10px;border-bottom-width:10px;border-left-width:16px}
   main > .hero .latest-release-copy{padding:14px;gap:12px}
 }
+
+/* Both hero columns share the grid row height. Allow the metadata panel,
+   not the 16:9 artwork, to absorb any extra height on wide displays. */
+@media(min-width:1100px){
+  main > .hero .media-shell{align-self:stretch;display:flex;flex-direction:column;min-width:0}
+  main > .hero .media-label,main > .hero .video-frame{flex:none}
+  main > .hero .latest-release-copy{flex:1 0 auto;align-items:center}
+}

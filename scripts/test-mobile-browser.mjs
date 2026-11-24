@@ -79,7 +79,7 @@ try {
     if (viewport.width >= 1100) {
       const social = await page.locator(".hero-brand-social").boundingBox();
       const media = await page.locator(".hero .media-shell").boundingBox();
-      assert.ok(Math.abs(social.y + social.height - media.y - media.height) <= 3, viewport.label + ": brand and video bottoms must align");
+      assert.ok(Math.abs(social.y + social.height - media.y - media.height) <= 3, viewport.label + ": brand and video bottoms must align; " + JSON.stringify({social,media}));
     }
     assert.ok(await page.locator(".hero-brand-gold").isVisible());
     assert.equal(await page.locator("#heroLatestLink").count(), 0);

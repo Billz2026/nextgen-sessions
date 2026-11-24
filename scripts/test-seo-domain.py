@@ -289,12 +289,16 @@ for path in sorted(ROOT.rglob("*.html")):
 
     if relative == "artists/kemarco/index.html":
         assert "Kemarco is a Jamaican dancehall artist from Jamaica" in source, "Kemarco entity-first bio is missing"
-        assert 'href="/releases/kemarco-ghetto-blessings/">Latest release: Ghetto Blessings</a>' in source, "Kemarco latest release signal is stale"
+        latest = artist_releases("Kemarco")[0]
+        expected_latest = f'href="{latest["url"]}">Latest release: {latest["title"]}</a>'
+        assert expected_latest in html.unescape(source), "Kemarco latest release signal must match the newest verified catalogue entry"
         assert '/artists/kemarco/profile.js?v=20260826-entity1' in source, "Kemarco browser profile override is missing"
 
     if relative == "artists/nyah-rae/index.html":
         assert "Nyah Rae is a contemporary R&amp;B artist on NextGen Sessions" in source, "Nyah Rae entity-first bio is missing"
-        assert 'href="/releases/nyah-rae-im-not-surprised/">Latest release: I’m Not Surprised</a>' in source, "Nyah Rae latest release signal is stale"
+        latest = artist_releases("Nyah Rae")[0]
+        expected_latest = f'href="{latest["url"]}">Latest release: {latest["title"]}</a>'
+        assert expected_latest in html.unescape(source), "Nyah Rae latest release signal must match the newest verified catalogue entry"
         assert '/artists/nyah-rae/profile.js?v=20260826-entity1' in source, "Nyah Rae browser profile override is missing"
 
     if relative == "mixes/dancehall-mashups/index.html":
@@ -309,12 +313,12 @@ assert checked >= 100, f"Unexpectedly few canonical pages checked: {checked}"
 assert artist_checked == len(ROSTER), f"Expected {len(ROSTER)} catalogue-aware artist pages, validated {artist_checked}"
 
 kemarco_profile = (ROOT / "artists" / "kemarco" / "profile.js").read_text(encoding="utf-8")
-assert 'title: "Ghetto Blessings"' in kemarco_profile, "Kemarco source still features an older release"
+assert 'title: "Ghetto Blessings"' in kemarco_profile, "Kemarco curated featured-video title changed"
 assert 'id: "JI_O7wnEtCc"' in kemarco_profile, "Kemarco Ghetto Blessings video ID is missing from source"
 assert 'profile.genreUrl = "/genres/dancehall/"' in kemarco_profile, "Kemarco source is not connected to the Dancehall hub"
 
 nyah_profile = (ROOT / "artists" / "nyah-rae" / "profile.js").read_text(encoding="utf-8")
-assert 'title: "I’m Not Surprised"' in nyah_profile, "Nyah Rae source latest release is wrong"
+assert 'title: "I’m Not Surprised"' in nyah_profile, "Nyah Rae curated featured-video title changed"
 assert 'id: "s4v_aLpMo4Q"' in nyah_profile, "Nyah Rae featured video ID is missing from source"
 assert 'profile.genreUrl = "/genres/rnb-soul/"' in nyah_profile, "Nyah Rae source is not connected to the R&B & Soul hub"
 

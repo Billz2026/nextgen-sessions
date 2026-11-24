@@ -114,6 +114,10 @@ try {
     assert.ok(overflow.width <= overflow.viewport + 2, viewport.label + ": artist directory overflow " + JSON.stringify(overflow));
     await page.goto(site + "/releases/", {waitUntil:"domcontentloaded"});
     await page.waitForFunction(() => document.querySelector("#releaseYear option[value='2026']") && document.querySelectorAll("#releaseArchiveGrid article").length === 24);
+    const archiveWidth = await page.locator(".releases-page").boundingBox();
+    const archiveColumns = await page.locator(".archive-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(" ").length);
+    assert.ok(archiveWidth && archiveWidth.width >= viewport.width * .90, viewport.label + ": archive must use available screen width");
+    assert.equal(archiveColumns, viewport.width >= 2100 ? 6 : viewport.width >= 1600 ? 5 : viewport.width > 1100 ? 4 : viewport.width > 760 ? 3 : 2, viewport.label + ": responsive archive column count");
     await page.locator("#loadMoreReleases").click();
     assert.equal(await page.locator("#releaseArchiveGrid article").count(),48);
     await page.locator('[data-filter="US Drill"]').click();

@@ -32,6 +32,7 @@ def upload(video_id, title, privacy="public"):
     }
 
 uploads = [
+    upload("BrixKnox001", "Brix Knox - Knock Knock Who\'s There? USA Drill 2026 | NextGen Sessions"),
     upload("NewDeon2026", "Deon Creed - New Single | Hip-Hop 2026 | NextGen Sessions"),
     upload("NoBrand1111", "Deon Creed - Unbranded Song"),
     upload("AlbumVid001", "Deon Creed - Hood Flashbacks | Full Album | NextGen Sessions"),
@@ -44,11 +45,14 @@ uploads = [
 ]
 candidates = catalogue.public_channel_candidates(uploads, existing, {"OldDeon2026"})
 ids = {c["id"] for c in candidates}
+assert "BrixKnox001" in ids, "Two-part title with genre in lead must be discovered"
 assert "NoBrand1111" in ids, "Channel-owned uploads must work without the brand written in the title"
 assert "NewDeon2026" in ids, "A Deon Creed single must be found without a playlist/schedule entry"
 assert "AlbumVid001" not in ids, "Album videos are not singles"
 assert "Private1234" not in ids, "Private uploads must remain hidden"
 assert "Unclass0001" not in ids, "Unknown category cannot be guessed"
+assert catalogue.group_for_channel_release("Brix Knox", "Brix Knox - Song USA Drill 2026 | NextGen Sessions", existing) == "Hip-Hop / G-Funk"
+assert catalogue.clean_title("Knock Knock Who\'s There? USA Drill 2026") == "Knock Knock Who\'s There?"
 assert catalogue.group_for_channel_release("Deon Creed", "Deon Creed - New Single", existing) == "Hip-Hop / G-Funk"
 assert catalogue.group_for_channel_release("Brand New Artist", "Brand New Artist - First Song | Dancehall 2026 | NextGen Sessions", existing) == "Dancehall"
 
@@ -67,6 +71,7 @@ def video(video_id, duration="PT4M3S", owner=catalogue.YOUTUBE_CHANNEL_ID, priva
     }
 
 details = {
+    "BrixKnox001": video("BrixKnox001"),
     "OldDeon2026": video("OldDeon2026", published="2026-09-01T18:00:00Z"),
     "NewDeon2026": video("NewDeon2026"),
     "NoBrand1111": video("NoBrand1111"),
@@ -92,11 +97,13 @@ finally:
         os.environ["YT_KEY"] = previous_key
 
 releases = {r["id"]: r for r in built["releases"]}
-assert set(releases) == {"OldDeon2026", "NewDeon2026", "NoBrand1111"}, releases.keys()
+assert set(releases) == {"OldDeon2026", "NewDeon2026", "NoBrand1111", "BrixKnox001"}, releases.keys()
+assert releases["BrixKnox001"]["title"] == "Knock Knock Who\'s There?"
+assert releases["BrixKnox001"]["group"] == "Hip-Hop / G-Funk"
 assert releases["NewDeon2026"]["group"] == "Hip-Hop / G-Funk"
 assert releases["NewDeon2026"]["discoverySource"] == catalogue.CHANNEL_DISCOVERY_SOURCE
 assert releases["NewDeon2026"]["contentType"] == "full-release"
-assert len(catalogue.persistent_scheduled_candidates(built)) == 3, "Channel-discovered singles must persist across runs"
+assert len(catalogue.persistent_scheduled_candidates(built)) == 4, "Channel-discovered singles must persist across runs"
 
 workflow = (ROOT / ".github/workflows/update-catalogue.yml").read_text(encoding="utf-8")
 assert "Validate public channel release discovery" in workflow

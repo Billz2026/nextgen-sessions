@@ -51,7 +51,7 @@ assert "NewDeon2026" in ids, "A Deon Creed single must be found without a playli
 assert "AlbumVid001" not in ids, "Album videos are not singles"
 assert "Private1234" not in ids, "Private uploads must remain hidden"
 assert "Unclass0001" not in ids, "Unknown category cannot be guessed"
-assert catalogue.group_for_channel_release("Brix Knox", "Brix Knox - Song USA Drill 2026 | NextGen Sessions", existing) == "Hip-Hop / G-Funk"
+assert catalogue.group_for_channel_release("Brix Knox", "Brix Knox - Song USA Drill 2026 | NextGen Sessions", existing) == "US Drill"
 assert catalogue.clean_title("Knock Knock Who\'s There? USA Drill 2026") == "Knock Knock Who\'s There?"
 assert catalogue.group_for_channel_release("Deon Creed", "Deon Creed - New Single", existing) == "Hip-Hop / G-Funk"
 assert catalogue.group_for_channel_release("Brand New Artist", "Brand New Artist - First Song | Dancehall 2026 | NextGen Sessions", existing) == "Dancehall"
@@ -80,7 +80,7 @@ details = {
     "FutureSong1": video("FutureSong1", published="2099-11-02T18:00:00Z"),
     "Unlisted001": video("Unlisted001", privacy="unlisted"),
 }
-catalogue.PLAYLISTS = [("unused-playlist", "Hip-Hop / G-Funk")]
+catalogue.PLAYLISTS = [("unused-playlist", "Hip-Hop / G-Funk"), ("drill-test", "US Drill")]
 catalogue.VERIFIED_EXTRA_RELEASES = []
 catalogue.playlist_items = lambda _playlist_id: []
 catalogue.recent_public_channel_uploads = lambda: uploads
@@ -99,7 +99,7 @@ finally:
 releases = {r["id"]: r for r in built["releases"]}
 assert set(releases) == {"OldDeon2026", "NewDeon2026", "NoBrand1111", "BrixKnox001"}, releases.keys()
 assert releases["BrixKnox001"]["title"] == "Knock Knock Who\'s There?"
-assert releases["BrixKnox001"]["group"] == "Hip-Hop / G-Funk"
+assert releases["BrixKnox001"]["group"] == "US Drill"
 assert releases["NewDeon2026"]["group"] == "Hip-Hop / G-Funk"
 assert releases["NewDeon2026"]["discoverySource"] == catalogue.CHANNEL_DISCOVERY_SOURCE
 assert releases["NewDeon2026"]["contentType"] == "full-release"

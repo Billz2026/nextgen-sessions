@@ -11,14 +11,15 @@
     "Dancehall": 38,
     "Reggae": 3,
     "UK Rap & Grime": 22,
-    "Hip-Hop / G-Funk": 26,
+    "Hip-Hop / G-Funk": 25,
     "Asian": 8,
     "Lovers Rock": 8,
     "R&B & Soul": 10,
     "Late Night Afro": 4,
     "Late Night Vibes": 0,
     "Arabic": 1,
-    "Pop": 1
+    "Pop": 1,
+    "US Drill": 1
   },
   "verifiedExtras": 2,
   "releases": [
@@ -27,7 +28,7 @@
       "contentType": "full-release",
       "artist": "Brix Knox",
       "title": "Knock Knock Who's There?",
-      "group": "Hip-Hop / G-Funk",
+      "group": "US Drill",
       "published": "2026-11-23T18:00:17Z",
       "durationSeconds": 253,
       "rawTitle": "Brix Knox - Knock Knock Who's There? USA Drill 2026 | NextGen Sessions",

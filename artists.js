@@ -255,6 +255,13 @@ window.NGS_ARTISTS = [
     "genre": "Pop",
     "summary": "Melodic Pop with classic 1980s influences, expressive songwriting and polished production.",
     "featured": false
+  },
+  {
+    "name": "Brix Knox",
+    "slug": "brix-knox",
+    "genre": "US Drill",
+    "summary": "US Drill with hard-hitting rhythms, dark production and direct rap delivery.",
+    "featured": false
   }
 ];
 

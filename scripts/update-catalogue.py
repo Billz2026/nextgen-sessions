@@ -15,6 +15,7 @@ from pathlib import Path
 
 
 PLAYLISTS = [
+    ("PLCug-_pkUzD8", "US Drill"),
     ("PL7VCdVWElIJERYe7FVFG8mMYSop0QLSvC", "Dancehall"),
     ("PLDcaKFpn_7V8", "Reggae"),
     ("PL7VCdVWElIJFlaABZj5HED-EWEGY8nugN", "UK Rap & Grime"),
@@ -247,6 +248,8 @@ def persistent_scheduled_candidates(existing_catalogue: dict) -> list[dict]:
 
 def group_for_channel_release(artist: str, raw_title: str, existing_catalogue: dict) -> str:
     """Use an established artist category first, then an explicit genre label in the title."""
+    if artist.casefold() == "brix knox":
+        return "US Drill"
     known_groups = {group for _, group in PLAYLISTS}
     for release in existing_catalogue.get("releases", []):
         if (
@@ -270,7 +273,7 @@ def group_for_channel_release(artist: str, raw_title: str, existing_catalogue: d
         metadata += " | " + trailing_genre.group(0)
     mappings = [
         (r"\b(?:uk rap|grime|uk drill)\b", "UK Rap & Grime"),
-        (r"\b(?:us drill|usa drill|drill)\b", "Hip-Hop / G-Funk"),
+        (r"\b(?:us drill|usa drill|drill)\b", "US Drill"),
         (r"\b(?:dancehall|bashment)\b", "Dancehall"),
         (r"\b(?:lovers rock)\b", "Lovers Rock"),
         (r"\b(?:reggae)\b", "Reggae"),
@@ -380,7 +383,7 @@ def build_catalogue(existing_catalogue: dict | None = None) -> dict:
                 not re.fullmatch(r"[\w-]{11}", video_id)
                 or video_id in seen
                 or privacy not in ("public", "unlisted")
-                or (group == "Pop" and privacy != "public")
+                or (group in ("Pop", "US Drill") and privacy != "public")
                 or raw_title in ("Private video", "Deleted video")
                 or EXCLUDED.search(raw_title)
             ):

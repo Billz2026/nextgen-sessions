@@ -1,4 +1,5 @@
 window.NGS_ARTIST_IMAGES = {
+  "brix-knox": { src: "/api/release-image?id=PFLIYHfUTsM", portrait: "/api/release-image?id=PFLIYHfUTsM", fallback: "https://i.ytimg.com/vi/PFLIYHfUTsM/hqdefault.jpg", position: "50% 50%" },
   // The portrait file is added separately before the artist becomes public.
   "dean-lawson": {
     src: "/assets/artists/dean-lawson-portrait.webp",

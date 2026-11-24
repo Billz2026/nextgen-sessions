@@ -248,8 +248,8 @@
     section.append(shell);
 
     if (context.home) {
-      const featured = document.getElementById("featured-artists");
-      if (featured) featured.after(section);
+      const genres = document.getElementById("genres");
+      if (genres) genres.after(section);
       else footer.before(section);
     } else {
       footer.before(section);

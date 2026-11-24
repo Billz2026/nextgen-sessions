@@ -60,8 +60,9 @@ try {
     assert.equal(await page.locator("#releaseGrid .release-card").count(), 6);
     await page.locator("[data-ngs-conversion=home]").waitFor();
     assert.ok(await page.locator("#releases").evaluate(el => el.nextElementSibling?.id === "featured-artists"), "Featured artists must immediately follow latest releases");
-    assert.ok(await page.locator("#featured-artists").evaluate(el => el.nextElementSibling?.dataset.ngsConversion === "home"), "Follow section must immediately follow featured artists");
-    assert.ok(await page.locator("#genres").evaluate(el => el.nextElementSibling?.id === "mixes"), "Genres must precede mixes");
+    assert.ok(await page.locator("#featured-artists").evaluate(el => el.nextElementSibling?.id === "mixes"), "Mixes must immediately follow featured artists");
+    assert.ok(await page.locator("#genres").evaluate(el => el.nextElementSibling?.dataset.ngsConversion === "home"), "Follow section must immediately follow genres");
+    assert.ok(await page.locator("#mixes").evaluate(el => el.nextElementSibling?.id === "genres"), "Mixes must precede genres");
     assert.equal(await page.locator("#genres .genre").count(), 8);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2), viewport.label + ": homepage overflow");
     const columns = await page.locator("#featuredArtistGrid").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);

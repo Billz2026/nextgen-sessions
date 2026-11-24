@@ -214,7 +214,7 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
 
     index_path = ROOT / "index.html"
     source = index_path.read_text(encoding="utf-8")
-    source = replace_once(source, r'(<a class="button button-secondary" id="heroLatestLink" href=")[^"]*(">)[^<]*(</a>)', lambda m: m.group(1) + esc(latest_url) + m.group(2) + esc(presentation["heroCta"]) + m.group(3), "hero latest link")
+    # The homepage brand CTA is evergreen; the latest player links are updated below.
     source = replace_once(source, r'<div class="media-shell"[^>]*>', lambda _m: f'<div class="media-shell" data-content-kind="{esc(presentation["kind"])}" aria-label="{esc(presentation["label"] + ": " + latest_title)}">', "latest media shell")
     source = replace_once(source, r'(<strong id="latestTypeLabel">).*?(</strong>)', lambda m: m.group(1) + esc(presentation["label"]) + m.group(2), "latest type label")
     source = replace_once(source, r'(<span id="latestStatus">).*?(</span>)', lambda m: m.group(1) + esc(presentation["status"]) + m.group(2), "latest status")

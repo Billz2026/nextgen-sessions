@@ -66,6 +66,11 @@ try {
     assert.ok(await page.locator("#mixes").evaluate(el => el.nextElementSibling?.id === "genres"), "Mixes must precede genres");
     assert.equal(await page.locator("#genres .genre").count(), 8);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2), viewport.label + ": homepage overflow");
+    assert.equal(await page.locator(".hero-brand h1 span").count(), 3);
+    assert.equal(await page.locator(".hero-brand .button").count(), 1);
+    assert.equal(await page.locator(".hero-social-links a").count(), 3);
+    assert.ok(await page.locator(".hero-brand-gold").isVisible());
+    assert.equal(await page.locator("#heroLatestLink").count(), 0);
     const hero = await page.locator("main > .hero").boundingBox();
     const player = await page.locator("#latestVideoFrame").boundingBox();
     assert.ok(hero && player && Math.abs(player.width / player.height - 16 / 9) < .03, viewport.label + ": latest video must retain 16:9");

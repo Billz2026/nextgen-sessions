@@ -63,3 +63,23 @@ main > #releases .release-card,main > #featured-artists .featured-artist-card{tr
   main > .hero .media-shell{border-radius:16px}
 }
 @media(prefers-reduced-motion:reduce){main > #releases .release-card,main > #featured-artists .featured-artist-card{transition:none}}
+
+/* Evergreen brand panel: no catalogue counters or competing artwork. */
+main > .hero .hero-brand{display:flex;flex-direction:column;justify-content:center;gap:28px;align-self:stretch;padding-block:12px}
+.hero-brand-message{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.hero-brand-accent{display:block;width:42px;height:3px;background:var(--gold);margin-bottom:18px}
+main > .hero .hero-brand h1{margin:12px 0 18px;font-size:clamp(1.85rem,3vw,3.45rem);line-height:1.08;letter-spacing:-.045em;text-wrap:initial}
+main > .hero .hero-brand h1 span{display:block}
+.hero-brand-gold{color:var(--gold)}
+main > .hero .hero-brand .hero-copy{max-width:44ch;font-size:1.04rem;line-height:1.65;margin:0 0 24px}
+.hero-brand-cta{display:inline-flex;gap:14px;align-items:center;justify-content:center;border-radius:8px;text-align:center;max-width:100%}
+.hero-brand-cta span{font-size:1.15rem;line-height:1}
+.hero-brand-social{border-top:1px solid rgba(243,199,79,.23);padding-top:19px}
+.hero-brand-tagline{margin:0 0 12px;color:var(--gold);font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.hero-social-links{display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center}
+.hero-social-links a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--muted);font-size:.85rem;font-weight:650;min-height:36px}
+.hero-social-links a:hover,.hero-social-links a:focus-visible{color:var(--gold)}
+.hero-social-links svg{flex:none}
+@media(min-width:1100px){main > .hero .hero-brand{justify-content:space-between;padding-block:clamp(16px,3vw,44px);gap:24px}}
+@media(max-width:1099px){main > .hero .hero-brand{gap:20px;padding-block:4px}main > .hero .hero-brand h1 span{display:inline}main > .hero .hero-brand h1{max-width:24ch;font-size:clamp(2rem,5vw,3.4rem)}}
+@media(max-width:720px){main > .hero .hero-brand h1{font-size:clamp(1.85rem,6vw,2.6rem)}main > .hero .hero-brand .hero-copy{font-size:.95rem;margin-bottom:18px}.hero-brand-accent{margin-bottom:12px}.hero-social-links{gap:8px 14px}.hero-brand-social{padding-top:14px}}

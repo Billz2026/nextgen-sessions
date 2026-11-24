@@ -49,7 +49,7 @@ for (const artist of sorted) {
 const homepage = read("index.html");
 const homepageCta = homepage.match(/<a\b(?=[^>]*\bid="allArtistsLink")[^>]*>([^<]*)<\/a>/i);
 assert.ok(homepageCta, "homepage must provide a stable #allArtistsLink CTA");
-assert.equal(homepageCta[1], `Explore all ${artists.length} artist${artists.length === 1 ? "" : "s"}`, "homepage artist count must match the roster");
+assert.equal(homepageCta[1], "Explore all artists", "homepage artist CTA must remain evergreen");
 
 console.log(`Static artist index passed: ${artists.length} crawlable roster cards with profile links, genre and summaries.`);
 
@@ -60,3 +60,7 @@ assert.match(artistsSource, /FEATURED_LIMIT\s*=\s*6;/);
 assert.ok(artists.every(artist => artist.featured || artist.featuredRank === undefined), "Non-featured artists must not retain featured ranks");
 assert.ok(read("featured-artists-12.css").includes("repeat(3,minmax(0,1fr))"), "Desktop featured grid must have three columns");
 console.log("Six featured artists, ordering and desktop grid verified.");
+
+assert.ok(page.includes('id="artistGenre"'), "Genre filter is missing");
+assert.ok(page.includes('value="us-drill"'), "US Drill filter is missing");
+assert.ok(page.includes('id="artistReset"'), "Clear filters control is missing");

@@ -15,6 +15,8 @@
   const rosterGrid = document.getElementById("artistRosterGrid");
   const artistSearch = document.getElementById("artistSearch");
   const rosterCount = document.getElementById("rosterCount");
+  const artistGenre = document.getElementById("artistGenre");
+  const artistReset = document.getElementById("artistReset");
   const releaseGrid = document.getElementById("releaseGrid");
   const latestPlayer = document.getElementById("latestVideoFrame");
   const latestVideoPlay = document.getElementById("latestVideoPlay");
@@ -199,18 +201,31 @@
       </a>`;
   }
 
+  const artistGenrePatterns = {
+    "dancehall": /dancehall/,
+    "uk-rap": /uk rap|grime|uk drill/,
+    "hip-hop": /hip-hop|hip hop|g-funk/,
+    "us-drill": /us drill|usa drill/,
+    "reggae": /reggae|lovers rock/,
+    "rnb": /r&b|soul/,
+    "pop": /\bpop\b/,
+    "global": /punjabi|saraiki|south asian|arabic|afro|bhangra|qawwali/
+  };
   function renderRoster(query) {
     if (!rosterGrid) return;
     const term = String(query || "").trim().toLowerCase();
+    const selected = artistGenre?.value || "all";
+    const pattern = artistGenrePatterns[selected];
     const filtered = artists
-      .filter(artist => !term || [artist.name, artist.genre, artist.summary].join(" ").toLowerCase().includes(term))
+      .filter(artist => (!pattern || pattern.test(String(artist.genre || "").toLowerCase())) && (!term || [artist.name, artist.genre, artist.summary].join(" ").toLowerCase().includes(term)))
       .sort((a, b) => a.name.localeCompare(b.name, "en-GB"));
 
-    rosterGrid.innerHTML = filtered.map(rosterCard).join("");
+    rosterGrid.innerHTML = filtered.length ? filtered.map(rosterCard).join("") : '<p class="roster-empty">No matching artists. Try a different search or clear your filters.</p>';
     installImageFallbacks(rosterGrid);
     if (rosterCount) {
-      rosterCount.textContent = `${filtered.length} artist${filtered.length === 1 ? "" : "s"}${term ? " found" : ""}`;
+      rosterCount.textContent = term || selected !== "all" ? `${filtered.length} artist${filtered.length === 1 ? "" : "s"} found` : "All artists";
     }
+    if (artistReset) artistReset.hidden = !term && selected === "all";
   }
 
   function formatDate(value) {
@@ -313,6 +328,14 @@
   if (artistSearch) {
     artistSearch.addEventListener("input", event => renderRoster(event.target.value));
   }
+
+  if (artistGenre) artistGenre.addEventListener("change", () => renderRoster(artistSearch?.value));
+  if (artistReset) artistReset.addEventListener("click", () => {
+    if (artistSearch) artistSearch.value = "";
+    if (artistGenre) artistGenre.value = "all";
+    renderRoster("");
+    artistSearch?.focus();
+  });
 
   function safeVideoId(value) {
     const id = String(value || "").trim();

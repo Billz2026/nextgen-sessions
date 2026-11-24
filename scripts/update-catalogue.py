@@ -262,8 +262,8 @@ def group_for_channel_release(artist: str, raw_title: str, existing_catalogue: d
     # Accept only a trailing, year-labelled genre from the lead segment.
     lead = raw_title.split("|", 1)[0].casefold()
     trailing_genre = re.search(
-        r"\\b(?:uk drill|us drill|usa drill|drill|uk rap|grime|dancehall|reggae|"
-        r"hip-?hop|g-?funk|r&b|rnb|soul|pop|afro swing)\\s+20\\d{2}\\s*$",
+        r"\b(?:uk drill|us drill|usa drill|drill|uk rap|grime|dancehall|reggae|"
+        r"hip-?hop|g-?funk|r&b|rnb|soul|pop|afro swing)\s+20\d{2}\s*$",
         lead,
     )
     if trailing_genre:

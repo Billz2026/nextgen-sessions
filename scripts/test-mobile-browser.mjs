@@ -56,6 +56,10 @@ try {
     assert.equal(await page.locator("#featuredArtistGrid .featured-artist-card").count(), 6);
     assert.equal(await page.locator("#allArtistsLink").textContent(), "Explore all artists");
     assert.ok(await page.locator("#releases").evaluate(el => el.compareDocumentPosition(document.querySelector("#featured-artists")) & Node.DOCUMENT_POSITION_FOLLOWING), "Recent releases must precede featured artists");
+    assert.equal(await page.locator("#new-this-week").count(), 0);
+    assert.equal(await page.locator("#releaseGrid .release-card").count(), 6);
+    assert.ok(await page.locator("#releases").evaluate(el => el.nextElementSibling?.id === "featured-artists"), "Featured artists must immediately follow latest releases");
+    assert.ok(await page.locator("#genres").evaluate(el => el.nextElementSibling?.id === "mixes"), "Genres must precede mixes");
     assert.equal(await page.locator("#genres .genre").count(), 8);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2), viewport.label + ": homepage overflow");
     const columns = await page.locator("#featuredArtistGrid").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);

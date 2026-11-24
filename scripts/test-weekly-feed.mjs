@@ -93,13 +93,10 @@ for (const item of schedules) {
 }
 
 const homepage = read("index.html");
-assert.ok(homepage.includes("<!-- WEEKLY-FEED:START -->") && homepage.includes("<!-- WEEKLY-FEED:END -->"), "homepage weekly feed markers missing");
-assert.ok(homepage.includes("/weekly-feed.css"), "homepage weekly feed stylesheet missing");
-assert.ok(homepage.includes("/weekly-feed.js"), "homepage weekly feed runtime missing");
-const homepageCards = (homepage.match(/class="weekly-release-card"/g) || []).length;
-if ((feed.items || []).length) assert.equal(homepageCards, Math.min(feed.items.length, 4), "homepage weekly card cap drift");
-else if (feed.nextUp) assert.equal(homepageCards, 1, "Next Up fallback must render one card");
-else assert.equal(homepageCards, 0, "empty weekly state should not render cards");
+assert.ok(!homepage.includes('id="new-this-week"'), "Weekly section must stay off homepage");
+assert.ok(!homepage.includes("<!-- WEEKLY-FEED:START -->"), "Retired weekly renderer markers must not return");
+assert.ok(!homepage.includes("/weekly-feed.css") && !homepage.includes("/weekly-feed.js"), "Homepage should not load unused weekly assets");
+assert.ok(feed.weekLabel, "Underlying scheduling feed must remain available");
 
 const scheduleSearchItems = (search.items || []).filter((item) => item.source === "release-schedule");
 const unmatchedSchedules = schedules.filter((item) => !catalogue.some((release) => sameRelease(release, item)));

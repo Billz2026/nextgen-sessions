@@ -127,54 +127,6 @@ function renderCard(item) {
     </article>`;
 }
 
-function renderHomepage(feed) {
-  if (!feed.items.length && !feed.nextUp) return "<!-- WEEKLY-FEED:START --><!-- WEEKLY-FEED:END -->";
-  const showingWeek = feed.items.length > 0;
-  const cards = (showingWeek ? feed.items.slice(0, 4) : [feed.nextUp]).map(renderCard).join("\n    ");
-  const heading = showingWeek ? "This week’s music" : "Coming next";
-  const eyebrow = showingWeek ? "New this week" : "Next up";
-  const subcopy = showingWeek
-    ? "New music and upcoming releases."
-    : "The next scheduled release.";
-  const overflow = feed.items.length > 4
-    ? `<div class="button-row weekly-feed-more"><a class="button button-secondary" href="/releases/">View all releases</a></div>`
-    : "";
-
-  return `<!-- WEEKLY-FEED:START -->
-<section class="section weekly-feed" id="new-this-week" aria-labelledby="new-this-week-title" data-weekly-feed="true">
-  <div class="weekly-feed-heading">
-    <div><p class="eyebrow">${escapeHtml(eyebrow)}</p><h2 id="new-this-week-title">${escapeHtml(heading)}</h2><p>${escapeHtml(subcopy)}</p></div>
-    <span class="weekly-feed-window">${escapeHtml(showingWeek ? feed.weekLabel : feed.nextUp.longDate)}</span>
-  </div>
-  <div class="weekly-release-grid">
-    ${cards}
-  </div>
-  ${overflow}
-</section>
-<!-- WEEKLY-FEED:END -->`;
-}
-
-function updateHomepage(feed) {
-  const homepagePath = path.join(root, "index.html");
-  let html = fs.readFileSync(homepagePath, "utf8");
-  const block = renderHomepage(feed);
-  const marker = /<!-- WEEKLY-FEED:START -->[\s\S]*?<!-- WEEKLY-FEED:END -->/;
-  if (marker.test(html)) {
-    html = html.replace(marker, block);
-  } else {
-    const hero = /(<section\s+class="hero"[^>]*>[\s\S]*?<\/section>)/i;
-    if (!hero.test(html)) throw new Error("Homepage hero section not found for weekly feed insertion");
-    html = html.replace(hero, `$1\n${block}`);
-  }
-  if (!html.includes("/weekly-feed.css")) {
-    html = html.replace("</head>", '  <link rel="stylesheet" href="/weekly-feed.css?v=20260826-week1">\n</head>');
-  }
-  if (!html.includes("/weekly-feed.js")) {
-    html = html.replace("</body>", '<script src="/weekly-feed.js?v=20260826-week1" defer></script>\n</body>');
-  }
-  fs.writeFileSync(homepagePath, html, "utf8");
-}
-
 const now = new Date();
 const artists = loadArtists();
 const artistsByName = new Map(artists.map((artist) => [normalise(artist.name), artist]));
@@ -235,5 +187,4 @@ if (fs.existsSync(outputPath)) {
 }
 const output = { generatedAt, ...core };
 fs.writeFileSync(outputPath, `${JSON.stringify(output, null, 2)}\n`, "utf8");
-updateHomepage(output);
 console.log(`Weekly release feed built for ${output.weekLabel}: ${output.items.length} release(s), mode=${output.mode}.`);

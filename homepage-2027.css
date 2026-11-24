@@ -117,3 +117,20 @@ main > .hero .hero-brand .hero-copy{max-width:44ch;font-size:1.04rem;line-height
 main > .hero .hero-brand .hero-copy{color:rgba(255,255,255,.88)}
 main > .hero .video-poster img{filter:brightness(1.08) contrast(1.03) saturate(1.04)}
 main > .hero .video-poster-overlay{background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.16) 48%,rgba(0,0,0,.60))}
+
+/* Signature player frame: restrained warm metallic gold, no luminous halo. */
+main > .hero .media-shell{border:1px solid #a78a45;box-shadow:0 12px 36px rgba(0,0,0,.28);background:#101010}
+main > .hero .media-label{background:#151412;border-bottom:1px solid rgba(243,199,79,.18)}
+main > .hero .media-label strong{display:flex;align-items:center;gap:9px}
+main > .hero .media-label strong::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);flex:none}
+main > .hero .media-label span{text-transform:uppercase;letter-spacing:.075em;font-size:.66rem}
+main > .hero .video-play-icon{background:rgba(10,10,10,.88);border:1px solid #e9c461;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+main > .hero .video-play-icon::before{border-left-color:#f3c74f}
+main > .hero .video-poster:hover .video-play-icon{background:#18150e;transform:scale(1.06)}
+main > .hero .video-poster:hover img{filter:brightness(1.1) contrast(1.03) saturate(1.04);transform:none}
+main > .hero .latest-release-copy{border-top:1px solid rgba(243,199,79,.18);background:#101010}
+main > .hero .latest-kicker{font-size:.76rem;letter-spacing:.08em;overflow-wrap:anywhere}
+main > .hero .latest-release-copy h2{font-size:clamp(1.25rem,1.85vw,1.85rem);margin-block:5px 6px}
+main > .hero .latest-watch{border-radius:8px}
+main > .hero .video-poster:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+@media(prefers-reduced-motion:reduce){main > .hero .video-play-icon,main > .hero .video-poster img{transition:none}}

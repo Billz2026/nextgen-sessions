@@ -117,6 +117,9 @@ def normalise_release(release: dict) -> dict:
         "id": str(release.get("id", "")).strip(),
         "contentType": "full-release",
         "title": display_title(release),
+        "artist": str(release.get("artist", "")).strip(),
+        "trackTitle": str(release.get("title", "")).strip(),
+        "group": str(release.get("group", "")).strip(),
         "published": str(release.get("published", "")).strip(),
         "url": str(release.get("url", "/releases/")).strip() or "/releases/",
     }
@@ -146,6 +149,8 @@ def normalise_album(album: dict) -> dict:
         "id": str(album.get("id", "")).strip(),
         "contentType": "album",
         "title": title,
+        "artist": artist,
+        "trackTitle": album_title or title,
         "published": str(album.get("published", "")).strip(),
         "url": ALBUM_URL,
     }
@@ -217,14 +222,14 @@ def sync_homepage(releases: list[dict], mixes: list[dict], albums: list[dict]) -
     # The homepage brand CTA is evergreen; the latest player links are updated below.
     source = replace_once(source, r'<div class="media-shell"[^>]*>', lambda _m: f'<div class="media-shell" data-content-kind="{esc(presentation["kind"])}" aria-label="{esc(presentation["label"] + ": " + latest_title)}">', "latest media shell")
     source = replace_once(source, r'(<strong id="latestTypeLabel">).*?(</strong>)', lambda m: m.group(1) + esc(presentation["label"]) + m.group(2), "latest type label")
-    source = replace_once(source, r'(<span id="latestStatus">).*?(</span>)', lambda m: m.group(1) + esc(presentation["status"]) + m.group(2), "latest status")
+    source = replace_once(source, r'(<span id="latestStatus">).*?(</span>)', lambda m: m.group(1) + esc("NextGen Sessions Original") + m.group(2), "latest status")
     source = replace_once(source, r'(<div class="video-frame" id="latestVideoFrame" data-video-id=")[^"]*(")', lambda m: m.group(1) + esc(latest_id) + m.group(2), "latest video id")
     source = replace_once(source, r'(<button class="video-poster" id="latestVideoPlay" type="button" aria-label=")[^"]*(")', lambda m: m.group(1) + esc(f"Play {latest_title}") + m.group(2), "latest play label")
     source = replace_once(source, r'(<span class="video-play-copy" id="latestPlayCopy">).*?(</span>)', lambda m: m.group(1) + esc(presentation["playCta"]) + m.group(2), "latest play copy")
     source = replace_once(source, r'(<img id="latestVideoThumbnail" src=")[^"]*(")', lambda m: m.group(1) + esc(thumbnail_url) + m.group(2), "latest thumbnail")
     source = replace_once(source, r'(<noscript><a class="video-no-script" href=")[^"]*(">)[^<]*(</a></noscript>)', lambda m: m.group(1) + esc(youtube_url) + m.group(2) + esc(presentation["noscript"]) + m.group(3), "latest no-script link")
-    source = replace_once(source, r'(<div class="latest-kicker" id="latestKicker">).*?(</div>)', lambda m: m.group(1) + esc(presentation["kicker"]) + m.group(2), "latest kicker")
-    source = replace_once(source, r'(<h2 id="latestVideoTitle">).*?(</h2>)', lambda m: m.group(1) + esc(latest_title) + m.group(2), "latest title")
+    source = replace_once(source, r'(<div class="latest-kicker" id="latestKicker">).*?(</div>)', lambda m: m.group(1) + esc(" · ".join(str(latest.get(key, "")).strip() for key in ("artist", "group") if latest.get(key)) or presentation["kicker"]) + m.group(2), "latest kicker")
+    source = replace_once(source, r'(<h2 id="latestVideoTitle">).*?(</h2>)', lambda m: m.group(1) + esc(latest.get("trackTitle") or latest_title) + m.group(2), "latest title")
     source = replace_once(source, r'(<p id="latestVideoDate">).*?(</p>)', lambda m: m.group(1) + esc(f"Published {published}") + m.group(2), "latest date")
     source = replace_once(source, r'(<a class="button button-primary latest-watch" id="latestWatchLink" href=")[^"]*(")', lambda m: m.group(1) + esc(youtube_url) + m.group(2), "latest YouTube link")
 

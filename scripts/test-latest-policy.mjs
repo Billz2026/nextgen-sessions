@@ -234,7 +234,6 @@ for (const expected of [
   '"label": "Latest mix"',
   '"label": "Latest album"',
   '"label": "Latest release"',
-  'presentation["heroCta"]',
   'presentation["playCta"]',
   'def latest_destination(item: dict)',
   'return "/mixes/"'
@@ -292,8 +291,8 @@ assert.ok(
   "Homepage static Latest play copy must match the newest eligible catalogue item"
 );
 assert.ok(
-  homepageHtml.includes(`id="heroLatestLink" href="${expectedPresentation.destination}">${expectedPresentation.cta}</a>`),
-  "Homepage Latest CTA must match the newest eligible catalogue item"
+  homepageHtml.includes(`id="latestWatchLink" href="https://www.youtube.com/watch?v=${currentLatest.id}"`),
+  "Homepage Latest watch link must match the newest eligible catalogue item"
 );
 
 assert.match(
@@ -334,7 +333,7 @@ async function simulateHomepageLinks(payloads) {
   const document = {
     querySelector(selector) {
       // The page already loads the analytics script; avoid adding a DOM mock.
-      return selector === 'script[src="/site-metrics.js"]' ? {} : null;
+      return selector === 'script[src^="/site-metrics.js"]' || selector === 'script[src="/site-metrics.js"]' ? {} : null;
     },
     getElementById(id) { return nodes[id] || null; }
   };

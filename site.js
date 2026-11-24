@@ -288,13 +288,13 @@
     const presentation = latestPresentation(latest.contentType);
 
     updateLatestPlayer(latest);
-    if (latestTitle) latestTitle.textContent = latest.title || presentation.fallback;
+    if (latestTitle) latestTitle.textContent = latest.trackTitle || latest.title || presentation.fallback;
     if (latestDate) {
       const date = formatDate(latest.published);
       latestDate.textContent = date ? `Published ${date}` : presentation.fallback;
     }
     if (latestTypeLabel) latestTypeLabel.textContent = presentation.label;
-    if (latestKicker) latestKicker.textContent = presentation.kicker;
+    if (latestKicker) latestKicker.textContent = [latest.artist, latest.group].filter(Boolean).join(" · ") || presentation.kicker;
     if (latestPlayCopy) latestPlayCopy.textContent = presentation.playCta;
     if (latestShell) {
       latestShell.dataset.contentKind = presentation.kind;
@@ -317,7 +317,7 @@
       }
     }
 
-    if (latestStatus) latestStatus.textContent = presentation.status;
+    if (latestStatus) latestStatus.textContent = "NextGen Sessions Original";
 
     const releaseOnly = releases.filter(item => item?.contentType === "full-release");
     if (releaseGrid) releaseGrid.innerHTML = releaseOnly.slice(0, 6).map(releaseCard).join("");
@@ -376,6 +376,9 @@
       id,
       contentType,
       title,
+      artist,
+      trackTitle: String(release?.trackTitle || (artist && releaseTitle.startsWith(`${artist} – `) ? releaseTitle.slice(artist.length + 3) : releaseTitle)),
+      group: String(release?.group || "").trim(),
       published: String(release?.published || release?.updated || "").trim(),
       url: releaseUrl
     };
@@ -434,9 +437,12 @@
       const path = dedicatedReleasePath(item.url);
       if (path) verifiedPaths.set(item.id, path);
     }
-    const resolveRelease = item => item?.contentType === "full-release" && verifiedPaths.has(item.id)
-      ? { ...item, url: verifiedPaths.get(item.id) }
-      : item;
+    const metadataById = new Map(catalogueReleases.map(item => [item.id, item]));
+    const resolveRelease = item => {
+      if (item?.contentType !== "full-release") return item;
+      const metadata = metadataById.get(item.id);
+      return { ...item, artist: metadata?.artist || item.artist, trackTitle: metadata?.trackTitle || item.trackTitle, group: metadata?.group || item.group, url: verifiedPaths.get(item.id) || item.url };
+    };
 
     const releases = uniqueHomepageReleases(mergeHomepageReleases([
       ...catalogueReleases,

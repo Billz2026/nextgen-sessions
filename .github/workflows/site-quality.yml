@@ -18,6 +18,7 @@ on:
       - "site.js"
       - "styles.css"
       - "featured-artists-12.css"
+      - "homepage-2027.css"
       - "scripts/test-artist-static-render.mjs"
       - "scripts/test-mobile-browser.mjs"
       - "scripts/render-artists.mjs"

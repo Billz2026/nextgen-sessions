@@ -268,7 +268,9 @@ def replace_metadata(source: str, title: str, description: str) -> str:
     next_source = source
     for pattern, replacement in replacements:
         if pattern.search(next_source):
-            next_source = pattern.sub(replacement, next_source, count=1)
+            next_source = pattern.sub(lambda _match: replacement, next_source, count=1)
+        elif pattern in (TWITTER_TITLE_RE, TWITTER_DESCRIPTION_RE):
+            next_source = insert_after_description(next_source, replacement)
     return next_source
 
 

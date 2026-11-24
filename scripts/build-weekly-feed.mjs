@@ -131,11 +131,11 @@ function renderHomepage(feed) {
   if (!feed.items.length && !feed.nextUp) return "<!-- WEEKLY-FEED:START --><!-- WEEKLY-FEED:END -->";
   const showingWeek = feed.items.length > 0;
   const cards = (showingWeek ? feed.items.slice(0, 4) : [feed.nextUp]).map(renderCard).join("\n    ");
-  const heading = showingWeek ? "The week's releases, in one place." : "The next release is already lined up.";
+  const heading = showingWeek ? "This week’s music" : "Coming next";
   const eyebrow = showingWeek ? "New this week" : "Next up";
   const subcopy = showingWeek
-    ? `${feed.weekLabel}. Scheduled releases switch to Out Now only after the public catalogue confirms them.`
-    : "Nothing is scheduled inside the current week. The next confirmed NextGen release is shown below.";
+    ? "New music and upcoming releases."
+    : "The next scheduled release.";
   const overflow = feed.items.length > 4
     ? `<div class="button-row weekly-feed-more"><a class="button button-secondary" href="/releases/">View all releases</a></div>`
     : "";

@@ -55,6 +55,9 @@ try {
     await page.locator("#featuredArtistGrid .featured-artist-card").first().waitFor();
     assert.equal(await page.locator("#featuredArtistGrid .featured-artist-card").count(), 6);
     assert.equal(await page.locator("#allArtistsLink").textContent(), "Explore all artists");
+    assert.ok(await page.locator("#releases").evaluate(el => el.compareDocumentPosition(document.querySelector("#featured-artists")) & Node.DOCUMENT_POSITION_FOLLOWING), "Recent releases must precede featured artists");
+    assert.equal(await page.locator("#genres .genre").count(), 8);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2), viewport.label + ": homepage overflow");
     const columns = await page.locator("#featuredArtistGrid").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
     assert.equal(columns, viewport.width <= 520 ? 1 : viewport.width <= 980 ? 2 : 3);
     await page.goto(site + "/artists/", { waitUntil: "domcontentloaded" });

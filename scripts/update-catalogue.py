@@ -191,7 +191,7 @@ def clean_title(value: str) -> str:
     cleaned = re.sub(r"\s+single$", "", cleaned, flags=re.IGNORECASE).strip()
     return re.sub(
         r"\s+(uk rap|grime|dancehall|reggae|hip-?hop|r&b|rnb|soul|"
-        r"afro swing)\s+20\d{2}$",
+        r"afro swing|usa? drill|uk drill|drill)\s+20\d{2}$",
         "",
         cleaned,
         flags=re.IGNORECASE,
@@ -257,8 +257,20 @@ def group_for_channel_release(artist: str, raw_title: str, existing_catalogue: d
 
     # New artists need a clearly labelled genre; never guess from their name.
     metadata = " | ".join(raw_title.split("|")[1:]).casefold()
+    # Some official uploads put the genre before the FIRST pipe, e.g.
+    # "Brix Knox - Knock Knock Who's There? USA Drill 2026 | NextGen Sessions".
+    # Accept only a trailing, year-labelled genre from the lead segment.
+    lead = raw_title.split("|", 1)[0].casefold()
+    trailing_genre = re.search(
+        r"\\b(?:uk drill|us drill|usa drill|drill|uk rap|grime|dancehall|reggae|"
+        r"hip-?hop|g-?funk|r&b|rnb|soul|pop|afro swing)\\s+20\\d{2}\\s*$",
+        lead,
+    )
+    if trailing_genre:
+        metadata += " | " + trailing_genre.group(0)
     mappings = [
-        (r"\b(?:uk rap|grime)\b", "UK Rap & Grime"),
+        (r"\b(?:uk rap|grime|uk drill)\b", "UK Rap & Grime"),
+        (r"\b(?:us drill|usa drill|drill)\b", "Hip-Hop / G-Funk"),
         (r"\b(?:dancehall|bashment)\b", "Dancehall"),
         (r"\b(?:lovers rock)\b", "Lovers Rock"),
         (r"\b(?:reggae)\b", "Reggae"),

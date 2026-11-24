@@ -32,6 +32,26 @@ jobs:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python3 scripts/update-latest-feed.py latest-feed.json
 
+      - name: Regression test two-part title classification
+        run: |
+          python3 - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          spec = importlib.util.spec_from_file_location("latest_feed", Path("scripts/update-latest-feed.py"))
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          example = "Brix Knox - Knock Knock Who's There? USA Drill 2026 | NextGen Sessions"
+          assert module.trusted_title(example), "Valid two-part titles must not be skipped"
+          assert module.artist_title(example) == ("Brix Knox", "Knock Knock Who's There?")
+          assert module.content_type(example) == "full-release"
+          assert module.eligible_entry({
+              "id": "PFLIYHfUTsM",
+              "rawTitle": example,
+              "published": "2026-11-23T18:00:17Z",
+          }, 253), "Public non-Short release must remain eligible"
+          print("Two-part drill release discovery passed")
+          PY
+
       - name: Validate Latest feed payload
         run: |
           python3 - <<'PY'

@@ -66,7 +66,14 @@ try {
     await page.locator("#artistReset").click();
     assert.equal(await page.locator("#rosterCount").textContent(), "All artists");
     assert.ok(await page.locator("#artistRosterGrid .artist-roster-card").count() >= 36);
-    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2), viewport.label + ": artist directory overflow");
+    const overflow = await page.evaluate(() => ({
+      width: document.documentElement.scrollWidth, viewport: window.innerWidth,
+      elements: [...document.querySelectorAll("body *")].filter(el => {
+        const rect = el.getBoundingClientRect();
+        return rect.width > 0 && rect.right > window.innerWidth + 2 && getComputedStyle(el).visibility !== "hidden";
+      }).slice(0, 12).map(el => ({tag:el.tagName, className:String(el.className), right:Math.round(el.getBoundingClientRect().right)}))
+    }));
+    assert.ok(overflow.width <= overflow.viewport + 2, viewport.label + ": artist directory overflow " + JSON.stringify(overflow));
     await page.close();
   }
 } finally {

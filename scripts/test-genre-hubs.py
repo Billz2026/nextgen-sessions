@@ -17,6 +17,8 @@ LANES = {
         "groups": {"Hip-Hop / G-Funk"},
         "artist_terms": {"hip-hop", "g-funk"},
     },
+    "us-drill": {"groups": {"US Drill"}, "artist_terms": {"us drill"}},
+    "pop": {"groups": {"Pop"}, "artist_terms": {"pop"}},
     "dancehall": {
         "groups": {"Dancehall"},
         "artist_terms": {"dancehall"},
@@ -53,10 +55,9 @@ for slug, lane in LANES.items():
         mapped_groups[group] = slug
 
 catalogue_groups = {str(item.get("group", "")).strip() for item in releases}
-# Pop has its own filter in the Releases archive and is intentionally not
-# folded into Global Sounds, R&B or another existing genre hub.
+# Pop and US Drill each have a dedicated hub and archive filter.
 assert 'data-filter="Pop"' in (ROOT / "releases" / "index.html").read_text(encoding="utf-8")
-unmapped_groups = sorted(group for group in catalogue_groups if group not in mapped_groups and group != "Pop")
+unmapped_groups = sorted(group for group in catalogue_groups if group not in mapped_groups)
 assert not unmapped_groups, f"Unmapped release groups: {unmapped_groups}"
 
 for slug, lane in LANES.items():
@@ -82,8 +83,6 @@ for slug, lane in LANES.items():
 uncovered_artists = []
 for artist in artists:
     genre = str(artist.get("genre", "")).lower()
-    if genre == "pop":
-        continue  # Pop's independent Releases archive category, not Global Sounds
     if not any(
         any(term in genre for term in lane["artist_terms"])
         for lane in LANES.values()

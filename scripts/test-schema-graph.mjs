@@ -114,9 +114,9 @@ for (const release of releases) {
 const genreIndex = graph("genres/index.html");
 requireType(genreIndex, "CollectionPage", "genres/index.html");
 const genreList = requireType(genreIndex, "ItemList", "genres/index.html");
-if (genreList.numberOfItems !== 6) throw new Error("genres/index.html: expected six genre hubs");
+if (genreList.numberOfItems !== 8) throw new Error("genres/index.html: expected eight genre hubs");
 
-const genreSlugs = ["uk-rap-grime", "hip-hop-g-funk", "dancehall", "reggae-lovers-rock", "rnb-soul", "global-sounds"];
+const genreSlugs = ["uk-rap-grime", "hip-hop-g-funk", "us-drill", "pop", "dancehall", "reggae-lovers-rock", "rnb-soul", "global-sounds"];
 let genrePages = 0;
 for (const slug of genreSlugs) {
   const relativePath = `genres/${slug}/index.html`;

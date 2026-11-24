@@ -44,6 +44,8 @@ function loadArtists() {
 const GENRES = [
   { slug: "uk-rap-grime", name: "UK Rap & Grime", keywords: ["UK rap", "grime", "London rap"] },
   { slug: "hip-hop-g-funk", name: "Hip-Hop & G-Funk", keywords: ["hip hop", "G-Funk", "West Coast", "New York"] },
+  { slug: "us-drill", name: "US Drill", keywords: ["USA drill", "American drill", "Brix Knox"] },
+  { slug: "pop", name: "Pop", keywords: ["pop music", "synth-pop", "Dean Lawson"] },
   { slug: "dancehall", name: "Dancehall", keywords: ["Jamaican dancehall", "bashment", "gully"] },
   { slug: "reggae-lovers-rock", name: "Reggae & Lovers Rock", keywords: ["reggae", "lovers rock", "Jamaica"] },
   { slug: "rnb-soul", name: "R&B & Soul", keywords: ["R&B", "soul", "rhythm and blues"] },

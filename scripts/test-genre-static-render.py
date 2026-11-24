@@ -11,6 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 LANES = {
     "uk-rap-grime": {"groups": {"UK Rap & Grime"}, "artist_terms": {"uk rap", "grime"}},
     "hip-hop-g-funk": {"groups": {"Hip-Hop / G-Funk"}, "artist_terms": {"hip-hop", "g-funk"}},
+    "us-drill": {"groups": {"US Drill"}, "artist_terms": {"us drill"}},
+    "pop": {"groups": {"Pop"}, "artist_terms": {"pop"}},
     "dancehall": {"groups": {"Dancehall"}, "artist_terms": {"dancehall"}},
     "reggae-lovers-rock": {"groups": {"Reggae", "Lovers Rock"}, "artist_terms": {"reggae", "lovers rock"}},
     "rnb-soul": {"groups": {"R&B & Soul"}, "artist_terms": {"r&b"}},

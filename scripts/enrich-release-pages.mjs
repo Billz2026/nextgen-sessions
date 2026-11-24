@@ -15,6 +15,8 @@ const CSS_VERSION = "20260825-editorial1";
 const LANES = {
   "UK Rap & Grime": { slug: "uk-rap-grime", name: "UK Rap & Grime", groups: ["UK Rap & Grime"] },
   "Hip-Hop / G-Funk": { slug: "hip-hop-g-funk", name: "Hip-Hop & G-Funk", groups: ["Hip-Hop / G-Funk"] },
+  "US Drill": { slug: "us-drill", name: "US Drill", groups: ["US Drill"] },
+  Pop: { slug: "pop", name: "Pop", groups: ["Pop"] },
   Dancehall: { slug: "dancehall", name: "Dancehall", groups: ["Dancehall"] },
   Reggae: { slug: "reggae-lovers-rock", name: "Reggae & Lovers Rock", groups: ["Reggae", "Lovers Rock"] },
   "Lovers Rock": { slug: "reggae-lovers-rock", name: "Reggae & Lovers Rock", groups: ["Reggae", "Lovers Rock"] },

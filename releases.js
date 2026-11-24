@@ -34,6 +34,7 @@
     "west coast hip-hop": "Hip-Hop / G-Funk",
     "new york hip-hop": "Hip-Hop / G-Funk",
     "hip-hop": "Hip-Hop / G-Funk",
+    "us drill": "US Drill",
     "hip-hop / soul": "Hip-Hop / G-Funk",
     "hip-hop / r&b": "Hip-Hop / G-Funk",
     "uk r&b": "R&B & Soul",
@@ -92,6 +93,7 @@
     if (/reggae/.test(title)) return "Reggae";
     if (/uk rap|grime|london rap/.test(title)) return "UK Rap & Grime";
     if (/r&b|rnb|soul/.test(title)) return "R&B & Soul";
+    if (/\b(?:us|usa|american) drill\b/i.test(title)) return "US Drill";
     if (/\bpop\b|synth.pop/i.test(title)) return "Pop";
     if (/punjabi|bhangra|arabic|oud|global|afro|latin/.test(title)) return "Global Sounds";
     return "Hip-Hop / G-Funk";

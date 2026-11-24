@@ -43,10 +43,10 @@ const mixPages = fs.readdirSync(mixesRoot, { withFileTypes: true })
 assert.equal(searchIndex.counts.artists, artists.length, "search artist count must match artists.js");
 assert.equal(searchIndex.counts.releases, releases.length + unmatchedSchedules.length, "search release count must include public + scheduled releases");
 assert.equal(searchIndex.counts.upcomingReleases || 0, unmatchedSchedules.length, "search upcoming release count must match central schedule");
-assert.equal(searchIndex.counts.genres, 6, "search must include all six genre hubs");
+assert.equal(searchIndex.counts.genres, 8, "search must include all eight genre hubs");
 assert.equal(searchIndex.counts.mixes, mixPages.length, "search mix count must match dedicated mix pages");
 assert.equal(searchIndex.total, items.length, "search total must match indexed items");
-assert.equal(items.length, artists.length + releases.length + unmatchedSchedules.length + 6 + mixPages.length, "search index item count drift");
+assert.equal(items.length, artists.length + releases.length + unmatchedSchedules.length + 8 + mixPages.length, "search index item count drift");
 assert.ok(items.length >= 130, `search index unexpectedly small: ${items.length}`);
 
 const allowedTypes = new Set(["artist", "release", "genre", "mix"]);
@@ -102,3 +102,6 @@ assert.ok(client.includes("function scoreItem"), "search ranking function missin
 assert.ok(!/algolia|typesense|meilisearch/i.test(client), "search must remain first-party unless explicitly changed");
 
 console.log(`Universal site search validated: ${items.length} indexed items including ${unmatchedSchedules.length} scheduled release(s).`);
+
+assert.ok(matches("US Drill").some(item => item.type === "genre" && item.url === "/genres/us-drill/"));
+assert.ok(matches("Pop").some(item => item.type === "genre" && item.url === "/genres/pop/"));

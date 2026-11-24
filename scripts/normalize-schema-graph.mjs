@@ -13,6 +13,8 @@ const SCHEMA_END = "<!-- NEXTGEN-SCHEMA:END -->";
 const LANES = {
   "uk-rap-grime": { name: "UK Rap & Grime", groups: ["UK Rap & Grime"], artistTerms: ["uk rap", "grime"], about: ["UK Rap", "Grime"] },
   "hip-hop-g-funk": { name: "Hip-Hop & G-Funk", groups: ["Hip-Hop / G-Funk"], artistTerms: ["hip-hop", "g-funk"], about: ["Hip-Hop", "G-Funk"] },
+  "us-drill": { name: "US Drill", groups: ["US Drill"], artistTerms: ["us drill"], about: ["US Drill"] },
+  pop: { name: "Pop", groups: ["Pop"], artistTerms: ["pop"], about: ["Pop music"] },
   dancehall: { name: "Dancehall", groups: ["Dancehall"], artistTerms: ["dancehall"], about: ["Dancehall"] },
   "reggae-lovers-rock": { name: "Reggae & Lovers Rock", groups: ["Reggae", "Lovers Rock"], artistTerms: ["reggae", "lovers rock"], about: ["Reggae", "Lovers Rock"] },
   "rnb-soul": { name: "R&B & Soul", groups: ["R&B & Soul"], artistTerms: ["r&b"], about: ["R&B", "Soul"] },

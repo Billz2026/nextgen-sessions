@@ -1,9 +1,9 @@
 (function () {
   "use strict";
 
-  if (!document.querySelector('script[src="/site-metrics.js"]')) {
+  if (!document.querySelector('script[src^="/site-metrics.js"]')) {
     const metrics = document.createElement("script");
-    metrics.src = "/site-metrics.js";
+    metrics.src = "/site-metrics.js?v=20261124-homeorder6";
     metrics.async = true;
     document.head.append(metrics);
   }

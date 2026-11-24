@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-11-20T20:41:03.461549Z",
+  "generatedAt": "2026-11-24T09:09:55.205005Z",
   "latest": {
-    "id": "pX8KaEWxzRU",
-    "contentType": "album",
-    "artist": "Zion Daley",
-    "title": "Iron Zion Full Album",
-    "rawTitle": "Zion Daley - Iron Zion Full Album | Reggae 2026 | NextGen Sessions",
-    "published": "2026-11-20T18:00:03Z",
-    "durationSeconds": 3716,
-    "url": "/mixes/full-albums/",
+    "id": "PFLIYHfUTsM",
+    "contentType": "full-release",
+    "artist": "Brix Knox",
+    "title": "Knock Knock Who's There? USA Drill 2026",
+    "rawTitle": "Brix Knox - Knock Knock Who's There? USA Drill 2026 | NextGen Sessions",
+    "published": "2026-11-23T18:00:17Z",
+    "durationSeconds": 253,
+    "url": "/releases/",
     "discoverySource": "youtube-channel-feed"
   }
 }

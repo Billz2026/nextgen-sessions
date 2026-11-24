@@ -185,6 +185,7 @@ def run(local_only: bool = False) -> None:
     try:
         live_feed = json.loads(live_feed_raw).get("latest") or {}
         check(safe_id(live_feed.get("id")), "Production Latest feed has a valid video ID")
+        print("INFO: Production Latest feed video ID:", live_feed.get("id"))
     except (ValueError, AttributeError):
         ERRORS.append("Production /latest-feed.json is not valid Latest-feed JSON")
         live_feed = {}
@@ -201,6 +202,7 @@ def run(local_only: bool = False) -> None:
         api_latest = json.loads(api_latest_raw).get("latest") or {}
         check(safe_id(api_latest.get("id")),
               "Cloudflare /api/latest returns a playable verified video ID")
+        print("INFO: Production /api/latest video ID:", api_latest.get("id"))
     except (ValueError, AttributeError):
         ERRORS.append("Cloudflare /api/latest did not return usable JSON")
 

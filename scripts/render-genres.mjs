@@ -48,6 +48,8 @@ const LANES = {
       ],
     },
   },
+  "us-drill": { name: "US Drill", groups: ["US Drill"], artistTerms: ["us drill"] },
+  "pop": { name: "Pop", groups: ["Pop"], artistTerms: ["pop"] },
   dancehall: {
     name: "Dancehall",
     groups: ["Dancehall"],

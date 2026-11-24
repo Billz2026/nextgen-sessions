@@ -11,6 +11,8 @@
   const LANES = {
     "uk-rap-grime": { name: "UK Rap & Grime", groups: ["UK Rap & Grime"], artistTerms: ["uk rap", "grime"] },
     "hip-hop-g-funk": { name: "Hip-Hop & G-Funk", groups: ["Hip-Hop / G-Funk"], artistTerms: ["hip-hop", "g-funk"] },
+    "us-drill": { name: "US Drill", groups: ["US Drill"], artistTerms: ["us drill"] },
+    "pop": { name: "Pop", groups: ["Pop"], artistTerms: ["pop"] },
     dancehall: { name: "Dancehall", groups: ["Dancehall"], artistTerms: ["dancehall"] },
     "reggae-lovers-rock": { name: "Reggae & Lovers Rock", groups: ["Reggae", "Lovers Rock"], artistTerms: ["reggae", "lovers rock"] },
     "rnb-soul": { name: "R&B & Soul", groups: ["R&B & Soul"], artistTerms: ["r&b"] },

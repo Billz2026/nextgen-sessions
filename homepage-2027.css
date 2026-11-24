@@ -27,3 +27,39 @@ main > #releases .release-meta h3{font-size:clamp(.9rem,1.5vw,1.15rem);overflow-
 main > #releases .release-meta p{display:none}
 main > #releases .release-date{font-size:.75rem}
 @media(max-width:720px){main > #releases .release-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}main > #releases .release-meta{padding:10px}main > #releases{padding-block:24px}}
+
+/* 2027 widescreen music-first hero. This stylesheet is loaded on the homepage only. */
+main,.header-inner,.footer-inner{width:min(1440px,calc(100% - 64px))}
+main > .hero{grid-template-columns:minmax(0,1fr);gap:24px}
+main > .hero > *{min-width:0}
+main > .hero .hero-copy{max-width:38ch}
+main > .hero h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.06;letter-spacing:-.04em;text-wrap:balance}
+main > .hero h1 span{display:block}
+main > .hero .media-shell{border-radius:20px;border-color:rgba(243,199,79,.23);box-shadow:0 12px 40px rgba(0,0,0,.24)}
+main > .hero .video-frame{width:100%;aspect-ratio:16/9}
+main > .hero .video-poster img{object-fit:contain;background:#080808}
+main > .hero .latest-release-copy{align-items:center;gap:16px;padding:17px 20px}
+main > .hero .latest-release-copy > div{min-width:0}
+main > .hero .latest-release-copy h2{font-size:clamp(1.15rem,1.65vw,1.65rem);overflow-wrap:anywhere}
+main > .hero .latest-watch{flex-shrink:0}
+main > .hero .media-label{padding-inline:20px}
+main > #releases .release-card,main > #featured-artists .featured-artist-card{transition:border-color .18s ease,box-shadow .18s ease}
+@media(hover:hover){main > #releases .release-card:hover,main > #featured-artists .featured-artist-card:hover{border-color:rgba(243,199,79,.55);box-shadow:0 6px 22px rgba(0,0,0,.22)}}
+@media(min-width:1100px){
+  main > .hero{grid-template-columns:minmax(0,1fr) minmax(0,1.92fr);gap:36px;padding-block:44px 36px}
+  main > .hero h1{font-size:clamp(2.5rem,3.25vw,3.8rem);text-wrap:initial}
+  main > .hero .hero-copy{font-size:1.06rem}
+  .header-inner .brand{width:204px}
+  .header-inner{gap:20px}
+  main > #releases .release-grid{gap:18px}
+}
+@media(max-width:1099px){main > .hero .media-shell{grid-row:1}main > .hero h1 span{display:inline}main > .hero .hero-copy{max-width:65ch}}
+@media(max-width:720px){
+  main,.header-inner,.footer-inner{width:calc(100% - 32px)}
+  main > .hero{gap:20px;padding-block:20px 28px}
+  main > .hero h1{font-size:clamp(1.85rem,6.5vw,2.6rem)}
+  main > .hero .latest-release-copy{align-items:stretch;padding:14px}
+  main > .hero .media-label{padding-inline:14px}
+  main > .hero .media-shell{border-radius:16px}
+}
+@media(prefers-reduced-motion:reduce){main > #releases .release-card,main > #featured-artists .featured-artist-card{transition:none}}

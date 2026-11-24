@@ -10,6 +10,7 @@ const pages = [
   { width: 360, height: 780, label: "small mobile" },
   { width: 768, height: 900, label: "tablet / unfolded phone" },
   { width: 1280, height: 850, label: "desktop" },
+  { width: 1920, height: 1080, label: "widescreen" },
 ];
 
 try {
@@ -65,6 +66,11 @@ try {
     assert.ok(await page.locator("#mixes").evaluate(el => el.nextElementSibling?.id === "genres"), "Mixes must precede genres");
     assert.equal(await page.locator("#genres .genre").count(), 8);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2), viewport.label + ": homepage overflow");
+    const hero = await page.locator("main > .hero").boundingBox();
+    const player = await page.locator("#latestVideoFrame").boundingBox();
+    assert.ok(hero && player && Math.abs(player.width / player.height - 16 / 9) < .03, viewport.label + ": latest video must retain 16:9");
+    assert.ok(player.width / hero.width >= (viewport.width >= 1100 ? .60 : .97), viewport.label + ": latest player must occupy the intended layout width");
+    if (viewport.width >= 1920) assert.ok(hero.width >= 1400 && player.width >= 850, "Widescreen layout must use available space");
     const columns = await page.locator("#featuredArtistGrid").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
     assert.equal(columns, viewport.width <= 520 ? 1 : viewport.width <= 980 ? 2 : 3);
     await page.goto(site + "/artists/", { waitUntil: "domcontentloaded" });

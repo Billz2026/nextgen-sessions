@@ -58,7 +58,7 @@ for stale in ("Cloudflare Turnstile", "transactional email provider sends the co
 # can halt the automated music catalogue publication pipeline.
 assert "<strong>Last updated:</strong>" in privacy, "Privacy update marker is missing"
 
-# Artist landing copy and shell should reflect the current 33-profile system.
+# Artist landing uses evergreen copy while retaining all crawlable profiles.
 import json
 import re
 
@@ -66,9 +66,10 @@ roster_source = (ROOT / "artists.js").read_text(encoding="utf-8")
 roster_match = re.search(r"window\.NGS_ARTISTS\s*=\s*(\[[\s\S]*?\]);", roster_source)
 assert roster_match, "Cannot read official artist roster"
 roster_count = len(json.loads(roster_match.group(1)))
-assert f"Explore {roster_count} NextGen Sessions artists" in artists, "Artist count/copy is stale"
-assert f'id="rosterCount">{roster_count} artists' in artists, "Visible artist count disagrees with catalogue"
-assert "Open any artist profile" in artists, "Artist landing still describes the old partial-profile model"
+assert "Discover the full roster." in artists, "Evergreen artist landing copy missing"
+assert re.search(r'id="rosterCount"[^>]*>All artists</div>', artists), "Unfiltered roster label must remain evergreen"
+assert len(re.findall(r'class="artist-roster-card(?:\s|")', artists)) == roster_count, "Static roster must retain every artist"
+assert 'id="artistGenre"' in artists and 'id="artistSearch"' in artists, "Artist discovery controls missing"
 assert "Published profile pages open directly" not in artists, "Old artist-profile wording remains"
 assert 'href="/genres/"' in artists, "Artists static navigation is missing Genres"
 

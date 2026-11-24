@@ -84,7 +84,7 @@ jobs:
           done
           echo "YouTube unavailable after retries; restoring last-known-good release catalogue."
           cp /tmp/releases-before.json releases.json
-          exit 0
+          exit 1
 
       - name: Discover due scheduled releases from public channel
         env:
@@ -97,8 +97,8 @@ jobs:
             echo "Scheduled channel discovery attempt ${attempt}/4 failed; retrying..."
             sleep $((attempt * 10))
           done
-          echo "Scheduled-release discovery unavailable; keeping verified catalogue and continuing."
-          exit 0
+          echo "Scheduled-release discovery unavailable; keeping verified production catalogue and retrying on next run."
+          exit 1
 
       # Core publication outputs. A failure here should block publication because the generated
       # release experience would be incomplete.

@@ -86,9 +86,8 @@ const artists = loadRoster();
 const images = loadImages();
 let html = fs.readFileSync(pagePath, "utf8");
 html = installRoster(html, renderRoster(artists, images));
-html = html.replace(/<div class="roster-count" id="rosterCount">[^<]*<\/div>/, `<div class="roster-count" id="rosterCount">${artists.length} artists</div>`);
-// Introductory count must not get stuck when the roster changes.
-html = html.replace(/Explore \d+ NextGen Sessions artists\b/, `Explore ${artists.length} NextGen Sessions artists`);
+html = html.replace(/<div class="roster-count" id="rosterCount"[^>]*>[^<]*<\/div>/, '<div class="roster-count" id="rosterCount" role="status">All artists</div>');
+// Artist introduction intentionally uses evergreen copy.
 html = html.replace(/<noscript><p class="catalogue-note">Enable JavaScript to browse the full artist roster\.<\/p><\/noscript>/, "<noscript><p class=\"catalogue-note\">All artist profiles remain available without JavaScript.</p></noscript>");
 fs.writeFileSync(pagePath, html);
 

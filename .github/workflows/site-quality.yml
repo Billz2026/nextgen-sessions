@@ -12,6 +12,12 @@ on:
       - "scripts/test-global-footer.py"
       - "scripts/test-conversion-funnel.py"
       - "scripts/test-responsive-shell.py"
+      - "scripts/test-artist-index-static.mjs"
+      - "scripts/render-artist-index.mjs"
+      - "index.html"
+      - "site.js"
+      - "styles.css"
+      - "featured-artists-12.css"
       - "scripts/test-artist-static-render.mjs"
       - "scripts/test-mobile-browser.mjs"
       - "scripts/render-artists.mjs"
@@ -37,7 +43,7 @@ permissions:
 
 jobs:
   quality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
       - name: Check out website
@@ -55,6 +61,9 @@ jobs:
       - name: Test responsive shell
         run: python3 scripts/test-responsive-shell.py
 
+      - name: Test artist roster and featured selection
+        run: node scripts/test-artist-index-static.mjs
+
       - name: Test every artist profile and verified video player
         run: node scripts/test-artist-static-render.mjs
 
@@ -62,7 +71,7 @@ jobs:
         run: node scripts/test-analytics-system.mjs
 
   mobile-browser:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - name: Check out website

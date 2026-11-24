@@ -8,6 +8,7 @@ const browser = await chromium.launch({ headless: true });
 const pages = [
   { width: 390, height: 844, label: "mobile" },
   { width: 360, height: 780, label: "small mobile" },
+  { width: 768, height: 900, label: "tablet / unfolded phone" },
   { width: 1280, height: 850, label: "desktop" },
 ];
 
@@ -50,6 +51,22 @@ try {
     await card.locator('a[href="#featured-release"]').first().click();
     assert.equal(new URL(page.url()).hash, "#featured-release", viewport.label + ": Play Here must reach embedded video");
     console.log("PASS: " + viewport.label + " (" + viewport.width + "px) artist artwork, navigation, buttons, and video");
+    await page.goto(site + "/", { waitUntil: "domcontentloaded" });
+    await page.locator("#featuredArtistGrid .featured-artist-card").first().waitFor();
+    assert.equal(await page.locator("#featuredArtistGrid .featured-artist-card").count(), 6);
+    assert.equal(await page.locator("#allArtistsLink").textContent(), "Explore all artists");
+    const columns = await page.locator("#featuredArtistGrid").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
+    assert.equal(columns, viewport.width <= 520 ? 1 : viewport.width <= 980 ? 2 : 3);
+    await page.goto(site + "/artists/", { waitUntil: "domcontentloaded" });
+    await page.locator("#artistGenre").selectOption("us-drill");
+    await page.waitForFunction(() => document.querySelector("#rosterCount").textContent.includes("found"));
+    assert.ok(await page.locator('#artistRosterGrid a[href="/artists/brix-knox/"]').count());
+    await page.locator("#artistSearch").fill("no-such-artist-xyz");
+    assert.ok(await page.locator(".roster-empty").isVisible());
+    await page.locator("#artistReset").click();
+    assert.equal(await page.locator("#rosterCount").textContent(), "All artists");
+    assert.ok(await page.locator("#artistRosterGrid .artist-roster-card").count() >= 36);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2), viewport.label + ": artist directory overflow");
     await page.close();
   }
 } finally {

@@ -52,3 +52,11 @@ assert.ok(homepageCta, "homepage must provide a stable #allArtistsLink CTA");
 assert.equal(homepageCta[1], `Explore all ${artists.length} artist${artists.length === 1 ? "" : "s"}`, "homepage artist count must match the roster");
 
 console.log(`Static artist index passed: ${artists.length} crawlable roster cards with profile links, genre and summaries.`);
+
+const featured = artists.filter(artist => artist.featured).sort((a,b) => a.featuredRank-b.featuredRank);
+assert.deepEqual(featured.map(artist => artist.slug), ["reeko","renz-cole","alia-bleu","jay-starks","deon-creed","rudii-marka"], "Featured selection must match the approved six in order");
+assert.deepEqual(featured.map(artist => artist.featuredRank), [1,2,3,4,5,6]);
+assert.match(artistsSource, /FEATURED_LIMIT\s*=\s*6;/);
+assert.ok(artists.every(artist => artist.featured || artist.featuredRank === undefined), "Non-featured artists must not retain featured ranks");
+assert.ok(read("featured-artists-12.css").includes("repeat(3,minmax(0,1fr))"), "Desktop featured grid must have three columns");
+console.log("Six featured artists, ordering and desktop grid verified.");

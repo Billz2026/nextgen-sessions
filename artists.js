@@ -12,7 +12,7 @@ window.NGS_ARTISTS = [
     "genre": "UK Rap",
     "summary": "Modern London rap with sharp personality, summer energy and memorable hooks.",
     "featured": true,
-    "featuredRank": 1
+    "featuredRank": 2
   },
   {
     "name": "Alia Bleu",
@@ -35,7 +35,7 @@ window.NGS_ARTISTS = [
     "genre": "Jamaican Dancehall",
     "summary": "Gullyside energy with confident hooks, street detail and strong identity.",
     "featured": true,
-    "featuredRank": 2
+    "featuredRank": 1
   },
   {
     "name": "Kemarco",
@@ -50,7 +50,7 @@ window.NGS_ARTISTS = [
     "genre": "Jamaican Dancehall",
     "summary": "Youthful melodic gully records with an unmistakable Jamaican presence.",
     "featured": true,
-    "featuredRank": 7
+    "featuredRank": 6
   },
   {
     "name": "Voss Carter",
@@ -65,15 +65,14 @@ window.NGS_ARTISTS = [
     "genre": "New York Hip-Hop",
     "summary": "Queens-rooted storytelling with classic city grit, soul and perspective.",
     "featured": true,
-    "featuredRank": 5
+    "featuredRank": 4
   },
   {
     "name": "Rell Danja",
     "slug": "rell-danja",
     "genre": "Jamaican Dancehall",
     "summary": "Hard-edged gullyside records about survival, loyalty and consequences.",
-    "featured": true,
-    "featuredRank": 9
+    "featured": false
   },
   {
     "name": "Deon Creed",
@@ -81,7 +80,7 @@ window.NGS_ARTISTS = [
     "genre": "Hip-Hop",
     "summary": "Grounded hip-hop with mature neighbourhood storytelling, resilience and reflective perspective.",
     "featured": true,
-    "featuredRank": 6
+    "featuredRank": 5
   },
   {
     "name": "Kastro",
@@ -109,8 +108,7 @@ window.NGS_ARTISTS = [
     "slug": "kemar-ranka",
     "genre": "Jamaican Dancehall",
     "summary": "A developing dancehall identity within the NextGen Sessions roster.",
-    "featured": true,
-    "featuredRank": 4
+    "featured": false
   },
   {
     "name": "Leila Nour",
@@ -138,8 +136,7 @@ window.NGS_ARTISTS = [
     "slug": "asif-sultaan",
     "genre": "Punjabi / South Asian Fusion",
     "summary": "Modern Punjabi records with commanding vocals and crossover production.",
-    "featured": true,
-    "featuredRank": 11
+    "featured": false
   },
   {
     "name": "Javon Ranks",
@@ -188,8 +185,7 @@ window.NGS_ARTISTS = [
     "slug": "marlo-saint",
     "genre": "UK Afro-Swing / R&B",
     "summary": "Late-night melodic hip-hop with a clean, cinematic mood.",
-    "featured": true,
-    "featuredRank": 12
+    "featured": false
   },
   {
     "name": "Karvell Reign",
@@ -210,8 +206,7 @@ window.NGS_ARTISTS = [
     "slug": "reiss",
     "genre": "UK Rap",
     "summary": "Direct UK rap with modern production and focused delivery.",
-    "featured": true,
-    "featuredRank": 8
+    "featured": false
   },
   {
     "name": "Nyah Rae",
@@ -239,8 +234,7 @@ window.NGS_ARTISTS = [
     "slug": "alonzo-ray",
     "genre": "West Coast Hip-Hop / Soul",
     "summary": "Soulful hip-hop with mature writing and a cinematic finish.",
-    "featured": true,
-    "featuredRank": 10
+    "featured": false
   },
   {
     "name": "Zion Daley",
@@ -268,7 +262,7 @@ window.NGS_ARTISTS = [
 (function () {
   "use strict";
 
-  const FEATURED_LIMIT = 12;
+  const FEATURED_LIMIT = 6;
 
   function escapeHtml(value) {
     return String(value || "")
@@ -294,7 +288,7 @@ window.NGS_ARTISTS = [
       ? ` data-fallback="${escapeHtml(image.fallback)}"`
       : "";
     const srcset = image.srcset
-      ? ` srcset="${escapeHtml(image.srcset)}" sizes="(max-width: 720px) calc(100vw - 40px), (max-width: 980px) 50vw, 25vw"`
+      ? ` srcset="${escapeHtml(image.srcset)}" sizes="(max-width: 520px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw"`
       : "";
     const position = escapeHtml(image.position || "50% 38%");
     return `<img class="featured-artist-image" loading="lazy" decoding="async" src="${escapeHtml(image.src)}"${srcset}${fallback} alt="${escapeHtml(artist.name)} portrait" style="--artist-image-position:${position}">`;
@@ -330,7 +324,7 @@ window.NGS_ARTISTS = [
     });
   }
 
-  function renderTwelveFeaturedArtists() {
+  function renderFeaturedArtists() {
     const grid = document.getElementById("featuredArtistGrid");
     if (!grid) return;
 
@@ -350,9 +344,9 @@ window.NGS_ARTISTS = [
     const description = section?.querySelector(".section-heading > p:last-child");
     if (description) {
       description.textContent =
-        "A curated selection of artists shaping the current sound of NextGen Sessions. Each brings a distinct voice, style and story.";
+        "Six distinct voices at the forefront of NextGen Sessions.";
     }
   }
 
-  window.addEventListener("DOMContentLoaded", renderTwelveFeaturedArtists, { once: true });
+  window.addEventListener("DOMContentLoaded", renderFeaturedArtists, { once: true });
 })();

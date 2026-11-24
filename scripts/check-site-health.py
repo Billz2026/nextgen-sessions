@@ -116,6 +116,26 @@ def run(local_only: bool = False) -> None:
     else:
         print("INFO: Latest upload is within the 2-hour YouTube/playlist grace period")
 
+    # Detect a "successful" automation that has left the Latest feed behind
+    # another already-verified song, album or mix. A two-hour grace period
+    # avoids false alarms while YouTube and Cloudflare propagate new releases.
+    newest_verified = max(
+        (
+            (stamp, item.get("id"))
+            for item in [*releases, *mixes, *albums]
+            if safe_id(item.get("id"))
+            for stamp in [published_seconds(str(item.get("published") or ""))]
+            if stamp is not None and stamp <= time.time()
+        ),
+        default=None,
+    )
+    if newest_verified and time.time() - newest_verified[0] >= RELEASE_GRACE_SECONDS:
+        check(
+            pub is not None and pub >= newest_verified[0],
+            "Latest upload feed is at least as recent as the newest verified "
+            f"release/mix/album ({newest_verified[1]})",
+        )
+
     # Pure source checks are safe to run on every push, even before production deploys.
     count_match = re.search(r'id="rosterCount">(\d+) artists', read("artists/index.html"))
     check(count_match is not None, "Artist directory has a published roster count")

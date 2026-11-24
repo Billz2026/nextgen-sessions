@@ -96,8 +96,8 @@ def artist_title(raw_title: str) -> tuple[str, str]:
         match = SEPARATOR.match(part)
         if match and match.group(1).strip() and match.group(2).strip():
             title = re.sub(
-                r"\\s+(?:usa? drill|uk drill|drill|uk rap|grime|dancehall|reggae|"
-                r"hip-?hop|r&b|rnb|soul|afro swing)\\s+20\\d{2}$",
+                r"\s+(?:usa? drill|uk drill|drill|uk rap|grime|dancehall|reggae|"
+                r"hip-?hop|r&b|rnb|soul|afro swing)\s+20\d{2}$",
                 "",
                 match.group(2).strip(),
                 flags=re.IGNORECASE,

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-24T09:49:44.862Z",
-  "total": 174,
+  "generatedAt": "2026-11-24T10:31:44.629Z",
+  "total": 176,
   "counts": {
     "artists": 36,
     "releases": 121,
-    "genres": 6,
+    "genres": 8,
     "mixes": 11,
     "upcomingReleases": 0
   },
@@ -2160,6 +2160,32 @@
         "G-Funk",
         "West Coast",
         "New York"
+      ]
+    },
+    {
+      "type": "genre",
+      "title": "US Drill",
+      "subtitle": "Genre hub",
+      "description": "Explore US Drill artists and original releases on NextGen Sessions. Dark production, heavy rhythms and direct American drill delivery.",
+      "url": "/genres/us-drill/",
+      "keywords": [
+        "US Drill",
+        "USA drill",
+        "American drill",
+        "Brix Knox"
+      ]
+    },
+    {
+      "type": "genre",
+      "title": "Pop",
+      "subtitle": "Genre hub",
+      "description": "Explore Pop artists and original releases on NextGen Sessions. Melodic songwriting, polished vocals and timeless pop production.",
+      "url": "/genres/pop/",
+      "keywords": [
+        "Pop",
+        "pop music",
+        "synth-pop",
+        "Dean Lawson"
       ]
     },
     {

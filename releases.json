@@ -5,9 +5,10 @@
     "minimumDurationSeconds": 75,
     "shortsAllowed": false
   },
-  "generatedAt": "2026-11-24T09:10:53.979032Z",
+  "generatedAt": "2026-11-24T09:49:43.767359Z",
   "total": 121,
   "counts": {
+    "US Drill": 1,
     "Dancehall": 38,
     "Reggae": 3,
     "UK Rap & Grime": 22,
@@ -18,8 +19,7 @@
     "Late Night Afro": 4,
     "Late Night Vibes": 0,
     "Arabic": 1,
-    "Pop": 1,
-    "US Drill": 1
+    "Pop": 1
   },
   "verifiedExtras": 2,
   "releases": [
@@ -32,7 +32,6 @@
       "published": "2026-11-23T18:00:17Z",
       "durationSeconds": 253,
       "rawTitle": "Brix Knox - Knock Knock Who's There? USA Drill 2026 | NextGen Sessions",
-      "discoverySource": "public-channel-upload",
       "slug": "brix-knox-knock-knock-whos-there",
       "url": "/releases/brix-knox-knock-knock-whos-there/"
     },

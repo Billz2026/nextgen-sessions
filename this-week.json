@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T09:10:55.001Z",
+  "generatedAt": "2026-11-24T09:49:44.727Z",
   "timezone": "Europe/London",
   "weekStart": "2026-11-23",
   "weekEnd": "2026-11-29",
@@ -8,10 +8,10 @@
   "items": [
     {
       "artist": "Brix Knox",
-      "artistSlug": "",
+      "artistSlug": "brix-knox",
       "title": "Knock Knock Who's There?",
-      "genre": "Hip-Hop / G-Funk",
-      "artistUrl": "/artists/",
+      "genre": "US Drill",
+      "artistUrl": "/artists/brix-knox/",
       "releaseUrl": "/releases/brix-knox-knock-knock-whos-there/",
       "dateLocal": "2026-11-23",
       "dateLabel": "MON 23 NOV",

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-24T09:10:55.125Z",
-  "total": 173,
+  "generatedAt": "2026-11-24T09:49:44.862Z",
+  "total": 174,
   "counts": {
-    "artists": 35,
+    "artists": 36,
     "releases": 121,
     "genres": 6,
     "mixes": 11,
@@ -67,6 +67,18 @@
         "Asif Sultaan",
         "Punjabi / South Asian Fusion",
         "Modern Punjabi records with commanding vocals and crossover production."
+      ]
+    },
+    {
+      "type": "artist",
+      "title": "Brix Knox",
+      "subtitle": "US Drill",
+      "description": "US Drill with hard-hitting rhythms, dark production and direct rap delivery.",
+      "url": "/artists/brix-knox/",
+      "keywords": [
+        "Brix Knox",
+        "US Drill",
+        "US Drill with hard-hitting rhythms, dark production and direct rap delivery."
       ]
     },
     {
@@ -433,12 +445,12 @@
       "type": "release",
       "title": "Knock Knock Who's There?",
       "subtitle": "Brix Knox",
-      "description": "Hip-Hop / G-Funk · 2026-11-23",
+      "description": "US Drill · 2026-11-23",
       "url": "/releases/brix-knox-knock-knock-whos-there/",
       "date": "2026-11-23T18:00:17Z",
       "keywords": [
         "Brix Knox",
-        "Hip-Hop / G-Funk",
+        "US Drill",
         "Brix Knox - Knock Knock Who's There? USA Drill 2026 | NextGen Sessions",
         "Knock Knock Who's There?"
       ]

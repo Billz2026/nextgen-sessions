@@ -112,3 +112,8 @@ main > .hero .hero-brand .hero-copy{max-width:44ch;font-size:1.04rem;line-height
 }
 @media(max-width:720px){.hero-social-links{gap:8px}.hero-social-links a{min-height:100px}.hero-brand-social{padding-top:16px}}
 @media(prefers-reduced-motion:reduce){.hero-social-links a{transition:none}}
+
+/* Final hero readability and artwork polish, without affecting playback. */
+main > .hero .hero-brand .hero-copy{color:rgba(255,255,255,.88)}
+main > .hero .video-poster img{filter:brightness(1.08) contrast(1.03) saturate(1.04)}
+main > .hero .video-poster-overlay{background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.16) 48%,rgba(0,0,0,.60))}

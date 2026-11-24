@@ -11,7 +11,7 @@ window.NGS_ARTIST_PROFILES = Object.assign(window.NGS_ARTIST_PROFILES || {}, {
       "Explore his official recordings, beginning with Knock Knock Who's There?, released on 23 November 2026."
     ],
     "imageKey": "brix-knox",
-    "imageAlt": "Brix Knox official release artwork",
+    "imageAlt": "Brix Knox artist portrait",
     "catalogueAliases": [
       "Brix Knox"
     ],

@@ -83,3 +83,32 @@ main > .hero .hero-brand .hero-copy{max-width:44ch;font-size:1.04rem;line-height
 @media(min-width:1100px){main > .hero .hero-brand{justify-content:space-between;padding-block:clamp(16px,3vw,44px);gap:24px}}
 @media(max-width:1099px){main > .hero .hero-brand{gap:20px;padding-block:4px}main > .hero .hero-brand h1 span{display:inline}main > .hero .hero-brand h1{max-width:24ch;font-size:clamp(2rem,5vw,3.4rem)}}
 @media(max-width:720px){main > .hero .hero-brand h1{font-size:clamp(1.85rem,6vw,2.6rem)}main > .hero .hero-brand .hero-copy{font-size:.95rem;margin-bottom:18px}.hero-brand-accent{margin-bottom:12px}.hero-social-links{gap:8px 14px}.hero-brand-social{padding-top:14px}}
+
+/* Premium social cards: equal dimensions, independent of platform label length. */
+.hero-brand-social{padding-top:18px;min-width:0}
+.hero-brand-tagline{margin:0 0 5px;color:var(--text);font-size:clamp(1.12rem,1.5vw,1.55rem);font-weight:850;line-height:1.15;letter-spacing:-.025em;text-transform:none}
+.hero-brand-tagline span{color:var(--gold)}
+.hero-social-copy{margin:0 0 15px;color:var(--muted);font-size:.85rem;line-height:1.4}
+.hero-social-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;align-items:stretch}
+.hero-social-links a{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;min-width:0;min-height:110px;padding:12px 5px;border:1px solid rgba(243,199,79,.23);border-radius:10px;background:#141414;color:var(--text);text-align:center;line-height:1.2;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease}
+.hero-social-links svg{width:28px;height:28px;color:var(--gold)}
+.hero-social-links strong{font-size:clamp(.72rem,1vw,.93rem);font-weight:800}
+.hero-social-action{font-size:.72rem;color:var(--muted);white-space:nowrap}
+.hero-social-action span{color:var(--gold)}
+.hero-social-links a:hover,.hero-social-links a:focus-visible{border-color:var(--gold);background:#1c1911;color:var(--text);box-shadow:0 4px 18px rgba(0,0,0,.2)}
+.hero-social-links a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(min-width:1100px){
+  main > .hero{align-items:stretch}
+  main > .hero .media-shell{align-self:start}
+  main > .hero .hero-brand{padding-block:clamp(10px,1.4vw,22px) 0;gap:16px}
+  main > .hero .hero-brand-accent{margin-bottom:12px}
+  main > .hero .hero-brand h1{margin-block:8px 12px}
+  main > .hero .hero-brand .hero-copy{margin-bottom:16px;line-height:1.55}
+}
+@media(min-width:1100px) and (max-width:1279px){
+  main > .hero .hero-brand h1{font-size:clamp(1.8rem,2.65vw,2.35rem)}
+  main > .hero .hero-brand .hero-copy{font-size:.93rem}
+  .hero-social-links a{min-height:96px;padding-block:9px}
+}
+@media(max-width:720px){.hero-social-links{gap:8px}.hero-social-links a{min-height:100px}.hero-brand-social{padding-top:16px}}
+@media(prefers-reduced-motion:reduce){.hero-social-links a{transition:none}}

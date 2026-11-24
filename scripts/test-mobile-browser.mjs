@@ -69,6 +69,18 @@ try {
     assert.equal(await page.locator(".hero-brand h1 span").count(), 3);
     assert.equal(await page.locator(".hero-brand .button").count(), 1);
     assert.equal(await page.locator(".hero-social-links a").count(), 3);
+    const socialCards = await page.locator(".hero-social-links a").all();
+    const socialBounds = await Promise.all(socialCards.map(card => card.boundingBox()));
+    for (const rect of socialBounds) {
+      assert.ok(rect && rect.height >= 90 && rect.width >= 75, viewport.label + ": social cards must have prominent tap targets");
+      assert.ok(Math.abs(rect.width - socialBounds[0].width) <= 2 && Math.abs(rect.height - socialBounds[0].height) <= 2 && Math.abs(rect.y - socialBounds[0].y) <= 2, viewport.label + ": social cards must share equal size and alignment");
+    }
+    assert.deepEqual(await page.locator(".hero-social-action").allTextContents(), ["Subscribe →", "Follow →", "Follow →"]);
+    if (viewport.width >= 1100) {
+      const social = await page.locator(".hero-brand-social").boundingBox();
+      const media = await page.locator(".hero .media-shell").boundingBox();
+      assert.ok(Math.abs(social.y + social.height - media.y - media.height) <= 3, viewport.label + ": brand and video bottoms must align");
+    }
     assert.ok(await page.locator(".hero-brand-gold").isVisible());
     assert.equal(await page.locator("#heroLatestLink").count(), 0);
     const hero = await page.locator("main > .hero").boundingBox();

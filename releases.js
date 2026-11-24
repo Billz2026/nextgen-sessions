@@ -70,6 +70,13 @@
     published: ""
   }));
 
+  const year = document.getElementById("releaseYear");
+  const sort = document.getElementById("releaseSort");
+  const reset = document.getElementById("resetArchive");
+  const more = document.getElementById("archiveMore");
+  const progress = document.getElementById("archiveProgress");
+  const pageSize = 24;
+  let limit = pageSize;
   let catalogue = [];
   let activeFilter = "All";
   let activeCard = null;
@@ -305,27 +312,52 @@
     return card;
   }
 
-  function render() {
-    stopActiveCard();
-    const term = normaliseText(search?.value);
-    const visible = catalogue.filter(release => {
-      const matchesFilter = activeFilter === "All" || release.group === activeFilter;
-      const searchable = normaliseText([release.title, release.artist, release.group, release.rawTitle].join(" "));
-      return matchesFilter && (!term || searchable.includes(term));
-    });
+  function releaseYear(release) {
+    const date = new Date(release.published);
+    return Number.isNaN(date.getTime()) ? "" : String(date.getUTCFullYear());
+  }
 
-    grid.replaceChildren(...visible.map(createReleaseCard));
+  function populateYears() {
+    if (!year) return;
+    const years = [...new Set(catalogue.map(releaseYear).filter(Boolean))].sort().reverse();
+    for (const value of years) year.add(new Option(value, value));
+  }
+
+  function matchesGenre(group) {
+    if (activeFilter === "All") return true;
+    if (activeFilter === "Reggae") return ["Reggae", "Lovers Rock"].includes(group);
+    if (activeFilter === "Global Sounds") return ["Global Sounds", "Asian", "Arabic", "Late Night Afro", "Late Night Vibes"].includes(group);
+    return group === activeFilter;
+  }
+
+  function render(append = false) {
+    if (!append) stopActiveCard();
+    const term = normaliseText(search?.value);
+    const visible = catalogue.filter(release => matchesGenre(release.group)
+      && (!year || year.value === "All" || releaseYear(release) === year.value)
+      && (!term || normaliseText([release.title, release.artist, release.group, release.rawTitle].join(" ")).includes(term)));
+    const time = item => Date.parse(item.published) || 0;
+    visible.sort((a,b) => sort?.value === "artist" ? a.artist.localeCompare(b.artist,"en-GB") || a.title.localeCompare(b.title,"en-GB") : sort?.value === "oldest" ? time(a)-time(b) : time(b)-time(a));
+    if (append) grid.append(...visible.slice(grid.children.length,limit).map(createReleaseCard));
+    else grid.replaceChildren(...visible.slice(0,limit).map(createReleaseCard));
     grid.classList.remove("is-loading");
     grid.setAttribute("aria-busy", "false");
     empty.hidden = visible.length !== 0;
-    if (count) {
-      const qualifier = term || activeFilter !== "All" ? " found" : " in the catalogue";
-      count.textContent = `${visible.length} release${visible.length === 1 ? "" : "s"}${qualifier}`;
-    }
+    if (count) count.textContent = `${visible.length} release${visible.length === 1 ? "" : "s"}${term || activeFilter !== "All" || year?.value !== "All" ? " found" : " in the catalogue"}`;
+    if (more) more.hidden = visible.length <= limit;
+    if (progress) progress.textContent = `Showing ${Math.min(limit,visible.length)} of ${visible.length} releases`;
+  }
+
+  function resetFilters() {
+    if (search) search.value = "";
+    if (year) year.value = "All";
+    if (sort) sort.value = "newest";
+    setFilter("All");
   }
 
   function setFilter(value) {
     activeFilter = value;
+    limit = pageSize;
     filterButtons.forEach(button => {
       const selected = button.dataset.filter === value;
       button.classList.toggle("is-active", selected);
@@ -352,10 +384,13 @@
     }
   });
   controls?.addEventListener("submit", event => event.preventDefault());
-  search?.addEventListener("input", render);
+  search?.addEventListener("input", () => { limit = pageSize; render(); });
+  year?.addEventListener("change", () => { limit = pageSize; render(); });
+  sort?.addEventListener("change", () => { limit = pageSize; render(); });
+  reset?.addEventListener("click", resetFilters);
+  document.getElementById("loadMoreReleases")?.addEventListener("click", () => { limit += pageSize; render(true); });
   clear?.addEventListener("click", () => {
-    if (search) search.value = "";
-    setFilter("All");
+    resetFilters();
     search?.focus();
   });
 
@@ -375,12 +410,13 @@
         // Try the next controlled source.
       }
     }
-    return fallbackReleases;
+    return [...grid.querySelectorAll("[data-release-card]")].map(card => ({id:card.dataset.videoId, artist:card.querySelector(".archive-release-artist")?.textContent, title:card.querySelector("h3")?.textContent, group:card.querySelector(".archive-release-genre")?.textContent, url:card.dataset.releaseUrl, published:card.querySelector(".archive-release-footer span")?.textContent})).filter(item => item.id && item.artist && item.title && item.group);
   }
 
   loadCatalogue()
     .then(releases => {
       catalogue = uniquePreparedReleases(releases.map(prepareRelease).filter(Boolean));
+      populateYears();
       const popFilter = filterButtons.find(button => button.dataset.filter === "Pop");
       if (popFilter) {
         const livePop = catalogue.some(release => release.group === "Pop");
@@ -390,7 +426,7 @@
       render();
     })
     .catch(() => {
-      catalogue = uniquePreparedReleases(fallbackReleases.map(prepareRelease).filter(Boolean));
-      render();
+      // Preserve the complete static catalogue if the enhanced interface fails.
+      grid.setAttribute("aria-busy", "false");
     });
 })();

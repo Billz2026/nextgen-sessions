@@ -112,6 +112,26 @@ try {
       }).slice(0, 12).map(el => ({tag:el.tagName, className:String(el.className), right:Math.round(el.getBoundingClientRect().right)}))
     }));
     assert.ok(overflow.width <= overflow.viewport + 2, viewport.label + ": artist directory overflow " + JSON.stringify(overflow));
+    await page.goto(site + "/releases/", {waitUntil:"domcontentloaded"});
+    await page.waitForFunction(() => document.querySelector("#releaseYear option[value='2026']") && document.querySelectorAll("#releaseArchiveGrid article").length === 24);
+    await page.locator("#loadMoreReleases").click();
+    assert.equal(await page.locator("#releaseArchiveGrid article").count(),48);
+    await page.locator('[data-filter="US Drill"]').click();
+    assert.ok(await page.locator("#releaseArchiveGrid article").count() >= 1);
+    assert.ok((await page.locator(".archive-release-genre").allTextContents()).every(x=>x==="US Drill"));
+    await page.locator("#releaseSearch").fill("no-such-track-xyz");
+    assert.ok(await page.locator("#releaseArchiveEmpty").isVisible());
+    await page.locator("#clearReleaseFilters").click();
+    await page.locator("#releaseYear").selectOption("2026");
+    await page.locator("#releaseSort").selectOption("oldest");
+    assert.ok(await page.locator("#releaseArchiveGrid article").count() > 0);
+    await page.locator("[data-archive-play]").first().click();
+    assert.equal(await page.locator(".archive-release-player").count(),1);
+    await page.locator("[data-archive-play]").first().click();
+    assert.equal(await page.locator(".archive-release-player").count(),1);
+    await page.locator("[data-archive-close]").click();
+    assert.equal(await page.locator(".archive-release-player").count(),0);
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),viewport.label+": archive overflow");
     await page.close();
   }
 } finally {

@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#080808">
   <link rel="preconnect" href="https://i.ytimg.com">
   <link rel="stylesheet" href="/styles.css?v=20260809-header1">
-  <link rel="stylesheet" href="/releases.css?v=20260810-inline1">
+  <link rel="stylesheet" href="/releases.css?v=20261124-archive1">
   
   
   
@@ -535,37 +535,34 @@
   <section class="releases-hero" aria-labelledby="releases-page-title">
     <div>
       <p class="eyebrow">Official catalogue</p>
-      <h1 id="releases-page-title">Original releases. One place.</h1>
-      <p>Explore original music from across the NextGen Sessions roster. Search by artist or title, or move through the catalogue by sound.</p>
+      <h1 id="releases-page-title">The release archive.</h1>
+      <p>Discover the singles catalogue. Search by artist or track, filter by genre or year, and listen directly on NextGen Sessions.</p>
     </div>
-    <div class="archive-mark" aria-hidden="true"><span>NG</span><strong>Catalogue</strong></div>
+    <nav class="archive-library-nav" aria-label="Music collections"><a aria-current="page" href="/releases/">Singles</a><a href="/mixes/full-albums/">Albums</a><a href="/mixes/">Mixes &amp; playlists</a></nav>
   </section>
 
   <section class="archive-section" aria-labelledby="archive-title">
     <div class="archive-heading">
       <div>
         <p class="eyebrow">Browse releases</p>
-        <h2 id="archive-title">Find your next track</h2>
+        <h2 id="archive-title">Explore singles</h2>
       </div>
       <p class="archive-count" id="releaseCount" aria-live="polite">121 releases in the catalogue</p>
     </div>
 
     <form class="archive-controls" id="releaseArchiveControls" role="search">
       <label class="sr-only" for="releaseSearch">Search releases by artist or title</label>
-      <input class="release-search" id="releaseSearch" type="search" placeholder="Search artist or song title" autocomplete="off">
+      <div class="archive-toolbar"><input class="release-search" id="releaseSearch" type="search" placeholder="Search artist or song title" autocomplete="off"><label class="archive-select-label">Year<select id="releaseYear"><option value="All">All years</option></select></label><label class="archive-select-label">Sort<select id="releaseSort"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="artist">Artist A–Z</option></select></label><button class="button button-secondary archive-reset" id="resetArchive" type="button">Reset</button></div>
       <div class="release-filters" aria-label="Filter releases by genre">
         <button class="release-filter is-active" type="button" data-filter="All" aria-pressed="true">All</button>
         <button class="release-filter" type="button" data-filter="Dancehall" aria-pressed="false">Dancehall</button>
-        <button class="release-filter" type="button" data-filter="Reggae" aria-pressed="false">Reggae</button>
+        <button class="release-filter" type="button" data-filter="Reggae" aria-pressed="false">Reggae &amp; Lovers Rock</button>
         <button class="release-filter" type="button" data-filter="UK Rap &amp; Grime" aria-pressed="false">UK Rap &amp; Grime</button>
         <button class="release-filter" type="button" data-filter="Hip-Hop / G-Funk" aria-pressed="false">Hip-Hop / G-Funk</button>
         <button class="release-filter" type="button" data-filter="US Drill" aria-pressed="false">US Drill</button>
-        <button class="release-filter" type="button" data-filter="Lovers Rock" aria-pressed="false">Lovers Rock</button>
+        
         <button class="release-filter" type="button" data-filter="R&amp;B &amp; Soul" aria-pressed="false">R&amp;B &amp; Soul</button>
-        <button class="release-filter" type="button" data-filter="Late Night Afro" aria-pressed="false">Late Night Afro</button>
-        <button class="release-filter" type="button" data-filter="Late Night Vibes" aria-pressed="false">Late Night Vibes</button>
-        <button class="release-filter" type="button" data-filter="Asian" aria-pressed="false">Asian</button>
-        <button class="release-filter" type="button" data-filter="Arabic" aria-pressed="false">Arabic</button>
+        <button class="release-filter" type="button" data-filter="Global Sounds" aria-pressed="false">Global Sounds</button>
         <button class="release-filter" type="button" data-filter="Pop" aria-pressed="false">Pop</button>
       </div>
     </form>
@@ -696,16 +693,17 @@
       <!-- RELEASES:STATIC:END -->
     </div>
 
+    <div class="archive-more" id="archiveMore" hidden><button class="button button-secondary" id="loadMoreReleases" type="button">Load more releases</button><p id="archiveProgress" aria-live="polite"></p></div>
     <div class="archive-empty" id="releaseArchiveEmpty" hidden>
       <h3>No releases found</h3>
-      <p>Try another artist, title or genre.</p>
+      <p>Try another artist or title, or change the genre and year filters.</p>
       <button class="button button-secondary" id="clearReleaseFilters" type="button">Clear filters</button>
     </div>
 
     <noscript>
       <div class="archive-empty">
         <h3>Explore the full catalogue on YouTube</h3>
-        <p>JavaScript is required for search and genre filters.</p>
+        <p>All singles are listed above. JavaScript enables search, sorting and filters.</p>
         <a class="button button-primary" href="https://www.youtube.com/@NextGenSessions/playlists">Open YouTube playlists</a>
       </div>
     </noscript>
@@ -734,6 +732,6 @@
   </div>
 </footer>
 
-<script src="/releases.js?v=20261124-eight" defer></script>
+<script src="/releases.js?v=20261124-archive1" defer></script>
 </body>
 </html>

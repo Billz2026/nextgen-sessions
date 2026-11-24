@@ -296,6 +296,11 @@ def main() -> None:
         previous.get("id") == latest["id"]
         and previous.get("published") == latest["published"]
         and previous.get("rawTitle") == latest["rawTitle"]
+        and previous.get("title") == latest["title"]
+        and previous.get("artist") == latest["artist"]
+        and previous.get("contentType") == latest["contentType"]
+        and previous.get("url") == latest["url"]
+        and int(previous.get("durationSeconds") or 0) == latest["durationSeconds"]
     ):
         print(f"Latest feed unchanged: {latest['id']}")
         return

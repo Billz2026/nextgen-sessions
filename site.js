@@ -447,10 +447,11 @@
     }
     const metadataById = new Map(catalogueReleases.map(item => [item.id, item]));
     const resolveRelease = item => {
+      const metadata = metadataById.get(item?.id);
+      if (metadata) return metadata;
       if (item?.contentType !== "full-release") return item;
-      const metadata = metadataById.get(item.id);
       // The verified catalogue owns all metadata for a known video ID, including publication time.
-      return metadata || { ...item, url: verifiedPaths.get(item.id) || item.url };
+      return { ...item, url: verifiedPaths.get(item.id) || item.url };
     };
 
     // Keep the recent-release grid aligned with the published archive whenever the
@@ -482,7 +483,7 @@
 
   if (latestPlayer || releaseGrid) {
     Promise.allSettled([
-      fetchJson("/api/latest?v=r6"),
+      fetchJson("/api/latest?v=r7"),
       fetchJson("/latest-feed.json?v=3"),
       fetchJson("/releases.json?v=latest-links1")
     ]).then(results => {

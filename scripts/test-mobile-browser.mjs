@@ -99,7 +99,12 @@ try {
     assert.equal(albumColumns, viewport.width <= 980 ? 2 : 4);
     for (const cover of await albumShelf.locator(".ngs-album-art").all()) {
       const rect = await cover.boundingBox();
-      assert.ok(rect && Math.abs(rect.width / rect.height - 16/9) < .03 && rect.x >= 0 && rect.x + rect.width <= viewport.width + 2);
+      assert.ok(rect && Math.abs(rect.width / rect.height - 1) < .03 && rect.x >= 0 && rect.x + rect.width <= viewport.width + 2);
+    }
+    for (const image of await albumShelf.locator(".ngs-album-art img").all()) {
+      await image.scrollIntoViewIfNeeded();
+      await image.evaluate(img => img.decode());
+      assert.ok(await image.evaluate(img => img.naturalWidth > 0 && getComputedStyle(img).objectFit === "contain"));
     }
     assert.equal(await albumShelf.locator(".ngs-album-optin").count(), 0);
     assert.equal(await albumShelf.locator("iframe").count(), 0);

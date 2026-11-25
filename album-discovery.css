@@ -6,7 +6,7 @@
 .ngs-album-heading .eyebrow{color:#e3c15a;margin-bottom:10px}
 .ngs-album-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,24px)}
 .ngs-album-card{min-width:0;display:flex;flex-direction:column;border:1px solid #333026;border-radius:14px;background:linear-gradient(145deg,#191919,#101010);overflow:hidden;transition:border-color .2s,transform .2s,box-shadow .2s}
-.ngs-album-art{display:block;position:relative;aspect-ratio:16/9;background:#080808;overflow:hidden}
+.ngs-album-art{display:block;position:relative;aspect-ratio:1;background:#11100e;overflow:hidden}
 .ngs-album-art>a{display:block;width:100%;height:100%}
 .ngs-album-art img{display:block;width:100%;height:100%;object-fit:contain}
 .ngs-album-card:focus-within{border-color:#d4af37}

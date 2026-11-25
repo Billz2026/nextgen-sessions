@@ -60,7 +60,7 @@ try {
     assert.equal(await page.locator("#new-this-week").count(), 0);
     assert.equal(await page.locator("#releaseGrid .release-card").count(), 6);
     await page.locator("[data-ngs-conversion=home]").waitFor();
-    assert.ok(await page.locator("#releases").evaluate(el => el.nextElementSibling?.id === "featured-artists"), "Featured artists must immediately follow latest releases");
+    assert.ok(await page.locator("#releases").evaluate(el => el.nextElementSibling?.matches("[data-ngs-albums]") && el.nextElementSibling.nextElementSibling?.id === "featured-artists"), "Album shelf must sit between releases and featured artists");
     assert.ok(await page.locator("#featured-artists").evaluate(el => el.nextElementSibling?.id === "mixes"), "Mixes must immediately follow featured artists");
     assert.ok(await page.locator("#genres").evaluate(el => el.nextElementSibling?.dataset.ngsConversion === "home"), "Follow section must immediately follow genres");
     assert.ok(await page.locator("#mixes").evaluate(el => el.nextElementSibling?.id === "genres"), "Mixes must precede genres");
@@ -93,6 +93,19 @@ try {
     assert.ok(hero && player && Math.abs(player.width / player.height - 16 / 9) < .03, viewport.label + ": latest video must retain 16:9");
     assert.ok(player.width / hero.width >= (viewport.width >= 1100 ? .60 : .97), viewport.label + ": latest player must occupy the intended layout width");
     if (viewport.width >= 1920) assert.ok(hero.width >= 1400 && player.width >= 850, "Widescreen layout must use available space");
+    const albumShelf = page.locator("[data-ngs-albums]");
+    assert.equal(await albumShelf.locator(".ngs-album-card").count(), 4);
+    const albumColumns = await albumShelf.locator(".ngs-album-grid").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
+    assert.equal(albumColumns, viewport.width <= 760 ? 2 : 4);
+    for (const cover of await albumShelf.locator(".ngs-album-art").all()) {
+      const rect = await cover.boundingBox();
+      assert.ok(rect && Math.abs(rect.width - rect.height) < 3 && rect.x >= 0 && rect.x + rect.width <= viewport.width + 2);
+    }
+    assert.equal(await albumShelf.locator("iframe").count(), 0);
+    await albumShelf.locator(".ngs-album-play").first().click();
+    assert.equal(await albumShelf.locator("iframe").count(), 1);
+    await albumShelf.locator(".ngs-album-stop").click();
+    assert.equal(await albumShelf.locator("iframe").count(), 0);
     const columns = await page.locator("#featuredArtistGrid").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
     assert.equal(columns, viewport.width <= 520 ? 1 : viewport.width <= 980 ? 2 : 3);
     await page.goto(site + "/artists/", { waitUntil: "domcontentloaded" });

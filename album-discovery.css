@@ -1,30 +1,39 @@
-/* Compact album shelf: preserve the complete official widescreen artwork. */
-.ngs-album-section{margin-block:clamp(22px,3vw,44px)}
-.ngs-album-heading{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px}
-.ngs-album-heading h2,.ngs-album-heading h1{margin:0;font-size:clamp(1.65rem,2.4vw,2.25rem);line-height:1.12}
-.ngs-album-heading p{margin:6px 0 0;color:#b9b9b9}
-.ngs-album-heading .eyebrow{color:#e3c15a;margin-bottom:8px}
-.ngs-album-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.5vw,22px)}
-.ngs-album-card{min-width:0;display:flex;flex-direction:column;border:1px solid rgba(212,175,55,.2);border-radius:14px;background:linear-gradient(160deg,#151515,#101010);overflow:hidden;transition:border-color .2s,transform .2s,box-shadow .2s}
+/* Eight-album editorial shelf and cinema player. */
+.ngs-album-section{margin-block:clamp(24px,4vw,56px)}
+.ngs-album-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.ngs-album-heading h2,.ngs-album-heading h1{margin:0;font-size:clamp(2rem,3.5vw,3.5rem);line-height:1.04;letter-spacing:-.045em;text-transform:uppercase;font-weight:900}
+.ngs-album-heading p{margin:9px 0 0;color:#b9b9b9}
+.ngs-album-heading .eyebrow{color:#e3c15a;margin-bottom:10px}
+.ngs-album-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,24px)}
+.ngs-album-card{min-width:0;display:flex;flex-direction:column;border:1px solid #333026;border-radius:14px;background:linear-gradient(145deg,#191919,#101010);overflow:hidden;transition:border-color .2s,transform .2s,box-shadow .2s}
 .ngs-album-art{display:block;position:relative;aspect-ratio:16/9;background:#080808;overflow:hidden}
 .ngs-album-art>a{display:block;width:100%;height:100%}
-.ngs-album-art img{display:block;width:100%;height:100%;object-fit:contain;transition:transform .25s}
+.ngs-album-art img{display:block;width:100%;height:100%;object-fit:contain}
 .ngs-album-card:focus-within{border-color:#d4af37}
-.ngs-album-play{position:absolute;right:10px;bottom:10px;width:48px;height:48px;display:grid;place-items:center;border:0;border-radius:50%;background:#f3c74f;color:#080808;box-shadow:0 4px 20px #0009;font:inherit;cursor:pointer;transition:opacity .2s,transform .2s}
+.ngs-album-play{position:absolute;right:10px;bottom:10px;width:48px;height:48px;display:grid;place-items:center;border:1px solid #ffe3a0;border-radius:50%;background:linear-gradient(145deg,#ffe094,#d4a43d);color:#0a0804;box-shadow:0 4px 20px #000b;font:inherit;cursor:pointer;transition:opacity .2s,transform .2s}
 .ngs-album-play svg{width:21px;height:21px;display:block;fill:currentColor;margin-left:2px}
-.ngs-album-play[hidden],.ngs-album-preview[hidden]{display:none}
-.ngs-album-play:focus-visible,.ngs-album-stop:focus-visible,.ngs-album-link:focus-visible{outline:2px solid #fff;outline-offset:2px}
-@media(hover:hover) and (pointer:fine){.ngs-album-play{opacity:.86}.ngs-album-card:hover{transform:translateY(-3px);border-color:#b99a4b;box-shadow:0 8px 24px #d4af3714}.ngs-album-card:hover .ngs-album-play,.ngs-album-card:focus-within .ngs-album-play{opacity:1;transform:scale(1.06)}.ngs-album-card:hover .ngs-album-art img{transform:scale(1.015)}}
-.ngs-album-copy{padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 8px;flex:1}
-.ngs-album-copy h3{grid-column:1/-1;font-size:clamp(.92rem,1.25vw,1.15rem);line-height:1.25;margin:0;overflow-wrap:anywhere}
-.ngs-album-copy p{color:#c6c6c6;margin:0;font-size:.85rem;overflow-wrap:anywhere}
-.ngs-album-copy .ngs-album-meta{font-size:.74rem;color:#a7a7a7;grid-column:1/-1}
-.ngs-album-link{color:#d9b95e;display:grid;place-items:center;width:44px;height:44px;grid-row:2/4;grid-column:2;border-radius:8px;text-decoration:none}
+.ngs-album-play[hidden]{display:none}
+.ngs-album-play:focus-visible,.ngs-album-stop:focus-visible,.ngs-album-link:focus-visible,.ngs-album-watch:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(hover:hover) and (pointer:fine){.ngs-album-card:hover{transform:translateY(-3px);border-color:#b99a4b;box-shadow:0 10px 28px #d4af371c}.ngs-album-card:hover .ngs-album-play,.ngs-album-card:focus-within .ngs-album-play{transform:scale(1.08)}}
+.ngs-album-copy{padding:13px 14px 14px;display:grid;grid-template-columns:minmax(0,1fr) 40px;grid-template-rows:auto auto auto;align-content:start;align-items:center;gap:4px 8px;flex:1}
+.ngs-album-copy h3{grid-column:1/-1;grid-row:1;font-size:clamp(.95rem,1.2vw,1.16rem);line-height:1.25;margin:0;overflow-wrap:anywhere}
+.ngs-album-copy p{grid-column:1;grid-row:2;color:#c8c8c8;margin:0;font-size:.85rem;overflow-wrap:anywhere}
+.ngs-album-copy .ngs-album-meta{grid-column:1;grid-row:3;font-size:.73rem;color:#a8a8a8;margin-top:2px}
+.ngs-album-link{color:#e5c36d;display:grid;place-items:center;width:40px;height:40px;grid-row:2/4;grid-column:2;border-radius:8px;text-decoration:none}
 .ngs-album-link svg{width:19px;height:19px;fill:currentColor}
-.ngs-album-stop{font:inherit;font-weight:700;min-height:44px;border:1px solid #89713c;border-radius:8px;background:#18150e;color:#f4d985;cursor:pointer;padding:8px}
-.ngs-album-preview{position:fixed;right:16px;bottom:16px;width:min(420px,calc(100vw - 32px));z-index:90;background:#111;border:1px solid #a58a49;border-radius:12px;padding:12px;box-shadow:0 8px 30px #0009}
+.ngs-album-preview{box-sizing:border-box;width:min(940px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;overflow:auto;color:#f5f3ee;background:linear-gradient(150deg,#1b1914,#101010 48%);border:1px solid #8f7136;border-radius:20px;box-shadow:0 24px 100px #000d}
+.ngs-album-preview:not([open]){display:none}
+.ngs-album-preview::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
+.ngs-album-preview-top{display:flex;align-items:start;justify-content:space-between;gap:18px;padding:clamp(16px,3vw,28px)}
+.ngs-album-player-kicker{font-size:.72rem;font-weight:800;letter-spacing:.17em;color:#e3c15a;text-transform:uppercase;margin:0 0 7px}
+.ngs-album-preview h2{font-size:clamp(1.35rem,3vw,2.15rem);line-height:1.12;margin:0;overflow-wrap:anywhere}
+.ngs-album-player-artist{margin:6px 0 0;color:#c5c5c5;font-size:.95rem}
+.ngs-album-stop{flex:none;width:44px;height:44px;border:1px solid #6d5a35;border-radius:50%;background:#232019;color:#f4d985;cursor:pointer;font:inherit;font-size:25px;line-height:1}
+.ngs-album-preview [data-album-frame]{margin:0 clamp(12px,2vw,24px);background:#000;border-radius:10px;overflow:hidden}
 .ngs-album-preview iframe{display:block;width:100%;height:auto;min-height:200px;aspect-ratio:16/9;border:0}
-.ngs-album-preview-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
-.ngs-album-preview-top p{margin:0;font-size:.85rem}
-@media(max-width:760px){.ngs-album-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ngs-album-copy{padding:9px}.ngs-album-play{width:44px;height:44px;right:7px;bottom:7px}}
-@media(prefers-reduced-motion:reduce){.ngs-album-card,.ngs-album-art img,.ngs-album-play{transition:none}.ngs-album-card:hover,.ngs-album-card:hover .ngs-album-art img,.ngs-album-card:hover .ngs-album-play{transform:none}}
+.ngs-album-player-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:18px clamp(16px,3vw,28px)}
+.ngs-album-player-footer p{margin:0;color:#b7b7b7;font-size:.82rem}
+.ngs-album-watch{display:inline-flex;align-items:center;min-height:44px;padding:9px 17px;border-radius:999px;background:#e4bf61;color:#100d06;font-weight:800;font-size:.83rem;text-decoration:none}
+@media(max-width:980px){.ngs-album-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.ngs-album-copy{padding:10px;grid-template-columns:minmax(0,1fr) 36px}.ngs-album-link{width:36px;height:40px}.ngs-album-play{width:44px;height:44px;right:7px;bottom:7px}.ngs-album-preview{width:calc(100vw - 20px);border-radius:14px}}
+@media(prefers-reduced-motion:reduce){.ngs-album-card,.ngs-album-play{transition:none}.ngs-album-card:hover,.ngs-album-card:hover .ngs-album-play{transform:none}}

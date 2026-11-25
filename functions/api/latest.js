@@ -104,7 +104,7 @@ async function fetchLiveChannelLatest() {
   const entries = latestFeedEntries(await response.text())
     .filter(item => validVideoId(item.id))
     .filter(item => trustedLatestFeedTitle(item.title))
-    .filter(item => (Date.parse(item.published) || 0) <= Date.now())
+    .filter(releasedNow)
     .sort((a, b) => (Date.parse(b.published) || 0) - (Date.parse(a.published) || 0));
 
   for (const entry of entries.slice(0, 8)) {
@@ -195,7 +195,7 @@ function publishedTimestamp(item) {
 
 function releasedNow(item) {
   const timestamp = publishedTimestamp(item);
-  return !timestamp || timestamp <= Date.now();
+  return Number.isFinite(Date.parse(item?.published || "")) && timestamp <= Date.now();
 }
 
 function mixDisplayTitle(item) {
@@ -303,16 +303,16 @@ function combinedItems(releases, mixes, albums, liveItems = []) {
   [...releases, ...mixes, ...albums, ...liveItems].forEach(item => {
     if (!item?.id) return;
     const existing = byId.get(item.id);
-    if (!existing || publishedTimestamp(item) > publishedTimestamp(existing)) {
-      byId.set(item.id, item);
-    }
+    // Verified catalogue entries are supplied first. A less authoritative live
+    // feed must not overwrite their title, type, destination or publication date.
+    if (!existing) byId.set(item.id, item);
   });
   return [...byId.values()].sort((a, b) => publishedTimestamp(b) - publishedTimestamp(a));
 }
 
 export async function onRequestGet(context) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/latest?v=r6", context.request.url).toString());
+  const cacheKey = new Request(new URL("/api/latest?v=r7", context.request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

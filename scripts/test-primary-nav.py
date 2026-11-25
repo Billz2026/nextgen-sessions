@@ -18,6 +18,7 @@ EXPECTED = [
     ("Home", "/"),
     ("Artists", "/artists/"),
     ("Releases", "/releases/"),
+    ("Albums", "/albums/"),
     ("Genres", "/genres/"),
     ("Mixes", "/mixes/"),
     ("Search", "/search/"),
@@ -35,6 +36,8 @@ def expected_current(relative: Path) -> str | None:
         return "Artists"
     if value.startswith("releases/"):
         return "Releases"
+    if value.startswith("albums/"):
+        return "Albums"
     if value.startswith("genres/"):
         return "Genres"
     if value.startswith("mixes/"):

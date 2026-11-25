@@ -1,0 +1,25 @@
+/* Album discovery: compact, uncropped official artwork. */
+.ngs-album-section{margin-block:clamp(24px,4vw,56px)}
+.ngs-album-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ngs-album-heading h2,.ngs-album-heading h1{margin:0}
+.ngs-album-heading p{margin:6px 0 0;color:#b9b9b9}
+.ngs-album-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.5vw,22px)}
+.ngs-album-card{min-width:0;border:1px solid rgba(212,175,55,.22);border-radius:14px;background:#111;overflow:hidden;transition:border-color .2s,transform .2s}
+.ngs-album-art{display:block;position:relative;aspect-ratio:1;background:#080808;overflow:hidden}
+.ngs-album-art img{display:block;width:100%;height:100%;object-fit:contain;transition:transform .25s}
+.ngs-album-card:focus-within,.ngs-album-card:hover{border-color:#d4af37}
+@media(hover:hover) and (pointer:fine){.ngs-album-card:hover .ngs-album-art img{transform:scale(1.025)}}
+.ngs-album-copy{padding:12px;display:grid;gap:5px}
+.ngs-album-copy h3{font-size:clamp(.9rem,1.3vw,1.15rem);line-height:1.3;margin:0;overflow-wrap:anywhere}
+.ngs-album-copy p{color:#b9b9b9;margin:0;font-size:.85rem}
+.ngs-album-copy a{color:#e8c76c;text-decoration:none}
+.ngs-album-play,.ngs-album-stop{font:inherit;font-weight:700;min-height:44px;border:1px solid #89713c;border-radius:8px;background:#18150e;color:#f4d985;cursor:pointer;padding:8px}
+.ngs-album-play[hidden],.ngs-album-preview[hidden],.ngs-album-optin[hidden]{display:none}
+.ngs-album-play:hover,.ngs-album-play:focus-visible,.ngs-album-stop:focus-visible{outline:2px solid #e8c76c;outline-offset:-2px}
+.ngs-album-optin{display:flex;gap:8px;align-items:center;font-size:.85rem;color:#ccc;margin:0 0 14px}
+.ngs-album-preview{position:fixed;right:16px;bottom:16px;width:min(360px,calc(100vw - 32px));z-index:90;background:#111;border:1px solid #a58a49;border-radius:12px;padding:12px;box-shadow:0 8px 30px #0009}
+.ngs-album-preview iframe{display:block;width:100%;height: max(200px, 56.25%);aspect-ratio:16/9;border:0}
+.ngs-album-preview-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.ngs-album-preview-top p{margin:0;font-size:.85rem}
+@media(max-width:760px){.ngs-album-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ngs-album-copy{padding:9px}}
+@media(prefers-reduced-motion:reduce){.ngs-album-card,.ngs-album-art img{transition:none}.ngs-album-card:hover .ngs-album-art img{transform:none}}

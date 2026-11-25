@@ -15,6 +15,7 @@ on:
       - "scripts/render-releases.py"
       - "scripts/enrich-release-pages.mjs"
       - "scripts/enrich-release-related-artists.mjs"
+      - "scripts/normalize-primary-nav.py"
       - "scripts/normalize-seo-domain.py"
       - "scripts/normalize-schema-graph.mjs"
       - "scripts/test-release-editorial.py"

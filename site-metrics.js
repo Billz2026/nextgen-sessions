@@ -33,7 +33,7 @@
   ]);
 
   function ensureMobileNavigation() {
-    const version = "20260824-qa2";
+    const version = "20261125-albums1";
     if (!document.querySelector('link[href^="/mobile-nav.css"]')) {
       const stylesheet = document.createElement("link");
       stylesheet.rel = "stylesheet";
@@ -72,6 +72,7 @@
     if (href === "/artists/") return path === "/artists" || path.startsWith("/artists/");
     if (href === "/releases/") return path === "/releases" || path.startsWith("/releases/");
     if (href === "/genres/") return path === "/genres" || path.startsWith("/genres/");
+    if (href === "/albums/") return path === "/albums" || path.startsWith("/albums/");
     if (href === "/mixes/") return path === "/mixes" || path.startsWith("/mixes/");
     if (href === "/search/") return path === "/search" || path.startsWith("/search/");
     if (href === "/submit.html") return path === "/submit" || path === "/submit.html";
@@ -87,6 +88,7 @@
       { label: "Artists", href: "/artists/" },
       { label: "Releases", href: "/releases/" },
       { label: "Genres", href: "/genres/" },
+      { label: "Albums", href: "/albums/" },
       { label: "Mixes", href: "/mixes/" },
       { label: "Search", href: "/search/" },
       { label: "Submit", href: "/submit.html" },

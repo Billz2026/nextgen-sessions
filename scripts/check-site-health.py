@@ -88,6 +88,13 @@ def fetch_live(relative: str) -> str:
     return ""
 
 
+def roster_paths(source: str) -> list[str]:
+    return re.findall(
+        r'<a\b[^>]*\bclass="artist-roster-card(?:\s[^"]*)?"[^>]*\bhref="(/artists/[a-z0-9-]+/)"',
+        source,
+    )
+
+
 def run(local_only: bool = False) -> None:
     releases = load_json("releases.json").get("releases", [])
     mixes = load_json("mixes.json").get("mixes", [])
@@ -137,8 +144,11 @@ def run(local_only: bool = False) -> None:
         )
 
     # Pure source checks are safe to run on every push, even before production deploys.
-    count_match = re.search(r'id="rosterCount">(\d+) artists', read("artists/index.html"))
-    check(count_match is not None, "Artist directory has a published roster count")
+    roster = roster_paths(read("artists/index.html"))
+    check(bool(roster) and len(roster) == len(set(roster)),
+          "Artist directory has unique published roster cards")
+    check(all((ROOT / path.lstrip("/") / "index.html").is_file() for path in roster),
+          "Published artist cards link to existing profiles")
     check(".discography-art{display:block" in read("artist-discography.css"),
           "Artist artwork has an explicit visible layout")
 
@@ -207,10 +217,9 @@ def run(local_only: bool = False) -> None:
         ERRORS.append("Cloudflare /api/latest did not return usable JSON")
 
     if repo_commit_age() >= DEPLOY_GRACE_SECONDS:
-        if count_match:
-            count = count_match.group(1)
-            check(f'id="rosterCount">{count} artists' in artist_directory,
-                  f"Production artist count matches the deployed roster ({count})")
+        live_roster = roster_paths(artist_directory)
+        check(bool(roster) and len(live_roster) == len(roster) and set(live_roster) == set(roster),
+              f"Production artist roster matches the deployed profiles ({len(roster)})")
         if is_due and verified and kind == "full-release":
             check(ident in {r.get("id") for r in live_releases},
                   f"Production catalogue includes published YouTube video {ident}")

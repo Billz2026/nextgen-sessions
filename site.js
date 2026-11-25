@@ -352,6 +352,8 @@
     const contentType = String(release?.contentType || "").trim();
     const releaseUrl = String(release?.url || "").trim();
     const searchableTitle = `${String(release?.title || "")} ${String(release?.rawTitle || "")}`;
+    const published = String(release?.published || "").trim();
+    const timestamp = Date.parse(published);
     // Public channel feeds include Shorts. Fail closed unless the full-length duration is verified.
     // Curated releases can include genuine sub-three-minute singles and remain eligible.
     const fromChannelFeed = ["public-youtube-channel-feed", "youtube-channel-feed"]
@@ -369,6 +371,7 @@
       !["full-release", "long-mix", "album"].includes(contentType) ||
       !validDestination ||
       !validFeedDuration ||
+      !Number.isFinite(timestamp) || timestamp > Date.now() ||
       /\b(?:shorts?|teaser|trailer|promo|preview|incoming|announcement|announcing|new\s+drop|coming soon|out tomorrow|out tonight|out now)\b|#shorts/i.test(searchableTitle)
     ) return null;
     const artist = String(release?.artist || "").trim();
@@ -384,7 +387,7 @@
       artist,
       trackTitle: String(release?.trackTitle || (artist && releaseTitle.startsWith(`${artist} – `) ? releaseTitle.slice(artist.length + 3) : releaseTitle)),
       group: String(release?.group || "").trim(),
-      published: String(release?.published || release?.updated || "").trim(),
+      published,
       url: releaseUrl
     };
   }
@@ -442,19 +445,25 @@
       const path = dedicatedReleasePath(item.url);
       if (path) verifiedPaths.set(item.id, path);
     }
-    const metadataById = new Map(catalogueReleases.map(item => [item.id, item]));
+    const metadataById = new Map();
+    for (const item of [...fallbackReleases, ...apiReleases, ...catalogueReleases]) {
+      if (dedicatedReleasePath(item.url)) metadataById.set(item.id, item);
+    }
     const resolveRelease = item => {
+      const metadata = metadataById.get(item?.id);
+      if (metadata) return metadata;
       if (item?.contentType !== "full-release") return item;
-      const metadata = metadataById.get(item.id);
-      return { ...item, artist: metadata?.artist || item.artist, trackTitle: metadata?.trackTitle || item.trackTitle, group: metadata?.group || item.group, url: verifiedPaths.get(item.id) || item.url };
+      // The verified catalogue owns all metadata for a known video ID, including publication time.
+      return { ...item, url: verifiedPaths.get(item.id) || item.url };
     };
 
-    const releases = uniqueHomepageReleases(mergeHomepageReleases([
-      ...catalogueReleases,
-      ...apiReleases,
-      ...(feedLatest?.contentType === "full-release" ? [feedLatest] : []),
-      ...fallbackReleases
-    ].map(resolveRelease)));
+    // Keep the recent-release grid aligned with the published archive whenever the
+    // complete catalogue is available. The hero may still preview a verified public
+    // channel upload while the next catalogue build is pending.
+    const releaseCandidates = catalogueReleases.length
+      ? catalogueReleases
+      : [...apiReleases, ...(feedLatest?.contentType === "full-release" ? [feedLatest] : []), ...fallbackReleases];
+    const releases = uniqueHomepageReleases(mergeHomepageReleases(releaseCandidates.map(resolveRelease)));
 
     const apiLatest = normaliseHomepageRelease(apiPayload?.latest);
     const fallbackLatest = normaliseHomepageRelease(FALLBACK_LATEST);
@@ -477,7 +486,7 @@
 
   if (latestPlayer || releaseGrid) {
     Promise.allSettled([
-      fetchJson("/api/latest?v=r6"),
+      fetchJson("/api/latest?v=r7"),
       fetchJson("/latest-feed.json?v=3"),
       fetchJson("/releases.json?v=latest-links1")
     ]).then(results => {

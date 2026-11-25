@@ -112,6 +112,13 @@ assert.deepEqual(
   "Future-dated releases must remain embargoed from /api/latest"
 );
 
+for (const invalidDate of ["", "not-a-date"]) {
+  const invalid = { ...fullRelease, id: "DDDDDDDDDDD", published: invalidDate };
+  assert.deepEqual(api.selectFullReleases({
+    source: "curated-youtube-playlists", releases: [invalid, fullRelease]
+  }).map(item => item.id), [fullRelease.id], "Invalid publication timestamps must fail closed");
+}
+
 const futureMix = {
   ...genericMix,
   id: "CCCCCCCCCCC",
@@ -186,7 +193,7 @@ for (const marker of [
   'fetchLiveChannelLatest()',
   'selectLongMixes',
   'selectAlbums',
-  'new URL("/api/latest?v=r6"',
+  'new URL("/api/latest?v=r7"',
 ]) {
   assert.ok(source.includes(marker), `Latest API source is missing: ${marker}`);
 }
@@ -470,6 +477,38 @@ const verifiedSingleResult = await simulateHomepageLinks({
   "/releases.json": { releases: [verifiedShortSingle] }
 });
 assert.equal(verifiedSingleResult.hero.href, verifiedShortSingle.url, "Short-duration standard-format singles in verified catalogue remain eligible");
+
+// A complete catalogue must determine recent releases even when another feed
+// discovers a public track before the next scheduled catalogue build.
+const freshUncatalogued = { ...genericFeedTrack, id: "UUUUUUUUUUU", published: new Date(Date.now() - 100).toISOString(), title: "New Channel Track" };
+const syncing = await simulateHomepageLinks({
+  "/releases.json": verifiedCatalogue,
+  "/latest-feed.json": { latest: freshUncatalogued }
+});
+assert.equal(syncing.hero.href, "https://www.youtube.com/watch?v=UUUUUUUUUUU", "Keep fast public-upload hero discovery");
+assert.ok(syncing.grid.includes(deepLinkTrack.url), "Verified recent release must remain visible");
+assert.ok(!syncing.grid.includes(freshUncatalogued.id), "Recent-release grid must match the archive");
+
+const conflicting = { ...genericFeedTrack, published: new Date(Date.now() - 100).toISOString(), title: "Wrong feed title", artist: "Wrong feed artist" };
+const canonical = await simulateHomepageLinks({
+  "/releases.json": verifiedCatalogue,
+  "/api/latest": { latest: conflicting, releases: [conflicting] },
+  "/latest-feed.json": { latest: conflicting }
+});
+assert.equal(canonical.title, deepLinkTrack.title, "Catalogue title must win over conflicting feed metadata");
+assert.equal(canonical.hero.href, deepLinkTrack.url);
+assert.ok(!canonical.grid.includes("Wrong feed"));
+
+for (const published of [new Date(Date.now() + 86400000).toISOString(), "", "invalid"]) {
+  const invalid = { ...genericFeedTrack, id: "ZZZZZZZZZZZ", published };
+  const result = await simulateHomepageLinks({
+    "/releases.json": { releases: [invalid, deepLinkTrack] },
+    "/api/latest": { latest: invalid, releases: [invalid] },
+    "/latest-feed.json": { latest: invalid }
+  });
+  assert.equal(result.hero.href, deepLinkTrack.url, "Future or invalid dates must never select the homepage hero");
+  assert.ok(!result.grid.includes(invalid.id), "Future or invalid dates must never enter the recent-release grid");
+}
 
 const savedLatest = JSON.parse(await readFile(new URL("../latest-feed.json", import.meta.url), "utf8")).latest;
 assert.ok(savedLatest?.durationSeconds >= (savedLatest?.contentType === "long-mix" ? 600 : 181), "Saved Latest feed cannot contain a possible Short or unknown duration");

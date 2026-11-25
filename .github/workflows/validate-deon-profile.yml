@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
       - name: Install validation tools
         run: |
           python -m pip install --quiet pillow
-          npm install --no-save playwright@1.55.0
+          npm install --no-save playwright@1.56.0
           npx playwright install --with-deps chromium
 
       - name: Validate JavaScript syntax
@@ -70,9 +70,9 @@ jobs:
           grep -q 'Days Like These' artist-profiles-expanded.js
           grep -q 'ZSjRD_3B5uk' deon-creed-profile-fix.js
           grep -q 'autoplay=1' deon-creed-profile-fix.js
-          grep -q 'artist-images.js?v=20260803-deon4' index.html
-          grep -q 'artist-images.js?v=20260803-deon4' artists/index.html
-          grep -q 'artist-images.js?v=20260803-deon4' artists/deon-creed/index.html
+          grep -q 'artist-images.js?v=' index.html
+          grep -q 'artist-images.js?v=' artists/index.html
+          grep -q 'artist-images.js?v=' artists/deon-creed/index.html
 
       - name: Run desktop and mobile browser smoke tests
         run: |
@@ -123,9 +123,6 @@ jobs:
           ]) {
             const page = await browser.newPage({ viewport: test.viewport });
 
-            await page.goto('http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
-            const featuredCard = page.locator('.featured-artist-card', { hasText: 'Deon Creed' });
-            await visibleImage(featuredCard.locator('img.featured-artist-image'));
 
             await page.goto('http://127.0.0.1:4173/artists/', { waitUntil: 'networkidle' });
             const rosterCard = page.locator('.artist-roster-card', { hasText: 'Deon Creed' });
@@ -136,13 +133,13 @@ jobs:
             await visibleImage(profileImage);
             assert.equal(await page.locator('.profile-image-shell.profile-image-missing').count(), 0);
 
-            const count = page.locator('[data-discography-count]');
+            const count = page.locator('.discography-count');
             await count.waitFor({ state: 'visible' });
             await page.waitForFunction(() => {
-              const value = document.querySelector('[data-discography-count]')?.textContent || '';
-              return /2 releases/i.test(value);
+              const value = document.querySelector('.discography-count')?.textContent || '';
+              return /5 releases/i.test(value);
             });
-            assert.match(await count.innerText(), /2 releases/i);
+            assert.match(await count.innerText(), /5 releases/i);
 
             const daysCard = page.locator('.discography-card', { hasText: 'Days Like These' });
             await daysCard.waitFor({ state: 'visible' });

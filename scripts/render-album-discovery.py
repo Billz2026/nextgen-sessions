@@ -26,7 +26,7 @@ def render():
         albums.append((published, item))
     albums.sort(key=lambda pair: pair[0], reverse=True)
     assert albums, "Refusing to replace album shelves with empty data"
-    for path, limit in [("index.html", 4), ("albums/index.html", len(albums))]:
+    for path, limit in [("index.html", 8), ("albums/index.html", len(albums))]:
         cards = []
         for published, item in albums[:limit]:
             ident = item["id"]

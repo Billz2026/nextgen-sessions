@@ -3,7 +3,7 @@ name: Update Album Catalogue
 on:
   workflow_dispatch:
   schedule:
-    - cron: "27 */2 * * *"
+    - cron: "12,42 * * * *"
   push:
     branches: [main]
     paths:
@@ -12,6 +12,7 @@ on:
       - "scripts/preserve-generated-at.mjs"
       - "scripts/test-latest-policy.mjs"
       - "scripts/render-album-collection.py"
+      - "scripts/render-album-discovery.py"
       - "scripts/album_metadata.py"
       - "scripts/test-album-metadata.py"
       - "scripts/test-album-collection.py"
@@ -152,6 +153,8 @@ jobs:
               print(f"Verified album: {album['artist']} — {album['albumTitle']} ({video_id})")
               albums.append(album)
 
+          now = datetime.now(timezone.utc)
+          albums = [album for album in albums if album["published"] and datetime.fromisoformat(album["published"].replace("Z", "+00:00")) <= now]
           albums.sort(key=lambda album: (album.get("position", 0), album.get("published", "")))
           output = {
               "source": "youtube-album-playlist",
@@ -174,6 +177,9 @@ jobs:
       - name: Render full album selector and structured data
         run: python3 scripts/render-album-collection.py
 
+      - name: Render published album discovery shelves
+        run: python3 scripts/render-album-discovery.py
+
       - name: Validate full album catalogue presentation
         run: python3 scripts/test-album-collection.py
 
@@ -187,7 +193,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add albums.json mixes/full-albums/index.html index.html site.js
+          git add albums.json mixes/full-albums/index.html albums/index.html index.html site.js
           git diff --cached --quiet && exit 0
           git commit -m "Auto-update album catalogue"
           for attempt in 1 2 3 4 5; do

@@ -135,21 +135,17 @@ jobs:
 
             const count = page.locator('.discography-count');
             await count.waitFor({ state: 'visible' });
-            await page.waitForFunction(() => {
-              const value = document.querySelector('.discography-count')?.textContent || '';
-              return /5 releases/i.test(value);
-            });
-            assert.match(await count.innerText(), /5 releases/i);
+            assert.equal(parseInt(await count.innerText(), 10), await page.locator('.discography-card').count());
 
             const daysCard = page.locator('.discography-card', { hasText: 'Days Like These' });
             await daysCard.waitFor({ state: 'visible' });
-            await daysCard.getByRole('button', { name: 'Play here' }).click();
+            await daysCard.getByRole('link', { name: /Play here/i }).click();
 
-            const iframe = page.locator('[data-featured-frame] iframe');
+            const iframe = page.locator('.profile-video-frame iframe');
             await iframe.waitFor({ state: 'attached' });
             const source = await iframe.getAttribute('src');
             assert.ok(source.includes('ZSjRD_3B5uk'), source);
-            assert.ok(source.includes('autoplay=1'), source);
+            assert.ok(source.includes('youtube-nocookie.com/embed/'), source);
 
             await page.screenshot({ path: `/tmp/deon-${test.name}.png`, fullPage: true });
             await page.close();

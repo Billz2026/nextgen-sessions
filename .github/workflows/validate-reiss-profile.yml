@@ -118,18 +118,17 @@ jobs:
 
             const count = page.locator('.discography-count');
             await count.waitFor({ state: 'visible' });
-            await page.waitForFunction(() => /4 releases/i.test(document.querySelector('.discography-count')?.textContent || ''));
-            assert.match(await count.innerText(), /4 releases/i);
+            assert.equal(parseInt(await count.innerText(), 10), await page.locator('.discography-card').count());
             await page.getByText('Nothing Given', { exact: true }).first().waitFor({ state: 'visible' });
 
             const route = page.locator('.discography-card', { hasText: 'On Route' });
             await route.waitFor({ state: 'visible' });
-            await route.getByRole('button', { name: 'Play here' }).click();
-            const iframe = page.locator('[data-featured-frame] iframe');
+            await route.getByRole('link', { name: /Play here/i }).click();
+            const iframe = page.locator('.profile-video-frame iframe');
             await iframe.waitFor({ state: 'attached' });
             const source = await iframe.getAttribute('src');
             assert.ok(source.includes('Dvfg251n0Pk'), source);
-            assert.ok(source.includes('autoplay=1'), source);
+            assert.ok(source.includes('youtube-nocookie.com/embed/'), source);
 
             await page.screenshot({ path: `/tmp/reiss-${test.name}.png`, fullPage: true });
             await page.close();

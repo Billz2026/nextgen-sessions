@@ -445,7 +445,10 @@
       const path = dedicatedReleasePath(item.url);
       if (path) verifiedPaths.set(item.id, path);
     }
-    const metadataById = new Map(catalogueReleases.map(item => [item.id, item]));
+    const metadataById = new Map();
+    for (const item of [...fallbackReleases, ...apiReleases, ...catalogueReleases]) {
+      if (dedicatedReleasePath(item.url)) metadataById.set(item.id, item);
+    }
     const resolveRelease = item => {
       const metadata = metadataById.get(item?.id);
       if (metadata) return metadata;

@@ -66,7 +66,7 @@ for path in sorted(ROOT.rglob("*.html")):
         if 'aria-current="page"' in attrs:
             current_labels.append(label.strip())
 
-    expected_links = EXPECTED[:-1] if relative.as_posix() == "index.html" else EXPECTED
+    expected_links = EXPECTED
     assert links == expected_links, f"Primary navigation drift in {relative}: {links}"
 
     active = expected_current(relative)
@@ -75,8 +75,6 @@ for path in sorted(ROOT.rglob("*.html")):
     else:
         assert not current_labels, f"Unexpected aria-current in {relative}: {current_labels}"
 
-    if relative.as_posix() == "index.html":
-        continue
     youtube_attrs = next(attrs for attrs, label in ANCHOR_PATTERN.findall(match.group(1)) if label.strip() == "YouTube")
     assert 'class="nav-cta"' in youtube_attrs, f"YouTube CTA class missing in {relative}"
     assert 'target="_blank"' in youtube_attrs, f"YouTube target missing in {relative}"

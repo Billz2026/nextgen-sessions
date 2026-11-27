@@ -1,16 +1,16 @@
 {
   "source": "verified-youtube-channel-uploads",
   "policy": "full-length-standard-title-no-shorts",
-  "generatedAt": "2026-11-24T09:11:41.706533Z",
+  "generatedAt": "2026-11-27T20:49:40.407146Z",
   "latest": {
-    "id": "PFLIYHfUTsM",
-    "contentType": "full-release",
-    "artist": "Brix Knox",
-    "title": "Knock Knock Who's There?",
-    "rawTitle": "Brix Knox - Knock Knock Who's There? USA Drill 2026 | NextGen Sessions",
-    "published": "2026-11-23T18:00:17Z",
-    "durationSeconds": 253,
-    "url": "/releases/",
+    "id": "1mcXhXn-VP0",
+    "contentType": "long-mix",
+    "artist": "Off The Hinges",
+    "title": "Knock Knock Who's There Mix",
+    "rawTitle": "Off The Hinges - Knock Knock Who's There Mix | Special Mix | NextGen Sessions",
+    "published": "2026-11-27T18:00:29Z",
+    "durationSeconds": 1458,
+    "url": "/mixes/",
     "discoverySource": "youtube-channel-feed"
   }
 }

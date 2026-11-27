@@ -25,7 +25,7 @@
   let latestPlayerLoaded = false;
 
   // HOMEPAGE:AUTO-FALLBACK:START
-  const FALLBACK_LATEST = {"id":"PFLIYHfUTsM","contentType":"full-release","title":"Brix Knox – Knock Knock Who's There?","artist":"Brix Knox","trackTitle":"Knock Knock Who's There?","group":"US Drill","published":"2026-11-23T18:00:17Z","url":"/releases/brix-knox-knock-knock-whos-there/"};
+  const FALLBACK_LATEST = {"id":"1mcXhXn-VP0","contentType":"long-mix","title":"Off The Hinges - Knock Knock Who's There Mix","published":"2026-11-27T18:00:29Z","url":"/mixes/","durationSeconds":1458};
 
   const FALLBACK_RELEASES = [
     {"id":"PFLIYHfUTsM","contentType":"full-release","title":"Brix Knox – Knock Knock Who's There?","artist":"Brix Knox","trackTitle":"Knock Knock Who's There?","group":"US Drill","published":"2026-11-23T18:00:17Z","url":"/releases/brix-knox-knock-knock-whos-there/"},

@@ -7,8 +7,8 @@
     "genericMixTitlesAllowed": true,
     "albumsAllowed": false
   },
-  "generatedAt": "2026-10-30T19:42:35.928920Z",
-  "total": 13,
+  "generatedAt": "2026-11-27T21:09:24.058753Z",
+  "total": 14,
   "counts": {
     "grime": 1,
     "hip-hop": 2,
@@ -16,7 +16,7 @@
     "dancehall": 4,
     "summer": 1,
     "bhangra": 2,
-    "other": 1
+    "other": 2
   },
   "mixes": [
     {
@@ -187,6 +187,19 @@
       "durationSeconds": 2654,
       "rawTitle": "MCDS Riddim Mix | Special Mix | NextGen Sessions",
       "thumbnail": "https://i.ytimg.com/vi/-hXhTGLPkKc/hqdefault.jpg"
+    },
+    {
+      "id": "1mcXhXn-VP0",
+      "contentType": "long-mix",
+      "collection": "other",
+      "title": "Off The Hinges - Knock Knock Who's There Mix",
+      "label": "Full-length mix",
+      "name": "NextGen Mix",
+      "sequence": 0,
+      "published": "2026-11-27T18:00:29Z",
+      "durationSeconds": 1458,
+      "rawTitle": "Off The Hinges - Knock Knock Who's There Mix | Special Mix | NextGen Sessions",
+      "thumbnail": "https://i.ytimg.com/vi/1mcXhXn-VP0/hqdefault.jpg"
     }
   ]
 }

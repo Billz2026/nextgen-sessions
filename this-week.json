@@ -1,11 +1,28 @@
 {
-  "generatedAt": "2026-11-24T09:49:44.727Z",
+  "generatedAt": "2026-11-27T21:09:25.113Z",
   "timezone": "Europe/London",
   "weekStart": "2026-11-23",
   "weekEnd": "2026-11-29",
   "weekLabel": "23–29 November 2026",
   "mode": "week",
   "items": [
+    {
+      "artist": "NextGen Sessions",
+      "artistSlug": "",
+      "title": "Off The Hinges - Knock Knock Who's There Mix",
+      "genre": "NextGen Special Mixes",
+      "contentType": "long-mix",
+      "artistUrl": "/mixes/",
+      "releaseUrl": "/mixes/",
+      "dateLocal": "2026-11-27",
+      "dateLabel": "FRI 27 NOV",
+      "longDate": "Friday, 27 November 2026",
+      "timeLocal": "",
+      "releaseAt": "2026-11-27T18:00:29.000Z",
+      "status": "live",
+      "image": "/api/release-image?id=1mcXhXn-VP0&size=card",
+      "source": "mix-catalogue"
+    },
     {
       "artist": "Brix Knox",
       "artistSlug": "brix-knox",
